@@ -8,14 +8,9 @@ option go_package = "service/player_tracker";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "common.proto";
 
 service PlayerTracker {
-//  rpc ProxyPlayerLogin(PlayerLoginRequest) returns (google.protobuf.Empty); // should be fired by the PROXY only
-//  rpc ServerPlayerLogin(PlayerLoginRequest) returns (google.protobuf.Empty); // should be fired by the SERVER only
-//
-//  rpc ProxyPlayerDisconnect(PlayerDisconnectRequest) returns (google.protobuf.Empty); // should be fired by the PROXY only
-//  // note: there is no ServerPlayerDisconnect - it will be updated upon joining a new server or removed when they dc from the proxy)
-
   rpc GetPlayerServer(PlayerRequest) returns (GetPlayerServerResponse);
   rpc GetPlayerServers(PlayersRequest) returns (GetPlayerServersResponse); // mass retrieve servers for x... players
 
@@ -31,17 +26,6 @@ message PlayerRequest {
 
 message PlayersRequest {
   repeated string player_ids = 1;
-}
-
-message PlayerLoginRequest {
-  string player_id = 1;
-  string player_name = 2;
-  string server_id = 3;
-}
-
-message PlayerDisconnectRequest {
-  string player_id = 1;
-  string server_id = 2;
 }
 
 message GetPlayerServerResponse {
@@ -76,7 +60,7 @@ message GetServerPlayerCountResponse {
 }
 
 message ServerTypeRequest {
-  string server_type = 1;
+  dev.emortal.model.ServerType server_type = 1;
 }
 
 message GetServerTypePlayerCountResponse {
