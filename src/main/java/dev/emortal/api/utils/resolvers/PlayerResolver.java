@@ -1,9 +1,9 @@
-package cc.towerdefence.api.utils.resolvers;
+package dev.emortal.api.utils.resolvers;
 
-import cc.towerdefence.api.service.McPlayerGrpc;
-import cc.towerdefence.api.service.McPlayerProto;
-import cc.towerdefence.api.utils.GrpcStubCollection;
-import cc.towerdefence.api.utils.callback.FunctionalFutureCallback;
+import dev.emortal.api.service.McPlayerGrpc;
+import dev.emortal.api.service.McPlayerProto;
+import dev.emortal.api.utils.GrpcStubCollection;
+import dev.emortal.api.utils.callback.FunctionalFutureCallback;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.util.concurrent.Futures;

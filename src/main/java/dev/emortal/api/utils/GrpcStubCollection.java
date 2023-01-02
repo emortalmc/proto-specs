@@ -1,12 +1,12 @@
-package cc.towerdefence.api.utils;
+package dev.emortal.api.utils;
 
-import cc.towerdefence.api.service.FriendGrpc;
-import cc.towerdefence.api.service.McPlayerGrpc;
-import cc.towerdefence.api.service.PermissionServiceGrpc;
-import cc.towerdefence.api.service.PlayerTrackerGrpc;
-import cc.towerdefence.api.service.PlayerTransporterGrpc;
-import cc.towerdefence.api.service.PrivateMessageGrpc;
-import cc.towerdefence.api.service.ServerDiscoveryGrpc;
+import dev.emortal.api.service.FriendGrpc;
+import dev.emortal.api.service.McPlayerGrpc;
+import dev.emortal.api.service.PermissionServiceGrpc;
+import dev.emortal.api.service.PlayerTrackerGrpc;
+import dev.emortal.api.service.PlayerTransporterGrpc;
+import dev.emortal.api.service.PrivateMessageGrpc;
+import dev.emortal.api.service.ServerDiscoveryGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.Getter;

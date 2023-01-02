@@ -1,6 +1,6 @@
-package cc.towerdefence.api.utils.spring.autoconfiguration;
+package dev.emortal.api.utils.spring.autoconfiguration;
 
-import cc.towerdefence.api.utils.spring.exception.DefaultGrpcExceptionHandler;
+import dev.emortal.api.utils.spring.exception.DefaultGrpcExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 

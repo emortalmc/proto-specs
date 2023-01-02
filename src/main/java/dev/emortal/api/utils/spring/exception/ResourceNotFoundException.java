@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils.spring.exception;
+package dev.emortal.api.utils.spring.exception;
 
 import io.grpc.Status;
 import org.jetbrains.annotations.NotNull;

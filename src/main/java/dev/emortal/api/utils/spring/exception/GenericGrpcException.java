@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils.spring.exception;
+package dev.emortal.api.utils.spring.exception;
 
 import io.grpc.Metadata;
 import io.grpc.Status;

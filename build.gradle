@@ -9,7 +9,7 @@ plugins {
     id("io.freefair.lombok") version "6.5.1"
 }
 
-group "cc.towerdefence.api"
+group "dev.emortal.api"
 version "1.0"
 
 def grpcVersion = "1.50.2"
@@ -74,7 +74,7 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            groupId = "cc.towerdefence.api"
+            groupId = "dev.emortal.api"
             artifactId = "grpc-sdk"
 
             def commitHash = System.getenv("COMMIT_HASH_SHORT")

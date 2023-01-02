@@ -1,7 +1,7 @@
 syntax = "proto3";
 package towerdefence.cc.service.mc_player;
 
-option java_package = "cc.towerdefence.api.service";
+option java_package = "dev.emortal.api.service";
 option java_outer_classname = "McPlayerProto";
 option go_package = "service/mc_player";
 

@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils;
+package dev.emortal.api.utils;
 
 import com.google.protobuf.Duration;
 

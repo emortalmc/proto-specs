@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cc.towerdefence.api.utils.spring.autoconfiguration.GrpcExceptionHandlerAutoConfiguration
+  dev.emortal.api.utils.spring.autoconfiguration.GrpcExceptionHandlerAutoConfiguration

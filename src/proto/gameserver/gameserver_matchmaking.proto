@@ -1,7 +1,7 @@
 syntax = "proto3";
 package towerdefence.cc.service.gameserver.matchmaking;
 
-option java_package = "cc.towerdefence.api.service.gameserver";
+option java_package = "dev.emortal.api.service.gameserver";
 option java_outer_classname = "GameServerMatchmakingProto";
 option go_package = "service/gameserver/matchmaking";
 

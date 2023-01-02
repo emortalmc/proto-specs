@@ -3,7 +3,7 @@ package towerdefence.cc.service.statistic;
 option go_package = "service/statistic";
 
 //
-//option java_package = "cc.towerdefence.api.service";
+//option java_package = "dev.emortal.api.service";
 //option java_outer_classname = "StatisticProto";
 //option go_package = "service/statistic";
 //

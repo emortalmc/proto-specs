@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils.callback;
+package dev.emortal.api.utils.callback;
 
 import com.google.common.util.concurrent.FutureCallback;
 import org.jetbrains.annotations.NotNull;

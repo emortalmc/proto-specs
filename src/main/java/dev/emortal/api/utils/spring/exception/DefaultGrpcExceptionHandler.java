@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils.spring.exception;
+package dev.emortal.api.utils.spring.exception;
 
 import io.grpc.StatusException;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;

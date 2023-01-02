@@ -1,4 +1,4 @@
-package cc.towerdefence.api.utils.callback;
+package dev.emortal.api.utils.callback;
 
 import io.grpc.stub.StreamObserver;
 import org.jetbrains.annotations.Nullable;
