@@ -11,3 +11,5 @@ do
   echo "Generating protos for $file"
   protoc -I ../src/proto --go_out=go --go-grpc_out=go "$file"
 done
+
+mv go/github.com/EmortalMC/grpc-api-specs/gen/go/* go/

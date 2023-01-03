@@ -3,7 +3,7 @@ package towerdefence.cc.service.velocity.server;
 
 option java_package = "dev.emortal.api.service.velocity";
 option java_outer_classname = "VelocityServerProto";
-option go_package = "service/velocity/server";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/velocity/server";
 
 import "google/protobuf/empty.proto";
 

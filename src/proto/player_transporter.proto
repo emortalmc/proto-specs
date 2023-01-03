@@ -7,7 +7,7 @@ package towerdefence.cc.service.player_transporter;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "PlayerTransporterProto";
-option go_package = "service/player_transporter";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/player_transporter";
 
 import "google/protobuf/empty.proto";
 

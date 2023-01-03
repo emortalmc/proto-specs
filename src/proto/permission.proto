@@ -3,7 +3,7 @@ package towerdefence.cc.service.permission;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "PermissionProto";
-option go_package = "service/permission";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/permission";
 
 import "google/protobuf/empty.proto";
 

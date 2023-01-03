@@ -3,7 +3,7 @@ package towerdefence.cc.service.game_tracker;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "GameTrackerProto";
-option go_package = "service/game_tracker";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/game_tracker";
 
 service GameTracker {
   rpc GetPlayerGameHistory(PagedPlayerRequest) returns (PlayerGameHistoryResponse) {}

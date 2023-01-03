@@ -6,7 +6,7 @@ package dev.emortal.model;
 option java_package = "dev.emortal.api.model";
 option java_outer_classname = "CommonProtos";
 option java_multiple_files = true;
-option go_package = "model/common";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/model/common";
 
 enum ServerType {
   PROXY = 0;

@@ -3,7 +3,7 @@ package towerdefence.cc.service.server_discovery;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "ServerDiscoveryProto";
-option go_package = "service/server_discovery";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/server_discovery";
 
 import "google/protobuf/empty.proto";
 

@@ -3,7 +3,7 @@ package towerdefence.cc.service.friend;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "FriendProto";
-option go_package = "service/friend";
+option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/friend";
 
 import "google/protobuf/timestamp.proto";
 
