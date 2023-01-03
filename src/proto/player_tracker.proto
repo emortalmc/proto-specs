@@ -17,7 +17,8 @@ service PlayerTracker {
   rpc GetServerPlayers(ServerIdRequest) returns (GetServerPlayersResponse);
 
   rpc GetServerPlayerCount(ServerIdRequest) returns (GetServerPlayerCountResponse);
-  rpc GetServerTypePlayerCount(ServerTypeRequest) returns (GetServerTypePlayerCountResponse);
+  rpc GetServerTypePlayerCount(ServerTypeRequest) returns (ServerTypePlayerCountResponse);
+  rpc GetServerTypeSPlayerCount(ServerTypesRequest) returns (ServerTypesPlayerCountResponse);
 }
 
 message PlayerRequest {
@@ -63,7 +64,16 @@ message ServerTypeRequest {
   dev.emortal.model.ServerType server_type = 1;
 }
 
-message GetServerTypePlayerCountResponse {
+message ServerTypePlayerCountResponse {
   uint32 player_count = 1;
+  google.protobuf.Timestamp last_updated = 2;
+}
+
+message ServerTypesRequest {
+  repeated dev.emortal.model.ServerType server_types = 1;
+}
+
+message ServerTypesPlayerCountResponse {
+  map<string, uint32> player_counts = 1;
   google.protobuf.Timestamp last_updated = 2;
 }

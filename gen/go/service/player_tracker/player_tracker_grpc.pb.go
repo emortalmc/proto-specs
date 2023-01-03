@@ -26,7 +26,8 @@ type PlayerTrackerClient interface {
 	GetPlayerServers(ctx context.Context, in *PlayersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error)
 	GetServerPlayers(ctx context.Context, in *ServerIdRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error)
 	GetServerPlayerCount(ctx context.Context, in *ServerIdRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error)
-	GetServerTypePlayerCount(ctx context.Context, in *ServerTypeRequest, opts ...grpc.CallOption) (*GetServerTypePlayerCountResponse, error)
+	GetServerTypePlayerCount(ctx context.Context, in *ServerTypeRequest, opts ...grpc.CallOption) (*ServerTypePlayerCountResponse, error)
+	GetServerTypeSPlayerCount(ctx context.Context, in *ServerTypesRequest, opts ...grpc.CallOption) (*ServerTypesPlayerCountResponse, error)
 }
 
 type playerTrackerClient struct {
@@ -73,9 +74,18 @@ func (c *playerTrackerClient) GetServerPlayerCount(ctx context.Context, in *Serv
 	return out, nil
 }
 
-func (c *playerTrackerClient) GetServerTypePlayerCount(ctx context.Context, in *ServerTypeRequest, opts ...grpc.CallOption) (*GetServerTypePlayerCountResponse, error) {
-	out := new(GetServerTypePlayerCountResponse)
+func (c *playerTrackerClient) GetServerTypePlayerCount(ctx context.Context, in *ServerTypeRequest, opts ...grpc.CallOption) (*ServerTypePlayerCountResponse, error) {
+	out := new(ServerTypePlayerCountResponse)
 	err := c.cc.Invoke(ctx, "/towerdefence.cc.service.player_tracker.PlayerTracker/GetServerTypePlayerCount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *playerTrackerClient) GetServerTypeSPlayerCount(ctx context.Context, in *ServerTypesRequest, opts ...grpc.CallOption) (*ServerTypesPlayerCountResponse, error) {
+	out := new(ServerTypesPlayerCountResponse)
+	err := c.cc.Invoke(ctx, "/towerdefence.cc.service.player_tracker.PlayerTracker/GetServerTypeSPlayerCount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +100,8 @@ type PlayerTrackerServer interface {
 	GetPlayerServers(context.Context, *PlayersRequest) (*GetPlayerServersResponse, error)
 	GetServerPlayers(context.Context, *ServerIdRequest) (*GetServerPlayersResponse, error)
 	GetServerPlayerCount(context.Context, *ServerIdRequest) (*GetServerPlayerCountResponse, error)
-	GetServerTypePlayerCount(context.Context, *ServerTypeRequest) (*GetServerTypePlayerCountResponse, error)
+	GetServerTypePlayerCount(context.Context, *ServerTypeRequest) (*ServerTypePlayerCountResponse, error)
+	GetServerTypeSPlayerCount(context.Context, *ServerTypesRequest) (*ServerTypesPlayerCountResponse, error)
 	mustEmbedUnimplementedPlayerTrackerServer()
 }
 
@@ -110,8 +121,11 @@ func (UnimplementedPlayerTrackerServer) GetServerPlayers(context.Context, *Serve
 func (UnimplementedPlayerTrackerServer) GetServerPlayerCount(context.Context, *ServerIdRequest) (*GetServerPlayerCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServerPlayerCount not implemented")
 }
-func (UnimplementedPlayerTrackerServer) GetServerTypePlayerCount(context.Context, *ServerTypeRequest) (*GetServerTypePlayerCountResponse, error) {
+func (UnimplementedPlayerTrackerServer) GetServerTypePlayerCount(context.Context, *ServerTypeRequest) (*ServerTypePlayerCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServerTypePlayerCount not implemented")
+}
+func (UnimplementedPlayerTrackerServer) GetServerTypeSPlayerCount(context.Context, *ServerTypesRequest) (*ServerTypesPlayerCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServerTypeSPlayerCount not implemented")
 }
 func (UnimplementedPlayerTrackerServer) mustEmbedUnimplementedPlayerTrackerServer() {}
 
@@ -216,6 +230,24 @@ func _PlayerTracker_GetServerTypePlayerCount_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlayerTracker_GetServerTypeSPlayerCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ServerTypesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerTrackerServer).GetServerTypeSPlayerCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/towerdefence.cc.service.player_tracker.PlayerTracker/GetServerTypeSPlayerCount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerTrackerServer).GetServerTypeSPlayerCount(ctx, req.(*ServerTypesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PlayerTracker_ServiceDesc is the grpc.ServiceDesc for PlayerTracker service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var PlayerTracker_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServerTypePlayerCount",
 			Handler:    _PlayerTracker_GetServerTypePlayerCount_Handler,
+		},
+		{
+			MethodName: "GetServerTypeSPlayerCount",
+			Handler:    _PlayerTracker_GetServerTypeSPlayerCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
