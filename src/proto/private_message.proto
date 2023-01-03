@@ -3,7 +3,7 @@ package towerdefence.cc.service.private_message;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "PrivateMessageProto";
-option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/private_message";
+option go_package = "github.com/emortalmc/grpc-api-specs/gen/go/service/private_message";
 
 service PrivateMessage {
   rpc SendPrivateMessage(PrivateMessageRequest) returns (PrivateMessageResponse);

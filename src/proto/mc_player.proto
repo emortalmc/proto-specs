@@ -3,7 +3,7 @@ package towerdefence.cc.service.mc_player;
 
 option java_package = "dev.emortal.api.service";
 option java_outer_classname = "McPlayerProto";
-option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/mc_player";
+option go_package = "github.com/emortalmc/grpc-api-specs/gen/go/service/mc_player";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";

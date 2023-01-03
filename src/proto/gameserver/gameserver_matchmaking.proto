@@ -3,7 +3,7 @@ package towerdefence.cc.service.gameserver.matchmaking;
 
 option java_package = "dev.emortal.api.service.gameserver";
 option java_outer_classname = "GameServerMatchmakingProto";
-option go_package = "github.com/EmortalMC/grpc-api-specs/gen/go/service/gameserver/matchmaking";
+option go_package = "github.com/emortalmc/grpc-api-specs/gen/go/service/gameserver/matchmaking";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";

@@ -12,4 +12,5 @@ do
   protoc -I ../src/proto --go_out=go --go-grpc_out=go "$file"
 done
 
-mv go/github.com/EmortalMC/grpc-api-specs/gen/go/* go/
+mv go/github.com/emortalmc/grpc-api-specs/gen/go/* go/
+rm -rf go/github.com
