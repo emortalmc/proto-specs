@@ -818,7 +818,7 @@ var file_player_tracker_proto_rawDesc = []byte{
 	0x72, 0x5f, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
 	0x54, 0x79, 0x70, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x9f, 0x01, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x53,
-	0x65, 0x72, 0x76, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65, 0x53, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65, 0x73, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72,
 	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3a, 0x2e, 0x74, 0x6f, 0x77, 0x65, 0x72, 0x64, 0x65, 0x66,
 	0x65, 0x6e, 0x63, 0x65, 0x2e, 0x63, 0x63, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
 	0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5f, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x2e, 0x53,
@@ -882,13 +882,13 @@ var file_player_tracker_proto_depIdxs = []int32{
 	4,  // 11: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerPlayers:input_type -> towerdefence.cc.service.player_tracker.ServerIdRequest
 	4,  // 12: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerPlayerCount:input_type -> towerdefence.cc.service.player_tracker.ServerIdRequest
 	9,  // 13: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypePlayerCount:input_type -> towerdefence.cc.service.player_tracker.ServerTypeRequest
-	11, // 14: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypeSPlayerCount:input_type -> towerdefence.cc.service.player_tracker.ServerTypesRequest
+	11, // 14: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypesPlayerCount:input_type -> towerdefence.cc.service.player_tracker.ServerTypesRequest
 	2,  // 15: towerdefence.cc.service.player_tracker.PlayerTracker.GetPlayerServer:output_type -> towerdefence.cc.service.player_tracker.GetPlayerServerResponse
 	3,  // 16: towerdefence.cc.service.player_tracker.PlayerTracker.GetPlayerServers:output_type -> towerdefence.cc.service.player_tracker.GetPlayerServersResponse
 	5,  // 17: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerPlayers:output_type -> towerdefence.cc.service.player_tracker.GetServerPlayersResponse
 	8,  // 18: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerPlayerCount:output_type -> towerdefence.cc.service.player_tracker.GetServerPlayerCountResponse
 	10, // 19: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypePlayerCount:output_type -> towerdefence.cc.service.player_tracker.ServerTypePlayerCountResponse
-	12, // 20: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypeSPlayerCount:output_type -> towerdefence.cc.service.player_tracker.ServerTypesPlayerCountResponse
+	12, // 20: towerdefence.cc.service.player_tracker.PlayerTracker.GetServerTypesPlayerCount:output_type -> towerdefence.cc.service.player_tracker.ServerTypesPlayerCountResponse
 	15, // [15:21] is the sub-list for method output_type
 	9,  // [9:15] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
