@@ -13,8 +13,8 @@ enum ServerType {
   LOBBY = 1;
   MARATHON = 2;
   BLOCK_SUMO = 3;
-  PARKOUR_TAG = 4;
-  LAZER_TAG = 5;
+  PARKOURTAG = 4;
+  LAZERTAG = 5;
   HOLEY_MOLEY = 6;
   MARATHON_RACING = 7;
   BATTLE = 8;
