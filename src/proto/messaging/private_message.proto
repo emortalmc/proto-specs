@@ -1,0 +1,14 @@
+syntax = "proto3";
+package emortal.dev.api.messaging.private_message;
+
+option java_package = "dev.emortal.api.messaging.privatemessage";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/grpc-api-specs/gen/go/messaging/private_message";
+
+// not implemented
+message ProxyPrivateMessageReceivedMessage {
+  string sender_id = 1;
+  string sender_username = 2;
+  string recipient_id = 3;
+  string message = 4;
+}
