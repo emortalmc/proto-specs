@@ -1,0 +1,19 @@
+syntax = "proto3";
+package emortal.message;
+
+option java_package = "dev.emortal.api.message.playertracker";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/playertracker";
+
+import "google/protobuf/timestamp.proto";
+
+message PlayerConnectMessage {
+    string player_id = 1;
+    string player_username = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message PlayerDisconnectMessage {
+    string player_id = 1;
+    google.protobuf.Timestamp timestamp = 3;
+}

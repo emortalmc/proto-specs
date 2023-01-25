@@ -3,10 +3,14 @@ package dev.emortal.api.utils.parser;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
-import dev.emortal.api.messaging.friend.ProxyFriendAddedMessage;
-import dev.emortal.api.messaging.friend.ProxyFriendRequestReceivedMessage;
-import dev.emortal.api.messaging.general.ProxyServerSwitchMessage;
-import dev.emortal.api.service.ServerDiscoveryProto;
+import dev.emortal.api.message.common.SwitchPlayersServerMessage;
+import dev.emortal.api.message.friend.FriendAddedMessage;
+import dev.emortal.api.message.friend.FriendRequestReceivedMessage;
+import dev.emortal.api.message.permission.RoleUpdateMessage;
+import dev.emortal.api.model.common.ConnectableServer;
+import dev.emortal.api.model.friend.FriendRequest;
+import dev.emortal.api.model.permission.PermissionNode;
+import dev.emortal.api.model.permission.Role;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,8 +19,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Instant;
 import java.util.Random;
-import java.util.Set;
 import java.util.UUID;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ProtoParserRegistryTest {
@@ -46,32 +50,52 @@ public class ProtoParserRegistryTest {
     }
 
     private static Stream<Arguments> testParsingParams() {
-        ProxyFriendRequestReceivedMessage one = ProxyFriendRequestReceivedMessage.newBuilder()
-                .setRecipientId("test-recipient-id")
-                .setSenderId("test-sender-id")
-                .setSenderUsername("test-username")
+        var one = FriendRequestReceivedMessage.newBuilder()
+                .setRequest(
+                        FriendRequest.newBuilder()
+                                .setRecipientId("testRecipientId")
+                                .setSenderId("testSenderId")
+                                .setSenderUsername("testUsername")
+                )
                 .build();
 
-        ProxyFriendAddedMessage two = ProxyFriendAddedMessage.newBuilder()
-                .setRecipientId("testRecipientId")
-                .setSenderId("testSenderId")
-                .setSenderUsername("testUsername")
+        var two = FriendAddedMessage.newBuilder()
+                .setRequest(
+                        FriendRequest.newBuilder()
+                                .setRecipientId("testRecipientId")
+                                .setSenderId("testSenderId")
+                                .setSenderUsername("testUsername")
+                )
                 .build();
 
-        ProxyServerSwitchMessage three = ProxyServerSwitchMessage.newBuilder()
+        // This message contains some fields not set on purpose
+        var three = RoleUpdateMessage.newBuilder()
+                .setChangeType(RoleUpdateMessage.ChangeType.MODIFY)
+                .setRole(Role.newBuilder()
+                        .setId("testRoleId")
+                        .setDisplayName("testDisplayName")
+                        .addPermissions(
+                                PermissionNode.newBuilder()
+                                        .setState(PermissionNode.PermissionState.ALLOW)
+                                        .setNode("testNode")
+                        )
+                ).build();
+
+        var four = SwitchPlayersServerMessage.newBuilder()
                 .setServer(
-                        ServerDiscoveryProto.ConnectableServer.newBuilder()
+                        ConnectableServer.newBuilder()
                                 .setId("lobby-sdgsd-32zr56")
                                 .setAddress("127.0.0.1")
                                 .setPort(new Random().nextInt(1, 65_535 + 1)).build()
                 )
-                .addAllPlayerIds(Set.of(UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString()))
+                .addAllPlayerIds(IntStream.range(0, 10).mapToObj(i -> UUID.randomUUID().toString()).toList())
                 .build();
 
         return Stream.of(
                 Arguments.of(one.toByteArray(), one),
                 Arguments.of(two.toByteArray(), two),
-                Arguments.of(three.toByteArray(), three)
+                Arguments.of(three.toByteArray(), three),
+                Arguments.of(four.toByteArray(), four)
         );
     }
 }

@@ -3,11 +3,15 @@ package dev.emortal.api.utils.parser;
 import com.google.protobuf.Empty;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
-import dev.emortal.api.messaging.friend.ProxyFriendAddedMessage;
-import dev.emortal.api.messaging.friend.ProxyFriendRemovedMessage;
-import dev.emortal.api.messaging.friend.ProxyFriendRequestReceivedMessage;
-import dev.emortal.api.messaging.general.ProxyServerSwitchMessage;
-import dev.emortal.api.messaging.privatemessage.ProxyPrivateMessageReceivedMessage;
+import dev.emortal.api.message.common.SwitchPlayersServerMessage;
+import dev.emortal.api.message.friend.FriendAddedMessage;
+import dev.emortal.api.message.friend.FriendRemovedMessage;
+import dev.emortal.api.message.friend.FriendRequestReceivedMessage;
+import dev.emortal.api.message.permission.PlayerRolesUpdateMessage;
+import dev.emortal.api.message.permission.RoleUpdateMessage;
+import dev.emortal.api.message.playertracker.PlayerConnectMessage;
+import dev.emortal.api.message.playertracker.PlayerDisconnectMessage;
+import dev.emortal.api.message.privatemessage.PrivateMessageReceivedMessage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -22,10 +26,9 @@ public class ProtoParserRegistry {
     }
 
     /**
-     * fullDescriptorName is equal to Message.ProtoReflect().Descriptor().FullName() in Golang
-     * and Message.getDescriptorForType().getFullName() in Java.
-     *
-     * @param fullDescriptorName The full descriptor name of the proto message
+     * @param fullDescriptorName The full descriptor name of the proto message.
+     *                           Equal to Message.getDescriptorForType().getFullName() in Java
+     *                           or Message.ProtoReflect().Descriptor().FullName() in Golang.
      * @param bytes              The bytes to parse
      * @param <T>                The type of the proto message
      * @return The parsed proto message
@@ -46,12 +49,23 @@ public class ProtoParserRegistry {
     private static void registerDefaults() {
         register(Empty.getDefaultInstance(), Empty::parseFrom); // Mostly as an example. Empty shouldn't need to be parsed.
 
-        register(ProxyFriendRequestReceivedMessage.getDefaultInstance(), ProxyFriendRequestReceivedMessage::parseFrom);
-        register(ProxyFriendAddedMessage.getDefaultInstance(), ProxyFriendAddedMessage::parseFrom);
-        register(ProxyFriendRemovedMessage.getDefaultInstance(), ProxyFriendRemovedMessage::parseFrom);
+        // Friend
+        register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);
+        register(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom);
+        register(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom);
 
-        register(ProxyServerSwitchMessage.getDefaultInstance(), ProxyServerSwitchMessage::parseFrom);
+        // Permission
+        register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom);
+        register(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom);
 
-        register(ProxyPrivateMessageReceivedMessage.getDefaultInstance(), ProxyPrivateMessageReceivedMessage::parseFrom);
+        // Player tracker
+        register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
+        register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom);
+
+        // Private message
+        register(PrivateMessageReceivedMessage.getDefaultInstance(), PrivateMessageReceivedMessage::parseFrom);
+
+        // Common
+        register(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
     }
 }

@@ -1,0 +1,103 @@
+syntax = "proto3";
+package emortal.grpc;
+
+option java_package = "dev.emortal.api.grpc.friend";
+option java_outer_classname = "FriendProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/friend";
+
+import "google/protobuf/timestamp.proto";
+import "friend/models.proto";
+
+service Friend {
+  rpc AddFriend(AddFriendRequest) returns (AddFriendResponse);
+  rpc RemoveFriend(RemoveFriendRequest) returns (RemoveFriendResponse);
+  rpc DenyFriendRequest(DenyFriendRequestRequest) returns (DenyFriendRequestResponse);
+  rpc MassDenyFriendRequest(MassDenyFriendRequestRequest) returns (MassDenyFriendRequestResponse);
+
+  rpc GetFriendList(GetFriendListRequest) returns (FriendListResponse);
+  rpc GetPendingFriendRequestList(GetPendingFriendRequestListRequest) returns (PendingFriendListResponse);
+}
+
+message AddFriendRequest {
+  model.FriendRequest request = 1;
+}
+
+message AddFriendResponse {
+  AddFriendResult result = 1;
+  optional google.protobuf.Timestamp friends_since = 2;
+
+  enum AddFriendResult {
+    REQUEST_SENT = 0;
+    FRIEND_ADDED = 1;
+    ALREADY_FRIENDS = 2;
+    ALREADY_REQUESTED = 3;
+    PRIVACY_BLOCKED = 4;
+  }
+}
+
+message RemoveFriendRequest {
+  string issuer_id = 1;
+  string issuer_username = 2;
+  string target_id = 3;
+}
+
+message RemoveFriendResponse {
+  enum RemoveFriendResult {
+    REMOVED = 0;
+    NOT_FRIENDS = 1;
+  }
+  RemoveFriendResult result = 1;
+}
+
+message FriendListResponse {
+  repeated FriendListPlayer friends = 1;
+
+  message FriendListPlayer {
+    string id = 1;
+    google.protobuf.Timestamp friends_since = 2;
+  }
+}
+
+message GetPendingFriendRequestListRequest {
+  string issuer_id = 1;
+  bool incoming = 2;
+}
+
+message PendingFriendListResponse {
+  repeated RequestedFriendPlayer requests = 1;
+
+  message RequestedFriendPlayer {
+    string requester_id = 1;
+    string target_id = 2;
+    google.protobuf.Timestamp request_time = 3;
+  }
+}
+
+message DenyFriendRequestRequest {
+  string issuer_id = 1;
+  string target_id = 2;
+}
+
+message DenyFriendRequestResponse {
+  enum DenyFriendRequestResult {
+    DENIED = 0;
+    NO_REQUEST = 1;
+  }
+  DenyFriendRequestResult result = 1;
+}
+
+message MassDenyFriendRequestRequest {
+  string issuer_id = 1;
+
+  // incoming, will deny all incoming requests
+  // otherwise, will deny all outgoing requests
+  bool incoming = 2;
+}
+
+message MassDenyFriendRequestResponse {
+  uint32 requests_denied = 1;
+}
+
+message GetFriendListRequest {
+  string player_id = 1;
+}

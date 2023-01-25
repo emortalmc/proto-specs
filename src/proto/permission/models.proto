@@ -1,0 +1,27 @@
+syntax = "proto3";
+package emortal.model;
+
+option java_package = "dev.emortal.api.model.permission";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/permission";
+
+message Role {
+  string id = 1;
+  uint32 priority = 2;
+
+  optional string display_prefix = 3;
+  optional string display_name = 4;
+
+  repeated PermissionNode permissions = 5;
+}
+
+message PermissionNode {
+  string node = 1;
+
+  enum PermissionState {
+    ALLOW = 0;
+    DENY = 1;
+  }
+
+  PermissionState state = 2;
+}

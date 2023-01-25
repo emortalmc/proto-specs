@@ -1,13 +1,14 @@
 package dev.emortal.api.utils.resolvers;
 
-import dev.emortal.api.service.McPlayerGrpc;
-import dev.emortal.api.service.McPlayerProto;
+import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
+
+import dev.emortal.api.grpc.mcplayer.McPlayerProto;
+import dev.emortal.api.model.mcplayer.McPlayer;
 import dev.emortal.api.utils.GrpcStubCollection;
 import dev.emortal.api.utils.callback.FunctionalFutureCallback;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import io.grpc.Status;
 
 import java.time.Duration;
@@ -51,11 +52,14 @@ public class PlayerResolver {
     }
 
     private static void requestMcPlayer(String username, Consumer<CachedMcPlayer> callback, Consumer<Status> errorCallback) {
-        ListenableFuture<McPlayerProto.PlayerResponse> playerResponseFuture = PLAYER_SERVICE
+        var playerResponseFuture = PLAYER_SERVICE
                 .getPlayerByUsername(McPlayerProto.PlayerUsernameRequest.newBuilder().setUsername(username).build());
 
         Futures.addCallback(playerResponseFuture, FunctionalFutureCallback.create(
-                playerResponse -> callback.accept(new CachedMcPlayer(UUID.fromString(playerResponse.getId()), playerResponse.getCurrentUsername())),
+                response -> {
+                    McPlayer player = response.getPlayer();
+                    callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername()));
+                },
                 throwable -> errorCallback.accept(Status.fromThrowable(throwable))
         ), ForkJoinPool.commonPool());
     }

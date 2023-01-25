@@ -1,0 +1,96 @@
+syntax = "proto3";
+package emortal.grpc;
+
+option java_package = "dev.emortal.api.grpc.mcplayer";
+option java_outer_classname = "McPlayerProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/mcplayer";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+
+import "mc_player/models.proto";
+
+service McPlayer {
+  rpc GetPlayer(GetPlayerRequest) returns (GetPlayerResponse) {}
+  rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse) {}
+  rpc GetPlayerByUsername(PlayerUsernameRequest) returns (GetPlayerByUsernameResponse) {}
+  rpc SearchPlayersByUsername(McPlayerSearchRequest) returns (PlayerSearchResponse) {}
+  rpc GetLoginSessions(McPageablePlayerRequest) returns (LoginSessionsResponse) {}
+
+  rpc OnPlayerLogin(McPlayerLoginRequest) returns (PlayerLoginResponse) {}
+  rpc OnPlayerDisconnect(McPlayerDisconnectRequest) returns (google.protobuf.Empty) {}
+}
+
+message GetPlayerRequest {
+  string player_id = 1;
+}
+
+message GetPlayerResponse {
+  model.McPlayer player = 1;
+}
+
+message GetPlayersRequest {
+  repeated string player_ids = 1;
+}
+
+message GetPlayersResponse {
+  repeated model.McPlayer players = 1;
+}
+
+message PlayerUsernameRequest {
+  string username = 1; // ignore case when using the username
+}
+
+message GetPlayerByUsernameResponse {
+  model.McPlayer player = 1;
+}
+
+message McPageablePlayerRequest {
+  string player_id = 1;
+  uint32 page = 2;
+  uint32 size = 3;
+}
+
+message McPlayerSearchRequest {
+  string issuer_id = 1;
+  string search_username = 2;
+  // starts with 0
+  uint32 page = 3;
+  uint32 page_size = 4;
+  FilterMethod filter_method = 5;
+
+  enum FilterMethod {
+    NONE = 0;
+    ONLINE = 1;
+    FRIENDS = 2;
+  }
+}
+
+message PlayerSearchResponse {
+  repeated model.McPlayer players = 1;
+  uint32 page = 2;
+  uint32 total_elements = 3;
+  uint32 total_pages = 4;
+}
+
+message LoginSessionsResponse {
+  repeated model.LoginSession sessions = 1;
+  uint32 page = 2;
+  uint64 total_elements = 3;
+  uint32 total_pages = 4;
+}
+
+message McPlayerLoginRequest {
+  string player_id = 1;
+  string username = 2;
+}
+
+message PlayerLoginResponse {
+  string session_id = 1;
+}
+
+message McPlayerDisconnectRequest {
+  string player_id = 1;
+  string session_id = 2;
+}

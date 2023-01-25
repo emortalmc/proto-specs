@@ -1,0 +1,23 @@
+syntax = "proto3";
+package emortal.message;
+
+option java_package = "dev.emortal.api.message.friend";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/friend";
+
+import "friend/models.proto";
+
+message FriendRequestReceivedMessage {
+  model.FriendRequest request = 1;
+}
+
+// Called when a friend request is accepted
+message FriendAddedMessage {
+  // The request that was accepted to add the friend
+  model.FriendRequest request = 1;
+}
+
+message FriendRemovedMessage {
+  string sender_id = 1;
+  string recipient_id = 2;
+}

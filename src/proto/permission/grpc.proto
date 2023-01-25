@@ -1,0 +1,73 @@
+syntax = "proto3";
+package emortal.grpc;
+
+option java_package = "dev.emortal.api.grpc.permission";
+option java_outer_classname = "PermissionProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/permission";
+
+import "permission/models.proto";
+
+service PermissionService {
+  rpc GetAllRoles(GetAllRolesRequest) returns (GetAllRolesResponse);
+  rpc GetPlayerRoles(GetPlayerRolesRequest) returns (PlayerRolesResponse);
+
+  rpc CreateRole(RoleCreateRequest) returns (CreateRoleResponse);
+  rpc UpdateRole(RoleUpdateRequest) returns (UpdateRoleResponse);
+
+  rpc AddRoleToPlayer(AddRoleToPlayerRequest) returns (AddRoleToPlayerResponse);
+  rpc RemoveRoleFromPlayer(RemoveRoleFromPlayerRequest) returns (RemoveRoleFromPlayerResponse);
+}
+
+message GetAllRolesRequest {}
+message GetAllRolesResponse {
+  repeated model.Role roles = 1;
+}
+
+message GetPlayerRolesRequest {
+  string player_id = 1;
+}
+
+message PlayerRolesResponse {
+  repeated string role_ids = 1;
+}
+
+message RoleCreateRequest {
+  string id = 1;
+  uint32 priority = 2;
+
+  optional string display_prefix = 3;
+  optional string display_name = 4;
+}
+
+message CreateRoleResponse {
+  model.Role role = 1;
+}
+
+message RoleUpdateRequest {
+  string id = 1;
+  optional uint32 priority = 2;
+
+  optional string display_prefix = 3;
+  optional string display_name = 4;
+
+  repeated model.PermissionNode set_permissions = 5;
+  repeated string unset_permissions = 6;
+}
+
+message UpdateRoleResponse {
+  model.Role role = 1;
+}
+
+message AddRoleToPlayerRequest {
+  string player_id = 1;
+  string role_id = 2;
+}
+
+message AddRoleToPlayerResponse {}
+
+message RemoveRoleFromPlayerRequest {
+  string player_id = 1;
+  string role_id = 2;
+}
+
+message RemoveRoleFromPlayerResponse {}

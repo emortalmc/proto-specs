@@ -1,6 +1,7 @@
 # grpc-api-specs
 
-This repository contains the API specifications for the gRPC APIs of EmortalMC
+This repository contains the proto specifications for gRPC and messaging APIs of EmortalMC.
+Some protos (those in a `messages.proto` file) are for use with RabbitMQ and not a gRPC API.
 
 ## Contributing
 

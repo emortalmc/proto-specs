@@ -1,0 +1,33 @@
+syntax = "proto3";
+package emortal.model;
+
+option java_package = "dev.emortal.api.model.mcplayer";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/mcplayer";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+message McPlayer {
+  string id = 1;
+  string current_username = 2;
+  google.protobuf.Timestamp first_login = 3;
+  // If they are currently online this will not be up to date
+  google.protobuf.Timestamp last_online = 4;
+
+  bool currently_online = 5;
+  optional LoginSession current_session = 6;
+
+  // The total play time of this player.
+  // WARNING: Does not include the current session
+  google.protobuf.Duration historic_play_time = 7;
+}
+
+message LoginSession {
+  string session_id = 1;
+
+  google.protobuf.Timestamp login_time = 2;
+
+  // Only set if this session is not currently active (i.e. the player is not online for this session)
+  optional google.protobuf.Timestamp logout_time = 3;
+}

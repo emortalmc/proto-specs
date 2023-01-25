@@ -1,0 +1,77 @@
+syntax = "proto3";
+package emortal.grpc;
+
+option java_package = "dev.emortal.api.grpc.playertracker";
+option java_outer_classname = "PlayerTrackerProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/playertracker";
+
+import "google/protobuf/timestamp.proto";
+import "common_models.proto";
+
+service PlayerTracker {
+  rpc GetPlayerServer(GetPlayerServerRequest) returns (GetPlayerServerResponse);
+  rpc GetPlayerServers(GetPlayerServersRequest) returns (GetPlayerServersResponse); // mass retrieve servers for x... players
+
+  rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse);
+
+  rpc GetServerPlayerCount(GetServerPlayersRequest) returns (GetServerPlayerCountResponse);
+  rpc GetServerTypePlayerCount(GetServerTypePlayerCountRequest) returns (ServerTypePlayerCountResponse);
+  rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse);
+}
+
+message GetPlayerServerRequest {
+  string player_id = 1;
+}
+
+message GetPlayerServersRequest {
+  repeated string player_ids = 1;
+}
+
+message GetPlayerServerResponse {
+  optional OnlineServer server = 1;
+}
+
+message GetPlayerServersResponse {
+  map<string, OnlineServer> player_servers = 1; // Is they are not online, they will not be included in the map.
+}
+
+message GetServerPlayersRequest {
+  string server_id = 1;
+}
+
+message GetServerPlayersResponse {
+  repeated OnlinePlayer online_players = 1;
+}
+
+message OnlinePlayer {
+  string player_id = 1;
+  string username = 2;
+}
+
+// Represents a server a player is online on, proxy and regular.
+message OnlineServer {
+  string server_id = 1;
+  string proxy_id = 2;
+}
+
+message GetServerTypePlayerCountRequest {
+  model.ServerType server_type = 1;
+}
+
+message GetServerPlayerCountResponse {
+  uint32 player_count = 1;
+}
+
+message ServerTypePlayerCountResponse {
+  uint32 player_count = 1;
+  google.protobuf.Timestamp last_updated = 2;
+}
+
+message GetServerTypesPlayerCountRequest {
+  repeated model.ServerType server_types = 1;
+}
+
+message ServerTypesPlayerCountResponse {
+  map<string, uint32> player_counts = 1;
+  google.protobuf.Timestamp last_updated = 2;
+}

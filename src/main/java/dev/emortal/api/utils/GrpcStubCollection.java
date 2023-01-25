@@ -1,12 +1,11 @@
 package dev.emortal.api.utils;
 
-import dev.emortal.api.service.FriendGrpc;
-import dev.emortal.api.service.McPlayerGrpc;
-import dev.emortal.api.service.PermissionServiceGrpc;
-import dev.emortal.api.service.PlayerTrackerGrpc;
-import dev.emortal.api.service.PlayerTransporterGrpc;
-import dev.emortal.api.service.PrivateMessageGrpc;
-import dev.emortal.api.service.ServerDiscoveryGrpc;
+
+import dev.emortal.api.grpc.friend.FriendGrpc;
+import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
+import dev.emortal.api.grpc.permission.PermissionServiceGrpc;
+import dev.emortal.api.grpc.playertracker.PlayerTrackerGrpc;
+import dev.emortal.api.grpc.privatemessage.PrivateMessageGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.Getter;
@@ -31,20 +30,14 @@ public class GrpcStubCollection {
     @Getter
     private static final @NotNull Optional<PlayerTrackerGrpc.PlayerTrackerFutureStub> playerTrackerService;
     @Getter
-    private static final @NotNull Optional<PlayerTransporterGrpc.PlayerTransporterFutureStub> playerTransporterService;
-    @Getter
     private static final @NotNull Optional<PrivateMessageGrpc.PrivateMessageFutureStub> privateMessageService;
-    @Getter
-    private static final @NotNull Optional<ServerDiscoveryGrpc.ServerDiscoveryFutureStub> serverDiscoveryService;
 
     static {
         friendService = createChannel("friend-manager").map(FriendGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
         permissionService = createChannel("permission").map(PermissionServiceGrpc::newFutureStub);
         playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);
-        playerTransporterService = createChannel("player-transporter").map(PlayerTransporterGrpc::newFutureStub);
         privateMessageService = createChannel("private-message").map(PrivateMessageGrpc::newFutureStub);
-        serverDiscoveryService = createChannel("server-discovery").map(ServerDiscoveryGrpc::newFutureStub);
     }
 
     /**

@@ -1,0 +1,16 @@
+// common messages
+
+syntax = "proto3";
+package emortal.message;
+
+option java_package = "dev.emortal.api.message.common";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/common";
+
+import "common_models.proto";
+
+// Tells a proxy to switch player(s) to a different server
+message SwitchPlayersServerMessage {
+  model.ConnectableServer server = 1;
+  repeated string player_ids = 2;
+}
