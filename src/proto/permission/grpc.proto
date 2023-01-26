@@ -67,7 +67,9 @@ message AddRoleToPlayerResponse {}
 
 message AddRoleToPlayerError {
   enum ErrorType {
-    ALREADY_HAS_ROLE = 0;
+    PLAYER_NOT_FOUND = 0;
+    ROLE_NOT_FOUND = 1;
+    ALREADY_HAS_ROLE = 2;
   }
 
   ErrorType error_type = 1;
@@ -82,7 +84,8 @@ message RemoveRoleFromPlayerResponse {}
 
 message RemoveRoleFromPlayerError {
   enum ErrorType {
-    DOES_NOT_HAVE_ROLE = 0;
+    PLAYER_NOT_FOUND = 0;
+    DOES_NOT_HAVE_ROLE = 1;
   }
 
   ErrorType error_type = 1;
