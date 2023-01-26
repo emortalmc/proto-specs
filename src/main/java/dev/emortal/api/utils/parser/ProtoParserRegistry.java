@@ -4,14 +4,14 @@ import com.google.protobuf.Empty;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.message.common.SwitchPlayersServerMessage;
-import dev.emortal.api.message.friend.FriendAddedMessage;
-import dev.emortal.api.message.friend.FriendRemovedMessage;
-import dev.emortal.api.message.friend.FriendRequestReceivedMessage;
 import dev.emortal.api.message.permission.PlayerRolesUpdateMessage;
 import dev.emortal.api.message.permission.RoleUpdateMessage;
 import dev.emortal.api.message.playertracker.PlayerConnectMessage;
 import dev.emortal.api.message.playertracker.PlayerDisconnectMessage;
 import dev.emortal.api.message.privatemessage.PrivateMessageReceivedMessage;
+import dev.emortal.api.message.relationship.FriendAddedMessage;
+import dev.emortal.api.message.relationship.FriendRemovedMessage;
+import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;

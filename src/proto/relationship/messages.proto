@@ -1,11 +1,11 @@
 syntax = "proto3";
 package emortal.message;
 
-option java_package = "dev.emortal.api.message.friend";
+option java_package = "dev.emortal.api.message.relationship";
 option java_multiple_files = true;
-option go_package = "github.com/emortalmc/proto-specs/gen/go/message/friend";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/relationship";
 
-import "friend/models.proto";
+import "relationship/models.proto";
 
 message FriendRequestReceivedMessage {
   model.FriendRequest request = 1;

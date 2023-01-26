@@ -1,14 +1,14 @@
 syntax = "proto3";
 package emortal.grpc;
 
-option java_package = "dev.emortal.api.grpc.friend";
-option java_outer_classname = "FriendProto";
-option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/friend";
+option java_package = "dev.emortal.api.grpc.relationship";
+option java_outer_classname = "RelationshipProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/relationship";
 
 import "google/protobuf/timestamp.proto";
-import "friend/models.proto";
+import "relationship/models.proto";
 
-service Friend {
+service Relationship {
   rpc AddFriend(AddFriendRequest) returns (AddFriendResponse);
   rpc RemoveFriend(RemoveFriendRequest) returns (RemoveFriendResponse);
   rpc DenyFriendRequest(DenyFriendRequestRequest) returns (DenyFriendRequestResponse);
@@ -16,6 +16,11 @@ service Friend {
 
   rpc GetFriendList(GetFriendListRequest) returns (FriendListResponse);
   rpc GetPendingFriendRequestList(GetPendingFriendRequestListRequest) returns (PendingFriendListResponse);
+
+  rpc CreateBlock(CreateBlockRequest) returns (CreateBlockResponse);
+  rpc DeleteBlock(DeleteBlockRequest) returns (DeleteBlockResponse);
+  rpc IsBlocked(IsBlockedRequest) returns (IsBlockedResponse);
+  rpc GetBlockedList(GetBlockedListRequest) returns (BlockedListResponse);
 }
 
 message AddFriendRequest {
@@ -100,4 +105,36 @@ message MassDenyFriendRequestResponse {
 
 message GetFriendListRequest {
   string player_id = 1;
+}
+
+// Blocks down from here
+
+message CreateBlockRequest {
+  model.PlayerBlock block = 1;
+}
+
+message CreateBlockResponse {}
+
+message DeleteBlockRequest {
+  string issuer_id = 1;
+  string target_id = 2;
+}
+
+message DeleteBlockResponse {}
+
+message IsBlockedRequest {
+  string issuer_id = 1;
+  string target_id = 2;
+}
+
+message IsBlockedResponse {
+  bool blocked = 1;
+}
+
+message GetBlockedListRequest {
+  string player_id = 1;
+}
+
+message BlockedListResponse {
+  repeated string blocked_player_ids = 1;
 }
