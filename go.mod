@@ -1,3 +1,3 @@
-module github.com/emortalmc/grpc-api-specs
+module github.com/emortalmc/proto-specs
 
 go 1.19
