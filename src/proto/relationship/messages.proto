@@ -14,7 +14,9 @@ message FriendRequestReceivedMessage {
 // Called when a friend request is accepted
 message FriendAddedMessage {
   // The request that was accepted to add the friend
-  model.FriendRequest request = 1;
+  string sender_id = 1;
+  string sender_username = 2;
+  string recipient_id = 3;
 }
 
 message FriendRemovedMessage {

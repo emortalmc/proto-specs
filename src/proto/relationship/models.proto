@@ -8,7 +8,7 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/model/relationship"
 message FriendRequest {
   string sender_id = 1;
   string sender_username = 2;
-  string recipient_id = 3;
+  string target_id = 3;
 }
 
 message PlayerBlock {

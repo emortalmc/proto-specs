@@ -41,8 +41,8 @@ message AddFriendResponse {
 }
 
 message RemoveFriendRequest {
-  string issuer_id = 1;
-  string issuer_username = 2;
+  string sender_id = 1;
+  string sender_username = 2;
   string target_id = 3;
 }
 
