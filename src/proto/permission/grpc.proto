@@ -65,9 +65,25 @@ message AddRoleToPlayerRequest {
 
 message AddRoleToPlayerResponse {}
 
+message AddRoleToPlayerError {
+  enum ErrorType {
+    ALREADY_HAS_ROLE = 0;
+  }
+
+  ErrorType error_type = 1;
+}
+
 message RemoveRoleFromPlayerRequest {
   string player_id = 1;
   string role_id = 2;
 }
 
 message RemoveRoleFromPlayerResponse {}
+
+message RemoveRoleFromPlayerError {
+  enum ErrorType {
+    DOES_NOT_HAVE_ROLE = 0;
+  }
+
+  ErrorType error_type = 1;
+}
