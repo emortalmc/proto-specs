@@ -113,7 +113,16 @@ message CreateBlockRequest {
   model.PlayerBlock block = 1;
 }
 
-message CreateBlockResponse {}
+message CreateBlockResponse {
+  enum CreateBlockResult {
+    SUCCESS = 0;
+    ALREADY_BLOCKED = 1;
+
+    // You can't block someone you're friends with
+    FAILED_FRIENDS = 2;
+  }
+  CreateBlockResult result = 1;
+}
 
 message DeleteBlockRequest {
   string issuer_id = 1;

@@ -26,3 +26,22 @@ message ConnectableServer {
   string address = 2;
   uint32 port = 3;
 }
+
+// Pageable utilities
+// NOTE: Page values start at 1, not 0
+message Pageable {
+  uint32 page = 1;
+  uint32 size = 2;
+}
+
+message Sortable {
+  string field = 1;
+  bool ascending = 2;
+}
+
+message PageData {
+  uint64 page = 1;
+  uint32 size = 2;
+  uint64 total_elements = 3;
+  uint32 total_pages = 4;
+}
