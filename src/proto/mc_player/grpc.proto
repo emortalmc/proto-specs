@@ -8,13 +8,14 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/mcplayer";
 import "google/protobuf/empty.proto";
 
 import "mc_player/models.proto";
+import "common_models.proto";
 
 service McPlayer {
   rpc GetPlayer(GetPlayerRequest) returns (GetPlayerResponse) {}
   rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse) {}
   rpc GetPlayerByUsername(PlayerUsernameRequest) returns (GetPlayerByUsernameResponse) {}
-  rpc SearchPlayersByUsername(McPlayerSearchRequest) returns (PlayerSearchResponse) {}
-  rpc GetLoginSessions(McPageablePlayerRequest) returns (LoginSessionsResponse) {}
+  rpc SearchPlayersByUsername(SearchPlayersByUsernameRequest) returns (SearchPlayersByUsernameResponse) {}
+  rpc GetLoginSessions(GetLoginSessionsRequest) returns (LoginSessionsResponse) {}
 
   rpc OnPlayerLogin(McPlayerLoginRequest) returns (PlayerLoginResponse) {}
   rpc OnPlayerDisconnect(McPlayerDisconnectRequest) returns (google.protobuf.Empty) {}
@@ -50,13 +51,12 @@ message McPageablePlayerRequest {
   uint32 size = 3;
 }
 
-message McPlayerSearchRequest {
+message SearchPlayersByUsernameRequest {
   string issuer_id = 1;
   string search_username = 2;
   // starts with 0
-  uint32 page = 3;
-  uint32 page_size = 4;
-  FilterMethod filter_method = 5;
+  model.Pageable pageable = 3;
+  FilterMethod filter_method = 4;
 
   enum FilterMethod {
     NONE = 0;
@@ -65,18 +65,19 @@ message McPlayerSearchRequest {
   }
 }
 
-message PlayerSearchResponse {
+message SearchPlayersByUsernameResponse {
   repeated model.McPlayer players = 1;
-  uint32 page = 2;
-  uint32 total_elements = 3;
-  uint32 total_pages = 4;
+  model.PageData page_data = 2;
+}
+
+message GetLoginSessionsRequest {
+  string player_id = 1;
+  model.Pageable pageable = 2;
 }
 
 message LoginSessionsResponse {
   repeated model.LoginSession sessions = 1;
-  uint32 page = 2;
-  uint64 total_elements = 3;
-  uint32 total_pages = 4;
+  model.PageData page_data = 2;
 }
 
 message McPlayerLoginRequest {

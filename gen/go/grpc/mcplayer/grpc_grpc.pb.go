@@ -26,8 +26,8 @@ type McPlayerClient interface {
 	GetPlayer(ctx context.Context, in *GetPlayerRequest, opts ...grpc.CallOption) (*GetPlayerResponse, error)
 	GetPlayers(ctx context.Context, in *GetPlayersRequest, opts ...grpc.CallOption) (*GetPlayersResponse, error)
 	GetPlayerByUsername(ctx context.Context, in *PlayerUsernameRequest, opts ...grpc.CallOption) (*GetPlayerByUsernameResponse, error)
-	SearchPlayersByUsername(ctx context.Context, in *McPlayerSearchRequest, opts ...grpc.CallOption) (*PlayerSearchResponse, error)
-	GetLoginSessions(ctx context.Context, in *McPageablePlayerRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error)
+	SearchPlayersByUsername(ctx context.Context, in *SearchPlayersByUsernameRequest, opts ...grpc.CallOption) (*SearchPlayersByUsernameResponse, error)
+	GetLoginSessions(ctx context.Context, in *GetLoginSessionsRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error)
 	OnPlayerLogin(ctx context.Context, in *McPlayerLoginRequest, opts ...grpc.CallOption) (*PlayerLoginResponse, error)
 	OnPlayerDisconnect(ctx context.Context, in *McPlayerDisconnectRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -67,8 +67,8 @@ func (c *mcPlayerClient) GetPlayerByUsername(ctx context.Context, in *PlayerUser
 	return out, nil
 }
 
-func (c *mcPlayerClient) SearchPlayersByUsername(ctx context.Context, in *McPlayerSearchRequest, opts ...grpc.CallOption) (*PlayerSearchResponse, error) {
-	out := new(PlayerSearchResponse)
+func (c *mcPlayerClient) SearchPlayersByUsername(ctx context.Context, in *SearchPlayersByUsernameRequest, opts ...grpc.CallOption) (*SearchPlayersByUsernameResponse, error) {
+	out := new(SearchPlayersByUsernameResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/SearchPlayersByUsername", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -76,7 +76,7 @@ func (c *mcPlayerClient) SearchPlayersByUsername(ctx context.Context, in *McPlay
 	return out, nil
 }
 
-func (c *mcPlayerClient) GetLoginSessions(ctx context.Context, in *McPageablePlayerRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error) {
+func (c *mcPlayerClient) GetLoginSessions(ctx context.Context, in *GetLoginSessionsRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error) {
 	out := new(LoginSessionsResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/GetLoginSessions", in, out, opts...)
 	if err != nil {
@@ -110,8 +110,8 @@ type McPlayerServer interface {
 	GetPlayer(context.Context, *GetPlayerRequest) (*GetPlayerResponse, error)
 	GetPlayers(context.Context, *GetPlayersRequest) (*GetPlayersResponse, error)
 	GetPlayerByUsername(context.Context, *PlayerUsernameRequest) (*GetPlayerByUsernameResponse, error)
-	SearchPlayersByUsername(context.Context, *McPlayerSearchRequest) (*PlayerSearchResponse, error)
-	GetLoginSessions(context.Context, *McPageablePlayerRequest) (*LoginSessionsResponse, error)
+	SearchPlayersByUsername(context.Context, *SearchPlayersByUsernameRequest) (*SearchPlayersByUsernameResponse, error)
+	GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error)
 	OnPlayerLogin(context.Context, *McPlayerLoginRequest) (*PlayerLoginResponse, error)
 	OnPlayerDisconnect(context.Context, *McPlayerDisconnectRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedMcPlayerServer()
@@ -130,10 +130,10 @@ func (UnimplementedMcPlayerServer) GetPlayers(context.Context, *GetPlayersReques
 func (UnimplementedMcPlayerServer) GetPlayerByUsername(context.Context, *PlayerUsernameRequest) (*GetPlayerByUsernameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerByUsername not implemented")
 }
-func (UnimplementedMcPlayerServer) SearchPlayersByUsername(context.Context, *McPlayerSearchRequest) (*PlayerSearchResponse, error) {
+func (UnimplementedMcPlayerServer) SearchPlayersByUsername(context.Context, *SearchPlayersByUsernameRequest) (*SearchPlayersByUsernameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchPlayersByUsername not implemented")
 }
-func (UnimplementedMcPlayerServer) GetLoginSessions(context.Context, *McPageablePlayerRequest) (*LoginSessionsResponse, error) {
+func (UnimplementedMcPlayerServer) GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoginSessions not implemented")
 }
 func (UnimplementedMcPlayerServer) OnPlayerLogin(context.Context, *McPlayerLoginRequest) (*PlayerLoginResponse, error) {
@@ -210,7 +210,7 @@ func _McPlayer_GetPlayerByUsername_Handler(srv interface{}, ctx context.Context,
 }
 
 func _McPlayer_SearchPlayersByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(McPlayerSearchRequest)
+	in := new(SearchPlayersByUsernameRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -222,13 +222,13 @@ func _McPlayer_SearchPlayersByUsername_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/emortal.grpc.McPlayer/SearchPlayersByUsername",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(McPlayerServer).SearchPlayersByUsername(ctx, req.(*McPlayerSearchRequest))
+		return srv.(McPlayerServer).SearchPlayersByUsername(ctx, req.(*SearchPlayersByUsernameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _McPlayer_GetLoginSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(McPageablePlayerRequest)
+	in := new(GetLoginSessionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ func _McPlayer_GetLoginSessions_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/emortal.grpc.McPlayer/GetLoginSessions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(McPlayerServer).GetLoginSessions(ctx, req.(*McPageablePlayerRequest))
+		return srv.(McPlayerServer).GetLoginSessions(ctx, req.(*GetLoginSessionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
