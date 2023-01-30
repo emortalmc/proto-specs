@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -28,8 +27,6 @@ type McPlayerClient interface {
 	GetPlayerByUsername(ctx context.Context, in *PlayerUsernameRequest, opts ...grpc.CallOption) (*GetPlayerByUsernameResponse, error)
 	SearchPlayersByUsername(ctx context.Context, in *SearchPlayersByUsernameRequest, opts ...grpc.CallOption) (*SearchPlayersByUsernameResponse, error)
 	GetLoginSessions(ctx context.Context, in *GetLoginSessionsRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error)
-	OnPlayerLogin(ctx context.Context, in *McPlayerLoginRequest, opts ...grpc.CallOption) (*PlayerLoginResponse, error)
-	OnPlayerDisconnect(ctx context.Context, in *McPlayerDisconnectRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type mcPlayerClient struct {
@@ -85,24 +82,6 @@ func (c *mcPlayerClient) GetLoginSessions(ctx context.Context, in *GetLoginSessi
 	return out, nil
 }
 
-func (c *mcPlayerClient) OnPlayerLogin(ctx context.Context, in *McPlayerLoginRequest, opts ...grpc.CallOption) (*PlayerLoginResponse, error) {
-	out := new(PlayerLoginResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/OnPlayerLogin", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *mcPlayerClient) OnPlayerDisconnect(ctx context.Context, in *McPlayerDisconnectRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/OnPlayerDisconnect", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // McPlayerServer is the server API for McPlayer service.
 // All implementations must embed UnimplementedMcPlayerServer
 // for forward compatibility
@@ -112,8 +91,6 @@ type McPlayerServer interface {
 	GetPlayerByUsername(context.Context, *PlayerUsernameRequest) (*GetPlayerByUsernameResponse, error)
 	SearchPlayersByUsername(context.Context, *SearchPlayersByUsernameRequest) (*SearchPlayersByUsernameResponse, error)
 	GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error)
-	OnPlayerLogin(context.Context, *McPlayerLoginRequest) (*PlayerLoginResponse, error)
-	OnPlayerDisconnect(context.Context, *McPlayerDisconnectRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedMcPlayerServer()
 }
 
@@ -135,12 +112,6 @@ func (UnimplementedMcPlayerServer) SearchPlayersByUsername(context.Context, *Sea
 }
 func (UnimplementedMcPlayerServer) GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoginSessions not implemented")
-}
-func (UnimplementedMcPlayerServer) OnPlayerLogin(context.Context, *McPlayerLoginRequest) (*PlayerLoginResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OnPlayerLogin not implemented")
-}
-func (UnimplementedMcPlayerServer) OnPlayerDisconnect(context.Context, *McPlayerDisconnectRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OnPlayerDisconnect not implemented")
 }
 func (UnimplementedMcPlayerServer) mustEmbedUnimplementedMcPlayerServer() {}
 
@@ -245,42 +216,6 @@ func _McPlayer_GetLoginSessions_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _McPlayer_OnPlayerLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(McPlayerLoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(McPlayerServer).OnPlayerLogin(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.McPlayer/OnPlayerLogin",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(McPlayerServer).OnPlayerLogin(ctx, req.(*McPlayerLoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _McPlayer_OnPlayerDisconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(McPlayerDisconnectRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(McPlayerServer).OnPlayerDisconnect(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.McPlayer/OnPlayerDisconnect",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(McPlayerServer).OnPlayerDisconnect(ctx, req.(*McPlayerDisconnectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // McPlayer_ServiceDesc is the grpc.ServiceDesc for McPlayer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -307,14 +242,6 @@ var McPlayer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLoginSessions",
 			Handler:    _McPlayer_GetLoginSessions_Handler,
-		},
-		{
-			MethodName: "OnPlayerLogin",
-			Handler:    _McPlayer_OnPlayerLogin_Handler,
-		},
-		{
-			MethodName: "OnPlayerDisconnect",
-			Handler:    _McPlayer_OnPlayerDisconnect_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
