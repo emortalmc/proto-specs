@@ -4,13 +4,13 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
 import dev.emortal.api.message.common.SwitchPlayersServerMessage;
-import dev.emortal.api.message.friend.FriendAddedMessage;
-import dev.emortal.api.message.friend.FriendRequestReceivedMessage;
 import dev.emortal.api.message.permission.RoleUpdateMessage;
+import dev.emortal.api.message.relationship.FriendAddedMessage;
+import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
 import dev.emortal.api.model.common.ConnectableServer;
-import dev.emortal.api.model.friend.FriendRequest;
 import dev.emortal.api.model.permission.PermissionNode;
 import dev.emortal.api.model.permission.Role;
+import dev.emortal.api.model.relationship.FriendRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -53,19 +53,16 @@ public class ProtoParserRegistryTest {
         var one = FriendRequestReceivedMessage.newBuilder()
                 .setRequest(
                         FriendRequest.newBuilder()
-                                .setRecipientId("testRecipientId")
+                                .setTargetId("testRecipientId")
                                 .setSenderId("testSenderId")
                                 .setSenderUsername("testUsername")
                 )
                 .build();
 
         var two = FriendAddedMessage.newBuilder()
-                .setRequest(
-                        FriendRequest.newBuilder()
-                                .setRecipientId("testRecipientId")
-                                .setSenderId("testSenderId")
-                                .setSenderUsername("testUsername")
-                )
+                .setRecipientId("testRecipientId")
+                .setSenderId("testSenderId")
+                .setSenderUsername("testUsername")
                 .build();
 
         // This message contains some fields not set on purpose
