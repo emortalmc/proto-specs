@@ -14,10 +14,6 @@ service McPlayer {
   rpc GetPlayerByUsername(PlayerUsernameRequest) returns (GetPlayerByUsernameResponse) {}
   rpc SearchPlayersByUsername(SearchPlayersByUsernameRequest) returns (SearchPlayersByUsernameResponse) {}
   rpc GetLoginSessions(GetLoginSessionsRequest) returns (LoginSessionsResponse) {}
-
-  // TODO: Replace these with messaging :)
-  //  rpc OnPlayerLogin(McPlayerLoginRequest) returns (PlayerLoginResponse) {}
-  //  rpc OnPlayerDisconnect(McPlayerDisconnectRequest) returns (google.protobuf.Empty) {}
 }
 
 message GetPlayerRequest {
