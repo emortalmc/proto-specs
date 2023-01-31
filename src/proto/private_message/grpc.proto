@@ -26,5 +26,5 @@ message PrivateMessageErrorResponse {
     PRIVACY_BLOCKED = 1;
   }
 
-  Reason status = 1;
+  Reason reason = 1;
 }
