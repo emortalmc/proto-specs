@@ -22,9 +22,8 @@ message PrivateMessageResponse {
 
 message PrivateMessageErrorResponse {
   enum Reason {
-    OK = 0;
-    PLAYER_NOT_ONLINE = 1;
-    PRIVACY_BLOCKED = 2;
+    PLAYER_NOT_ONLINE = 0;
+    PRIVACY_BLOCKED = 1;
   }
 
   Reason status = 1;
