@@ -20,7 +20,7 @@ message PrivateMessageResponse {
   model.PrivateMessage message = 1;
 }
 
-message PrivateMesageErrorResponse {
+message PrivateMessageErrorResponse {
   enum Reason {
     OK = 0;
     PLAYER_NOT_ONLINE = 1;
