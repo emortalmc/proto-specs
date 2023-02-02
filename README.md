@@ -11,6 +11,7 @@ Java generation will automatically run on push, but you will need to run the oth
 ## Service Ports
 
 Note, these ports are not used in production, but are defaults for local development.
+In production, the ports of default gRPC services are locked to 80
 
 | Service         | Description                                       | Port  |
 |-----------------|---------------------------------------------------|-------|

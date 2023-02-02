@@ -28,11 +28,11 @@ message GetPlayerServersRequest {
 }
 
 message GetPlayerServerResponse {
-  optional OnlineServer server = 1;
+  optional PlayerLocation server = 1;
 }
 
 message GetPlayerServersResponse {
-  map<string, OnlineServer> player_servers = 1; // Is they are not online, they will not be included in the map.
+  map<string, PlayerLocation> player_servers = 1; // Is they are not online, they will not be included in the map.
 }
 
 message GetServerPlayersRequest {
@@ -48,8 +48,8 @@ message OnlinePlayer {
   string username = 2;
 }
 
-// Represents a server a player is online on, proxy and regular.
-message OnlineServer {
+// PlayerLocation represents the proxy and game server a player is on
+message PlayerLocation {
   string server_id = 1;
   string proxy_id = 2;
 }
