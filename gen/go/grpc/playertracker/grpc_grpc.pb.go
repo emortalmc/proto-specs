@@ -25,7 +25,7 @@ type PlayerTrackerClient interface {
 	GetPlayerServer(ctx context.Context, in *GetPlayerServerRequest, opts ...grpc.CallOption) (*GetPlayerServerResponse, error)
 	GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error)
 	GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error)
-	GetServerPlayerCount(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error)
+	GetServerPlayerCount(ctx context.Context, in *GetServerPlayerCountRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error)
 	GetServerTypePlayerCount(ctx context.Context, in *GetServerTypePlayerCountRequest, opts ...grpc.CallOption) (*ServerTypePlayerCountResponse, error)
 	GetServerTypesPlayerCount(ctx context.Context, in *GetServerTypesPlayerCountRequest, opts ...grpc.CallOption) (*ServerTypesPlayerCountResponse, error)
 }
@@ -65,7 +65,7 @@ func (c *playerTrackerClient) GetServerPlayers(ctx context.Context, in *GetServe
 	return out, nil
 }
 
-func (c *playerTrackerClient) GetServerPlayerCount(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error) {
+func (c *playerTrackerClient) GetServerPlayerCount(ctx context.Context, in *GetServerPlayerCountRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error) {
 	out := new(GetServerPlayerCountResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerPlayerCount", in, out, opts...)
 	if err != nil {
@@ -99,7 +99,7 @@ type PlayerTrackerServer interface {
 	GetPlayerServer(context.Context, *GetPlayerServerRequest) (*GetPlayerServerResponse, error)
 	GetPlayerServers(context.Context, *GetPlayerServersRequest) (*GetPlayerServersResponse, error)
 	GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error)
-	GetServerPlayerCount(context.Context, *GetServerPlayersRequest) (*GetServerPlayerCountResponse, error)
+	GetServerPlayerCount(context.Context, *GetServerPlayerCountRequest) (*GetServerPlayerCountResponse, error)
 	GetServerTypePlayerCount(context.Context, *GetServerTypePlayerCountRequest) (*ServerTypePlayerCountResponse, error)
 	GetServerTypesPlayerCount(context.Context, *GetServerTypesPlayerCountRequest) (*ServerTypesPlayerCountResponse, error)
 	mustEmbedUnimplementedPlayerTrackerServer()
@@ -118,7 +118,7 @@ func (UnimplementedPlayerTrackerServer) GetPlayerServers(context.Context, *GetPl
 func (UnimplementedPlayerTrackerServer) GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServerPlayers not implemented")
 }
-func (UnimplementedPlayerTrackerServer) GetServerPlayerCount(context.Context, *GetServerPlayersRequest) (*GetServerPlayerCountResponse, error) {
+func (UnimplementedPlayerTrackerServer) GetServerPlayerCount(context.Context, *GetServerPlayerCountRequest) (*GetServerPlayerCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServerPlayerCount not implemented")
 }
 func (UnimplementedPlayerTrackerServer) GetServerTypePlayerCount(context.Context, *GetServerTypePlayerCountRequest) (*ServerTypePlayerCountResponse, error) {
@@ -195,7 +195,7 @@ func _PlayerTracker_GetServerPlayers_Handler(srv interface{}, ctx context.Contex
 }
 
 func _PlayerTracker_GetServerPlayerCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServerPlayersRequest)
+	in := new(GetServerPlayerCountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -207,7 +207,7 @@ func _PlayerTracker_GetServerPlayerCount_Handler(srv interface{}, ctx context.Co
 		FullMethod: "/emortal.grpc.PlayerTracker/GetServerPlayerCount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerTrackerServer).GetServerPlayerCount(ctx, req.(*GetServerPlayersRequest))
+		return srv.(PlayerTrackerServer).GetServerPlayerCount(ctx, req.(*GetServerPlayerCountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -14,7 +14,7 @@ service PlayerTracker {
 
   rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse);
 
-  rpc GetServerPlayerCount(GetServerPlayersRequest) returns (GetServerPlayerCountResponse);
+  rpc GetServerPlayerCount(GetServerPlayerCountRequest) returns (GetServerPlayerCountResponse);
   rpc GetServerTypePlayerCount(GetServerTypePlayerCountRequest) returns (ServerTypePlayerCountResponse);
   rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse);
 }
@@ -38,6 +38,10 @@ message GetPlayerServersResponse {
 }
 
 message GetServerPlayersRequest {
+  string server_id = 1;
+}
+
+message GetServerPlayerCountRequest {
   string server_id = 1;
 }
 
