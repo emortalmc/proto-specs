@@ -19,6 +19,8 @@ service PlayerTracker {
   rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse);
 }
 
+import "player_tracker/models.proto";
+
 message GetPlayerServerRequest {
   string player_id = 1;
 }
@@ -28,11 +30,11 @@ message GetPlayerServersRequest {
 }
 
 message GetPlayerServerResponse {
-  optional PlayerLocation server = 1;
+  optional model.PlayerLocation server = 1;
 }
 
 message GetPlayerServersResponse {
-  map<string, PlayerLocation> player_servers = 1; // Is they are not online, they will not be included in the map.
+  map<string, model.PlayerLocation> player_servers = 1; // Is they are not online, they will not be included in the map.
 }
 
 message GetServerPlayersRequest {
@@ -40,18 +42,7 @@ message GetServerPlayersRequest {
 }
 
 message GetServerPlayersResponse {
-  repeated OnlinePlayer online_players = 1;
-}
-
-message OnlinePlayer {
-  string player_id = 1;
-  string username = 2;
-}
-
-// PlayerLocation represents the proxy and game server a player is on
-message PlayerLocation {
-  string server_id = 1;
-  string proxy_id = 2;
+  repeated model.OnlinePlayer online_players = 1;
 }
 
 message GetServerTypePlayerCountRequest {

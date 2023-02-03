@@ -1,0 +1,17 @@
+syntax = "proto3";
+package emortal.model;
+
+option java_package = "dev.emortal.api.model.playertracker";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/player_tracker";
+
+message OnlinePlayer {
+  string player_id = 1;
+  string username = 2;
+}
+
+// PlayerLocation represents the proxy and game server a player is on
+message PlayerLocation {
+  string server_id = 1;
+  string proxy_id = 2;
+}
