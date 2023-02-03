@@ -67,6 +67,7 @@ message GetServerTypesPlayerCountRequest {
 }
 
 message ServerTypesPlayerCountResponse {
-  map<string, uint32> player_counts = 1;
+  // player_counts is a map of the ServerType cardinal number to the player count.
+  map<int32, uint32> player_counts = 1;
   google.protobuf.Timestamp last_updated = 2;
 }
