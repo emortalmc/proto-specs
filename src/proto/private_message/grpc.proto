@@ -24,6 +24,7 @@ message PrivateMessageErrorResponse {
   enum Reason {
     PLAYER_NOT_ONLINE = 0;
     PRIVACY_BLOCKED = 1;
+    YOU_BLOCKED = 2;
   }
 
   Reason reason = 1;
