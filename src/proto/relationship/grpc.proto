@@ -36,7 +36,9 @@ message AddFriendResponse {
     FRIEND_ADDED = 1;
     ALREADY_FRIENDS = 2;
     ALREADY_REQUESTED = 3;
-    PRIVACY_BLOCKED = 4;
+
+    YOU_BLOCKED = 4;
+    PRIVACY_BLOCKED = 5;
   }
 }
 
