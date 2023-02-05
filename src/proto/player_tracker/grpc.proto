@@ -6,7 +6,9 @@ option java_outer_classname = "PlayerTrackerProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/playertracker";
 
 import "google/protobuf/timestamp.proto";
+
 import "common_models.proto";
+import "player_tracker/models.proto";
 
 service PlayerTracker {
   rpc GetPlayerServer(GetPlayerServerRequest) returns (GetPlayerServerResponse);
@@ -18,8 +20,6 @@ service PlayerTracker {
   rpc GetServerTypePlayerCount(GetServerTypePlayerCountRequest) returns (ServerTypePlayerCountResponse);
   rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse);
 }
-
-import "player_tracker/models.proto";
 
 message GetPlayerServerRequest {
   string player_id = 1;

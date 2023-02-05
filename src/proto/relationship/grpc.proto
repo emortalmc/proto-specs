@@ -137,7 +137,9 @@ message IsBlockedRequest {
 }
 
 message IsBlockedResponse {
-  bool blocked = 1;
+  // block is not present if not blocked, otherwise it is present
+  // If both players have blocked each other, the issuer's block is prioritised.
+  optional model.PlayerBlock block = 1;
 }
 
 message GetBlockedListRequest {
