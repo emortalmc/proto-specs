@@ -22,7 +22,7 @@ public class GrpcStubCollection {
     private static final boolean DEVELOPMENT = System.getenv("HOSTNAME") == null;
 
     @Getter
-    private static final @NotNull Optional<RelationshipGrpc.RelationshipFutureStub> friendService;
+    private static final @NotNull Optional<RelationshipGrpc.RelationshipFutureStub> relationshipService;
     @Getter
     private static final @NotNull Optional<McPlayerGrpc.McPlayerFutureStub> playerService;
     @Getter
@@ -33,7 +33,7 @@ public class GrpcStubCollection {
     private static final @NotNull Optional<PrivateMessageGrpc.PrivateMessageFutureStub> privateMessageService;
 
     static {
-        friendService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
+        relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
         permissionService = createChannel("permission").map(PermissionServiceGrpc::newFutureStub);
         playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);

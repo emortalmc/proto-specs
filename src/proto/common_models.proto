@@ -28,10 +28,10 @@ message ConnectableServer {
 }
 
 // Pageable utilities
-// NOTE: Page values start at 1, not 0
+// NOTE: Page values start at 0, not 1
 message Pageable {
   uint64 page = 1;
-  uint64 size = 2;
+  optional uint64 size = 2;
 }
 
 message Sortable {
