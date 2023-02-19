@@ -1,0 +1,47 @@
+syntax = "proto3";
+package emortal.message;
+
+option java_package = "dev.emortal.api.message.party";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/party";
+
+import "party/models.proto";
+
+message PartyCreatedMessage {
+  model.Party party = 1;
+}
+
+message PartyDisbandedMessage {
+  model.Party party = 1;
+}
+
+message PartyInviteCreatedMessage {
+  model.PartyInvite invite = 1;
+}
+
+message PartyPlayerJoinedMessage {
+  model.Party party = 1;
+  model.PartyMember member = 2;
+}
+
+message PartyPlayerLeftMessage {
+  model.Party party = 1;
+  model.PartyMember member = 2;
+}
+
+message PartyPlayerKickedMessage {
+  model.Party party = 1;
+  model.PartyMember member = 2;
+}
+
+message PartyLeaderChangeMessage {
+  model.Party party = 1;
+  model.PartyMember member = 2;
+}
+
+message PartySettingsChangeMessage {
+  model.Party party = 1;
+
+  // owner_id of type UUID
+  string owner_id = 2;
+}

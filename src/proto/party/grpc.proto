@@ -1,0 +1,224 @@
+syntax = "proto3";
+package emortal.grpc;
+
+option java_package = "dev.emortal.api.grpc.party";
+option java_outer_classname = "PartyProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/party";
+
+import "party/models.proto";
+import "common_models.proto";
+
+service PartyService {
+  rpc CreateParty(CreatePartyRequest) returns (CreatePartyResponse) {}
+  rpc DisbandParty(DisbandPartyRequest) returns (DisbandPartyResponse) {}
+
+  rpc GetParty(GetPartyRequest) returns (GetPartyResponse) {}
+
+  rpc GetPartyInvites(GetPartyInvitesRequest) returns (GetPartyInvitesResponse) {}
+  rpc InvitePlayer(InvitePlayerRequest) returns (InvitePlayerResponse) {}
+
+  rpc JoinParty(JoinPartyRequest) returns (JoinPartyResponse) {}
+  rpc LeaveParty(LeavePartyRequest) returns (LeavePartyResponse) {}
+
+  rpc KickPlayer(KickPlayerRequest) returns (KickPlayerResponse) {}
+  rpc SetPartyLeader(SetPartyLeaderRequest) returns (SetPartyLeaderResponse) {}
+}
+
+service PartySettingsService {
+  rpc GetPartySettings(GetPartySettingsRequest) returns (GetPartySettingsResponse) {}
+  rpc UpdatePartySettings(UpdatePartySettingsRequest) returns (UpdatePartySettingsResponse) {}
+}
+
+import "google/protobuf/field_mask.proto";
+
+message CreatePartyRequest {
+  // owner_id of type UUID
+  string owner_id = 1;
+}
+
+message CreatePartyResponse {
+  model.Party party = 1;
+}
+
+message CreatePartyErrorResponse {
+  enum ErrorType {
+    ALREADY_IN_PARTY = 0;
+  }
+  ErrorType error_type = 1;
+}
+
+message DisbandPartyRequest {
+  oneof id {
+    string party_id = 1;
+    string player_id = 2;
+  }
+}
+
+message DisbandPartyResponse {
+  model.Party party = 1;
+}
+
+message DisbandPartyErrorResponse {
+  enum ErrorType {
+    NOT_IN_PARTY = 0;
+    NOT_LEADER = 1;
+  }
+  ErrorType error_type = 1;
+}
+
+message GetPartyRequest {
+  oneof id {
+    string party_id = 1;
+    string player_id = 2;
+  }
+}
+
+message GetPartyResponse {
+  model.Party party = 1;
+}
+
+message GetPartyInvitesRequest {
+  oneof id {
+    string party_id = 1;
+    string player_id = 2;
+  }
+
+  model.Pageable pageable = 3;
+}
+
+message GetPartyInvitesResponse {
+  repeated model.PartyInvite invites = 1;
+}
+
+message InvitePlayerRequest {
+  // issuer_id of type UUID
+  string issuer_id = 1;
+
+  string issuer_username = 2;
+
+  // target_id of type UUID
+  string target_id = 3;
+}
+
+message InvitePlayerResponse {
+  model.PartyInvite invite = 1;
+}
+
+message InvitePlayerErrorResponse {
+  enum ErrorType {
+    TARGET_ALREADY_IN_SELF_PARTY = 0;
+    TARGET_ALREADY_IN_ANOTHER_PARTY = 1;
+    TARGET_ALREADY_INVITED = 2;
+    SELF_NOT_IN_PARTY = 3;
+    SELF_NOT_LEADER = 4;
+  }
+  ErrorType error_type = 1;
+}
+
+message JoinPartyRequest {
+  // player_id of type UUID
+  string player_id = 1;
+
+  string player_username = 2;
+
+  oneof id {
+    // party_id of type UUID
+    string party_id = 3;
+
+    // member_id of type UUID, can be anyone in the party
+    string member_id = 4;
+  }
+}
+
+message JoinPartyResponse {
+  model.Party party = 1;
+}
+
+message JoinPartyErrorResponse {
+  enum ErrorType {
+    ALREADY_IN_PARTY = 0;
+    PARTY_NOT_FOUND = 1;
+    NOT_INVITED = 2;
+  }
+  ErrorType error_type = 1;
+}
+
+message LeavePartyRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message LeavePartyResponse {}
+
+message LeavePartyErrorResponse {
+  enum ErrorType {
+    NOT_IN_PARTY = 0;
+  }
+  ErrorType error_type = 1;
+}
+
+message KickPlayerRequest {
+  // issuer_id of type UUID
+  string issuer_id = 1;
+
+  string issuer_username = 2;
+
+  // target_id of type UUID
+  string target_id = 3;
+}
+
+message KickPlayerResponse {}
+
+message KickPlayerErrorResponse {
+  enum ErrorType {
+    TARGET_NOT_IN_PARTY = 0;
+    SELF_NOT_IN_PARTY = 1;
+    SELF_NOT_LEADER = 2;
+  }
+  ErrorType error_type = 1;
+}
+
+message SetPartyLeaderRequest {
+  // issuer_id of type UUID
+  string issuer_id = 1;
+
+  string issuer_username = 2;
+
+  // target_id of type UUID
+  string target_id = 3;
+}
+
+message SetPartyLeaderResponse {}
+
+message SetPartyLeaderErrorResponse {
+  enum ErrorType {
+    TARGET_NOT_IN_PARTY = 0;
+    SELF_NOT_IN_PARTY = 1;
+    SELF_NOT_LEADER = 2;
+  }
+  ErrorType error_type = 1;
+}
+
+// Party Settings Service messages
+
+message GetPartySettingsRequest {
+  oneof id {
+    string party_id = 1;
+    string player_id = 2;
+  }
+}
+
+message GetPartySettingsResponse {
+  model.PartySettings settings = 1;
+}
+
+message UpdatePartySettingsRequest {
+  // issuer_id of type UUID
+  string issuer_id = 1;
+
+  model.PartySettings settings = 2;
+
+  google.protobuf.FieldMask update_mask = 3;
+}
+
+message UpdatePartySettingsResponse {}

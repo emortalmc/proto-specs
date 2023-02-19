@@ -23,7 +23,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Tells a proxy to switch player(s) to a different server
+// SwitchPlayersServerMessage tells a proxy to switch player(s) to a different server
 type SwitchPlayersServerMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

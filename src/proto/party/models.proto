@@ -1,0 +1,57 @@
+syntax = "proto3";
+package emortal.model;
+
+option java_package = "dev.emortal.api.model.party";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/party";
+
+import "google/protobuf/timestamp.proto";
+
+message Party {
+  // id of type UUID
+  string id = 1;
+
+  // leader_id of type UUID
+  string leader_id = 2;
+
+  repeated PartyMember members = 3;
+}
+
+message PartyMember {
+  // id of type UUID
+  string id = 1;
+
+  string username = 2;
+}
+
+// PartyInvite is an invite to a party.
+message PartyInvite {
+  string party_id = 1;
+
+  // target_id of type UUID
+  string target_id = 2;
+  string target_username = 3;
+
+  // sender_id of type UUID
+  string sender_id = 4;
+
+  string sender_username = 5;
+
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp expires_at = 7;
+}
+
+// PartySettings is the settings for a party. Note these are bound to a player, not the current instance of a party.
+message PartySettings {
+  // dequeue_on_disconnect if true, when a player disconnects, the party will be removed from the queue.
+  bool dequeue_on_disconnect = 1;
+
+  // allow_member_dequeue if true, members of the party can dequeue the party.
+  bool allow_member_dequeue = 2;
+
+  // allow_member_invite if true, members of the party can invite other players to the party.
+  bool allow_member_invite = 3;
+
+  // open if true, the party is open to anyone to join.
+  bool open = 4;
+}
