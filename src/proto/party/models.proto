@@ -26,6 +26,7 @@ message PartyMember {
 
 // PartyInvite is an invite to a party.
 message PartyInvite {
+  // party_id of type ObjectId
   string party_id = 1;
 
   // target_id of type UUID
@@ -34,11 +35,9 @@ message PartyInvite {
 
   // sender_id of type UUID
   string sender_id = 4;
-
   string sender_username = 5;
 
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp expires_at = 7;
+  google.protobuf.Timestamp expires_at = 6;
 }
 
 // PartySettings is the settings for a party. Note these are bound to a player, not the current instance of a party.

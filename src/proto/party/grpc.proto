@@ -5,9 +5,6 @@ option java_package = "dev.emortal.api.grpc.party";
 option java_outer_classname = "PartyProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/party";
 
-import "party/models.proto";
-import "common_models.proto";
-
 service PartyService {
   rpc CreateParty(CreatePartyRequest) returns (CreatePartyResponse) {}
   rpc DisbandParty(DisbandPartyRequest) returns (DisbandPartyResponse) {}
@@ -30,6 +27,9 @@ service PartySettingsService {
 }
 
 import "google/protobuf/field_mask.proto";
+
+import "party/models.proto";
+import "common_models.proto";
 
 message CreatePartyRequest {
   // owner_id of type UUID
@@ -122,7 +122,7 @@ message JoinPartyRequest {
   string player_username = 2;
 
   oneof id {
-    // party_id of type UUID
+    // party_id of type ObjectId
     string party_id = 3;
 
     // member_id of type UUID, can be anyone in the party
