@@ -34,6 +34,8 @@ import "common_models.proto";
 message CreatePartyRequest {
   // owner_id of type UUID
   string owner_id = 1;
+
+  string owner_username = 2;
 }
 
 message CreatePartyResponse {
@@ -54,9 +56,7 @@ message DisbandPartyRequest {
   }
 }
 
-message DisbandPartyResponse {
-  model.Party party = 1;
-}
+message DisbandPartyResponse {}
 
 message DisbandPartyErrorResponse {
   enum ErrorType {

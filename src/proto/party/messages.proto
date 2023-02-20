@@ -39,9 +39,9 @@ message PartyLeaderChangeMessage {
   model.PartyMember member = 2;
 }
 
-message PartySettingsChangeMessage {
-  model.Party party = 1;
+message PartySettingsChangedMessage {
+  // player_id of type UUID
+  string player_id = 1;
 
-  // owner_id of type UUID
-  string owner_id = 2;
+  model.PartySettings settings = 2;
 }
