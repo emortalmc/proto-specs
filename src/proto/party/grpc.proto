@@ -98,6 +98,8 @@ message InvitePlayerRequest {
 
   // target_id of type UUID
   string target_id = 3;
+
+  string target_username = 4;
 }
 
 message InvitePlayerResponse {
