@@ -26,8 +26,6 @@ service PartySettingsService {
   rpc UpdatePartySettings(UpdatePartySettingsRequest) returns (UpdatePartySettingsResponse) {}
 }
 
-import "google/protobuf/field_mask.proto";
-
 import "party/models.proto";
 import "common_models.proto";
 
@@ -222,9 +220,10 @@ message UpdatePartySettingsRequest {
   // issuer_id of type UUID
   string issuer_id = 1;
 
-  model.PartySettings settings = 2;
-
-  google.protobuf.FieldMask update_mask = 3;
+  optional bool dequeue_on_disconnect = 2;
+  optional bool allow_member_dequeue = 3;
+  optional bool allow_member_invite = 4;
+  optional bool open = 5;
 }
 
 message UpdatePartySettingsResponse {}
