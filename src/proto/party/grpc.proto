@@ -179,6 +179,7 @@ message KickPlayerErrorResponse {
     TARGET_NOT_IN_PARTY = 0;
     SELF_NOT_IN_PARTY = 1;
     SELF_NOT_LEADER = 2;
+    TARGET_IS_LEADER = 3;
   }
   ErrorType error_type = 1;
 }
