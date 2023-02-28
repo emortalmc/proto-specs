@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.grpc;
+package emortal.grpc.party;
 
 option java_package = "dev.emortal.api.grpc.party";
 option java_outer_classname = "PartyProto";
@@ -37,7 +37,7 @@ message CreatePartyRequest {
 }
 
 message CreatePartyResponse {
-  model.Party party = 1;
+  model.party.Party party = 1;
 }
 
 message CreatePartyErrorResponse {
@@ -72,7 +72,7 @@ message GetPartyRequest {
 }
 
 message GetPartyResponse {
-  model.Party party = 1;
+  model.party.Party party = 1;
 }
 
 message GetPartyInvitesRequest {
@@ -85,7 +85,7 @@ message GetPartyInvitesRequest {
 }
 
 message GetPartyInvitesResponse {
-  repeated model.PartyInvite invites = 1;
+  repeated model.party.PartyInvite invites = 1;
 }
 
 message InvitePlayerRequest {
@@ -101,7 +101,7 @@ message InvitePlayerRequest {
 }
 
 message InvitePlayerResponse {
-  model.PartyInvite invite = 1;
+  model.party.PartyInvite invite = 1;
 }
 
 message InvitePlayerErrorResponse {
@@ -131,7 +131,7 @@ message JoinPartyRequest {
 }
 
 message JoinPartyResponse {
-  model.Party party = 1;
+  model.party.Party party = 1;
 }
 
 message JoinPartyErrorResponse {
@@ -213,7 +213,7 @@ message GetPartySettingsRequest {
 }
 
 message GetPartySettingsResponse {
-  model.PartySettings settings = 1;
+  model.party.PartySettings settings = 1;
 }
 
 message UpdatePartySettingsRequest {

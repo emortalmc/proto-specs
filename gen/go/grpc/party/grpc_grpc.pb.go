@@ -43,7 +43,7 @@ func NewPartyServiceClient(cc grpc.ClientConnInterface) PartyServiceClient {
 
 func (c *partyServiceClient) CreateParty(ctx context.Context, in *CreatePartyRequest, opts ...grpc.CallOption) (*CreatePartyResponse, error) {
 	out := new(CreatePartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/CreateParty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/CreateParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (c *partyServiceClient) CreateParty(ctx context.Context, in *CreatePartyReq
 
 func (c *partyServiceClient) DisbandParty(ctx context.Context, in *DisbandPartyRequest, opts ...grpc.CallOption) (*DisbandPartyResponse, error) {
 	out := new(DisbandPartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/DisbandParty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/DisbandParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *partyServiceClient) DisbandParty(ctx context.Context, in *DisbandPartyR
 
 func (c *partyServiceClient) GetParty(ctx context.Context, in *GetPartyRequest, opts ...grpc.CallOption) (*GetPartyResponse, error) {
 	out := new(GetPartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/GetParty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/GetParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (c *partyServiceClient) GetParty(ctx context.Context, in *GetPartyRequest, 
 
 func (c *partyServiceClient) GetPartyInvites(ctx context.Context, in *GetPartyInvitesRequest, opts ...grpc.CallOption) (*GetPartyInvitesResponse, error) {
 	out := new(GetPartyInvitesResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/GetPartyInvites", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/GetPartyInvites", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *partyServiceClient) GetPartyInvites(ctx context.Context, in *GetPartyIn
 
 func (c *partyServiceClient) InvitePlayer(ctx context.Context, in *InvitePlayerRequest, opts ...grpc.CallOption) (*InvitePlayerResponse, error) {
 	out := new(InvitePlayerResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/InvitePlayer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/InvitePlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *partyServiceClient) InvitePlayer(ctx context.Context, in *InvitePlayerR
 
 func (c *partyServiceClient) JoinParty(ctx context.Context, in *JoinPartyRequest, opts ...grpc.CallOption) (*JoinPartyResponse, error) {
 	out := new(JoinPartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/JoinParty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/JoinParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (c *partyServiceClient) JoinParty(ctx context.Context, in *JoinPartyRequest
 
 func (c *partyServiceClient) LeaveParty(ctx context.Context, in *LeavePartyRequest, opts ...grpc.CallOption) (*LeavePartyResponse, error) {
 	out := new(LeavePartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/LeaveParty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/LeaveParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (c *partyServiceClient) LeaveParty(ctx context.Context, in *LeavePartyReque
 
 func (c *partyServiceClient) KickPlayer(ctx context.Context, in *KickPlayerRequest, opts ...grpc.CallOption) (*KickPlayerResponse, error) {
 	out := new(KickPlayerResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/KickPlayer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/KickPlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (c *partyServiceClient) KickPlayer(ctx context.Context, in *KickPlayerReque
 
 func (c *partyServiceClient) SetPartyLeader(ctx context.Context, in *SetPartyLeaderRequest, opts ...grpc.CallOption) (*SetPartyLeaderResponse, error) {
 	out := new(SetPartyLeaderResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartyService/SetPartyLeader", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/SetPartyLeader", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +192,7 @@ func _PartyService_CreateParty_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/CreateParty",
+		FullMethod: "/emortal.grpc.party.PartyService/CreateParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).CreateParty(ctx, req.(*CreatePartyRequest))
@@ -210,7 +210,7 @@ func _PartyService_DisbandParty_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/DisbandParty",
+		FullMethod: "/emortal.grpc.party.PartyService/DisbandParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).DisbandParty(ctx, req.(*DisbandPartyRequest))
@@ -228,7 +228,7 @@ func _PartyService_GetParty_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/GetParty",
+		FullMethod: "/emortal.grpc.party.PartyService/GetParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).GetParty(ctx, req.(*GetPartyRequest))
@@ -246,7 +246,7 @@ func _PartyService_GetPartyInvites_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/GetPartyInvites",
+		FullMethod: "/emortal.grpc.party.PartyService/GetPartyInvites",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).GetPartyInvites(ctx, req.(*GetPartyInvitesRequest))
@@ -264,7 +264,7 @@ func _PartyService_InvitePlayer_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/InvitePlayer",
+		FullMethod: "/emortal.grpc.party.PartyService/InvitePlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).InvitePlayer(ctx, req.(*InvitePlayerRequest))
@@ -282,7 +282,7 @@ func _PartyService_JoinParty_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/JoinParty",
+		FullMethod: "/emortal.grpc.party.PartyService/JoinParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).JoinParty(ctx, req.(*JoinPartyRequest))
@@ -300,7 +300,7 @@ func _PartyService_LeaveParty_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/LeaveParty",
+		FullMethod: "/emortal.grpc.party.PartyService/LeaveParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).LeaveParty(ctx, req.(*LeavePartyRequest))
@@ -318,7 +318,7 @@ func _PartyService_KickPlayer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/KickPlayer",
+		FullMethod: "/emortal.grpc.party.PartyService/KickPlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).KickPlayer(ctx, req.(*KickPlayerRequest))
@@ -336,7 +336,7 @@ func _PartyService_SetPartyLeader_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartyService/SetPartyLeader",
+		FullMethod: "/emortal.grpc.party.PartyService/SetPartyLeader",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).SetPartyLeader(ctx, req.(*SetPartyLeaderRequest))
@@ -348,7 +348,7 @@ func _PartyService_SetPartyLeader_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PartyService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "emortal.grpc.PartyService",
+	ServiceName: "emortal.grpc.party.PartyService",
 	HandlerType: (*PartyServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -410,7 +410,7 @@ func NewPartySettingsServiceClient(cc grpc.ClientConnInterface) PartySettingsSer
 
 func (c *partySettingsServiceClient) GetPartySettings(ctx context.Context, in *GetPartySettingsRequest, opts ...grpc.CallOption) (*GetPartySettingsResponse, error) {
 	out := new(GetPartySettingsResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartySettingsService/GetPartySettings", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartySettingsService/GetPartySettings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -419,7 +419,7 @@ func (c *partySettingsServiceClient) GetPartySettings(ctx context.Context, in *G
 
 func (c *partySettingsServiceClient) UpdatePartySettings(ctx context.Context, in *UpdatePartySettingsRequest, opts ...grpc.CallOption) (*UpdatePartySettingsResponse, error) {
 	out := new(UpdatePartySettingsResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PartySettingsService/UpdatePartySettings", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartySettingsService/UpdatePartySettings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -468,7 +468,7 @@ func _PartySettingsService_GetPartySettings_Handler(srv interface{}, ctx context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartySettingsService/GetPartySettings",
+		FullMethod: "/emortal.grpc.party.PartySettingsService/GetPartySettings",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartySettingsServiceServer).GetPartySettings(ctx, req.(*GetPartySettingsRequest))
@@ -486,7 +486,7 @@ func _PartySettingsService_UpdatePartySettings_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PartySettingsService/UpdatePartySettings",
+		FullMethod: "/emortal.grpc.party.PartySettingsService/UpdatePartySettings",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartySettingsServiceServer).UpdatePartySettings(ctx, req.(*UpdatePartySettingsRequest))
@@ -498,7 +498,7 @@ func _PartySettingsService_UpdatePartySettings_Handler(srv interface{}, ctx cont
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PartySettingsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "emortal.grpc.PartySettingsService",
+	ServiceName: "emortal.grpc.party.PartySettingsService",
 	HandlerType: (*PartySettingsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

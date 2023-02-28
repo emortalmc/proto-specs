@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.message;
+package emortal.message.party;
 
 option java_package = "dev.emortal.api.message.party";
 option java_multiple_files = true;
@@ -8,40 +8,45 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/party";
 import "party/models.proto";
 
 message PartyCreatedMessage {
-  model.Party party = 1;
+  model.party.Party party = 1;
 }
 
 message PartyDisbandedMessage {
-  model.Party party = 1;
+  model.party.Party party = 1;
 }
 
 message PartyInviteCreatedMessage {
-  model.PartyInvite invite = 1;
+  model.party.PartyInvite invite = 1;
 }
 
 message PartyPlayerJoinedMessage {
-  model.Party party = 1;
-  model.PartyMember member = 2;
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+  model.party.PartyMember member = 2;
 }
 
 message PartyPlayerLeftMessage {
-  model.Party party = 1;
-  model.PartyMember member = 2;
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+  model.party.PartyMember member = 2;
 }
 
 message PartyPlayerKickedMessage {
-  model.Party party = 1;
-  model.PartyMember member = 2;
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+  model.party.PartyMember kicked_member = 2;
+  model.party.PartyMember kicker_member = 3;
 }
 
-message PartyLeaderChangeMessage {
-  model.Party party = 1;
-  model.PartyMember member = 2;
+message PartyLeaderChangedMessage {
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+  model.party.PartyMember new_leader = 2;
 }
 
 message PartySettingsChangedMessage {
   // player_id of type UUID
   string player_id = 1;
 
-  model.PartySettings settings = 2;
+  model.party.PartySettings settings = 2;
 }

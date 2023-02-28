@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.model;
+package emortal.model.party;
 
 option java_package = "dev.emortal.api.model.party";
 option java_multiple_files = true;
