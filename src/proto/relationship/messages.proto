@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.message;
+package emortal.message.relationship;
 
 option java_package = "dev.emortal.api.message.relationship";
 option java_multiple_files = true;
@@ -8,7 +8,7 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/relationshi
 import "relationship/models.proto";
 
 message FriendRequestReceivedMessage {
-  model.FriendRequest request = 1;
+  model.relationship.FriendRequest request = 1;
 }
 
 // Called when a friend request is accepted

@@ -44,7 +44,7 @@ func NewRelationshipClient(cc grpc.ClientConnInterface) RelationshipClient {
 
 func (c *relationshipClient) AddFriend(ctx context.Context, in *AddFriendRequest, opts ...grpc.CallOption) (*AddFriendResponse, error) {
 	out := new(AddFriendResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/AddFriend", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/AddFriend", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (c *relationshipClient) AddFriend(ctx context.Context, in *AddFriendRequest
 
 func (c *relationshipClient) RemoveFriend(ctx context.Context, in *RemoveFriendRequest, opts ...grpc.CallOption) (*RemoveFriendResponse, error) {
 	out := new(RemoveFriendResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/RemoveFriend", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/RemoveFriend", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (c *relationshipClient) RemoveFriend(ctx context.Context, in *RemoveFriendR
 
 func (c *relationshipClient) DenyFriendRequest(ctx context.Context, in *DenyFriendRequestRequest, opts ...grpc.CallOption) (*DenyFriendRequestResponse, error) {
 	out := new(DenyFriendRequestResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/DenyFriendRequest", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/DenyFriendRequest", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (c *relationshipClient) DenyFriendRequest(ctx context.Context, in *DenyFrie
 
 func (c *relationshipClient) MassDenyFriendRequest(ctx context.Context, in *MassDenyFriendRequestRequest, opts ...grpc.CallOption) (*MassDenyFriendRequestResponse, error) {
 	out := new(MassDenyFriendRequestResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/MassDenyFriendRequest", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/MassDenyFriendRequest", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (c *relationshipClient) MassDenyFriendRequest(ctx context.Context, in *Mass
 
 func (c *relationshipClient) GetFriendList(ctx context.Context, in *GetFriendListRequest, opts ...grpc.CallOption) (*FriendListResponse, error) {
 	out := new(FriendListResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/GetFriendList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/GetFriendList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c *relationshipClient) GetFriendList(ctx context.Context, in *GetFriendLis
 
 func (c *relationshipClient) GetPendingFriendRequestList(ctx context.Context, in *GetPendingFriendRequestListRequest, opts ...grpc.CallOption) (*PendingFriendListResponse, error) {
 	out := new(PendingFriendListResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/GetPendingFriendRequestList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/GetPendingFriendRequestList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *relationshipClient) GetPendingFriendRequestList(ctx context.Context, in
 
 func (c *relationshipClient) CreateBlock(ctx context.Context, in *CreateBlockRequest, opts ...grpc.CallOption) (*CreateBlockResponse, error) {
 	out := new(CreateBlockResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/CreateBlock", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/CreateBlock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +107,7 @@ func (c *relationshipClient) CreateBlock(ctx context.Context, in *CreateBlockReq
 
 func (c *relationshipClient) DeleteBlock(ctx context.Context, in *DeleteBlockRequest, opts ...grpc.CallOption) (*DeleteBlockResponse, error) {
 	out := new(DeleteBlockResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/DeleteBlock", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/DeleteBlock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (c *relationshipClient) DeleteBlock(ctx context.Context, in *DeleteBlockReq
 
 func (c *relationshipClient) IsBlocked(ctx context.Context, in *IsBlockedRequest, opts ...grpc.CallOption) (*IsBlockedResponse, error) {
 	out := new(IsBlockedResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/IsBlocked", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/IsBlocked", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (c *relationshipClient) IsBlocked(ctx context.Context, in *IsBlockedRequest
 
 func (c *relationshipClient) GetBlockedList(ctx context.Context, in *GetBlockedListRequest, opts ...grpc.CallOption) (*BlockedListResponse, error) {
 	out := new(BlockedListResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.Relationship/GetBlockedList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.relationship.Relationship/GetBlockedList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +206,7 @@ func _Relationship_AddFriend_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/AddFriend",
+		FullMethod: "/emortal.grpc.relationship.Relationship/AddFriend",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).AddFriend(ctx, req.(*AddFriendRequest))
@@ -224,7 +224,7 @@ func _Relationship_RemoveFriend_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/RemoveFriend",
+		FullMethod: "/emortal.grpc.relationship.Relationship/RemoveFriend",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).RemoveFriend(ctx, req.(*RemoveFriendRequest))
@@ -242,7 +242,7 @@ func _Relationship_DenyFriendRequest_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/DenyFriendRequest",
+		FullMethod: "/emortal.grpc.relationship.Relationship/DenyFriendRequest",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).DenyFriendRequest(ctx, req.(*DenyFriendRequestRequest))
@@ -260,7 +260,7 @@ func _Relationship_MassDenyFriendRequest_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/MassDenyFriendRequest",
+		FullMethod: "/emortal.grpc.relationship.Relationship/MassDenyFriendRequest",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).MassDenyFriendRequest(ctx, req.(*MassDenyFriendRequestRequest))
@@ -278,7 +278,7 @@ func _Relationship_GetFriendList_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/GetFriendList",
+		FullMethod: "/emortal.grpc.relationship.Relationship/GetFriendList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).GetFriendList(ctx, req.(*GetFriendListRequest))
@@ -296,7 +296,7 @@ func _Relationship_GetPendingFriendRequestList_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/GetPendingFriendRequestList",
+		FullMethod: "/emortal.grpc.relationship.Relationship/GetPendingFriendRequestList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).GetPendingFriendRequestList(ctx, req.(*GetPendingFriendRequestListRequest))
@@ -314,7 +314,7 @@ func _Relationship_CreateBlock_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/CreateBlock",
+		FullMethod: "/emortal.grpc.relationship.Relationship/CreateBlock",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).CreateBlock(ctx, req.(*CreateBlockRequest))
@@ -332,7 +332,7 @@ func _Relationship_DeleteBlock_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/DeleteBlock",
+		FullMethod: "/emortal.grpc.relationship.Relationship/DeleteBlock",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).DeleteBlock(ctx, req.(*DeleteBlockRequest))
@@ -350,7 +350,7 @@ func _Relationship_IsBlocked_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/IsBlocked",
+		FullMethod: "/emortal.grpc.relationship.Relationship/IsBlocked",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).IsBlocked(ctx, req.(*IsBlockedRequest))
@@ -368,7 +368,7 @@ func _Relationship_GetBlockedList_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.Relationship/GetBlockedList",
+		FullMethod: "/emortal.grpc.relationship.Relationship/GetBlockedList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RelationshipServer).GetBlockedList(ctx, req.(*GetBlockedListRequest))
@@ -380,7 +380,7 @@ func _Relationship_GetBlockedList_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Relationship_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "emortal.grpc.Relationship",
+	ServiceName: "emortal.grpc.relationship.Relationship",
 	HandlerType: (*RelationshipServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

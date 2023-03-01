@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.grpc;
+package emortal.grpc.relationship;
 
 option java_package = "dev.emortal.api.grpc.relationship";
 option java_outer_classname = "RelationshipProto";
@@ -24,7 +24,7 @@ service Relationship {
 }
 
 message AddFriendRequest {
-  model.FriendRequest request = 1;
+  model.relationship.FriendRequest request = 1;
 }
 
 message AddFriendResponse {
@@ -112,7 +112,7 @@ message GetFriendListRequest {
 // Blocks down from here
 
 message CreateBlockRequest {
-  model.PlayerBlock block = 1;
+  model.relationship.PlayerBlock block = 1;
 }
 
 message CreateBlockResponse {
@@ -141,7 +141,7 @@ message IsBlockedRequest {
 message IsBlockedResponse {
   // block is not present if not blocked, otherwise it is present
   // If both players have blocked each other, the issuer's block is prioritised.
-  optional model.PlayerBlock block = 1;
+  optional model.relationship.PlayerBlock block = 1;
 }
 
 message GetBlockedListRequest {

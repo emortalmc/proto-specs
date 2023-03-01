@@ -5,6 +5,9 @@ option java_package = "dev.emortal.api.grpc.party";
 option java_outer_classname = "PartyProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/party";
 
+import "party/models.proto";
+import "common_models.proto";
+
 service PartyService {
   rpc CreateParty(CreatePartyRequest) returns (CreatePartyResponse) {}
   rpc DisbandParty(DisbandPartyRequest) returns (DisbandPartyResponse) {}
@@ -25,9 +28,6 @@ service PartySettingsService {
   rpc GetPartySettings(GetPartySettingsRequest) returns (GetPartySettingsResponse) {}
   rpc UpdatePartySettings(UpdatePartySettingsRequest) returns (UpdatePartySettingsResponse) {}
 }
-
-import "party/models.proto";
-import "common_models.proto";
 
 message CreatePartyRequest {
   // owner_id of type UUID

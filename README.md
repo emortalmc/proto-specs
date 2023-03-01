@@ -20,3 +20,4 @@ In production, the ports of default gRPC services are locked to 80
 | private-message | Manages private messages                          | 10003 |
 | mc-player       | Manages core user data (username, playtime, etc.) | 10004 |
 | player-tracker  | Tracks player counts & player proxy/server        | 10005 |
+| party-manager   | Manages parties                                   | 10006 |
