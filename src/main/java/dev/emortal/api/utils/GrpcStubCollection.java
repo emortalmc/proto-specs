@@ -2,6 +2,8 @@ package dev.emortal.api.utils;
 
 
 import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
+import dev.emortal.api.grpc.party.PartyServiceGrpc;
+import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
 import dev.emortal.api.grpc.permission.PermissionServiceGrpc;
 import dev.emortal.api.grpc.playertracker.PlayerTrackerGrpc;
 import dev.emortal.api.grpc.privatemessage.PrivateMessageGrpc;
@@ -22,22 +24,29 @@ public class GrpcStubCollection {
     private static final boolean DEVELOPMENT = System.getenv("HOSTNAME") == null;
 
     @Getter
-    private static final @NotNull Optional<RelationshipGrpc.RelationshipFutureStub> relationshipService;
-    @Getter
     private static final @NotNull Optional<McPlayerGrpc.McPlayerFutureStub> playerService;
+    @Getter
+    private static final @NotNull Optional<PartyServiceGrpc.PartyServiceFutureStub> partyService;
+    @Getter
+    private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceFutureStub> partySettingsService;
+
     @Getter
     private static final @NotNull Optional<PermissionServiceGrpc.PermissionServiceFutureStub> permissionService;
     @Getter
     private static final @NotNull Optional<PlayerTrackerGrpc.PlayerTrackerFutureStub> playerTrackerService;
     @Getter
     private static final @NotNull Optional<PrivateMessageGrpc.PrivateMessageFutureStub> privateMessageService;
+    @Getter
+    private static final @NotNull Optional<RelationshipGrpc.RelationshipFutureStub> relationshipService;
 
     static {
-        relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
+        partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
+        partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
         permissionService = createChannel("permission").map(PermissionServiceGrpc::newFutureStub);
         playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);
         privateMessageService = createChannel("private-message").map(PrivateMessageGrpc::newFutureStub);
+        relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
     }
 
     /**
