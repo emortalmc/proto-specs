@@ -37,6 +37,17 @@ public class ProtoParserRegistry {
         return parsers.get(fullDescriptorName);
     }
 
+    public static <T extends Message> ParsableProto<T> getParser(@NotNull Class<T> clazz) {
+        for (ParsableProto<? extends Message> parser : parsers.values()) {
+            if (parser.example().getClass().equals(clazz)) {
+                //noinspection unchecked
+                return (ParsableProto<T>) parser;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @param fullDescriptorName The full descriptor name of the proto message.
      *                           Equal to Message.getDescriptorForType().getFullName() in Java
@@ -55,7 +66,7 @@ public class ProtoParserRegistry {
     }
 
     public static <T extends Message> void register(@NotNull T example, @NotNull ProtoParser<T> parser, @Nullable String exchangeName, @Nullable String routingKey) {
-        parsers.put(example.getDescriptorForType().getFullName(), new ParsableProto<>(parser, exchangeName, routingKey));
+        parsers.put(example.getDescriptorForType().getFullName(), new ParsableProto<>(parser, example, exchangeName, routingKey));
     }
 
     public static <T extends Message> void register(@NotNull T example, @NotNull ProtoParser<T> parser) {

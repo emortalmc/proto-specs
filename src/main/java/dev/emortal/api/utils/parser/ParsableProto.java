@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Contains a parser for the message type.
  */
-public record ParsableProto<T extends Message>(@NotNull ProtoParser<T> parser, @Nullable String exchangeName,
-                                               @Nullable String routingKey) {
+public record ParsableProto<T extends Message>(@NotNull ProtoParser<T> parser, @NotNull T example,
+                                               @Nullable String exchangeName, @Nullable String routingKey) {
 
 }
