@@ -33,6 +33,10 @@ public class ProtoParserRegistry {
         registerDefaults();
     }
 
+    public static ParsableProto<? extends Message> getParser(@NotNull String fullDescriptorName) {
+        return parsers.get(fullDescriptorName);
+    }
+
     /**
      * @param fullDescriptorName The full descriptor name of the proto message.
      *                           Equal to Message.getDescriptorForType().getFullName() in Java
