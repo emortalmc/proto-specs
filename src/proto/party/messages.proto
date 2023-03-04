@@ -29,13 +29,9 @@ message PartyPlayerLeftMessage {
   // party_id of type mongo ObjectId
   string party_id = 1;
   model.party.PartyMember member = 2;
-}
 
-message PartyPlayerKickedMessage {
-  // party_id of type mongo ObjectId
-  string party_id = 1;
-  model.party.PartyMember kicked_member = 2;
-  model.party.PartyMember kicker_member = 3;
+  // kicked_by only present if the player was kicked, not if they left
+  optional model.party.PartyMember kicked_by = 3;
 }
 
 message PartyLeaderChangedMessage {
