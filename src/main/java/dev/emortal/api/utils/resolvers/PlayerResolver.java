@@ -1,17 +1,13 @@
 package dev.emortal.api.utils.resolvers;
 
+import com.google.common.util.concurrent.Futures;
 import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
-
 import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.model.mcplayer.McPlayer;
 import dev.emortal.api.utils.GrpcStubCollection;
 import dev.emortal.api.utils.callback.FunctionalFutureCallback;
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.google.common.util.concurrent.Futures;
 import io.grpc.Status;
 
-import java.time.Duration;
 import java.util.UUID;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
@@ -19,11 +15,6 @@ import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class PlayerResolver {
-    private static final Cache<String, CachedMcPlayer> USERNAME_TO_PLAYER_CACHE = Caffeine.newBuilder()
-            .maximumSize(1000)
-            .expireAfterWrite(Duration.ofMinutes(5))
-            .build();
-
     private final static McPlayerGrpc.McPlayerFutureStub PLAYER_SERVICE = GrpcStubCollection.getPlayerService().orElse(null);
     // The alternative should be used as a server software specific option to avoid calling the mc-player service if they're on the same server.
     private static Function<String, CachedMcPlayer> platformUsernameResolver;
@@ -42,13 +33,7 @@ public class PlayerResolver {
             return;
         }
 
-        CachedMcPlayer cacheResult = USERNAME_TO_PLAYER_CACHE.getIfPresent(usernameLowercase);
-        if (cacheResult != null) callback.accept(cacheResult);
-
-        requestMcPlayer(usernameLowercase, uuid -> {
-            USERNAME_TO_PLAYER_CACHE.put(usernameLowercase, uuid);
-            callback.accept(uuid);
-        }, errorCallback);
+        requestMcPlayer(usernameLowercase, callback, errorCallback);
     }
 
     private static void requestMcPlayer(String username, Consumer<CachedMcPlayer> callback, Consumer<Status> errorCallback) {
@@ -58,11 +43,11 @@ public class PlayerResolver {
         Futures.addCallback(playerResponseFuture, FunctionalFutureCallback.create(
                 response -> {
                     McPlayer player = response.getPlayer();
-                    callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername()));
+                    callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername(), player.getCurrentlyOnline()));
                 },
                 throwable -> errorCallback.accept(Status.fromThrowable(throwable))
         ), ForkJoinPool.commonPool());
     }
 
-    public record CachedMcPlayer(UUID uuid, String username) {}
+    public record CachedMcPlayer(UUID uuid, String username, boolean online) {}
 }
