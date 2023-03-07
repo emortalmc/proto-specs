@@ -91,8 +91,8 @@ public class ProtoParserRegistry {
         register(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager", "party_settings_changed");
 
         // Permission
-        register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom);
-        register(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom);
+        register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager", "role_update");
+        register(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager", "player_role_update");
 
         // Player tracker
         register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
