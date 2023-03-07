@@ -5,6 +5,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
+import dev.emortal.api.message.common.PlayerSwitchServerMessage;
 import dev.emortal.api.message.common.SwitchPlayersServerMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
 import dev.emortal.api.message.party.PartyDisbandedMessage;
@@ -103,5 +104,8 @@ public class ProtoParserRegistry {
 
         // Common
         register(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
+        register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc:connections", "player_connect");
+        register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc:connections", "player_disconnect");
+        register(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc:connections", "player_switch_server");
     }
 }
