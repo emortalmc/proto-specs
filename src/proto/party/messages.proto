@@ -11,6 +11,14 @@ message PartyCreatedMessage {
   model.party.Party party = 1;
 }
 
+// PartyDeletedMessage is sent when a party is deleted
+message PartyDeletedMessage {
+  model.party.Party party = 1;
+}
+
+// PartyEmptiedMessage is sent when a party is emptied
+// Note, this is different to a party being deleted. When it is emptied, the leader remains as a member but all others
+// are removed and notified of a disband. The party is also set to closed.
 message PartyEmptiedMessage {
   model.party.Party party = 1;
 }
