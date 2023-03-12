@@ -11,7 +11,7 @@ message PartyCreatedMessage {
   model.party.Party party = 1;
 }
 
-message PartyDisbandedMessage {
+message PartyEmptiedMessage {
   model.party.Party party = 1;
 }
 

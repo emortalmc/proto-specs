@@ -44,8 +44,7 @@ message EmptyPartyResponse {}
 
 message EmptyPartyErrorResponse {
   enum ErrorType {
-    NOT_IN_PARTY = 0;
-    NOT_LEADER = 1;
+    NOT_LEADER = 0;
   }
   ErrorType error_type = 1;
 }
@@ -125,8 +124,7 @@ message JoinPartyResponse {
 message JoinPartyErrorResponse {
   enum ErrorType {
     ALREADY_IN_PARTY = 0;
-    PARTY_NOT_FOUND = 1;
-    NOT_INVITED = 2;
+    NOT_INVITED = 1;
   }
   ErrorType error_type = 1;
 }
@@ -140,10 +138,9 @@ message LeavePartyResponse {}
 
 message LeavePartyErrorResponse {
   enum ErrorType {
-    NOT_IN_PARTY = 0;
     // CANNOT_LEAVE_AS_LEADER you cannot leave if you are the leader of the party.
     // If done by a user, suggest that they disband the party instead or set a new leader.
-    CANNOT_LEAVE_AS_LEADER = 1;
+    CANNOT_LEAVE_AS_LEADER = 0;
   }
   ErrorType error_type = 1;
 }
@@ -163,9 +160,8 @@ message KickPlayerResponse {}
 message KickPlayerErrorResponse {
   enum ErrorType {
     TARGET_NOT_IN_PARTY = 0;
-    SELF_NOT_IN_PARTY = 1;
-    SELF_NOT_LEADER = 2;
-    TARGET_IS_LEADER = 3;
+    SELF_NOT_LEADER = 1;
+    TARGET_IS_LEADER = 2;
   }
   ErrorType error_type = 1;
 }
@@ -185,8 +181,7 @@ message SetPartyLeaderResponse {}
 message SetPartyLeaderErrorResponse {
   enum ErrorType {
     TARGET_NOT_IN_PARTY = 0;
-    SELF_NOT_IN_PARTY = 1;
-    SELF_NOT_LEADER = 2;
+    SELF_NOT_LEADER = 1;
   }
   ErrorType error_type = 1;
 }
@@ -211,7 +206,6 @@ message UpdatePartySettingsRequest {
   optional bool dequeue_on_disconnect = 2;
   optional bool allow_member_dequeue = 3;
   optional bool allow_member_invite = 4;
-  optional bool open = 5;
 }
 
 message UpdatePartySettingsResponse {}
