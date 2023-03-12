@@ -12,6 +12,7 @@ import dev.emortal.api.message.party.PartyDeletedMessage;
 import dev.emortal.api.message.party.PartyEmptiedMessage;
 import dev.emortal.api.message.party.PartyInviteCreatedMessage;
 import dev.emortal.api.message.party.PartyLeaderChangedMessage;
+import dev.emortal.api.message.party.PartyOpenChangedMessage;
 import dev.emortal.api.message.party.PartyPlayerJoinedMessage;
 import dev.emortal.api.message.party.PartyPlayerLeftMessage;
 import dev.emortal.api.message.party.PartySettingsChangedMessage;
@@ -87,6 +88,7 @@ public class ProtoParserRegistry {
         register(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager", "party_created");
         register(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager", "party_deleted");
         register(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager", "party_emptied");
+        register(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager", "party_open_changed");
         register(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager", "party_invite_created");
         register(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager", "party_player_joined");
         register(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager", "party_player_left");
