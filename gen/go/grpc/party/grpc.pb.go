@@ -172,7 +172,7 @@ type LeavePartyErrorResponse_ErrorType int32
 
 const (
 	// CANNOT_LEAVE_AS_LEADER you cannot leave if you are the leader of the party.
-	// If done by a user, suggest that they disband the party instead or set a new leader.
+	// If done by a user, suggest that they empty the party instead or set a new leader.
 	LeavePartyErrorResponse_CANNOT_LEAVE_AS_LEADER LeavePartyErrorResponse_ErrorType = 0
 )
 

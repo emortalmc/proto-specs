@@ -139,7 +139,7 @@ message LeavePartyResponse {}
 message LeavePartyErrorResponse {
   enum ErrorType {
     // CANNOT_LEAVE_AS_LEADER you cannot leave if you are the leader of the party.
-    // If done by a user, suggest that they disband the party instead or set a new leader.
+    // If done by a user, suggest that they empty the party instead or set a new leader.
     CANNOT_LEAVE_AS_LEADER = 0;
   }
   ErrorType error_type = 1;
