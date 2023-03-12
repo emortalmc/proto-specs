@@ -108,13 +108,7 @@ message JoinPartyRequest {
 
   string player_username = 2;
 
-  oneof id {
-    // party_id of type ObjectId
-    string party_id = 3;
-
-    // member_id of type UUID, can be anyone in the party
-    string member_id = 4;
-  }
+  string target_player_id = 3;
 }
 
 message JoinPartyResponse {
