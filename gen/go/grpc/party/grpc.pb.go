@@ -22,93 +22,50 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreatePartyErrorResponse_ErrorType int32
+type EmptyPartyErrorResponse_ErrorType int32
 
 const (
-	CreatePartyErrorResponse_ALREADY_IN_PARTY CreatePartyErrorResponse_ErrorType = 0
+	EmptyPartyErrorResponse_NOT_IN_PARTY EmptyPartyErrorResponse_ErrorType = 0
+	EmptyPartyErrorResponse_NOT_LEADER   EmptyPartyErrorResponse_ErrorType = 1
 )
 
-// Enum value maps for CreatePartyErrorResponse_ErrorType.
+// Enum value maps for EmptyPartyErrorResponse_ErrorType.
 var (
-	CreatePartyErrorResponse_ErrorType_name = map[int32]string{
-		0: "ALREADY_IN_PARTY",
-	}
-	CreatePartyErrorResponse_ErrorType_value = map[string]int32{
-		"ALREADY_IN_PARTY": 0,
-	}
-)
-
-func (x CreatePartyErrorResponse_ErrorType) Enum() *CreatePartyErrorResponse_ErrorType {
-	p := new(CreatePartyErrorResponse_ErrorType)
-	*p = x
-	return p
-}
-
-func (x CreatePartyErrorResponse_ErrorType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (CreatePartyErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[0].Descriptor()
-}
-
-func (CreatePartyErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[0]
-}
-
-func (x CreatePartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use CreatePartyErrorResponse_ErrorType.Descriptor instead.
-func (CreatePartyErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{2, 0}
-}
-
-type DisbandPartyErrorResponse_ErrorType int32
-
-const (
-	DisbandPartyErrorResponse_NOT_IN_PARTY DisbandPartyErrorResponse_ErrorType = 0
-	DisbandPartyErrorResponse_NOT_LEADER   DisbandPartyErrorResponse_ErrorType = 1
-)
-
-// Enum value maps for DisbandPartyErrorResponse_ErrorType.
-var (
-	DisbandPartyErrorResponse_ErrorType_name = map[int32]string{
+	EmptyPartyErrorResponse_ErrorType_name = map[int32]string{
 		0: "NOT_IN_PARTY",
 		1: "NOT_LEADER",
 	}
-	DisbandPartyErrorResponse_ErrorType_value = map[string]int32{
+	EmptyPartyErrorResponse_ErrorType_value = map[string]int32{
 		"NOT_IN_PARTY": 0,
 		"NOT_LEADER":   1,
 	}
 )
 
-func (x DisbandPartyErrorResponse_ErrorType) Enum() *DisbandPartyErrorResponse_ErrorType {
-	p := new(DisbandPartyErrorResponse_ErrorType)
+func (x EmptyPartyErrorResponse_ErrorType) Enum() *EmptyPartyErrorResponse_ErrorType {
+	p := new(EmptyPartyErrorResponse_ErrorType)
 	*p = x
 	return p
 }
 
-func (x DisbandPartyErrorResponse_ErrorType) String() string {
+func (x EmptyPartyErrorResponse_ErrorType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (DisbandPartyErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[1].Descriptor()
+func (EmptyPartyErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
+	return file_party_grpc_proto_enumTypes[0].Descriptor()
 }
 
-func (DisbandPartyErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[1]
+func (EmptyPartyErrorResponse_ErrorType) Type() protoreflect.EnumType {
+	return &file_party_grpc_proto_enumTypes[0]
 }
 
-func (x DisbandPartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
+func (x EmptyPartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use DisbandPartyErrorResponse_ErrorType.Descriptor instead.
-func (DisbandPartyErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{5, 0}
+// Deprecated: Use EmptyPartyErrorResponse_ErrorType.Descriptor instead.
+func (EmptyPartyErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
+	return file_party_grpc_proto_rawDescGZIP(), []int{2, 0}
 }
 
 type InvitePlayerErrorResponse_ErrorType int32
@@ -152,11 +109,11 @@ func (x InvitePlayerErrorResponse_ErrorType) String() string {
 }
 
 func (InvitePlayerErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[2].Descriptor()
+	return file_party_grpc_proto_enumTypes[1].Descriptor()
 }
 
 func (InvitePlayerErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[2]
+	return &file_party_grpc_proto_enumTypes[1]
 }
 
 func (x InvitePlayerErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
@@ -165,7 +122,7 @@ func (x InvitePlayerErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use InvitePlayerErrorResponse_ErrorType.Descriptor instead.
 func (InvitePlayerErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{12, 0}
+	return file_party_grpc_proto_rawDescGZIP(), []int{9, 0}
 }
 
 type JoinPartyErrorResponse_ErrorType int32
@@ -201,11 +158,11 @@ func (x JoinPartyErrorResponse_ErrorType) String() string {
 }
 
 func (JoinPartyErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[3].Descriptor()
+	return file_party_grpc_proto_enumTypes[2].Descriptor()
 }
 
 func (JoinPartyErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[3]
+	return &file_party_grpc_proto_enumTypes[2]
 }
 
 func (x JoinPartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
@@ -214,7 +171,7 @@ func (x JoinPartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use JoinPartyErrorResponse_ErrorType.Descriptor instead.
 func (JoinPartyErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{15, 0}
+	return file_party_grpc_proto_rawDescGZIP(), []int{12, 0}
 }
 
 type LeavePartyErrorResponse_ErrorType int32
@@ -249,11 +206,11 @@ func (x LeavePartyErrorResponse_ErrorType) String() string {
 }
 
 func (LeavePartyErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[4].Descriptor()
+	return file_party_grpc_proto_enumTypes[3].Descriptor()
 }
 
 func (LeavePartyErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[4]
+	return &file_party_grpc_proto_enumTypes[3]
 }
 
 func (x LeavePartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
@@ -262,7 +219,7 @@ func (x LeavePartyErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use LeavePartyErrorResponse_ErrorType.Descriptor instead.
 func (LeavePartyErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{18, 0}
+	return file_party_grpc_proto_rawDescGZIP(), []int{15, 0}
 }
 
 type KickPlayerErrorResponse_ErrorType int32
@@ -301,11 +258,11 @@ func (x KickPlayerErrorResponse_ErrorType) String() string {
 }
 
 func (KickPlayerErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[5].Descriptor()
+	return file_party_grpc_proto_enumTypes[4].Descriptor()
 }
 
 func (KickPlayerErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[5]
+	return &file_party_grpc_proto_enumTypes[4]
 }
 
 func (x KickPlayerErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
@@ -314,7 +271,7 @@ func (x KickPlayerErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use KickPlayerErrorResponse_ErrorType.Descriptor instead.
 func (KickPlayerErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{21, 0}
+	return file_party_grpc_proto_rawDescGZIP(), []int{18, 0}
 }
 
 type SetPartyLeaderErrorResponse_ErrorType int32
@@ -350,11 +307,11 @@ func (x SetPartyLeaderErrorResponse_ErrorType) String() string {
 }
 
 func (SetPartyLeaderErrorResponse_ErrorType) Descriptor() protoreflect.EnumDescriptor {
-	return file_party_grpc_proto_enumTypes[6].Descriptor()
+	return file_party_grpc_proto_enumTypes[5].Descriptor()
 }
 
 func (SetPartyLeaderErrorResponse_ErrorType) Type() protoreflect.EnumType {
-	return &file_party_grpc_proto_enumTypes[6]
+	return &file_party_grpc_proto_enumTypes[5]
 }
 
 func (x SetPartyLeaderErrorResponse_ErrorType) Number() protoreflect.EnumNumber {
@@ -363,21 +320,23 @@ func (x SetPartyLeaderErrorResponse_ErrorType) Number() protoreflect.EnumNumber 
 
 // Deprecated: Use SetPartyLeaderErrorResponse_ErrorType.Descriptor instead.
 func (SetPartyLeaderErrorResponse_ErrorType) EnumDescriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{24, 0}
+	return file_party_grpc_proto_rawDescGZIP(), []int{21, 0}
 }
 
-type CreatePartyRequest struct {
+type EmptyPartyRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// owner_id of type UUID
-	OwnerId       string `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
-	OwnerUsername string `protobuf:"bytes,2,opt,name=owner_username,json=ownerUsername,proto3" json:"owner_username,omitempty"`
+	// Types that are assignable to Id:
+	//
+	//	*EmptyPartyRequest_PartyId
+	//	*EmptyPartyRequest_PlayerId
+	Id isEmptyPartyRequest_Id `protobuf_oneof:"id"`
 }
 
-func (x *CreatePartyRequest) Reset() {
-	*x = CreatePartyRequest{}
+func (x *EmptyPartyRequest) Reset() {
+	*x = EmptyPartyRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_party_grpc_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -385,13 +344,13 @@ func (x *CreatePartyRequest) Reset() {
 	}
 }
 
-func (x *CreatePartyRequest) String() string {
+func (x *EmptyPartyRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreatePartyRequest) ProtoMessage() {}
+func (*EmptyPartyRequest) ProtoMessage() {}
 
-func (x *CreatePartyRequest) ProtoReflect() protoreflect.Message {
+func (x *EmptyPartyRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_party_grpc_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -403,35 +362,56 @@ func (x *CreatePartyRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreatePartyRequest.ProtoReflect.Descriptor instead.
-func (*CreatePartyRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyPartyRequest.ProtoReflect.Descriptor instead.
+func (*EmptyPartyRequest) Descriptor() ([]byte, []int) {
 	return file_party_grpc_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CreatePartyRequest) GetOwnerId() string {
-	if x != nil {
-		return x.OwnerId
+func (m *EmptyPartyRequest) GetId() isEmptyPartyRequest_Id {
+	if m != nil {
+		return m.Id
+	}
+	return nil
+}
+
+func (x *EmptyPartyRequest) GetPartyId() string {
+	if x, ok := x.GetId().(*EmptyPartyRequest_PartyId); ok {
+		return x.PartyId
 	}
 	return ""
 }
 
-func (x *CreatePartyRequest) GetOwnerUsername() string {
-	if x != nil {
-		return x.OwnerUsername
+func (x *EmptyPartyRequest) GetPlayerId() string {
+	if x, ok := x.GetId().(*EmptyPartyRequest_PlayerId); ok {
+		return x.PlayerId
 	}
 	return ""
 }
 
-type CreatePartyResponse struct {
+type isEmptyPartyRequest_Id interface {
+	isEmptyPartyRequest_Id()
+}
+
+type EmptyPartyRequest_PartyId struct {
+	PartyId string `protobuf:"bytes,1,opt,name=party_id,json=partyId,proto3,oneof"`
+}
+
+type EmptyPartyRequest_PlayerId struct {
+	PlayerId string `protobuf:"bytes,2,opt,name=player_id,json=playerId,proto3,oneof"`
+}
+
+func (*EmptyPartyRequest_PartyId) isEmptyPartyRequest_Id() {}
+
+func (*EmptyPartyRequest_PlayerId) isEmptyPartyRequest_Id() {}
+
+type EmptyPartyResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Party *party.Party `protobuf:"bytes,1,opt,name=party,proto3" json:"party,omitempty"`
 }
 
-func (x *CreatePartyResponse) Reset() {
-	*x = CreatePartyResponse{}
+func (x *EmptyPartyResponse) Reset() {
+	*x = EmptyPartyResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_party_grpc_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -439,13 +419,13 @@ func (x *CreatePartyResponse) Reset() {
 	}
 }
 
-func (x *CreatePartyResponse) String() string {
+func (x *EmptyPartyResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreatePartyResponse) ProtoMessage() {}
+func (*EmptyPartyResponse) ProtoMessage() {}
 
-func (x *CreatePartyResponse) ProtoReflect() protoreflect.Message {
+func (x *EmptyPartyResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_party_grpc_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -457,28 +437,21 @@ func (x *CreatePartyResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreatePartyResponse.ProtoReflect.Descriptor instead.
-func (*CreatePartyResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyPartyResponse.ProtoReflect.Descriptor instead.
+func (*EmptyPartyResponse) Descriptor() ([]byte, []int) {
 	return file_party_grpc_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreatePartyResponse) GetParty() *party.Party {
-	if x != nil {
-		return x.Party
-	}
-	return nil
-}
-
-type CreatePartyErrorResponse struct {
+type EmptyPartyErrorResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrorType CreatePartyErrorResponse_ErrorType `protobuf:"varint,1,opt,name=error_type,json=errorType,proto3,enum=emortal.grpc.party.CreatePartyErrorResponse_ErrorType" json:"error_type,omitempty"`
+	ErrorType EmptyPartyErrorResponse_ErrorType `protobuf:"varint,1,opt,name=error_type,json=errorType,proto3,enum=emortal.grpc.party.EmptyPartyErrorResponse_ErrorType" json:"error_type,omitempty"`
 }
 
-func (x *CreatePartyErrorResponse) Reset() {
-	*x = CreatePartyErrorResponse{}
+func (x *EmptyPartyErrorResponse) Reset() {
+	*x = EmptyPartyErrorResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_party_grpc_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -486,13 +459,13 @@ func (x *CreatePartyErrorResponse) Reset() {
 	}
 }
 
-func (x *CreatePartyErrorResponse) String() string {
+func (x *EmptyPartyErrorResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreatePartyErrorResponse) ProtoMessage() {}
+func (*EmptyPartyErrorResponse) ProtoMessage() {}
 
-func (x *CreatePartyErrorResponse) ProtoReflect() protoreflect.Message {
+func (x *EmptyPartyErrorResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_party_grpc_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -504,182 +477,16 @@ func (x *CreatePartyErrorResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreatePartyErrorResponse.ProtoReflect.Descriptor instead.
-func (*CreatePartyErrorResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyPartyErrorResponse.ProtoReflect.Descriptor instead.
+func (*EmptyPartyErrorResponse) Descriptor() ([]byte, []int) {
 	return file_party_grpc_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *CreatePartyErrorResponse) GetErrorType() CreatePartyErrorResponse_ErrorType {
+func (x *EmptyPartyErrorResponse) GetErrorType() EmptyPartyErrorResponse_ErrorType {
 	if x != nil {
 		return x.ErrorType
 	}
-	return CreatePartyErrorResponse_ALREADY_IN_PARTY
-}
-
-type DisbandPartyRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Types that are assignable to Id:
-	//
-	//	*DisbandPartyRequest_PartyId
-	//	*DisbandPartyRequest_PlayerId
-	Id isDisbandPartyRequest_Id `protobuf_oneof:"id"`
-}
-
-func (x *DisbandPartyRequest) Reset() {
-	*x = DisbandPartyRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DisbandPartyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DisbandPartyRequest) ProtoMessage() {}
-
-func (x *DisbandPartyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DisbandPartyRequest.ProtoReflect.Descriptor instead.
-func (*DisbandPartyRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{3}
-}
-
-func (m *DisbandPartyRequest) GetId() isDisbandPartyRequest_Id {
-	if m != nil {
-		return m.Id
-	}
-	return nil
-}
-
-func (x *DisbandPartyRequest) GetPartyId() string {
-	if x, ok := x.GetId().(*DisbandPartyRequest_PartyId); ok {
-		return x.PartyId
-	}
-	return ""
-}
-
-func (x *DisbandPartyRequest) GetPlayerId() string {
-	if x, ok := x.GetId().(*DisbandPartyRequest_PlayerId); ok {
-		return x.PlayerId
-	}
-	return ""
-}
-
-type isDisbandPartyRequest_Id interface {
-	isDisbandPartyRequest_Id()
-}
-
-type DisbandPartyRequest_PartyId struct {
-	PartyId string `protobuf:"bytes,1,opt,name=party_id,json=partyId,proto3,oneof"`
-}
-
-type DisbandPartyRequest_PlayerId struct {
-	PlayerId string `protobuf:"bytes,2,opt,name=player_id,json=playerId,proto3,oneof"`
-}
-
-func (*DisbandPartyRequest_PartyId) isDisbandPartyRequest_Id() {}
-
-func (*DisbandPartyRequest_PlayerId) isDisbandPartyRequest_Id() {}
-
-type DisbandPartyResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DisbandPartyResponse) Reset() {
-	*x = DisbandPartyResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DisbandPartyResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DisbandPartyResponse) ProtoMessage() {}
-
-func (x *DisbandPartyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DisbandPartyResponse.ProtoReflect.Descriptor instead.
-func (*DisbandPartyResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{4}
-}
-
-type DisbandPartyErrorResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ErrorType DisbandPartyErrorResponse_ErrorType `protobuf:"varint,1,opt,name=error_type,json=errorType,proto3,enum=emortal.grpc.party.DisbandPartyErrorResponse_ErrorType" json:"error_type,omitempty"`
-}
-
-func (x *DisbandPartyErrorResponse) Reset() {
-	*x = DisbandPartyErrorResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DisbandPartyErrorResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DisbandPartyErrorResponse) ProtoMessage() {}
-
-func (x *DisbandPartyErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DisbandPartyErrorResponse.ProtoReflect.Descriptor instead.
-func (*DisbandPartyErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *DisbandPartyErrorResponse) GetErrorType() DisbandPartyErrorResponse_ErrorType {
-	if x != nil {
-		return x.ErrorType
-	}
-	return DisbandPartyErrorResponse_NOT_IN_PARTY
+	return EmptyPartyErrorResponse_NOT_IN_PARTY
 }
 
 type GetPartyRequest struct {
@@ -697,7 +504,7 @@ type GetPartyRequest struct {
 func (x *GetPartyRequest) Reset() {
 	*x = GetPartyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[6]
+		mi := &file_party_grpc_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -710,7 +517,7 @@ func (x *GetPartyRequest) String() string {
 func (*GetPartyRequest) ProtoMessage() {}
 
 func (x *GetPartyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[6]
+	mi := &file_party_grpc_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -723,7 +530,7 @@ func (x *GetPartyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartyRequest.ProtoReflect.Descriptor instead.
 func (*GetPartyRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{6}
+	return file_party_grpc_proto_rawDescGZIP(), []int{3}
 }
 
 func (m *GetPartyRequest) GetId() isGetPartyRequest_Id {
@@ -774,7 +581,7 @@ type GetPartyResponse struct {
 func (x *GetPartyResponse) Reset() {
 	*x = GetPartyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[7]
+		mi := &file_party_grpc_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -787,7 +594,7 @@ func (x *GetPartyResponse) String() string {
 func (*GetPartyResponse) ProtoMessage() {}
 
 func (x *GetPartyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[7]
+	mi := &file_party_grpc_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -800,7 +607,7 @@ func (x *GetPartyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartyResponse.ProtoReflect.Descriptor instead.
 func (*GetPartyResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{7}
+	return file_party_grpc_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetPartyResponse) GetParty() *party.Party {
@@ -826,7 +633,7 @@ type GetPartyInvitesRequest struct {
 func (x *GetPartyInvitesRequest) Reset() {
 	*x = GetPartyInvitesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[8]
+		mi := &file_party_grpc_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -839,7 +646,7 @@ func (x *GetPartyInvitesRequest) String() string {
 func (*GetPartyInvitesRequest) ProtoMessage() {}
 
 func (x *GetPartyInvitesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[8]
+	mi := &file_party_grpc_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -852,7 +659,7 @@ func (x *GetPartyInvitesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartyInvitesRequest.ProtoReflect.Descriptor instead.
 func (*GetPartyInvitesRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{8}
+	return file_party_grpc_proto_rawDescGZIP(), []int{5}
 }
 
 func (m *GetPartyInvitesRequest) GetId() isGetPartyInvitesRequest_Id {
@@ -910,7 +717,7 @@ type GetPartyInvitesResponse struct {
 func (x *GetPartyInvitesResponse) Reset() {
 	*x = GetPartyInvitesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[9]
+		mi := &file_party_grpc_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -923,7 +730,7 @@ func (x *GetPartyInvitesResponse) String() string {
 func (*GetPartyInvitesResponse) ProtoMessage() {}
 
 func (x *GetPartyInvitesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[9]
+	mi := &file_party_grpc_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -936,7 +743,7 @@ func (x *GetPartyInvitesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartyInvitesResponse.ProtoReflect.Descriptor instead.
 func (*GetPartyInvitesResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{9}
+	return file_party_grpc_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetPartyInvitesResponse) GetInvites() []*party.PartyInvite {
@@ -962,7 +769,7 @@ type InvitePlayerRequest struct {
 func (x *InvitePlayerRequest) Reset() {
 	*x = InvitePlayerRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[10]
+		mi := &file_party_grpc_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -975,7 +782,7 @@ func (x *InvitePlayerRequest) String() string {
 func (*InvitePlayerRequest) ProtoMessage() {}
 
 func (x *InvitePlayerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[10]
+	mi := &file_party_grpc_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -988,7 +795,7 @@ func (x *InvitePlayerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvitePlayerRequest.ProtoReflect.Descriptor instead.
 func (*InvitePlayerRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{10}
+	return file_party_grpc_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *InvitePlayerRequest) GetIssuerId() string {
@@ -1030,7 +837,7 @@ type InvitePlayerResponse struct {
 func (x *InvitePlayerResponse) Reset() {
 	*x = InvitePlayerResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[11]
+		mi := &file_party_grpc_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1043,7 +850,7 @@ func (x *InvitePlayerResponse) String() string {
 func (*InvitePlayerResponse) ProtoMessage() {}
 
 func (x *InvitePlayerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[11]
+	mi := &file_party_grpc_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1056,7 +863,7 @@ func (x *InvitePlayerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvitePlayerResponse.ProtoReflect.Descriptor instead.
 func (*InvitePlayerResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{11}
+	return file_party_grpc_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *InvitePlayerResponse) GetInvite() *party.PartyInvite {
@@ -1077,7 +884,7 @@ type InvitePlayerErrorResponse struct {
 func (x *InvitePlayerErrorResponse) Reset() {
 	*x = InvitePlayerErrorResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[12]
+		mi := &file_party_grpc_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1090,7 +897,7 @@ func (x *InvitePlayerErrorResponse) String() string {
 func (*InvitePlayerErrorResponse) ProtoMessage() {}
 
 func (x *InvitePlayerErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[12]
+	mi := &file_party_grpc_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1103,7 +910,7 @@ func (x *InvitePlayerErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InvitePlayerErrorResponse.ProtoReflect.Descriptor instead.
 func (*InvitePlayerErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{12}
+	return file_party_grpc_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *InvitePlayerErrorResponse) GetErrorType() InvitePlayerErrorResponse_ErrorType {
@@ -1131,7 +938,7 @@ type JoinPartyRequest struct {
 func (x *JoinPartyRequest) Reset() {
 	*x = JoinPartyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[13]
+		mi := &file_party_grpc_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1144,7 +951,7 @@ func (x *JoinPartyRequest) String() string {
 func (*JoinPartyRequest) ProtoMessage() {}
 
 func (x *JoinPartyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[13]
+	mi := &file_party_grpc_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1157,7 +964,7 @@ func (x *JoinPartyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JoinPartyRequest.ProtoReflect.Descriptor instead.
 func (*JoinPartyRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{13}
+	return file_party_grpc_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *JoinPartyRequest) GetPlayerId() string {
@@ -1224,7 +1031,7 @@ type JoinPartyResponse struct {
 func (x *JoinPartyResponse) Reset() {
 	*x = JoinPartyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[14]
+		mi := &file_party_grpc_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1237,7 +1044,7 @@ func (x *JoinPartyResponse) String() string {
 func (*JoinPartyResponse) ProtoMessage() {}
 
 func (x *JoinPartyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[14]
+	mi := &file_party_grpc_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1250,7 +1057,7 @@ func (x *JoinPartyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JoinPartyResponse.ProtoReflect.Descriptor instead.
 func (*JoinPartyResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{14}
+	return file_party_grpc_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *JoinPartyResponse) GetParty() *party.Party {
@@ -1271,7 +1078,7 @@ type JoinPartyErrorResponse struct {
 func (x *JoinPartyErrorResponse) Reset() {
 	*x = JoinPartyErrorResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[15]
+		mi := &file_party_grpc_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1284,7 +1091,7 @@ func (x *JoinPartyErrorResponse) String() string {
 func (*JoinPartyErrorResponse) ProtoMessage() {}
 
 func (x *JoinPartyErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[15]
+	mi := &file_party_grpc_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1297,7 +1104,7 @@ func (x *JoinPartyErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JoinPartyErrorResponse.ProtoReflect.Descriptor instead.
 func (*JoinPartyErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{15}
+	return file_party_grpc_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *JoinPartyErrorResponse) GetErrorType() JoinPartyErrorResponse_ErrorType {
@@ -1319,7 +1126,7 @@ type LeavePartyRequest struct {
 func (x *LeavePartyRequest) Reset() {
 	*x = LeavePartyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[16]
+		mi := &file_party_grpc_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1332,7 +1139,7 @@ func (x *LeavePartyRequest) String() string {
 func (*LeavePartyRequest) ProtoMessage() {}
 
 func (x *LeavePartyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[16]
+	mi := &file_party_grpc_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1345,7 +1152,7 @@ func (x *LeavePartyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LeavePartyRequest.ProtoReflect.Descriptor instead.
 func (*LeavePartyRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{16}
+	return file_party_grpc_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *LeavePartyRequest) GetPlayerId() string {
@@ -1364,7 +1171,7 @@ type LeavePartyResponse struct {
 func (x *LeavePartyResponse) Reset() {
 	*x = LeavePartyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[17]
+		mi := &file_party_grpc_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1377,7 +1184,7 @@ func (x *LeavePartyResponse) String() string {
 func (*LeavePartyResponse) ProtoMessage() {}
 
 func (x *LeavePartyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[17]
+	mi := &file_party_grpc_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1390,7 +1197,7 @@ func (x *LeavePartyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LeavePartyResponse.ProtoReflect.Descriptor instead.
 func (*LeavePartyResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{17}
+	return file_party_grpc_proto_rawDescGZIP(), []int{14}
 }
 
 type LeavePartyErrorResponse struct {
@@ -1404,7 +1211,7 @@ type LeavePartyErrorResponse struct {
 func (x *LeavePartyErrorResponse) Reset() {
 	*x = LeavePartyErrorResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[18]
+		mi := &file_party_grpc_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1417,7 +1224,7 @@ func (x *LeavePartyErrorResponse) String() string {
 func (*LeavePartyErrorResponse) ProtoMessage() {}
 
 func (x *LeavePartyErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[18]
+	mi := &file_party_grpc_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1430,7 +1237,7 @@ func (x *LeavePartyErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LeavePartyErrorResponse.ProtoReflect.Descriptor instead.
 func (*LeavePartyErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{18}
+	return file_party_grpc_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *LeavePartyErrorResponse) GetErrorType() LeavePartyErrorResponse_ErrorType {
@@ -1455,7 +1262,7 @@ type KickPlayerRequest struct {
 func (x *KickPlayerRequest) Reset() {
 	*x = KickPlayerRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[19]
+		mi := &file_party_grpc_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1468,7 +1275,7 @@ func (x *KickPlayerRequest) String() string {
 func (*KickPlayerRequest) ProtoMessage() {}
 
 func (x *KickPlayerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[19]
+	mi := &file_party_grpc_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1481,7 +1288,7 @@ func (x *KickPlayerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KickPlayerRequest.ProtoReflect.Descriptor instead.
 func (*KickPlayerRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{19}
+	return file_party_grpc_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *KickPlayerRequest) GetIssuerId() string {
@@ -1514,7 +1321,7 @@ type KickPlayerResponse struct {
 func (x *KickPlayerResponse) Reset() {
 	*x = KickPlayerResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[20]
+		mi := &file_party_grpc_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1527,7 +1334,7 @@ func (x *KickPlayerResponse) String() string {
 func (*KickPlayerResponse) ProtoMessage() {}
 
 func (x *KickPlayerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[20]
+	mi := &file_party_grpc_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1540,7 +1347,7 @@ func (x *KickPlayerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KickPlayerResponse.ProtoReflect.Descriptor instead.
 func (*KickPlayerResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{20}
+	return file_party_grpc_proto_rawDescGZIP(), []int{17}
 }
 
 type KickPlayerErrorResponse struct {
@@ -1554,7 +1361,7 @@ type KickPlayerErrorResponse struct {
 func (x *KickPlayerErrorResponse) Reset() {
 	*x = KickPlayerErrorResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[21]
+		mi := &file_party_grpc_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1567,7 +1374,7 @@ func (x *KickPlayerErrorResponse) String() string {
 func (*KickPlayerErrorResponse) ProtoMessage() {}
 
 func (x *KickPlayerErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[21]
+	mi := &file_party_grpc_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1580,7 +1387,7 @@ func (x *KickPlayerErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KickPlayerErrorResponse.ProtoReflect.Descriptor instead.
 func (*KickPlayerErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{21}
+	return file_party_grpc_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *KickPlayerErrorResponse) GetErrorType() KickPlayerErrorResponse_ErrorType {
@@ -1605,7 +1412,7 @@ type SetPartyLeaderRequest struct {
 func (x *SetPartyLeaderRequest) Reset() {
 	*x = SetPartyLeaderRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[22]
+		mi := &file_party_grpc_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1618,7 +1425,7 @@ func (x *SetPartyLeaderRequest) String() string {
 func (*SetPartyLeaderRequest) ProtoMessage() {}
 
 func (x *SetPartyLeaderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[22]
+	mi := &file_party_grpc_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1631,7 +1438,7 @@ func (x *SetPartyLeaderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetPartyLeaderRequest.ProtoReflect.Descriptor instead.
 func (*SetPartyLeaderRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{22}
+	return file_party_grpc_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SetPartyLeaderRequest) GetIssuerId() string {
@@ -1664,7 +1471,7 @@ type SetPartyLeaderResponse struct {
 func (x *SetPartyLeaderResponse) Reset() {
 	*x = SetPartyLeaderResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[23]
+		mi := &file_party_grpc_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1677,7 +1484,7 @@ func (x *SetPartyLeaderResponse) String() string {
 func (*SetPartyLeaderResponse) ProtoMessage() {}
 
 func (x *SetPartyLeaderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[23]
+	mi := &file_party_grpc_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1690,7 +1497,7 @@ func (x *SetPartyLeaderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetPartyLeaderResponse.ProtoReflect.Descriptor instead.
 func (*SetPartyLeaderResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{23}
+	return file_party_grpc_proto_rawDescGZIP(), []int{20}
 }
 
 type SetPartyLeaderErrorResponse struct {
@@ -1704,7 +1511,7 @@ type SetPartyLeaderErrorResponse struct {
 func (x *SetPartyLeaderErrorResponse) Reset() {
 	*x = SetPartyLeaderErrorResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[24]
+		mi := &file_party_grpc_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1717,7 +1524,7 @@ func (x *SetPartyLeaderErrorResponse) String() string {
 func (*SetPartyLeaderErrorResponse) ProtoMessage() {}
 
 func (x *SetPartyLeaderErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[24]
+	mi := &file_party_grpc_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1730,7 +1537,7 @@ func (x *SetPartyLeaderErrorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetPartyLeaderErrorResponse.ProtoReflect.Descriptor instead.
 func (*SetPartyLeaderErrorResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{24}
+	return file_party_grpc_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SetPartyLeaderErrorResponse) GetErrorType() SetPartyLeaderErrorResponse_ErrorType {
@@ -1755,7 +1562,7 @@ type GetPartySettingsRequest struct {
 func (x *GetPartySettingsRequest) Reset() {
 	*x = GetPartySettingsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[25]
+		mi := &file_party_grpc_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1768,7 +1575,7 @@ func (x *GetPartySettingsRequest) String() string {
 func (*GetPartySettingsRequest) ProtoMessage() {}
 
 func (x *GetPartySettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[25]
+	mi := &file_party_grpc_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1781,7 +1588,7 @@ func (x *GetPartySettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartySettingsRequest.ProtoReflect.Descriptor instead.
 func (*GetPartySettingsRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{25}
+	return file_party_grpc_proto_rawDescGZIP(), []int{22}
 }
 
 func (m *GetPartySettingsRequest) GetId() isGetPartySettingsRequest_Id {
@@ -1832,7 +1639,7 @@ type GetPartySettingsResponse struct {
 func (x *GetPartySettingsResponse) Reset() {
 	*x = GetPartySettingsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[26]
+		mi := &file_party_grpc_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1845,7 +1652,7 @@ func (x *GetPartySettingsResponse) String() string {
 func (*GetPartySettingsResponse) ProtoMessage() {}
 
 func (x *GetPartySettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[26]
+	mi := &file_party_grpc_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1858,7 +1665,7 @@ func (x *GetPartySettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPartySettingsResponse.ProtoReflect.Descriptor instead.
 func (*GetPartySettingsResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{26}
+	return file_party_grpc_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetPartySettingsResponse) GetSettings() *party.PartySettings {
@@ -1884,7 +1691,7 @@ type UpdatePartySettingsRequest struct {
 func (x *UpdatePartySettingsRequest) Reset() {
 	*x = UpdatePartySettingsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[27]
+		mi := &file_party_grpc_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1897,7 +1704,7 @@ func (x *UpdatePartySettingsRequest) String() string {
 func (*UpdatePartySettingsRequest) ProtoMessage() {}
 
 func (x *UpdatePartySettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[27]
+	mi := &file_party_grpc_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1910,7 +1717,7 @@ func (x *UpdatePartySettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePartySettingsRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePartySettingsRequest) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{27}
+	return file_party_grpc_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *UpdatePartySettingsRequest) GetIssuerId() string {
@@ -1957,7 +1764,7 @@ type UpdatePartySettingsResponse struct {
 func (x *UpdatePartySettingsResponse) Reset() {
 	*x = UpdatePartySettingsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_grpc_proto_msgTypes[28]
+		mi := &file_party_grpc_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1970,7 +1777,7 @@ func (x *UpdatePartySettingsResponse) String() string {
 func (*UpdatePartySettingsResponse) ProtoMessage() {}
 
 func (x *UpdatePartySettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_party_grpc_proto_msgTypes[28]
+	mi := &file_party_grpc_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1983,7 +1790,7 @@ func (x *UpdatePartySettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePartySettingsResponse.ProtoReflect.Descriptor instead.
 func (*UpdatePartySettingsResponse) Descriptor() ([]byte, []int) {
-	return file_party_grpc_proto_rawDescGZIP(), []int{28}
+	return file_party_grpc_proto_rawDescGZIP(), []int{25}
 }
 
 var File_party_grpc_proto protoreflect.FileDescriptor
@@ -1994,38 +1801,18 @@ var file_party_grpc_proto_rawDesc = []byte{
 	0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x1a, 0x12, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2f, 0x6d, 0x6f,
 	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x13, 0x63, 0x6f, 0x6d, 0x6d,
 	0x6f, 0x6e, 0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22,
-	0x56, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x5f, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x49, 0x64,
-	0x12, 0x25, 0x0a, 0x0e, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61,
-	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x55,
-	0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x47, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x30,
-	0x0a, 0x05, 0x70, 0x61, 0x72, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e,
-	0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x70, 0x61,
-	0x72, 0x74, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x05, 0x70, 0x61, 0x72, 0x74, 0x79,
-	0x22, 0x94, 0x01, 0x0a, 0x18, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79,
-	0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a,
-	0x0a, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0e, 0x32, 0x36, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63,
-	0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72,
-	0x74, 0x79, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e,
-	0x45, 0x72, 0x72, 0x6f, 0x72, 0x54, 0x79, 0x70, 0x65, 0x52, 0x09, 0x65, 0x72, 0x72, 0x6f, 0x72,
-	0x54, 0x79, 0x70, 0x65, 0x22, 0x21, 0x0a, 0x09, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x54, 0x79, 0x70,
-	0x65, 0x12, 0x14, 0x0a, 0x10, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x5f, 0x49, 0x4e, 0x5f,
-	0x50, 0x41, 0x52, 0x54, 0x59, 0x10, 0x00, 0x22, 0x57, 0x0a, 0x13, 0x44, 0x69, 0x73, 0x62, 0x61,
-	0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b,
-	0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x48, 0x00, 0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x09, 0x70,
-	0x6c, 0x61, 0x79, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00,
-	0x52, 0x08, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x49, 0x64, 0x42, 0x04, 0x0a, 0x02, 0x69, 0x64,
-	0x22, 0x16, 0x0a, 0x14, 0x44, 0x69, 0x73, 0x62, 0x61, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xa2, 0x01, 0x0a, 0x19, 0x44, 0x69, 0x73,
-	0x62, 0x61, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x0a, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x5f,
-	0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x37, 0x2e, 0x65, 0x6d, 0x6f,
-	0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e,
-	0x44, 0x69, 0x73, 0x62, 0x61, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x72, 0x72, 0x6f,
+	0x55, 0x0a, 0x11, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49,
+	0x64, 0x12, 0x1d, 0x0a, 0x09, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x08, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x49, 0x64,
+	0x42, 0x04, 0x0a, 0x02, 0x69, 0x64, 0x22, 0x14, 0x0a, 0x12, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x50,
+	0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x9e, 0x01, 0x0a,
+	0x17, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x72, 0x72, 0x6f, 0x72,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x54, 0x0a, 0x0a, 0x65, 0x72, 0x72, 0x6f,
+	0x72, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x35, 0x2e, 0x65,
+	0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74,
+	0x79, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x50, 0x61, 0x72, 0x74, 0x79, 0x45, 0x72, 0x72, 0x6f,
 	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x54,
 	0x79, 0x70, 0x65, 0x52, 0x09, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x54, 0x79, 0x70, 0x65, 0x22, 0x2d,
 	0x0a, 0x09, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x54, 0x79, 0x70, 0x65, 0x12, 0x10, 0x0a, 0x0c, 0x4e,
@@ -2207,86 +1994,80 @@ var file_party_grpc_proto_rawDesc = []byte{
 	0x5f, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x42, 0x07,
 	0x0a, 0x05, 0x5f, 0x6f, 0x70, 0x65, 0x6e, 0x22, 0x1d, 0x0a, 0x1b, 0x55, 0x70, 0x64, 0x61, 0x74,
 	0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x86, 0x07, 0x0a, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x79,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x60, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x26, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c,
-	0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27,
-	0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61,
-	0x72, 0x74, 0x79, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x63, 0x0a, 0x0c, 0x44, 0x69, 0x73,
-	0x62, 0x61, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x27, 0x2e, 0x65, 0x6d, 0x6f, 0x72,
-	0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x44,
-	0x69, 0x73, 0x62, 0x61, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x28, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70,
-	0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x44, 0x69, 0x73, 0x62, 0x61, 0x6e, 0x64, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x57,
-	0x0a, 0x08, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x23, 0x2e, 0x65, 0x6d, 0x6f,
-	0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e,
-	0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x24, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70,
-	0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x6c, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x50, 0x61,
-	0x72, 0x74, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x12, 0x2a, 0x2e, 0x65, 0x6d, 0x6f,
-	0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e,
-	0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c,
-	0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x63, 0x0a, 0x0c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x50,
-	0x6c, 0x61, 0x79, 0x65, 0x72, 0x12, 0x27, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e,
-	0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x49, 0x6e, 0x76, 0x69, 0x74,
-	0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28,
-	0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61,
-	0x72, 0x74, 0x79, 0x2e, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5a, 0x0a, 0x09, 0x4a, 0x6f,
-	0x69, 0x6e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x24, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61,
-	0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4a, 0x6f, 0x69,
-	0x6e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e,
-	0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72,
-	0x74, 0x79, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a, 0x0a, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x12, 0x25, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67,
-	0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x65, 0x6d,
-	0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79,
-	0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a, 0x0a, 0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61,
-	0x79, 0x65, 0x72, 0x12, 0x25, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72,
-	0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61,
-	0x79, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x65, 0x6d, 0x6f,
-	0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e,
-	0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x69, 0x0a, 0x0e, 0x53, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79,
-	0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x12, 0x29, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c,
-	0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x53, 0x65, 0x74, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x2a, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63,
-	0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x53, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4c,
-	0x65, 0x61, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x32,
-	0x81, 0x02, 0x0a, 0x14, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67,
-	0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x6f, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x50,
-	0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x12, 0x2b, 0x2e, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x9e, 0x06, 0x0a, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x5d, 0x0a, 0x0a, 0x45, 0x6d, 0x70, 0x74, 0x79,
+	0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x25, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e,
+	0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
+	0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x65,
 	0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74,
-	0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e,
-	0x67, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2c, 0x2e, 0x65, 0x6d, 0x6f, 0x72,
-	0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47,
-	0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x78, 0x0a, 0x13, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73,
-	0x12, 0x2e, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e,
-	0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74,
-	0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x2f, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e,
-	0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74,
-	0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x00, 0x42, 0x5c, 0x0a, 0x1a, 0x64, 0x65, 0x76, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74,
-	0x61, 0x6c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74,
-	0x79, 0x42, 0x0a, 0x50, 0x61, 0x72, 0x74, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x32, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61,
-	0x6c, 0x6d, 0x63, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2d, 0x73, 0x70, 0x65, 0x63, 0x73, 0x2f,
-	0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2f, 0x70, 0x61, 0x72, 0x74,
-	0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x79, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x57, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72,
+	0x74, 0x79, 0x12, 0x23, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70,
+	0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61,
+	0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74,
+	0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x6c, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74,
+	0x65, 0x73, 0x12, 0x2a, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70,
+	0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b,
+	0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61,
+	0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x49, 0x6e, 0x76, 0x69,
+	0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x63, 0x0a,
+	0x0c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x12, 0x27, 0x2e,
+	0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72,
+	0x74, 0x79, 0x2e, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c,
+	0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x49, 0x6e, 0x76, 0x69,
+	0x74, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x12, 0x5a, 0x0a, 0x09, 0x4a, 0x6f, 0x69, 0x6e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12,
+	0x24, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70,
+	0x61, 0x72, 0x74, 0x79, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e,
+	0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x50,
+	0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d,
+	0x0a, 0x0a, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x12, 0x25, 0x2e, 0x65,
+	0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74,
+	0x79, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72,
+	0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x50, 0x61,
+	0x72, 0x74, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a,
+	0x0a, 0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x12, 0x25, 0x2e, 0x65, 0x6d,
+	0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79,
+	0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x26, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70,
+	0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x50, 0x6c, 0x61, 0x79,
+	0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x69, 0x0a, 0x0e,
+	0x53, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x12, 0x29,
+	0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61,
+	0x72, 0x74, 0x79, 0x2e, 0x53, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4c, 0x65, 0x61, 0x64,
+	0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2a, 0x2e, 0x65, 0x6d, 0x6f, 0x72,
+	0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x53,
+	0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x32, 0x81, 0x02, 0x0a, 0x14, 0x50, 0x61, 0x72, 0x74,
+	0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x12, 0x6f, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74,
+	0x69, 0x6e, 0x67, 0x73, 0x12, 0x2b, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67,
+	0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72,
+	0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x2c, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63,
+	0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53,
+	0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x12, 0x78, 0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x12, 0x2e, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74,
+	0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67,
+	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2f, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74,
+	0x61, 0x6c, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x74, 0x79, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x5c, 0x0a, 0x1a, 0x64,
+	0x65, 0x76, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x67,
+	0x72, 0x70, 0x63, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x42, 0x0a, 0x50, 0x61, 0x72, 0x74, 0x79,
+	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x6d, 0x63, 0x2f, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2d, 0x73, 0x70, 0x65, 0x63, 0x73, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x67,
+	0x72, 0x70, 0x63, 0x2f, 0x70, 0x61, 0x72, 0x74, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -2301,92 +2082,84 @@ func file_party_grpc_proto_rawDescGZIP() []byte {
 	return file_party_grpc_proto_rawDescData
 }
 
-var file_party_grpc_proto_enumTypes = make([]protoimpl.EnumInfo, 7)
-var file_party_grpc_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
+var file_party_grpc_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
+var file_party_grpc_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_party_grpc_proto_goTypes = []interface{}{
-	(CreatePartyErrorResponse_ErrorType)(0),    // 0: emortal.grpc.party.CreatePartyErrorResponse.ErrorType
-	(DisbandPartyErrorResponse_ErrorType)(0),   // 1: emortal.grpc.party.DisbandPartyErrorResponse.ErrorType
-	(InvitePlayerErrorResponse_ErrorType)(0),   // 2: emortal.grpc.party.InvitePlayerErrorResponse.ErrorType
-	(JoinPartyErrorResponse_ErrorType)(0),      // 3: emortal.grpc.party.JoinPartyErrorResponse.ErrorType
-	(LeavePartyErrorResponse_ErrorType)(0),     // 4: emortal.grpc.party.LeavePartyErrorResponse.ErrorType
-	(KickPlayerErrorResponse_ErrorType)(0),     // 5: emortal.grpc.party.KickPlayerErrorResponse.ErrorType
-	(SetPartyLeaderErrorResponse_ErrorType)(0), // 6: emortal.grpc.party.SetPartyLeaderErrorResponse.ErrorType
-	(*CreatePartyRequest)(nil),                 // 7: emortal.grpc.party.CreatePartyRequest
-	(*CreatePartyResponse)(nil),                // 8: emortal.grpc.party.CreatePartyResponse
-	(*CreatePartyErrorResponse)(nil),           // 9: emortal.grpc.party.CreatePartyErrorResponse
-	(*DisbandPartyRequest)(nil),                // 10: emortal.grpc.party.DisbandPartyRequest
-	(*DisbandPartyResponse)(nil),               // 11: emortal.grpc.party.DisbandPartyResponse
-	(*DisbandPartyErrorResponse)(nil),          // 12: emortal.grpc.party.DisbandPartyErrorResponse
-	(*GetPartyRequest)(nil),                    // 13: emortal.grpc.party.GetPartyRequest
-	(*GetPartyResponse)(nil),                   // 14: emortal.grpc.party.GetPartyResponse
-	(*GetPartyInvitesRequest)(nil),             // 15: emortal.grpc.party.GetPartyInvitesRequest
-	(*GetPartyInvitesResponse)(nil),            // 16: emortal.grpc.party.GetPartyInvitesResponse
-	(*InvitePlayerRequest)(nil),                // 17: emortal.grpc.party.InvitePlayerRequest
-	(*InvitePlayerResponse)(nil),               // 18: emortal.grpc.party.InvitePlayerResponse
-	(*InvitePlayerErrorResponse)(nil),          // 19: emortal.grpc.party.InvitePlayerErrorResponse
-	(*JoinPartyRequest)(nil),                   // 20: emortal.grpc.party.JoinPartyRequest
-	(*JoinPartyResponse)(nil),                  // 21: emortal.grpc.party.JoinPartyResponse
-	(*JoinPartyErrorResponse)(nil),             // 22: emortal.grpc.party.JoinPartyErrorResponse
-	(*LeavePartyRequest)(nil),                  // 23: emortal.grpc.party.LeavePartyRequest
-	(*LeavePartyResponse)(nil),                 // 24: emortal.grpc.party.LeavePartyResponse
-	(*LeavePartyErrorResponse)(nil),            // 25: emortal.grpc.party.LeavePartyErrorResponse
-	(*KickPlayerRequest)(nil),                  // 26: emortal.grpc.party.KickPlayerRequest
-	(*KickPlayerResponse)(nil),                 // 27: emortal.grpc.party.KickPlayerResponse
-	(*KickPlayerErrorResponse)(nil),            // 28: emortal.grpc.party.KickPlayerErrorResponse
-	(*SetPartyLeaderRequest)(nil),              // 29: emortal.grpc.party.SetPartyLeaderRequest
-	(*SetPartyLeaderResponse)(nil),             // 30: emortal.grpc.party.SetPartyLeaderResponse
-	(*SetPartyLeaderErrorResponse)(nil),        // 31: emortal.grpc.party.SetPartyLeaderErrorResponse
-	(*GetPartySettingsRequest)(nil),            // 32: emortal.grpc.party.GetPartySettingsRequest
-	(*GetPartySettingsResponse)(nil),           // 33: emortal.grpc.party.GetPartySettingsResponse
-	(*UpdatePartySettingsRequest)(nil),         // 34: emortal.grpc.party.UpdatePartySettingsRequest
-	(*UpdatePartySettingsResponse)(nil),        // 35: emortal.grpc.party.UpdatePartySettingsResponse
-	(*party.Party)(nil),                        // 36: emortal.model.party.Party
-	(*common.Pageable)(nil),                    // 37: emortal.model.Pageable
-	(*party.PartyInvite)(nil),                  // 38: emortal.model.party.PartyInvite
-	(*party.PartySettings)(nil),                // 39: emortal.model.party.PartySettings
+	(EmptyPartyErrorResponse_ErrorType)(0),     // 0: emortal.grpc.party.EmptyPartyErrorResponse.ErrorType
+	(InvitePlayerErrorResponse_ErrorType)(0),   // 1: emortal.grpc.party.InvitePlayerErrorResponse.ErrorType
+	(JoinPartyErrorResponse_ErrorType)(0),      // 2: emortal.grpc.party.JoinPartyErrorResponse.ErrorType
+	(LeavePartyErrorResponse_ErrorType)(0),     // 3: emortal.grpc.party.LeavePartyErrorResponse.ErrorType
+	(KickPlayerErrorResponse_ErrorType)(0),     // 4: emortal.grpc.party.KickPlayerErrorResponse.ErrorType
+	(SetPartyLeaderErrorResponse_ErrorType)(0), // 5: emortal.grpc.party.SetPartyLeaderErrorResponse.ErrorType
+	(*EmptyPartyRequest)(nil),                  // 6: emortal.grpc.party.EmptyPartyRequest
+	(*EmptyPartyResponse)(nil),                 // 7: emortal.grpc.party.EmptyPartyResponse
+	(*EmptyPartyErrorResponse)(nil),            // 8: emortal.grpc.party.EmptyPartyErrorResponse
+	(*GetPartyRequest)(nil),                    // 9: emortal.grpc.party.GetPartyRequest
+	(*GetPartyResponse)(nil),                   // 10: emortal.grpc.party.GetPartyResponse
+	(*GetPartyInvitesRequest)(nil),             // 11: emortal.grpc.party.GetPartyInvitesRequest
+	(*GetPartyInvitesResponse)(nil),            // 12: emortal.grpc.party.GetPartyInvitesResponse
+	(*InvitePlayerRequest)(nil),                // 13: emortal.grpc.party.InvitePlayerRequest
+	(*InvitePlayerResponse)(nil),               // 14: emortal.grpc.party.InvitePlayerResponse
+	(*InvitePlayerErrorResponse)(nil),          // 15: emortal.grpc.party.InvitePlayerErrorResponse
+	(*JoinPartyRequest)(nil),                   // 16: emortal.grpc.party.JoinPartyRequest
+	(*JoinPartyResponse)(nil),                  // 17: emortal.grpc.party.JoinPartyResponse
+	(*JoinPartyErrorResponse)(nil),             // 18: emortal.grpc.party.JoinPartyErrorResponse
+	(*LeavePartyRequest)(nil),                  // 19: emortal.grpc.party.LeavePartyRequest
+	(*LeavePartyResponse)(nil),                 // 20: emortal.grpc.party.LeavePartyResponse
+	(*LeavePartyErrorResponse)(nil),            // 21: emortal.grpc.party.LeavePartyErrorResponse
+	(*KickPlayerRequest)(nil),                  // 22: emortal.grpc.party.KickPlayerRequest
+	(*KickPlayerResponse)(nil),                 // 23: emortal.grpc.party.KickPlayerResponse
+	(*KickPlayerErrorResponse)(nil),            // 24: emortal.grpc.party.KickPlayerErrorResponse
+	(*SetPartyLeaderRequest)(nil),              // 25: emortal.grpc.party.SetPartyLeaderRequest
+	(*SetPartyLeaderResponse)(nil),             // 26: emortal.grpc.party.SetPartyLeaderResponse
+	(*SetPartyLeaderErrorResponse)(nil),        // 27: emortal.grpc.party.SetPartyLeaderErrorResponse
+	(*GetPartySettingsRequest)(nil),            // 28: emortal.grpc.party.GetPartySettingsRequest
+	(*GetPartySettingsResponse)(nil),           // 29: emortal.grpc.party.GetPartySettingsResponse
+	(*UpdatePartySettingsRequest)(nil),         // 30: emortal.grpc.party.UpdatePartySettingsRequest
+	(*UpdatePartySettingsResponse)(nil),        // 31: emortal.grpc.party.UpdatePartySettingsResponse
+	(*party.Party)(nil),                        // 32: emortal.model.party.Party
+	(*common.Pageable)(nil),                    // 33: emortal.model.Pageable
+	(*party.PartyInvite)(nil),                  // 34: emortal.model.party.PartyInvite
+	(*party.PartySettings)(nil),                // 35: emortal.model.party.PartySettings
 }
 var file_party_grpc_proto_depIdxs = []int32{
-	36, // 0: emortal.grpc.party.CreatePartyResponse.party:type_name -> emortal.model.party.Party
-	0,  // 1: emortal.grpc.party.CreatePartyErrorResponse.error_type:type_name -> emortal.grpc.party.CreatePartyErrorResponse.ErrorType
-	1,  // 2: emortal.grpc.party.DisbandPartyErrorResponse.error_type:type_name -> emortal.grpc.party.DisbandPartyErrorResponse.ErrorType
-	36, // 3: emortal.grpc.party.GetPartyResponse.party:type_name -> emortal.model.party.Party
-	37, // 4: emortal.grpc.party.GetPartyInvitesRequest.pageable:type_name -> emortal.model.Pageable
-	38, // 5: emortal.grpc.party.GetPartyInvitesResponse.invites:type_name -> emortal.model.party.PartyInvite
-	38, // 6: emortal.grpc.party.InvitePlayerResponse.invite:type_name -> emortal.model.party.PartyInvite
-	2,  // 7: emortal.grpc.party.InvitePlayerErrorResponse.error_type:type_name -> emortal.grpc.party.InvitePlayerErrorResponse.ErrorType
-	36, // 8: emortal.grpc.party.JoinPartyResponse.party:type_name -> emortal.model.party.Party
-	3,  // 9: emortal.grpc.party.JoinPartyErrorResponse.error_type:type_name -> emortal.grpc.party.JoinPartyErrorResponse.ErrorType
-	4,  // 10: emortal.grpc.party.LeavePartyErrorResponse.error_type:type_name -> emortal.grpc.party.LeavePartyErrorResponse.ErrorType
-	5,  // 11: emortal.grpc.party.KickPlayerErrorResponse.error_type:type_name -> emortal.grpc.party.KickPlayerErrorResponse.ErrorType
-	6,  // 12: emortal.grpc.party.SetPartyLeaderErrorResponse.error_type:type_name -> emortal.grpc.party.SetPartyLeaderErrorResponse.ErrorType
-	39, // 13: emortal.grpc.party.GetPartySettingsResponse.settings:type_name -> emortal.model.party.PartySettings
-	7,  // 14: emortal.grpc.party.PartyService.CreateParty:input_type -> emortal.grpc.party.CreatePartyRequest
-	10, // 15: emortal.grpc.party.PartyService.DisbandParty:input_type -> emortal.grpc.party.DisbandPartyRequest
-	13, // 16: emortal.grpc.party.PartyService.GetParty:input_type -> emortal.grpc.party.GetPartyRequest
-	15, // 17: emortal.grpc.party.PartyService.GetPartyInvites:input_type -> emortal.grpc.party.GetPartyInvitesRequest
-	17, // 18: emortal.grpc.party.PartyService.InvitePlayer:input_type -> emortal.grpc.party.InvitePlayerRequest
-	20, // 19: emortal.grpc.party.PartyService.JoinParty:input_type -> emortal.grpc.party.JoinPartyRequest
-	23, // 20: emortal.grpc.party.PartyService.LeaveParty:input_type -> emortal.grpc.party.LeavePartyRequest
-	26, // 21: emortal.grpc.party.PartyService.KickPlayer:input_type -> emortal.grpc.party.KickPlayerRequest
-	29, // 22: emortal.grpc.party.PartyService.SetPartyLeader:input_type -> emortal.grpc.party.SetPartyLeaderRequest
-	32, // 23: emortal.grpc.party.PartySettingsService.GetPartySettings:input_type -> emortal.grpc.party.GetPartySettingsRequest
-	34, // 24: emortal.grpc.party.PartySettingsService.UpdatePartySettings:input_type -> emortal.grpc.party.UpdatePartySettingsRequest
-	8,  // 25: emortal.grpc.party.PartyService.CreateParty:output_type -> emortal.grpc.party.CreatePartyResponse
-	11, // 26: emortal.grpc.party.PartyService.DisbandParty:output_type -> emortal.grpc.party.DisbandPartyResponse
-	14, // 27: emortal.grpc.party.PartyService.GetParty:output_type -> emortal.grpc.party.GetPartyResponse
-	16, // 28: emortal.grpc.party.PartyService.GetPartyInvites:output_type -> emortal.grpc.party.GetPartyInvitesResponse
-	18, // 29: emortal.grpc.party.PartyService.InvitePlayer:output_type -> emortal.grpc.party.InvitePlayerResponse
-	21, // 30: emortal.grpc.party.PartyService.JoinParty:output_type -> emortal.grpc.party.JoinPartyResponse
-	24, // 31: emortal.grpc.party.PartyService.LeaveParty:output_type -> emortal.grpc.party.LeavePartyResponse
-	27, // 32: emortal.grpc.party.PartyService.KickPlayer:output_type -> emortal.grpc.party.KickPlayerResponse
-	30, // 33: emortal.grpc.party.PartyService.SetPartyLeader:output_type -> emortal.grpc.party.SetPartyLeaderResponse
-	33, // 34: emortal.grpc.party.PartySettingsService.GetPartySettings:output_type -> emortal.grpc.party.GetPartySettingsResponse
-	35, // 35: emortal.grpc.party.PartySettingsService.UpdatePartySettings:output_type -> emortal.grpc.party.UpdatePartySettingsResponse
-	25, // [25:36] is the sub-list for method output_type
-	14, // [14:25] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	0,  // 0: emortal.grpc.party.EmptyPartyErrorResponse.error_type:type_name -> emortal.grpc.party.EmptyPartyErrorResponse.ErrorType
+	32, // 1: emortal.grpc.party.GetPartyResponse.party:type_name -> emortal.model.party.Party
+	33, // 2: emortal.grpc.party.GetPartyInvitesRequest.pageable:type_name -> emortal.model.Pageable
+	34, // 3: emortal.grpc.party.GetPartyInvitesResponse.invites:type_name -> emortal.model.party.PartyInvite
+	34, // 4: emortal.grpc.party.InvitePlayerResponse.invite:type_name -> emortal.model.party.PartyInvite
+	1,  // 5: emortal.grpc.party.InvitePlayerErrorResponse.error_type:type_name -> emortal.grpc.party.InvitePlayerErrorResponse.ErrorType
+	32, // 6: emortal.grpc.party.JoinPartyResponse.party:type_name -> emortal.model.party.Party
+	2,  // 7: emortal.grpc.party.JoinPartyErrorResponse.error_type:type_name -> emortal.grpc.party.JoinPartyErrorResponse.ErrorType
+	3,  // 8: emortal.grpc.party.LeavePartyErrorResponse.error_type:type_name -> emortal.grpc.party.LeavePartyErrorResponse.ErrorType
+	4,  // 9: emortal.grpc.party.KickPlayerErrorResponse.error_type:type_name -> emortal.grpc.party.KickPlayerErrorResponse.ErrorType
+	5,  // 10: emortal.grpc.party.SetPartyLeaderErrorResponse.error_type:type_name -> emortal.grpc.party.SetPartyLeaderErrorResponse.ErrorType
+	35, // 11: emortal.grpc.party.GetPartySettingsResponse.settings:type_name -> emortal.model.party.PartySettings
+	6,  // 12: emortal.grpc.party.PartyService.EmptyParty:input_type -> emortal.grpc.party.EmptyPartyRequest
+	9,  // 13: emortal.grpc.party.PartyService.GetParty:input_type -> emortal.grpc.party.GetPartyRequest
+	11, // 14: emortal.grpc.party.PartyService.GetPartyInvites:input_type -> emortal.grpc.party.GetPartyInvitesRequest
+	13, // 15: emortal.grpc.party.PartyService.InvitePlayer:input_type -> emortal.grpc.party.InvitePlayerRequest
+	16, // 16: emortal.grpc.party.PartyService.JoinParty:input_type -> emortal.grpc.party.JoinPartyRequest
+	19, // 17: emortal.grpc.party.PartyService.LeaveParty:input_type -> emortal.grpc.party.LeavePartyRequest
+	22, // 18: emortal.grpc.party.PartyService.KickPlayer:input_type -> emortal.grpc.party.KickPlayerRequest
+	25, // 19: emortal.grpc.party.PartyService.SetPartyLeader:input_type -> emortal.grpc.party.SetPartyLeaderRequest
+	28, // 20: emortal.grpc.party.PartySettingsService.GetPartySettings:input_type -> emortal.grpc.party.GetPartySettingsRequest
+	30, // 21: emortal.grpc.party.PartySettingsService.UpdatePartySettings:input_type -> emortal.grpc.party.UpdatePartySettingsRequest
+	7,  // 22: emortal.grpc.party.PartyService.EmptyParty:output_type -> emortal.grpc.party.EmptyPartyResponse
+	10, // 23: emortal.grpc.party.PartyService.GetParty:output_type -> emortal.grpc.party.GetPartyResponse
+	12, // 24: emortal.grpc.party.PartyService.GetPartyInvites:output_type -> emortal.grpc.party.GetPartyInvitesResponse
+	14, // 25: emortal.grpc.party.PartyService.InvitePlayer:output_type -> emortal.grpc.party.InvitePlayerResponse
+	17, // 26: emortal.grpc.party.PartyService.JoinParty:output_type -> emortal.grpc.party.JoinPartyResponse
+	20, // 27: emortal.grpc.party.PartyService.LeaveParty:output_type -> emortal.grpc.party.LeavePartyResponse
+	23, // 28: emortal.grpc.party.PartyService.KickPlayer:output_type -> emortal.grpc.party.KickPlayerResponse
+	26, // 29: emortal.grpc.party.PartyService.SetPartyLeader:output_type -> emortal.grpc.party.SetPartyLeaderResponse
+	29, // 30: emortal.grpc.party.PartySettingsService.GetPartySettings:output_type -> emortal.grpc.party.GetPartySettingsResponse
+	31, // 31: emortal.grpc.party.PartySettingsService.UpdatePartySettings:output_type -> emortal.grpc.party.UpdatePartySettingsResponse
+	22, // [22:32] is the sub-list for method output_type
+	12, // [12:22] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_party_grpc_proto_init() }
@@ -2396,7 +2169,7 @@ func file_party_grpc_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_party_grpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreatePartyRequest); i {
+			switch v := v.(*EmptyPartyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2408,7 +2181,7 @@ func file_party_grpc_proto_init() {
 			}
 		}
 		file_party_grpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreatePartyResponse); i {
+			switch v := v.(*EmptyPartyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2420,7 +2193,7 @@ func file_party_grpc_proto_init() {
 			}
 		}
 		file_party_grpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreatePartyErrorResponse); i {
+			switch v := v.(*EmptyPartyErrorResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2432,42 +2205,6 @@ func file_party_grpc_proto_init() {
 			}
 		}
 		file_party_grpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DisbandPartyRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_party_grpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DisbandPartyResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_party_grpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DisbandPartyErrorResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_party_grpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartyRequest); i {
 			case 0:
 				return &v.state
@@ -2479,7 +2216,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartyResponse); i {
 			case 0:
 				return &v.state
@@ -2491,7 +2228,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartyInvitesRequest); i {
 			case 0:
 				return &v.state
@@ -2503,7 +2240,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartyInvitesResponse); i {
 			case 0:
 				return &v.state
@@ -2515,7 +2252,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*InvitePlayerRequest); i {
 			case 0:
 				return &v.state
@@ -2527,7 +2264,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*InvitePlayerResponse); i {
 			case 0:
 				return &v.state
@@ -2539,7 +2276,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*InvitePlayerErrorResponse); i {
 			case 0:
 				return &v.state
@@ -2551,7 +2288,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*JoinPartyRequest); i {
 			case 0:
 				return &v.state
@@ -2563,7 +2300,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*JoinPartyResponse); i {
 			case 0:
 				return &v.state
@@ -2575,7 +2312,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*JoinPartyErrorResponse); i {
 			case 0:
 				return &v.state
@@ -2587,7 +2324,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LeavePartyRequest); i {
 			case 0:
 				return &v.state
@@ -2599,7 +2336,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LeavePartyResponse); i {
 			case 0:
 				return &v.state
@@ -2611,7 +2348,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LeavePartyErrorResponse); i {
 			case 0:
 				return &v.state
@@ -2623,7 +2360,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*KickPlayerRequest); i {
 			case 0:
 				return &v.state
@@ -2635,7 +2372,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*KickPlayerResponse); i {
 			case 0:
 				return &v.state
@@ -2647,7 +2384,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*KickPlayerErrorResponse); i {
 			case 0:
 				return &v.state
@@ -2659,7 +2396,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetPartyLeaderRequest); i {
 			case 0:
 				return &v.state
@@ -2671,7 +2408,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetPartyLeaderResponse); i {
 			case 0:
 				return &v.state
@@ -2683,7 +2420,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SetPartyLeaderErrorResponse); i {
 			case 0:
 				return &v.state
@@ -2695,7 +2432,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartySettingsRequest); i {
 			case 0:
 				return &v.state
@@ -2707,7 +2444,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPartySettingsResponse); i {
 			case 0:
 				return &v.state
@@ -2719,7 +2456,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdatePartySettingsRequest); i {
 			case 0:
 				return &v.state
@@ -2731,7 +2468,7 @@ func file_party_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_party_grpc_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+		file_party_grpc_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdatePartySettingsResponse); i {
 			case 0:
 				return &v.state
@@ -2744,34 +2481,34 @@ func file_party_grpc_proto_init() {
 			}
 		}
 	}
-	file_party_grpc_proto_msgTypes[3].OneofWrappers = []interface{}{
-		(*DisbandPartyRequest_PartyId)(nil),
-		(*DisbandPartyRequest_PlayerId)(nil),
+	file_party_grpc_proto_msgTypes[0].OneofWrappers = []interface{}{
+		(*EmptyPartyRequest_PartyId)(nil),
+		(*EmptyPartyRequest_PlayerId)(nil),
 	}
-	file_party_grpc_proto_msgTypes[6].OneofWrappers = []interface{}{
+	file_party_grpc_proto_msgTypes[3].OneofWrappers = []interface{}{
 		(*GetPartyRequest_PartyId)(nil),
 		(*GetPartyRequest_PlayerId)(nil),
 	}
-	file_party_grpc_proto_msgTypes[8].OneofWrappers = []interface{}{
+	file_party_grpc_proto_msgTypes[5].OneofWrappers = []interface{}{
 		(*GetPartyInvitesRequest_PartyId)(nil),
 		(*GetPartyInvitesRequest_PlayerId)(nil),
 	}
-	file_party_grpc_proto_msgTypes[13].OneofWrappers = []interface{}{
+	file_party_grpc_proto_msgTypes[10].OneofWrappers = []interface{}{
 		(*JoinPartyRequest_PartyId)(nil),
 		(*JoinPartyRequest_MemberId)(nil),
 	}
-	file_party_grpc_proto_msgTypes[25].OneofWrappers = []interface{}{
+	file_party_grpc_proto_msgTypes[22].OneofWrappers = []interface{}{
 		(*GetPartySettingsRequest_PartyId)(nil),
 		(*GetPartySettingsRequest_PlayerId)(nil),
 	}
-	file_party_grpc_proto_msgTypes[27].OneofWrappers = []interface{}{}
+	file_party_grpc_proto_msgTypes[24].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_party_grpc_proto_rawDesc,
-			NumEnums:      7,
-			NumMessages:   29,
+			NumEnums:      6,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   2,
 		},

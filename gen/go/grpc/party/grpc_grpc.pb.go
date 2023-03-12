@@ -22,8 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PartyServiceClient interface {
-	CreateParty(ctx context.Context, in *CreatePartyRequest, opts ...grpc.CallOption) (*CreatePartyResponse, error)
-	DisbandParty(ctx context.Context, in *DisbandPartyRequest, opts ...grpc.CallOption) (*DisbandPartyResponse, error)
+	// EmptyParty empties a party, removing all members and invites.
+	EmptyParty(ctx context.Context, in *EmptyPartyRequest, opts ...grpc.CallOption) (*EmptyPartyResponse, error)
 	GetParty(ctx context.Context, in *GetPartyRequest, opts ...grpc.CallOption) (*GetPartyResponse, error)
 	GetPartyInvites(ctx context.Context, in *GetPartyInvitesRequest, opts ...grpc.CallOption) (*GetPartyInvitesResponse, error)
 	InvitePlayer(ctx context.Context, in *InvitePlayerRequest, opts ...grpc.CallOption) (*InvitePlayerResponse, error)
@@ -41,18 +41,9 @@ func NewPartyServiceClient(cc grpc.ClientConnInterface) PartyServiceClient {
 	return &partyServiceClient{cc}
 }
 
-func (c *partyServiceClient) CreateParty(ctx context.Context, in *CreatePartyRequest, opts ...grpc.CallOption) (*CreatePartyResponse, error) {
-	out := new(CreatePartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/CreateParty", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partyServiceClient) DisbandParty(ctx context.Context, in *DisbandPartyRequest, opts ...grpc.CallOption) (*DisbandPartyResponse, error) {
-	out := new(DisbandPartyResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/DisbandParty", in, out, opts...)
+func (c *partyServiceClient) EmptyParty(ctx context.Context, in *EmptyPartyRequest, opts ...grpc.CallOption) (*EmptyPartyResponse, error) {
+	out := new(EmptyPartyResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/EmptyParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,8 +117,8 @@ func (c *partyServiceClient) SetPartyLeader(ctx context.Context, in *SetPartyLea
 // All implementations must embed UnimplementedPartyServiceServer
 // for forward compatibility
 type PartyServiceServer interface {
-	CreateParty(context.Context, *CreatePartyRequest) (*CreatePartyResponse, error)
-	DisbandParty(context.Context, *DisbandPartyRequest) (*DisbandPartyResponse, error)
+	// EmptyParty empties a party, removing all members and invites.
+	EmptyParty(context.Context, *EmptyPartyRequest) (*EmptyPartyResponse, error)
 	GetParty(context.Context, *GetPartyRequest) (*GetPartyResponse, error)
 	GetPartyInvites(context.Context, *GetPartyInvitesRequest) (*GetPartyInvitesResponse, error)
 	InvitePlayer(context.Context, *InvitePlayerRequest) (*InvitePlayerResponse, error)
@@ -142,11 +133,8 @@ type PartyServiceServer interface {
 type UnimplementedPartyServiceServer struct {
 }
 
-func (UnimplementedPartyServiceServer) CreateParty(context.Context, *CreatePartyRequest) (*CreatePartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateParty not implemented")
-}
-func (UnimplementedPartyServiceServer) DisbandParty(context.Context, *DisbandPartyRequest) (*DisbandPartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DisbandParty not implemented")
+func (UnimplementedPartyServiceServer) EmptyParty(context.Context, *EmptyPartyRequest) (*EmptyPartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EmptyParty not implemented")
 }
 func (UnimplementedPartyServiceServer) GetParty(context.Context, *GetPartyRequest) (*GetPartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetParty not implemented")
@@ -182,38 +170,20 @@ func RegisterPartyServiceServer(s grpc.ServiceRegistrar, srv PartyServiceServer)
 	s.RegisterService(&PartyService_ServiceDesc, srv)
 }
 
-func _PartyService_CreateParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePartyRequest)
+func _PartyService_EmptyParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyPartyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartyServiceServer).CreateParty(ctx, in)
+		return srv.(PartyServiceServer).EmptyParty(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.party.PartyService/CreateParty",
+		FullMethod: "/emortal.grpc.party.PartyService/EmptyParty",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartyServiceServer).CreateParty(ctx, req.(*CreatePartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartyService_DisbandParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DisbandPartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartyServiceServer).DisbandParty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.party.PartyService/DisbandParty",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartyServiceServer).DisbandParty(ctx, req.(*DisbandPartyRequest))
+		return srv.(PartyServiceServer).EmptyParty(ctx, req.(*EmptyPartyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -352,12 +322,8 @@ var PartyService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PartyServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateParty",
-			Handler:    _PartyService_CreateParty_Handler,
-		},
-		{
-			MethodName: "DisbandParty",
-			Handler:    _PartyService_DisbandParty_Handler,
+			MethodName: "EmptyParty",
+			Handler:    _PartyService_EmptyParty_Handler,
 		},
 		{
 			MethodName: "GetParty",

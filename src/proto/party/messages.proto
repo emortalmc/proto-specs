@@ -34,6 +34,16 @@ message PartyPlayerLeftMessage {
   optional model.party.PartyMember kicked_by = 3;
 }
 
+message PartyOpenMessage {
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+}
+
+message PartyClosedMessage {
+  // party_id of type mongo ObjectId
+  string party_id = 1;
+}
+
 message PartyLeaderChangedMessage {
   // party_id of type mongo ObjectId
   string party_id = 1;

@@ -8,9 +8,13 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/party";
 import "party/models.proto";
 import "common_models.proto";
 
+// NOTES:
+// - Creating a party does not exist as a player is always in a party when they join the server.
+// - Emptying a party is a bit like disbanding a party, but it does not delete the party.
+
 service PartyService {
-  rpc CreateParty(CreatePartyRequest) returns (CreatePartyResponse) {}
-  rpc DisbandParty(DisbandPartyRequest) returns (DisbandPartyResponse) {}
+  // EmptyParty empties a party, removing all members and invites.
+  rpc EmptyParty(EmptyPartyRequest) returns (EmptyPartyResponse) {}
 
   rpc GetParty(GetPartyRequest) returns (GetPartyResponse) {}
 
@@ -29,34 +33,16 @@ service PartySettingsService {
   rpc UpdatePartySettings(UpdatePartySettingsRequest) returns (UpdatePartySettingsResponse) {}
 }
 
-message CreatePartyRequest {
-  // owner_id of type UUID
-  string owner_id = 1;
-
-  string owner_username = 2;
-}
-
-message CreatePartyResponse {
-  model.party.Party party = 1;
-}
-
-message CreatePartyErrorResponse {
-  enum ErrorType {
-    ALREADY_IN_PARTY = 0;
-  }
-  ErrorType error_type = 1;
-}
-
-message DisbandPartyRequest {
+message EmptyPartyRequest {
   oneof id {
     string party_id = 1;
     string player_id = 2;
   }
 }
 
-message DisbandPartyResponse {}
+message EmptyPartyResponse {}
 
-message DisbandPartyErrorResponse {
+message EmptyPartyErrorResponse {
   enum ErrorType {
     NOT_IN_PARTY = 0;
     NOT_LEADER = 1;

@@ -8,13 +8,16 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/model/party";
 import "google/protobuf/timestamp.proto";
 
 message Party {
-  // id of type UUID
+  // id of type ObjectId
   string id = 1;
 
   // leader_id of type UUID
   string leader_id = 2;
 
   repeated PartyMember members = 3;
+
+  // open if true, the party is open to anyone to join.
+  bool open = 4;
 }
 
 message PartyMember {
@@ -50,7 +53,4 @@ message PartySettings {
 
   // allow_member_invite if true, members of the party can invite other players to the party.
   bool allow_member_invite = 3;
-
-  // open if true, the party is open to anyone to join.
-  bool open = 4;
 }

@@ -283,6 +283,102 @@ func (x *PartyPlayerLeftMessage) GetKickedBy() *party.PartyMember {
 	return nil
 }
 
+type PartyOpenMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// party_id of type mongo ObjectId
+	PartyId string `protobuf:"bytes,1,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
+}
+
+func (x *PartyOpenMessage) Reset() {
+	*x = PartyOpenMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_party_messages_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PartyOpenMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PartyOpenMessage) ProtoMessage() {}
+
+func (x *PartyOpenMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_party_messages_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PartyOpenMessage.ProtoReflect.Descriptor instead.
+func (*PartyOpenMessage) Descriptor() ([]byte, []int) {
+	return file_party_messages_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *PartyOpenMessage) GetPartyId() string {
+	if x != nil {
+		return x.PartyId
+	}
+	return ""
+}
+
+type PartyClosedMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// party_id of type mongo ObjectId
+	PartyId string `protobuf:"bytes,1,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
+}
+
+func (x *PartyClosedMessage) Reset() {
+	*x = PartyClosedMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_party_messages_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PartyClosedMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PartyClosedMessage) ProtoMessage() {}
+
+func (x *PartyClosedMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_party_messages_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PartyClosedMessage.ProtoReflect.Descriptor instead.
+func (*PartyClosedMessage) Descriptor() ([]byte, []int) {
+	return file_party_messages_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *PartyClosedMessage) GetPartyId() string {
+	if x != nil {
+		return x.PartyId
+	}
+	return ""
+}
+
 type PartyLeaderChangedMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -296,7 +392,7 @@ type PartyLeaderChangedMessage struct {
 func (x *PartyLeaderChangedMessage) Reset() {
 	*x = PartyLeaderChangedMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_messages_proto_msgTypes[5]
+		mi := &file_party_messages_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -309,7 +405,7 @@ func (x *PartyLeaderChangedMessage) String() string {
 func (*PartyLeaderChangedMessage) ProtoMessage() {}
 
 func (x *PartyLeaderChangedMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_party_messages_proto_msgTypes[5]
+	mi := &file_party_messages_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -322,7 +418,7 @@ func (x *PartyLeaderChangedMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartyLeaderChangedMessage.ProtoReflect.Descriptor instead.
 func (*PartyLeaderChangedMessage) Descriptor() ([]byte, []int) {
-	return file_party_messages_proto_rawDescGZIP(), []int{5}
+	return file_party_messages_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *PartyLeaderChangedMessage) GetPartyId() string {
@@ -352,7 +448,7 @@ type PartySettingsChangedMessage struct {
 func (x *PartySettingsChangedMessage) Reset() {
 	*x = PartySettingsChangedMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_party_messages_proto_msgTypes[6]
+		mi := &file_party_messages_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -365,7 +461,7 @@ func (x *PartySettingsChangedMessage) String() string {
 func (*PartySettingsChangedMessage) ProtoMessage() {}
 
 func (x *PartySettingsChangedMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_party_messages_proto_msgTypes[6]
+	mi := &file_party_messages_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -378,7 +474,7 @@ func (x *PartySettingsChangedMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartySettingsChangedMessage.ProtoReflect.Descriptor instead.
 func (*PartySettingsChangedMessage) Descriptor() ([]byte, []int) {
-	return file_party_messages_proto_rawDescGZIP(), []int{6}
+	return file_party_messages_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *PartySettingsChangedMessage) GetPlayerId() string {
@@ -436,6 +532,12 @@ var file_party_messages_proto_rawDesc = []byte{
 	0x2e, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2e, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4d, 0x65, 0x6d, 0x62,
 	0x65, 0x72, 0x48, 0x00, 0x52, 0x08, 0x6b, 0x69, 0x63, 0x6b, 0x65, 0x64, 0x42, 0x79, 0x88, 0x01,
 	0x01, 0x42, 0x0c, 0x0a, 0x0a, 0x5f, 0x6b, 0x69, 0x63, 0x6b, 0x65, 0x64, 0x5f, 0x62, 0x79, 0x22,
+	0x2d, 0x0a, 0x10, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4f, 0x70, 0x65, 0x6e, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49, 0x64, 0x22, 0x2f,
+	0x0a, 0x12, 0x50, 0x61, 0x72, 0x74, 0x79, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x64, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x70, 0x61, 0x72, 0x74, 0x79, 0x49, 0x64, 0x22,
 	0x77, 0x0a, 0x19, 0x50, 0x61, 0x72, 0x74, 0x79, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x43, 0x68,
 	0x61, 0x6e, 0x67, 0x65, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x19, 0x0a, 0x08,
 	0x70, 0x61, 0x72, 0x74, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
@@ -472,29 +574,31 @@ func file_party_messages_proto_rawDescGZIP() []byte {
 	return file_party_messages_proto_rawDescData
 }
 
-var file_party_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_party_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_party_messages_proto_goTypes = []interface{}{
 	(*PartyCreatedMessage)(nil),         // 0: emortal.message.party.PartyCreatedMessage
 	(*PartyDisbandedMessage)(nil),       // 1: emortal.message.party.PartyDisbandedMessage
 	(*PartyInviteCreatedMessage)(nil),   // 2: emortal.message.party.PartyInviteCreatedMessage
 	(*PartyPlayerJoinedMessage)(nil),    // 3: emortal.message.party.PartyPlayerJoinedMessage
 	(*PartyPlayerLeftMessage)(nil),      // 4: emortal.message.party.PartyPlayerLeftMessage
-	(*PartyLeaderChangedMessage)(nil),   // 5: emortal.message.party.PartyLeaderChangedMessage
-	(*PartySettingsChangedMessage)(nil), // 6: emortal.message.party.PartySettingsChangedMessage
-	(*party.Party)(nil),                 // 7: emortal.model.party.Party
-	(*party.PartyInvite)(nil),           // 8: emortal.model.party.PartyInvite
-	(*party.PartyMember)(nil),           // 9: emortal.model.party.PartyMember
-	(*party.PartySettings)(nil),         // 10: emortal.model.party.PartySettings
+	(*PartyOpenMessage)(nil),            // 5: emortal.message.party.PartyOpenMessage
+	(*PartyClosedMessage)(nil),          // 6: emortal.message.party.PartyClosedMessage
+	(*PartyLeaderChangedMessage)(nil),   // 7: emortal.message.party.PartyLeaderChangedMessage
+	(*PartySettingsChangedMessage)(nil), // 8: emortal.message.party.PartySettingsChangedMessage
+	(*party.Party)(nil),                 // 9: emortal.model.party.Party
+	(*party.PartyInvite)(nil),           // 10: emortal.model.party.PartyInvite
+	(*party.PartyMember)(nil),           // 11: emortal.model.party.PartyMember
+	(*party.PartySettings)(nil),         // 12: emortal.model.party.PartySettings
 }
 var file_party_messages_proto_depIdxs = []int32{
-	7,  // 0: emortal.message.party.PartyCreatedMessage.party:type_name -> emortal.model.party.Party
-	7,  // 1: emortal.message.party.PartyDisbandedMessage.party:type_name -> emortal.model.party.Party
-	8,  // 2: emortal.message.party.PartyInviteCreatedMessage.invite:type_name -> emortal.model.party.PartyInvite
-	9,  // 3: emortal.message.party.PartyPlayerJoinedMessage.member:type_name -> emortal.model.party.PartyMember
-	9,  // 4: emortal.message.party.PartyPlayerLeftMessage.member:type_name -> emortal.model.party.PartyMember
-	9,  // 5: emortal.message.party.PartyPlayerLeftMessage.kicked_by:type_name -> emortal.model.party.PartyMember
-	9,  // 6: emortal.message.party.PartyLeaderChangedMessage.new_leader:type_name -> emortal.model.party.PartyMember
-	10, // 7: emortal.message.party.PartySettingsChangedMessage.settings:type_name -> emortal.model.party.PartySettings
+	9,  // 0: emortal.message.party.PartyCreatedMessage.party:type_name -> emortal.model.party.Party
+	9,  // 1: emortal.message.party.PartyDisbandedMessage.party:type_name -> emortal.model.party.Party
+	10, // 2: emortal.message.party.PartyInviteCreatedMessage.invite:type_name -> emortal.model.party.PartyInvite
+	11, // 3: emortal.message.party.PartyPlayerJoinedMessage.member:type_name -> emortal.model.party.PartyMember
+	11, // 4: emortal.message.party.PartyPlayerLeftMessage.member:type_name -> emortal.model.party.PartyMember
+	11, // 5: emortal.message.party.PartyPlayerLeftMessage.kicked_by:type_name -> emortal.model.party.PartyMember
+	11, // 6: emortal.message.party.PartyLeaderChangedMessage.new_leader:type_name -> emortal.model.party.PartyMember
+	12, // 7: emortal.message.party.PartySettingsChangedMessage.settings:type_name -> emortal.model.party.PartySettings
 	8,  // [8:8] is the sub-list for method output_type
 	8,  // [8:8] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -569,7 +673,7 @@ func file_party_messages_proto_init() {
 			}
 		}
 		file_party_messages_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PartyLeaderChangedMessage); i {
+			switch v := v.(*PartyOpenMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -581,6 +685,30 @@ func file_party_messages_proto_init() {
 			}
 		}
 		file_party_messages_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PartyClosedMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_party_messages_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PartyLeaderChangedMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_party_messages_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PartySettingsChangedMessage); i {
 			case 0:
 				return &v.state
@@ -600,7 +728,7 @@ func file_party_messages_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_party_messages_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
