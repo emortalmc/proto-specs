@@ -18,6 +18,8 @@ service PartyService {
 
   rpc GetParty(GetPartyRequest) returns (GetPartyResponse) {}
 
+  rpc SetOpenParty(SetOpenPartyRequest) returns (SetOpenPartyResponse) {}
+
   rpc GetPartyInvites(GetPartyInvitesRequest) returns (GetPartyInvitesResponse) {}
   rpc InvitePlayer(InvitePlayerRequest) returns (InvitePlayerResponse) {}
 
@@ -58,6 +60,24 @@ message GetPartyRequest {
 
 message GetPartyResponse {
   model.party.Party party = 1;
+}
+
+message SetOpenPartyRequest {
+  // player_id of type UUID
+  string player_id = 1;
+
+  bool open = 2;
+}
+
+message SetOpenPartyResponse {
+  model.party.Party party = 1;
+}
+
+message SetOpenPartyErrorResponse {
+  enum ErrorType {
+    NOT_LEADER = 0;
+  }
+  ErrorType error_type = 1;
 }
 
 message GetPartyInvitesRequest {

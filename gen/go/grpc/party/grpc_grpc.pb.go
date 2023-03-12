@@ -25,6 +25,7 @@ type PartyServiceClient interface {
 	// EmptyParty empties a party, removing all members and invites.
 	EmptyParty(ctx context.Context, in *EmptyPartyRequest, opts ...grpc.CallOption) (*EmptyPartyResponse, error)
 	GetParty(ctx context.Context, in *GetPartyRequest, opts ...grpc.CallOption) (*GetPartyResponse, error)
+	SetOpenParty(ctx context.Context, in *SetOpenPartyRequest, opts ...grpc.CallOption) (*SetOpenPartyResponse, error)
 	GetPartyInvites(ctx context.Context, in *GetPartyInvitesRequest, opts ...grpc.CallOption) (*GetPartyInvitesResponse, error)
 	InvitePlayer(ctx context.Context, in *InvitePlayerRequest, opts ...grpc.CallOption) (*InvitePlayerResponse, error)
 	JoinParty(ctx context.Context, in *JoinPartyRequest, opts ...grpc.CallOption) (*JoinPartyResponse, error)
@@ -53,6 +54,15 @@ func (c *partyServiceClient) EmptyParty(ctx context.Context, in *EmptyPartyReque
 func (c *partyServiceClient) GetParty(ctx context.Context, in *GetPartyRequest, opts ...grpc.CallOption) (*GetPartyResponse, error) {
 	out := new(GetPartyResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/GetParty", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partyServiceClient) SetOpenParty(ctx context.Context, in *SetOpenPartyRequest, opts ...grpc.CallOption) (*SetOpenPartyResponse, error) {
+	out := new(SetOpenPartyResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.party.PartyService/SetOpenParty", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,6 +130,7 @@ type PartyServiceServer interface {
 	// EmptyParty empties a party, removing all members and invites.
 	EmptyParty(context.Context, *EmptyPartyRequest) (*EmptyPartyResponse, error)
 	GetParty(context.Context, *GetPartyRequest) (*GetPartyResponse, error)
+	SetOpenParty(context.Context, *SetOpenPartyRequest) (*SetOpenPartyResponse, error)
 	GetPartyInvites(context.Context, *GetPartyInvitesRequest) (*GetPartyInvitesResponse, error)
 	InvitePlayer(context.Context, *InvitePlayerRequest) (*InvitePlayerResponse, error)
 	JoinParty(context.Context, *JoinPartyRequest) (*JoinPartyResponse, error)
@@ -138,6 +149,9 @@ func (UnimplementedPartyServiceServer) EmptyParty(context.Context, *EmptyPartyRe
 }
 func (UnimplementedPartyServiceServer) GetParty(context.Context, *GetPartyRequest) (*GetPartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetParty not implemented")
+}
+func (UnimplementedPartyServiceServer) SetOpenParty(context.Context, *SetOpenPartyRequest) (*SetOpenPartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetOpenParty not implemented")
 }
 func (UnimplementedPartyServiceServer) GetPartyInvites(context.Context, *GetPartyInvitesRequest) (*GetPartyInvitesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPartyInvites not implemented")
@@ -202,6 +216,24 @@ func _PartyService_GetParty_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartyServiceServer).GetParty(ctx, req.(*GetPartyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartyService_SetOpenParty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetOpenPartyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartyServiceServer).SetOpenParty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.party.PartyService/SetOpenParty",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartyServiceServer).SetOpenParty(ctx, req.(*SetOpenPartyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -328,6 +360,10 @@ var PartyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetParty",
 			Handler:    _PartyService_GetParty_Handler,
+		},
+		{
+			MethodName: "SetOpenParty",
+			Handler:    _PartyService_SetOpenParty_Handler,
 		},
 		{
 			MethodName: "GetPartyInvites",
