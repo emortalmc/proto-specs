@@ -30,21 +30,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtoParserRegistry {
     // Map<full descriptor name, parser>
-    private static final Map<String, ParsableProto<? extends Message>> parsers = new ConcurrentHashMap<>();
+    private static final Map<String, MessageProtoConfig<? extends Message>> parsers = new ConcurrentHashMap<>();
 
     static {
         registerDefaults();
     }
 
-    public static ParsableProto<? extends Message> getParser(@NotNull String fullDescriptorName) {
+    public static MessageProtoConfig<? extends Message> getParser(@NotNull String fullDescriptorName) {
         return parsers.get(fullDescriptorName);
     }
 
-    public static <T extends Message> ParsableProto<T> getParser(@NotNull Class<T> clazz) {
-        for (ParsableProto<? extends Message> parser : parsers.values()) {
+    public static <T extends Message> MessageProtoConfig<T> getParser(@NotNull Class<T> clazz) {
+        for (MessageProtoConfig<? extends Message> parser : parsers.values()) {
             if (parser.example().getClass().equals(clazz)) {
                 //noinspection unchecked
-                return (ParsableProto<T>) parser;
+                return (MessageProtoConfig<T>) parser;
             }
         }
 
@@ -62,54 +62,58 @@ public class ProtoParserRegistry {
      * @throws InvalidProtocolBufferException If the passed message (bytes) are invalid
      */
     public static <T extends Message> T parse(@NotNull String fullDescriptorName, byte[] bytes) throws ParserNotFoundException, InvalidProtocolBufferException {
-        ParsableProto<T> parser = (ParsableProto<T>) parsers.get(fullDescriptorName);
+        MessageProtoConfig<T> parser = (MessageProtoConfig<T>) parsers.get(fullDescriptorName);
         if (parser == null) throw new ParserNotFoundException(fullDescriptorName);
 
         return parser.parser().parse(bytes);
     }
 
-    public static <T extends Message> void register(@NotNull T example, @NotNull ProtoParser<T> parser, @Nullable String exchangeName, @Nullable String routingKey) {
-        parsers.put(example.getDescriptorForType().getFullName(), new ParsableProto<>(parser, example, exchangeName, routingKey));
+    public static <T extends Message> void registerRMQ(@NotNull T example, @NotNull ProtoParser<T> parser, @Nullable String exchangeName, @Nullable String routingKey) {
+        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.RABBIT_MQ, parser, example, exchangeName, routingKey, null));
     }
 
-    public static <T extends Message> void register(@NotNull T example, @NotNull ProtoParser<T> parser) {
-        register(example, parser, null, null);
+    public static <T extends Message> void registerRMQ(@NotNull T example, @NotNull ProtoParser<T> parser) {
+        registerRMQ(example, parser, null, null);
+    }
+
+    public static <T extends Message> void registerKafka(@NotNull T example, @NotNull ProtoParser<T> parser, @NotNull String topic) {
+        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.RABBIT_MQ, parser, example, null, null, topic));
     }
 
     private static void registerDefaults() {
-        register(Empty.getDefaultInstance(), Empty::parseFrom); // Mostly as an example. Empty shouldn't need to be parsed.
+        registerRMQ(Empty.getDefaultInstance(), Empty::parseFrom); // Mostly as an example. Empty shouldn't need to be parsed.
 
         // Friend
-        register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);
-        register(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom);
-        register(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom);
+        registerRMQ(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);
+        registerRMQ(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom);
+        registerRMQ(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom);
 
         // Party
-        register(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager", "party_created");
-        register(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager", "party_deleted");
-        register(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager", "party_emptied");
-        register(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager", "party_open_changed");
-        register(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager", "party_invite_created");
-        register(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager", "party_player_joined");
-        register(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager", "party_player_left");
-        register(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager", "party_leader_changed");
-        register(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager", "party_settings_changed");
+        registerRMQ(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager", "party_created");
+        registerRMQ(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager", "party_deleted");
+        registerRMQ(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager", "party_emptied");
+        registerRMQ(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager", "party_open_changed");
+        registerRMQ(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager", "party_invite_created");
+        registerRMQ(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager", "party_player_joined");
+        registerRMQ(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager", "party_player_left");
+        registerRMQ(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager", "party_leader_changed");
+        registerRMQ(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager", "party_settings_changed");
 
         // Permission
-        register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager", "role_update");
-        register(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager", "player_role_update");
+        registerRMQ(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager", "role_update");
+        registerRMQ(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager", "player_role_update");
 
         // Player tracker
-        register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
-        register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom);
+        registerRMQ(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
+        registerRMQ(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom);
 
         // Private message
-        register(PrivateMessageReceivedMessage.getDefaultInstance(), PrivateMessageReceivedMessage::parseFrom);
+        registerRMQ(PrivateMessageReceivedMessage.getDefaultInstance(), PrivateMessageReceivedMessage::parseFrom);
 
         // Common
-        register(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
-        register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc:connections", "player_connect");
-        register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc:connections", "player_disconnect");
-        register(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc:connections", "player_switch_server");
+        registerRMQ(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
+        registerRMQ(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc:connections", "player_connect");
+        registerRMQ(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc:connections", "player_disconnect");
+        registerRMQ(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc:connections", "player_switch_server");
     }
 }

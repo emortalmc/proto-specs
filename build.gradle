@@ -17,13 +17,16 @@ def protocVersion = protobufVersion
 
 repositories {
     mavenCentral()
+    maven { url = "https://packages.confluent.io/maven/" }
 }
 
 dependencies {
     protobuf("com.google.protobuf:protobuf-java:${protobufVersion}")
-    api("com.google.protobuf:protobuf-java:3.21.8")
+    api("com.google.protobuf:protobuf-java:${protobufVersion}")
     api("org.apache.tomcat:annotations-api:6.0.53")
     api("org.slf4j:slf4j-api:2.0.6")
+
+    implementation("org.apache.kafka:kafka-clients:7.0.1-ccs")
 
     compileOnly("org.jetbrains:annotations:23.1.0")
     annotationProcessor("org.jetbrains:annotations:23.1.0")

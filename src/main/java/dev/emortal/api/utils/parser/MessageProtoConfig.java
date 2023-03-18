@@ -1,0 +1,15 @@
+package dev.emortal.api.utils.parser;
+
+import com.google.protobuf.Message;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Contains a parser for the message type.
+ */
+public record MessageProtoConfig<T extends Message>(@NotNull MessagingService service,
+                                                    @NotNull ProtoParser<T> parser, @NotNull T example,
+                                                    @Nullable String exchangeName, @Nullable String routingKey, // RabbitMQ
+                                                    @Nullable String topic) { // Kafka
+
+}
