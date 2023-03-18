@@ -26,7 +26,7 @@ public class KafkaSettings {
     @Builder.Default
     private boolean autoCommit = true;
 
-    private String createClientId() {
+    private static String createClientId() {
         try {
             return InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
