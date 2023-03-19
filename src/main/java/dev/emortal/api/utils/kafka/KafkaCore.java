@@ -68,9 +68,9 @@ public class KafkaCore {
         while (!Thread.currentThread().isInterrupted()) {
             // Only poll every second
             Duration timeSinceLastPoll = Duration.between(lastPoll, Instant.now());
-            if (timeSinceLastPoll.toMillis() < 1000) {
+            if (timeSinceLastPoll.toMillis() < 500) {
                 try {
-                    Thread.sleep(1000 - timeSinceLastPoll.toMillis());
+                    Thread.sleep(500 - timeSinceLastPoll.toMillis());
                 } catch (InterruptedException e) {
                     LOGGER.warn("Interrupted while sleeping", e);
                 }
