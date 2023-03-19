@@ -12,6 +12,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.header.Header;
 import org.apache.kafka.common.header.Headers;
+import org.apache.kafka.common.serialization.ByteArrayDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -46,7 +48,7 @@ public class KafkaCore {
         // Nullable options
         if (settings.getGroupId() != null) properties.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getGroupId());
 
-        this.consumer = new KafkaConsumer<>(properties);
+        this.consumer = new KafkaConsumer<>(properties, new StringDeserializer(), new ByteArrayDeserializer());
 
         new ThreadFactoryBuilder().setNameFormat("kafka-consumer").build();
         this.consumerThread = new Thread(this::consume, "kafka-consumer");
