@@ -41,8 +41,10 @@ public class KafkaCore {
 
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, settings.getBootstrapServers());
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG, settings.getClientId());
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getGroupId());
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, settings.isAutoCommit());
+
+        // Nullable options
+        if (settings.getGroupId() != null) properties.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getGroupId());
 
         this.consumer = new KafkaConsumer<>(properties);
 
