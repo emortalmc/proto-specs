@@ -20,11 +20,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
@@ -43,10 +45,15 @@ public class KafkaCore {
 
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, settings.getBootstrapServers());
         properties.put(ConsumerConfig.CLIENT_ID_CONFIG, settings.getClientId());
-        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, settings.isAutoCommit());
 
         // Nullable options
-        if (settings.getGroupId() != null) properties.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getGroupId());
+        if (settings.getAutoCommit() != null) properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, settings.getAutoCommit());
+
+        String groupId = settings.getGroupId();
+        if (groupId == null) groupId = "kafka-core-" + UUID.randomUUID();
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+
+        System.out.println("properties: " + properties);
 
         this.consumer = new KafkaConsumer<>(properties, new StringDeserializer(), new ByteArrayDeserializer());
 
@@ -55,7 +62,20 @@ public class KafkaCore {
     }
 
     private void consume() {
+        LOGGER.info("Starting Kafka consumer thread");
+
+        Instant lastPoll = Instant.now().minusSeconds(5);
         while (!Thread.currentThread().isInterrupted()) {
+            // Only poll every second
+            Duration timeSinceLastPoll = Duration.between(lastPoll, Instant.now());
+            if (timeSinceLastPoll.toMillis() < 1000) {
+                try {
+                    Thread.sleep(1000 - timeSinceLastPoll.toMillis());
+                } catch (InterruptedException e) {
+                    LOGGER.warn("Interrupted while sleeping", e);
+                }
+            }
+
             ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofSeconds(5));
 
             for (ConsumerRecord<String, byte[]> record : records) {
@@ -110,6 +130,10 @@ public class KafkaCore {
             LOGGER.debug("Subscribing to topic {}", protoConfig.topic());
             this.consumedTopics.add(protoConfig.topic());
             this.consumer.subscribe(this.consumedTopics);
+        }
+
+        if (!this.consumerThread.isAlive()) {
+            this.consumerThread.start();
         }
 
         this.protoListeners.put(messageType, (Consumer<AbstractMessage>) listener);

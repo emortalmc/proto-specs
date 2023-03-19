@@ -77,7 +77,7 @@ public class ProtoParserRegistry {
     }
 
     public static <T extends Message> void registerKafka(@NotNull T example, @NotNull ProtoParser<T> parser, @NotNull String topic) {
-        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.RABBIT_MQ, parser, example, null, null, topic));
+        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.KAFKA, parser, example, null, null, topic));
     }
 
     private static void registerDefaults() {

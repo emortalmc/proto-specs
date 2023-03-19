@@ -24,7 +24,7 @@ public class KafkaSettings {
 
     // Optional consumer
     @Builder.Default
-    private boolean autoCommit = true;
+    private Boolean autoCommit = null;
 
     private static String createClientId() {
         try {
