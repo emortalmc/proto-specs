@@ -89,15 +89,15 @@ public class ProtoParserRegistry {
         registerRMQ(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom);
 
         // Party
-        registerRMQ(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager", "party_created");
-        registerRMQ(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager", "party_deleted");
-        registerRMQ(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager", "party_emptied");
-        registerRMQ(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager", "party_open_changed");
-        registerRMQ(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager", "party_invite_created");
-        registerRMQ(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager", "party_player_joined");
-        registerRMQ(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager", "party_player_left");
-        registerRMQ(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager", "party_leader_changed");
-        registerRMQ(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager", "party_settings_changed");
+        registerKafka(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager");
+        registerKafka(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager");
+        registerKafka(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager");
+        registerKafka(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager");
+        registerKafka(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager");
+        registerKafka(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager");
+        registerKafka(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager");
+        registerKafka(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager");
+        registerKafka(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager");
 
         // Permission
         registerRMQ(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager", "role_update");
