@@ -112,8 +112,8 @@ public class ProtoParserRegistry {
 
         // Common
         registerRMQ(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
-        registerRMQ(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc:connections", "player_connect");
-        registerRMQ(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc:connections", "player_disconnect");
-        registerRMQ(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc:connections", "player_switch_server");
+        registerKafka(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
+        registerKafka(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
+        registerKafka(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");
     }
 }

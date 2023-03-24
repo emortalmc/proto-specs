@@ -34,7 +34,7 @@ public class ProtoParserRegistryTest {
 
     @Test
     public void testRegisteredParsing() throws InvalidProtocolBufferException {
-        ProtoParserRegistry.register(Timestamp.getDefaultInstance(), Timestamp::parseFrom);
+        ProtoParserRegistry.registerKafka(Timestamp.getDefaultInstance(), Timestamp::parseFrom, "test");
 
         Instant instant = Instant.now();
 

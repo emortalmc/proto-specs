@@ -6,7 +6,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import dev.emortal.api.utils.parser.MessageProtoConfig;
 import dev.emortal.api.utils.parser.MessagingService;
 import dev.emortal.api.utils.parser.ProtoParserRegistry;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -20,85 +19,76 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-public class KafkaCore {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCore.class);
+public class FriendlyKafkaConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FriendlyKafkaConsumer.class);
 
     private final @NotNull KafkaConsumer<String, byte[]> consumer;
 
     private final Map<Class<?>, Consumer<AbstractMessage>> protoListeners = new ConcurrentHashMap<>();
     private final @NotNull Set<String> consumedTopics = Collections.synchronizedSet(new HashSet<>());
 
-    private final Thread consumerThread;
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
+            new ThreadFactoryBuilder().setNameFormat("kafka-consumer-scheduler")
+                    .setUncaughtExceptionHandler((t, e) -> LOGGER.error("Err: ", e))
+                    .build());
 
-    public KafkaCore(@NotNull KafkaSettings settings) {
-        Properties properties = new Properties();
+    private final boolean autoCommit;
 
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, settings.getBootstrapServers());
-        properties.put(ConsumerConfig.CLIENT_ID_CONFIG, settings.getClientId());
-
+    public FriendlyKafkaConsumer(@NotNull KafkaSettings settings) {
         // Nullable options
-        if (settings.getAutoCommit() != null) properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, settings.getAutoCommit());
+        this.autoCommit = settings.isAutoCommit();
 
-        String groupId = settings.getGroupId();
-        if (groupId == null) groupId = "kafka-core-" + UUID.randomUUID();
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        Map<String, Object> settingsMap = settings.getSettings();
+        if (settingsMap.get("group.id") == null) {
+            settingsMap.put("group.id", "kafka-core-" + UUID.randomUUID());
+        }
 
-        System.out.println("properties: " + properties);
+        this.consumer = new KafkaConsumer<>(settingsMap, new StringDeserializer(), new ByteArrayDeserializer());
 
-        this.consumer = new KafkaConsumer<>(properties, new StringDeserializer(), new ByteArrayDeserializer());
-
-        new ThreadFactoryBuilder().setNameFormat("kafka-consumer").build();
-        this.consumerThread = new Thread(this::consume, "kafka-consumer");
+        LOGGER.info("Starting Kafka consumer thread");
+        this.scheduler.scheduleAtFixedRate(this::consume, 0, 100, TimeUnit.MILLISECONDS);
     }
 
     private void consume() {
-        LOGGER.info("Starting Kafka consumer thread");
+        if (this.consumedTopics.isEmpty()) return;
 
-        Instant lastPoll = Instant.now().minusSeconds(5);
-        while (!Thread.currentThread().isInterrupted()) {
-            // Only poll every second
-            Duration timeSinceLastPoll = Duration.between(lastPoll, Instant.now());
-            if (timeSinceLastPoll.toMillis() < 500) {
-                try {
-                    Thread.sleep(500 - timeSinceLastPoll.toMillis());
-                } catch (InterruptedException e) {
-                    LOGGER.warn("Interrupted while sleeping", e);
-                }
+        ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofSeconds(1));
+
+        for (ConsumerRecord<String, byte[]> record : records) {
+            String protoType = this.getProtoType(record.headers());
+            if (protoType == null) {
+                LOGGER.warn("Received message without X-Proto-Type header");
+                continue;
             }
 
-            ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofSeconds(5));
-
-            for (ConsumerRecord<String, byte[]> record : records) {
-                String protoType = this.getProtoType(record.headers());
-                if (protoType == null) {
-                    LOGGER.warn("Received message without X-Proto-Type header");
-                    continue;
-                }
-
-                AbstractMessage message;
-                try {
-                    message = ProtoParserRegistry.parse(protoType, record.value());
-                } catch (InvalidProtocolBufferException e) {
-                    LOGGER.warn("Failed to parse message", e);
-                    continue;
-                }
-
-                try {
-                    this.protoListeners.get(message.getClass()).accept(message);
-                } catch (Exception e) {
-                    LOGGER.warn("Failed to handle message", e);
-                }
+            AbstractMessage message;
+            try {
+                message = ProtoParserRegistry.parse(protoType, record.value());
+            } catch (InvalidProtocolBufferException e) {
+                LOGGER.warn("Failed to parse message", e);
+                continue;
             }
+
+            try {
+                this.protoListeners.get(message.getClass()).accept(message);
+            } catch (Exception e) {
+                LOGGER.warn("Failed to handle message", e);
+            }
+        }
+
+        if (this.autoCommit) {
+            this.consumer.commitSync();
         }
     }
 
@@ -132,15 +122,11 @@ public class KafkaCore {
             this.consumer.subscribe(this.consumedTopics);
         }
 
-        if (!this.consumerThread.isAlive()) {
-            this.consumerThread.start();
-        }
-
         this.protoListeners.put(messageType, (Consumer<AbstractMessage>) listener);
     }
 
-    public void shutdown() {
+    public void close() {
+        this.scheduler.shutdown();
         this.consumer.close();
-        this.consumerThread.interrupt();
     }
 }
