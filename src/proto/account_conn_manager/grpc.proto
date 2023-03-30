@@ -1,0 +1,49 @@
+syntax = "proto3";
+package emortal.grpc.account_conn_manager;
+
+option java_package = "dev.emortal.api.grpc.accountconnmanager";
+option java_outer_classname = "AccountConnManagerProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/accountconnmanager";
+
+import "account_conn_manager/models.proto";
+
+service AccountConnectionManager {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateOAuthLink(CreateOAuthLinkRequest) returns (CreateOAuthLinkResponse);
+}
+
+message GetUserRequest {
+  oneof id {
+    string minecraft_id = 1;
+    uint64 discord_id = 2;
+    uint64 github_id = 3;
+  }
+}
+
+message GetUserResponse {
+  model.account_conn_manager.ConnectionUser user = 1;
+}
+
+// CreateOAuthLinkRequest requests an OAuth URL to link an account to another.
+message CreateOAuthLinkRequest {
+  oneof source_id {
+    string source_minecraft_id = 1;
+    uint64 source_discord_id = 2;
+    uint64 source_github_id = 3;
+  }
+
+  model.account_conn_manager.ConnectionType target_connection = 4;
+}
+
+message CreateOAuthLinkResponse {
+  string url = 1;
+}
+
+message CreateOAuthLinkErrorResponse {
+  enum Reason {
+    INVALID_SOURCE_ID = 0;
+    // CONNECTION_ALREADY_EXISTS note this is only that this user already has this connection, we don't know the target conn ID yet.
+    CONNECTION_ALREADY_EXISTS = 1;
+  }
+}
+
