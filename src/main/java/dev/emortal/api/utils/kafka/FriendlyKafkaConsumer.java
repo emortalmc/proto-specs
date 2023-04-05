@@ -35,12 +35,12 @@ public class FriendlyKafkaConsumer {
 
     private final @NotNull KafkaConsumer<String, byte[]> consumer;
 
-    private final Map<Class<?>, Consumer<AbstractMessage>> protoListeners = new ConcurrentHashMap<>();
+    private final Map<Class<?>, Set<Consumer<AbstractMessage>>> protoListeners = new ConcurrentHashMap<>();
     private final @NotNull Set<String> consumedTopics = Collections.synchronizedSet(new HashSet<>());
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
             new ThreadFactoryBuilder().setNameFormat("kafka-consumer-scheduler")
-                    .setUncaughtExceptionHandler((t, e) -> LOGGER.error("Err: ", e))
+                    .setUncaughtExceptionHandler((t, e) -> LOGGER.error("Error in Kafka consumer: ", e))
                     .build());
 
     private final boolean autoCommit;
@@ -81,9 +81,14 @@ public class FriendlyKafkaConsumer {
             }
 
             try {
-                this.protoListeners.get(message.getClass()).accept(message);
+                Set<Consumer<AbstractMessage>> consumers = this.protoListeners.get(message.getClass());
+                if (consumers != null) {
+                    for (Consumer<AbstractMessage> consumer : consumers) {
+                        consumer.accept(message);
+                    }
+                }
             } catch (Exception e) {
-                LOGGER.warn("Failed to handle message", e);
+                LOGGER.error("Failed to handle message (topic: {}, type: {}): {}", record.topic(), protoType, e);
             }
         }
 
@@ -102,7 +107,7 @@ public class FriendlyKafkaConsumer {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends AbstractMessage> void setListener(@NotNull Class<T> messageType, @NotNull Consumer<T> listener) {
+    public <T extends AbstractMessage> void addListener(@NotNull Class<T> messageType, @NotNull Consumer<T> listener) {
         MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
         if (protoConfig == null) {
             throw new IllegalArgumentException("No parser found for " + messageType.getName());
@@ -122,7 +127,7 @@ public class FriendlyKafkaConsumer {
             this.consumer.subscribe(this.consumedTopics);
         }
 
-        this.protoListeners.put(messageType, (Consumer<AbstractMessage>) listener);
+        this.protoListeners.getOrDefault(messageType, new HashSet<>()).add((Consumer<AbstractMessage>) listener);
     }
 
     public void close() {

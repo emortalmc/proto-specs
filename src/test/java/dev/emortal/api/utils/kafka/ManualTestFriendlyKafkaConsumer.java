@@ -14,7 +14,7 @@ public class ManualTestFriendlyKafkaConsumer {
         FriendlyKafkaConsumer consumer = new FriendlyKafkaConsumer(settings);
 
         CountDownLatch latch = new CountDownLatch(1);
-        consumer.setListener(PlayerConnectMessage.class, message -> {
+        consumer.addListener(PlayerConnectMessage.class, message -> {
             System.out.println("Received message: " + message);
             latch.countDown();
         });
