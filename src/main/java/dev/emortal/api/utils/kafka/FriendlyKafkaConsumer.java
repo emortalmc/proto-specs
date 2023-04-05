@@ -117,17 +117,13 @@ public class FriendlyKafkaConsumer {
             throw new IllegalArgumentException("Parser for " + messageType.getName() + " is not for Kafka");
         }
 
-        if (this.protoListeners.containsKey(messageType)) {
-            throw new IllegalArgumentException("Listener already set for " + messageType.getName());
-        }
-
         if (!this.consumedTopics.contains(protoConfig.topic())) {
             LOGGER.debug("Subscribing to topic {}", protoConfig.topic());
             this.consumedTopics.add(protoConfig.topic());
             this.consumer.subscribe(this.consumedTopics);
         }
 
-        this.protoListeners.getOrDefault(messageType, new HashSet<>()).add((Consumer<AbstractMessage>) listener);
+        this.protoListeners.computeIfAbsent(messageType, k -> new HashSet<>()).add((Consumer<AbstractMessage>) listener);
     }
 
     public void close() {
