@@ -63,7 +63,7 @@ public class FriendlyKafkaConsumer {
     private void consume() {
         if (this.consumedTopics.isEmpty()) return;
 
-        ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofSeconds(1));
+        ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofMillis(100));
 
         for (ConsumerRecord<String, byte[]> record : records) {
             String protoType = this.getProtoType(record.headers());
