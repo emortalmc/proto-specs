@@ -61,39 +61,41 @@ public class FriendlyKafkaConsumer {
     }
 
     private void consume() {
-        if (this.consumedTopics.isEmpty()) return;
+        synchronized (this.consumedTopics) {
+            if (this.consumedTopics.isEmpty()) return;
 
-        ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofMillis(100));
+            ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofMillis(100));
 
-        for (ConsumerRecord<String, byte[]> record : records) {
-            String protoType = this.getProtoType(record.headers());
-            if (protoType == null) {
-                LOGGER.warn("Received message without X-Proto-Type header");
-                continue;
-            }
-
-            AbstractMessage message;
-            try {
-                message = ProtoParserRegistry.parse(protoType, record.value());
-            } catch (InvalidProtocolBufferException e) {
-                LOGGER.warn("Failed to parse message", e);
-                continue;
-            }
-
-            try {
-                Set<Consumer<AbstractMessage>> consumers = this.protoListeners.get(message.getClass());
-                if (consumers != null) {
-                    for (Consumer<AbstractMessage> consumer : consumers) {
-                        consumer.accept(message);
-                    }
+            for (ConsumerRecord<String, byte[]> record : records) {
+                String protoType = this.getProtoType(record.headers());
+                if (protoType == null) {
+                    LOGGER.warn("Received message without X-Proto-Type header");
+                    continue;
                 }
-            } catch (Exception e) {
-                LOGGER.error("Failed to handle message (topic: {}, type: {}): {}", record.topic(), protoType, e);
-            }
-        }
 
-        if (this.autoCommit) {
-            this.consumer.commitSync();
+                AbstractMessage message;
+                try {
+                    message = ProtoParserRegistry.parse(protoType, record.value());
+                } catch (InvalidProtocolBufferException e) {
+                    LOGGER.warn("Failed to parse message", e);
+                    continue;
+                }
+
+                try {
+                    Set<Consumer<AbstractMessage>> consumers = this.protoListeners.get(message.getClass());
+                    if (consumers != null) {
+                        for (Consumer<AbstractMessage> consumer : consumers) {
+                            consumer.accept(message);
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("Failed to handle message (topic: {}, type: {}): {}", record.topic(), protoType, e);
+                }
+            }
+
+            if (this.autoCommit) {
+                this.consumer.commitSync();
+            }
         }
     }
 
@@ -108,26 +110,30 @@ public class FriendlyKafkaConsumer {
 
     @SuppressWarnings("unchecked")
     public <T extends AbstractMessage> void addListener(@NotNull Class<T> messageType, @NotNull Consumer<T> listener) {
-        MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
-        if (protoConfig == null) {
-            throw new IllegalArgumentException("No parser found for " + messageType.getName());
-        }
+        synchronized (this.consumedTopics) {
+            MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
+            if (protoConfig == null) {
+                throw new IllegalArgumentException("No parser found for " + messageType.getName());
+            }
 
-        if (protoConfig.service() != MessagingService.KAFKA) {
-            throw new IllegalArgumentException("Parser for " + messageType.getName() + " is not for Kafka");
-        }
+            if (protoConfig.service() != MessagingService.KAFKA) {
+                throw new IllegalArgumentException("Parser for " + messageType.getName() + " is not for Kafka");
+            }
 
-        if (!this.consumedTopics.contains(protoConfig.topic())) {
-            LOGGER.debug("Subscribing to topic {}", protoConfig.topic());
-            this.consumedTopics.add(protoConfig.topic());
-            this.consumer.subscribe(this.consumedTopics);
-        }
+            if (!this.consumedTopics.contains(protoConfig.topic())) {
+                LOGGER.debug("Subscribing to topic {}", protoConfig.topic());
+                this.consumedTopics.add(protoConfig.topic());
+                this.consumer.subscribe(this.consumedTopics);
+            }
 
-        this.protoListeners.computeIfAbsent(messageType, k -> new HashSet<>()).add((Consumer<AbstractMessage>) listener);
+            this.protoListeners.computeIfAbsent(messageType, k -> new HashSet<>()).add((Consumer<AbstractMessage>) listener);
+        }
     }
 
     public void close() {
-        this.scheduler.shutdown();
-        this.consumer.close();
+        synchronized (this.consumedTopics) {
+            this.scheduler.shutdown();
+            this.consumer.close();
+        }
     }
 }
