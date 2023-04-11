@@ -3,6 +3,10 @@ package dev.emortal.api.utils.parser;
 import com.google.protobuf.Empty;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
+import dev.emortal.api.message.accountconnmanager.AccountConnectedMessage;
+import dev.emortal.api.message.accountconnmanager.AccountConnectionRemovedMessage;
+import dev.emortal.api.message.badge.PlayerBadgeAddedMessage;
+import dev.emortal.api.message.badge.PlayerBadgeRemovedMessage;
 import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
@@ -82,6 +86,14 @@ public class ProtoParserRegistry {
 
     private static void registerDefaults() {
         registerRMQ(Empty.getDefaultInstance(), Empty::parseFrom); // Mostly as an example. Empty shouldn't need to be parsed.
+
+        // Account Connection Manager
+        registerKafka(AccountConnectedMessage.getDefaultInstance(), AccountConnectedMessage::parseFrom, "account-connections");
+        registerKafka(AccountConnectionRemovedMessage.getDefaultInstance(), AccountConnectionRemovedMessage::parseFrom, "account-connections");
+
+        // Badges
+        registerKafka(PlayerBadgeAddedMessage.getDefaultInstance(), PlayerBadgeAddedMessage::parseFrom, "badge-manager");
+        registerKafka(PlayerBadgeRemovedMessage.getDefaultInstance(), PlayerBadgeRemovedMessage::parseFrom, "badge-manager");
 
         // Friend
         registerRMQ(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);

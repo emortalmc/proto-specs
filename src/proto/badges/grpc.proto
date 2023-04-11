@@ -1,0 +1,42 @@
+syntax = "proto3";
+package emortal.grpc.badge;
+
+option java_package = "dev.emortal.api.grpc.badge";
+option java_outer_classname = "BadgeManagerProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/badge";
+
+import "badges/models.proto";
+
+service BadgeManager {
+  rpc GetPlayerBadges(GetPlayerBadgesRequest) returns (GetPlayerBadgesResponse) {}
+  rpc AddBadgeToPlayer(AddBadgeToPlayerRequest) returns (AddBadgeToPlayerResponse) {}
+
+  // GetBadges gets all the registered badges
+  rpc GetBadges(GetBadgesRequest) returns (GetBadgesResponse) {}
+
+}
+
+message GetPlayerBadgesRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetPlayerBadgesResponse {
+  repeated model.badge.Badge badges = 1;
+}
+
+message AddBadgeToPlayerRequest {
+  // player_id of type UUID
+  string player_id = 1;
+  string badge_id = 2;
+}
+
+message AddBadgeToPlayerResponse {
+  model.badge.Badge badge = 1;
+}
+
+message GetBadgesRequest {}
+
+message GetBadgesResponse {
+  repeated model.badge.Badge badges = 1;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package emortal.message.badge;
+
+option java_package = "dev.emortal.api.message.badge";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/badge";
+
+import "badges/models.proto";
+
+message PlayerBadgeAddedMessage {
+  string player_id = 1;
+  model.badge.Badge badge = 2;
+}
+
+message PlayerBadgeRemovedMessage {
+  string player_id = 1;
+  model.badge.Badge badge = 2;
+}
