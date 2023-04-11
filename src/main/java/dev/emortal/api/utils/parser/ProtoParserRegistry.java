@@ -5,6 +5,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.message.accountconnmanager.AccountConnectedMessage;
 import dev.emortal.api.message.accountconnmanager.AccountConnectionRemovedMessage;
+import dev.emortal.api.message.badge.PlayerActiveBadgeChangedMessage;
 import dev.emortal.api.message.badge.PlayerBadgeAddedMessage;
 import dev.emortal.api.message.badge.PlayerBadgeRemovedMessage;
 import dev.emortal.api.message.common.PlayerConnectMessage;
@@ -94,6 +95,7 @@ public class ProtoParserRegistry {
         // Badges
         registerKafka(PlayerBadgeAddedMessage.getDefaultInstance(), PlayerBadgeAddedMessage::parseFrom, "badge-manager");
         registerKafka(PlayerBadgeRemovedMessage.getDefaultInstance(), PlayerBadgeRemovedMessage::parseFrom, "badge-manager");
+        registerKafka(PlayerActiveBadgeChangedMessage.getDefaultInstance(), PlayerActiveBadgeChangedMessage::parseFrom, "badge-manager");
 
         // Friend
         registerRMQ(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);

@@ -8,11 +8,19 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/badge";
 import "badges/models.proto";
 
 message PlayerBadgeAddedMessage {
+  // player_id of type UUID
   string player_id = 1;
   model.badge.Badge badge = 2;
 }
 
 message PlayerBadgeRemovedMessage {
+  // player_id of type UUID
+  string player_id = 1;
+  model.badge.Badge badge = 2;
+}
+
+message PlayerActiveBadgeChangedMessage {
+  // player_id of type UUID
   string player_id = 1;
   model.badge.Badge badge = 2;
 }

@@ -8,21 +8,16 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/badge";
 import "badges/models.proto";
 
 service BadgeManager {
-  rpc GetActivePlayerBadge(GetActivePlayerBadgeRequest) returns (GetActivePlayerBadgeResponse) {}
   rpc GetPlayerBadges(GetPlayerBadgesRequest) returns (GetPlayerBadgesResponse) {}
+
+  rpc GetActivePlayerBadge(GetActivePlayerBadgeRequest) returns (GetActivePlayerBadgeResponse) {}
+  rpc SetActivePlayerBadge(SetActivePlayerBadgeRequest) returns (SetActivePlayerBadgeResponse) {}
+
   rpc AddBadgeToPlayer(AddBadgeToPlayerRequest) returns (AddBadgeToPlayerResponse) {}
+  rpc RemoveBadgeFromPlayer(RemoveBadgeFromPlayerRequest) returns (RemoveBadgeFromPlayerResponse) {}
 
   // GetBadges gets all the registered badges
   rpc GetBadges(GetBadgesRequest) returns (GetBadgesResponse) {}
-}
-
-message GetActivePlayerBadgeRequest {
-  // player_id of type UUID
-  string player_id = 1;
-}
-
-message GetActivePlayerBadgeResponse {
-  model.badge.Badge badge = 1;
 }
 
 message GetPlayerBadgesRequest {
@@ -36,15 +31,38 @@ message GetPlayerBadgesResponse {
   string active_badge_id = 2;
 }
 
+message SetActivePlayerBadgeRequest {
+  // player_id of type UUID
+  string player_id = 1;
+  string badge_id = 2;
+}
+
+message SetActivePlayerBadgeResponse {}
+
+message GetActivePlayerBadgeRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetActivePlayerBadgeResponse {
+  model.badge.Badge badge = 1;
+}
+
 message AddBadgeToPlayerRequest {
   // player_id of type UUID
   string player_id = 1;
   string badge_id = 2;
 }
 
-message AddBadgeToPlayerResponse {
-  model.badge.Badge badge = 1;
+message AddBadgeToPlayerResponse {}
+
+message RemoveBadgeFromPlayerRequest {
+  // player_id of type UUID
+  string player_id = 1;
+  string badge_id = 2;
 }
+
+message RemoveBadgeFromPlayerResponse {}
 
 message GetBadgesRequest {}
 

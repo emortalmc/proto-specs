@@ -22,9 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BadgeManagerClient interface {
-	GetActivePlayerBadge(ctx context.Context, in *GetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*GetActivePlayerBadgeResponse, error)
 	GetPlayerBadges(ctx context.Context, in *GetPlayerBadgesRequest, opts ...grpc.CallOption) (*GetPlayerBadgesResponse, error)
+	GetActivePlayerBadge(ctx context.Context, in *GetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*GetActivePlayerBadgeResponse, error)
+	SetActivePlayerBadge(ctx context.Context, in *SetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*SetActivePlayerBadgeResponse, error)
 	AddBadgeToPlayer(ctx context.Context, in *AddBadgeToPlayerRequest, opts ...grpc.CallOption) (*AddBadgeToPlayerResponse, error)
+	RemoveBadgeFromPlayer(ctx context.Context, in *RemoveBadgeFromPlayerRequest, opts ...grpc.CallOption) (*RemoveBadgeFromPlayerResponse, error)
 	// GetBadges gets all the registered badges
 	GetBadges(ctx context.Context, in *GetBadgesRequest, opts ...grpc.CallOption) (*GetBadgesResponse, error)
 }
@@ -37,15 +39,6 @@ func NewBadgeManagerClient(cc grpc.ClientConnInterface) BadgeManagerClient {
 	return &badgeManagerClient{cc}
 }
 
-func (c *badgeManagerClient) GetActivePlayerBadge(ctx context.Context, in *GetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*GetActivePlayerBadgeResponse, error) {
-	out := new(GetActivePlayerBadgeResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/GetActivePlayerBadge", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *badgeManagerClient) GetPlayerBadges(ctx context.Context, in *GetPlayerBadgesRequest, opts ...grpc.CallOption) (*GetPlayerBadgesResponse, error) {
 	out := new(GetPlayerBadgesResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/GetPlayerBadges", in, out, opts...)
@@ -55,9 +48,36 @@ func (c *badgeManagerClient) GetPlayerBadges(ctx context.Context, in *GetPlayerB
 	return out, nil
 }
 
+func (c *badgeManagerClient) GetActivePlayerBadge(ctx context.Context, in *GetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*GetActivePlayerBadgeResponse, error) {
+	out := new(GetActivePlayerBadgeResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/GetActivePlayerBadge", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *badgeManagerClient) SetActivePlayerBadge(ctx context.Context, in *SetActivePlayerBadgeRequest, opts ...grpc.CallOption) (*SetActivePlayerBadgeResponse, error) {
+	out := new(SetActivePlayerBadgeResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/SetActivePlayerBadge", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *badgeManagerClient) AddBadgeToPlayer(ctx context.Context, in *AddBadgeToPlayerRequest, opts ...grpc.CallOption) (*AddBadgeToPlayerResponse, error) {
 	out := new(AddBadgeToPlayerResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/AddBadgeToPlayer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *badgeManagerClient) RemoveBadgeFromPlayer(ctx context.Context, in *RemoveBadgeFromPlayerRequest, opts ...grpc.CallOption) (*RemoveBadgeFromPlayerResponse, error) {
+	out := new(RemoveBadgeFromPlayerResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.badge.BadgeManager/RemoveBadgeFromPlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,9 +97,11 @@ func (c *badgeManagerClient) GetBadges(ctx context.Context, in *GetBadgesRequest
 // All implementations must embed UnimplementedBadgeManagerServer
 // for forward compatibility
 type BadgeManagerServer interface {
-	GetActivePlayerBadge(context.Context, *GetActivePlayerBadgeRequest) (*GetActivePlayerBadgeResponse, error)
 	GetPlayerBadges(context.Context, *GetPlayerBadgesRequest) (*GetPlayerBadgesResponse, error)
+	GetActivePlayerBadge(context.Context, *GetActivePlayerBadgeRequest) (*GetActivePlayerBadgeResponse, error)
+	SetActivePlayerBadge(context.Context, *SetActivePlayerBadgeRequest) (*SetActivePlayerBadgeResponse, error)
 	AddBadgeToPlayer(context.Context, *AddBadgeToPlayerRequest) (*AddBadgeToPlayerResponse, error)
+	RemoveBadgeFromPlayer(context.Context, *RemoveBadgeFromPlayerRequest) (*RemoveBadgeFromPlayerResponse, error)
 	// GetBadges gets all the registered badges
 	GetBadges(context.Context, *GetBadgesRequest) (*GetBadgesResponse, error)
 	mustEmbedUnimplementedBadgeManagerServer()
@@ -89,14 +111,20 @@ type BadgeManagerServer interface {
 type UnimplementedBadgeManagerServer struct {
 }
 
-func (UnimplementedBadgeManagerServer) GetActivePlayerBadge(context.Context, *GetActivePlayerBadgeRequest) (*GetActivePlayerBadgeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetActivePlayerBadge not implemented")
-}
 func (UnimplementedBadgeManagerServer) GetPlayerBadges(context.Context, *GetPlayerBadgesRequest) (*GetPlayerBadgesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerBadges not implemented")
 }
+func (UnimplementedBadgeManagerServer) GetActivePlayerBadge(context.Context, *GetActivePlayerBadgeRequest) (*GetActivePlayerBadgeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActivePlayerBadge not implemented")
+}
+func (UnimplementedBadgeManagerServer) SetActivePlayerBadge(context.Context, *SetActivePlayerBadgeRequest) (*SetActivePlayerBadgeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetActivePlayerBadge not implemented")
+}
 func (UnimplementedBadgeManagerServer) AddBadgeToPlayer(context.Context, *AddBadgeToPlayerRequest) (*AddBadgeToPlayerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddBadgeToPlayer not implemented")
+}
+func (UnimplementedBadgeManagerServer) RemoveBadgeFromPlayer(context.Context, *RemoveBadgeFromPlayerRequest) (*RemoveBadgeFromPlayerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveBadgeFromPlayer not implemented")
 }
 func (UnimplementedBadgeManagerServer) GetBadges(context.Context, *GetBadgesRequest) (*GetBadgesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBadges not implemented")
@@ -112,24 +140,6 @@ type UnsafeBadgeManagerServer interface {
 
 func RegisterBadgeManagerServer(s grpc.ServiceRegistrar, srv BadgeManagerServer) {
 	s.RegisterService(&BadgeManager_ServiceDesc, srv)
-}
-
-func _BadgeManager_GetActivePlayerBadge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetActivePlayerBadgeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BadgeManagerServer).GetActivePlayerBadge(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.badge.BadgeManager/GetActivePlayerBadge",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BadgeManagerServer).GetActivePlayerBadge(ctx, req.(*GetActivePlayerBadgeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _BadgeManager_GetPlayerBadges_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -150,6 +160,42 @@ func _BadgeManager_GetPlayerBadges_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BadgeManager_GetActivePlayerBadge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetActivePlayerBadgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BadgeManagerServer).GetActivePlayerBadge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.badge.BadgeManager/GetActivePlayerBadge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BadgeManagerServer).GetActivePlayerBadge(ctx, req.(*GetActivePlayerBadgeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BadgeManager_SetActivePlayerBadge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetActivePlayerBadgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BadgeManagerServer).SetActivePlayerBadge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.badge.BadgeManager/SetActivePlayerBadge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BadgeManagerServer).SetActivePlayerBadge(ctx, req.(*SetActivePlayerBadgeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BadgeManager_AddBadgeToPlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddBadgeToPlayerRequest)
 	if err := dec(in); err != nil {
@@ -164,6 +210,24 @@ func _BadgeManager_AddBadgeToPlayer_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BadgeManagerServer).AddBadgeToPlayer(ctx, req.(*AddBadgeToPlayerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BadgeManager_RemoveBadgeFromPlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveBadgeFromPlayerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BadgeManagerServer).RemoveBadgeFromPlayer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.badge.BadgeManager/RemoveBadgeFromPlayer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BadgeManagerServer).RemoveBadgeFromPlayer(ctx, req.(*RemoveBadgeFromPlayerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -194,16 +258,24 @@ var BadgeManager_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*BadgeManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetActivePlayerBadge",
-			Handler:    _BadgeManager_GetActivePlayerBadge_Handler,
-		},
-		{
 			MethodName: "GetPlayerBadges",
 			Handler:    _BadgeManager_GetPlayerBadges_Handler,
 		},
 		{
+			MethodName: "GetActivePlayerBadge",
+			Handler:    _BadgeManager_GetActivePlayerBadge_Handler,
+		},
+		{
+			MethodName: "SetActivePlayerBadge",
+			Handler:    _BadgeManager_SetActivePlayerBadge_Handler,
+		},
+		{
 			MethodName: "AddBadgeToPlayer",
 			Handler:    _BadgeManager_AddBadgeToPlayer_Handler,
+		},
+		{
+			MethodName: "RemoveBadgeFromPlayer",
+			Handler:    _BadgeManager_RemoveBadgeFromPlayer_Handler,
 		},
 		{
 			MethodName: "GetBadges",
