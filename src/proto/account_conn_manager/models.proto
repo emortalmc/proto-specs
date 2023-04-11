@@ -9,9 +9,9 @@ message ConnectionUser {
   // minecraft_id of type UUID
   optional string minecraft_id = 1;
   // discord_id of type discord snowflake
-  optional uint64 discord_id = 2;
+  optional int64 discord_id = 2;
   // github_id is a plain incremental integer
-  optional uint64 github_id = 3;
+  optional int64 github_id = 3;
 }
 
 enum ConnectionType {

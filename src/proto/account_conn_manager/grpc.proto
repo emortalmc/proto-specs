@@ -15,8 +15,8 @@ service AccountConnectionManager {
 message GetUserRequest {
   oneof id {
     string minecraft_id = 1;
-    uint64 discord_id = 2;
-    uint64 github_id = 3;
+    int64 discord_id = 2;
+    int64 github_id = 3;
   }
 }
 
@@ -28,8 +28,8 @@ message GetUserResponse {
 message CreateOAuthLinkRequest {
   oneof source_id {
     string source_minecraft_id = 1;
-    uint64 source_discord_id = 2;
-    uint64 source_github_id = 3;
+    int64 source_discord_id = 2;
+    int64 source_github_id = 3;
   }
 
   model.account_conn_manager.ConnectionType target_connection = 4;
