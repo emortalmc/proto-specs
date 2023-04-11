@@ -8,12 +8,21 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/badge";
 import "badges/models.proto";
 
 service BadgeManager {
+  rpc GetActivePlayerBadge(GetActivePlayerBadgeRequest) returns (GetActivePlayerBadgeResponse) {}
   rpc GetPlayerBadges(GetPlayerBadgesRequest) returns (GetPlayerBadgesResponse) {}
   rpc AddBadgeToPlayer(AddBadgeToPlayerRequest) returns (AddBadgeToPlayerResponse) {}
 
   // GetBadges gets all the registered badges
   rpc GetBadges(GetBadgesRequest) returns (GetBadgesResponse) {}
+}
 
+message GetActivePlayerBadgeRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetActivePlayerBadgeResponse {
+  model.badge.Badge badge = 1;
 }
 
 message GetPlayerBadgesRequest {
@@ -23,6 +32,8 @@ message GetPlayerBadgesRequest {
 
 message GetPlayerBadgesResponse {
   repeated model.badge.Badge badges = 1;
+
+  string active_badge_id = 2;
 }
 
 message AddBadgeToPlayerRequest {
