@@ -1,6 +1,5 @@
 package dev.emortal.api.utils.parser;
 
-import com.google.protobuf.Empty;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.message.accountconnmanager.AccountConnectedMessage;
@@ -11,7 +10,8 @@ import dev.emortal.api.message.badge.PlayerBadgeRemovedMessage;
 import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
-import dev.emortal.api.message.common.SwitchPlayersServerMessage;
+import dev.emortal.api.message.messagehandler.ChatMessageCreatedMessage;
+import dev.emortal.api.message.messagehandler.PrivateMessageCreatedMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
 import dev.emortal.api.message.party.PartyDeletedMessage;
 import dev.emortal.api.message.party.PartyEmptiedMessage;
@@ -23,7 +23,6 @@ import dev.emortal.api.message.party.PartyPlayerLeftMessage;
 import dev.emortal.api.message.party.PartySettingsChangedMessage;
 import dev.emortal.api.message.permission.PlayerRolesUpdateMessage;
 import dev.emortal.api.message.permission.RoleUpdateMessage;
-import dev.emortal.api.message.privatemessage.PrivateMessageReceivedMessage;
 import dev.emortal.api.message.relationship.FriendAddedMessage;
 import dev.emortal.api.message.relationship.FriendRemovedMessage;
 import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
@@ -86,8 +85,6 @@ public class ProtoParserRegistry {
     }
 
     private static void registerDefaults() {
-        registerRMQ(Empty.getDefaultInstance(), Empty::parseFrom); // Mostly as an example. Empty shouldn't need to be parsed.
-
         // Account Connection Manager
         registerKafka(AccountConnectedMessage.getDefaultInstance(), AccountConnectedMessage::parseFrom, "account-connections");
         registerKafka(AccountConnectionRemovedMessage.getDefaultInstance(), AccountConnectionRemovedMessage::parseFrom, "account-connections");
@@ -121,11 +118,11 @@ public class ProtoParserRegistry {
         registerRMQ(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
         registerRMQ(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom);
 
-        // Private message
-        registerRMQ(PrivateMessageReceivedMessage.getDefaultInstance(), PrivateMessageReceivedMessage::parseFrom);
+        // Message handler
+        registerKafka(PrivateMessageCreatedMessage.getDefaultInstance(), PrivateMessageCreatedMessage::parseFrom, "message-handler");
+        registerKafka(ChatMessageCreatedMessage.getDefaultInstance(), ChatMessageCreatedMessage::parseFrom, "message-handler");
 
         // Common
-        registerRMQ(SwitchPlayersServerMessage.getDefaultInstance(), SwitchPlayersServerMessage::parseFrom);
         registerKafka(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
         registerKafka(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
         registerKafka(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");

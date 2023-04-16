@@ -10,12 +10,6 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/common";
 import "common_models.proto";
 import "message_handler/models.proto";
 
-// SwitchPlayersServerMessage tells a proxy to switch player(s) to a different server
-message SwitchPlayersServerMessage {
-  model.ConnectableServer server = 1;
-  repeated string player_ids = 2;
-}
-
 message PlayerConnectMessage {
   string player_id = 1;
   string player_username = 2;
