@@ -8,6 +8,7 @@ option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/message/common";
 
 import "common_models.proto";
+import "message_handler/models.proto";
 
 // SwitchPlayersServerMessage tells a proxy to switch player(s) to a different server
 message SwitchPlayersServerMessage {
@@ -31,4 +32,8 @@ message PlayerSwitchServerMessage {
 
 message PlayerDisconnectMessage {
   string player_id = 1;
+}
+
+message PlayerChatMessageMessage {
+  model.messagehandler.ChatMessage message = 1;
 }

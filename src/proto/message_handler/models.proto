@@ -1,9 +1,9 @@
 syntax = "proto3";
-package emortal.model;
+package emortal.model.messagehandler;
 
-option java_package = "dev.emortal.api.model.privatemessage";
+option java_package = "dev.emortal.api.model.messagehandler";
 option java_multiple_files = true;
-option go_package = "github.com/emortalmc/proto-specs/gen/go/model/privatemessage";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/messagehandler";
 
 import "google/protobuf/timestamp.proto";
 
@@ -15,4 +15,9 @@ message PrivateMessage {
   string message = 4;
 
   google.protobuf.Timestamp sent_at = 5;
+}
+
+message ChatMessage {
+  string sender_id = 1;
+  string message = 2;
 }

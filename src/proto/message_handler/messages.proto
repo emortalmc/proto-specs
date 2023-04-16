@@ -1,0 +1,17 @@
+syntax = "proto3";
+package emortal.message.messagehandler;
+
+option java_package = "dev.emortal.api.message.messagehandler";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/messagehandler";
+
+import "message_handler/models.proto";
+
+message PrivateMessageCreatedMessage {
+  model.messagehandler.PrivateMessage private_message = 1;
+}
+
+message ChatMessageCreatedMessage {
+  // message a ChatMessage that should be parsed with MiniMessage (no placeholders)
+  model.messagehandler.ChatMessage message = 1;
+}
