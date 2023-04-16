@@ -20,7 +20,7 @@ and are run on the same gRPC server.
 |----------------------------|-----------------------------------------------------|-------|
 | permission                 | Manages permissions                                 | 10001 |
 | relationship               | Manages friends & blocks                            | 10002 |
-| private-message            | Manages private messages                            | 10003 |
+| message-handler            | Handles private messages + chat messages            | 10003 |
 | mc-player                  | Manages core user data (username, playtime, etc.)   | 10004 |
 | badge-manager              | Manages badges                                      | 10004 |
 | player-tracker             | Tracks player counts & player proxy/server          | 10005 |
