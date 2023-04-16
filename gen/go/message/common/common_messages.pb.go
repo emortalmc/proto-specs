@@ -247,6 +247,8 @@ func (x *PlayerDisconnectMessage) GetPlayerId() string {
 	return ""
 }
 
+// PlayerChatMessageMessage is sent when a player sends a chat message
+// sent in the 'mc-messages' topic (Kafka)
 type PlayerChatMessageMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

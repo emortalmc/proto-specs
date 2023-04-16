@@ -11,7 +11,10 @@ Java generation will automatically run on push, but you will need to run the oth
 ## Service Ports
 
 Note, these ports are not used in production, but are defaults for local development.
-In production, the ports of default gRPC services are locked to 80
+In production, the ports of default gRPC services are locked to 80.
+
+Any services that share a port mean they are combined within the same codebase
+and are run on the same gRPC server.
 
 | Service                    | Description                                         | Port  |
 |----------------------------|-----------------------------------------------------|-------|
@@ -19,6 +22,7 @@ In production, the ports of default gRPC services are locked to 80
 | relationship               | Manages friends & blocks                            | 10002 |
 | private-message            | Manages private messages                            | 10003 |
 | mc-player                  | Manages core user data (username, playtime, etc.)   | 10004 |
+| badge-manager              | Manages badges                                      | 10004 |
 | player-tracker             | Tracks player counts & player proxy/server          | 10005 |
 | party-manager              | Manages parties                                     | 10006 |
 | matchmaker (kurushimi)     | Matchmaker, separate repo for gRPC spec             | 10007 |
