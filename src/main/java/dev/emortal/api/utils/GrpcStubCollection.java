@@ -21,7 +21,7 @@ import java.util.Optional;
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class GrpcStubCollection {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcStubCollection.class);
-    private static final boolean DEVELOPMENT = System.getenv("HOSTNAME") == null;
+    private static final boolean DEVELOPMENT = System.getenv("KUBERNETES_SERVICE_HOST") == null;
 
     @Getter
     private static final @NotNull Optional<McPlayerGrpc.McPlayerFutureStub> playerService;
