@@ -19,5 +19,6 @@ message PrivateMessage {
 
 message ChatMessage {
   string sender_id = 1;
-  string message = 2;
+  string sender_username = 2;
+  string message = 3;
 }

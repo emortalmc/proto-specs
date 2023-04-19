@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.grpc;
+package emortal.grpc.permission;
 
 option java_package = "dev.emortal.api.grpc.permission";
 option java_outer_classname = "PermissionProto";
@@ -20,7 +20,7 @@ service PermissionService {
 
 message GetAllRolesRequest {}
 message GetAllRolesResponse {
-  repeated model.Role roles = 1;
+  repeated model.permission.Role roles = 1;
 }
 
 message GetPlayerRolesRequest {
@@ -29,33 +29,41 @@ message GetPlayerRolesRequest {
 
 message PlayerRolesResponse {
   repeated string role_ids = 1;
+
+  // active_display_name_role_id is the role that the player has the highest priority for
+  // which has a display name set. If no roles have a display name set, this will be empty.
+  optional string active_display_name_role_id = 2;
 }
 
 message RoleCreateRequest {
   string id = 1;
   uint32 priority = 2;
 
-  optional string display_prefix = 3;
+  // display_name is the entire username section in Go template format
+  // e.g. <red>{{.Username}}</red>
   optional string display_name = 4;
+
+  reserved 3;
 }
 
 message CreateRoleResponse {
-  model.Role role = 1;
+  model.permission.Role role = 1;
 }
 
 message RoleUpdateRequest {
   string id = 1;
   optional uint32 priority = 2;
 
-  optional string display_prefix = 3;
   optional string display_name = 4;
 
-  repeated model.PermissionNode set_permissions = 5;
+  repeated model.permission.PermissionNode set_permissions = 5;
   repeated string unset_permissions = 6;
+
+  reserved 3;
 }
 
 message UpdateRoleResponse {
-  model.Role role = 1;
+  model.permission.Role role = 1;
 }
 
 message AddRoleToPlayerRequest {

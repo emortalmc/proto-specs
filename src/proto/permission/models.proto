@@ -1,5 +1,5 @@
 syntax = "proto3";
-package emortal.model;
+package emortal.model.permission;
 
 option java_package = "dev.emortal.api.model.permission";
 option java_multiple_files = true;
@@ -9,10 +9,11 @@ message Role {
   string id = 1;
   uint32 priority = 2;
 
-  optional string display_prefix = 3;
   optional string display_name = 4;
 
   repeated PermissionNode permissions = 5;
+
+  reserved 3;
 }
 
 message PermissionNode {

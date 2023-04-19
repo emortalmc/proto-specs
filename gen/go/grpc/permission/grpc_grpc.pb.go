@@ -40,7 +40,7 @@ func NewPermissionServiceClient(cc grpc.ClientConnInterface) PermissionServiceCl
 
 func (c *permissionServiceClient) GetAllRoles(ctx context.Context, in *GetAllRolesRequest, opts ...grpc.CallOption) (*GetAllRolesResponse, error) {
 	out := new(GetAllRolesResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/GetAllRoles", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/GetAllRoles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *permissionServiceClient) GetAllRoles(ctx context.Context, in *GetAllRol
 
 func (c *permissionServiceClient) GetPlayerRoles(ctx context.Context, in *GetPlayerRolesRequest, opts ...grpc.CallOption) (*PlayerRolesResponse, error) {
 	out := new(PlayerRolesResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/GetPlayerRoles", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/GetPlayerRoles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *permissionServiceClient) GetPlayerRoles(ctx context.Context, in *GetPla
 
 func (c *permissionServiceClient) CreateRole(ctx context.Context, in *RoleCreateRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
 	out := new(CreateRoleResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/CreateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/CreateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *permissionServiceClient) CreateRole(ctx context.Context, in *RoleCreate
 
 func (c *permissionServiceClient) UpdateRole(ctx context.Context, in *RoleUpdateRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
 	out := new(UpdateRoleResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/UpdateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/UpdateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *permissionServiceClient) UpdateRole(ctx context.Context, in *RoleUpdate
 
 func (c *permissionServiceClient) AddRoleToPlayer(ctx context.Context, in *AddRoleToPlayerRequest, opts ...grpc.CallOption) (*AddRoleToPlayerResponse, error) {
 	out := new(AddRoleToPlayerResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/AddRoleToPlayer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/AddRoleToPlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *permissionServiceClient) AddRoleToPlayer(ctx context.Context, in *AddRo
 
 func (c *permissionServiceClient) RemoveRoleFromPlayer(ctx context.Context, in *RemoveRoleFromPlayerRequest, opts ...grpc.CallOption) (*RemoveRoleFromPlayerResponse, error) {
 	out := new(RemoveRoleFromPlayerResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PermissionService/RemoveRoleFromPlayer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.permission.PermissionService/RemoveRoleFromPlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func _PermissionService_GetAllRoles_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/GetAllRoles",
+		FullMethod: "/emortal.grpc.permission.PermissionService/GetAllRoles",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).GetAllRoles(ctx, req.(*GetAllRolesRequest))
@@ -168,7 +168,7 @@ func _PermissionService_GetPlayerRoles_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/GetPlayerRoles",
+		FullMethod: "/emortal.grpc.permission.PermissionService/GetPlayerRoles",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).GetPlayerRoles(ctx, req.(*GetPlayerRolesRequest))
@@ -186,7 +186,7 @@ func _PermissionService_CreateRole_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/CreateRole",
+		FullMethod: "/emortal.grpc.permission.PermissionService/CreateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).CreateRole(ctx, req.(*RoleCreateRequest))
@@ -204,7 +204,7 @@ func _PermissionService_UpdateRole_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/UpdateRole",
+		FullMethod: "/emortal.grpc.permission.PermissionService/UpdateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).UpdateRole(ctx, req.(*RoleUpdateRequest))
@@ -222,7 +222,7 @@ func _PermissionService_AddRoleToPlayer_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/AddRoleToPlayer",
+		FullMethod: "/emortal.grpc.permission.PermissionService/AddRoleToPlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).AddRoleToPlayer(ctx, req.(*AddRoleToPlayerRequest))
@@ -240,7 +240,7 @@ func _PermissionService_RemoveRoleFromPlayer_Handler(srv interface{}, ctx contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PermissionService/RemoveRoleFromPlayer",
+		FullMethod: "/emortal.grpc.permission.PermissionService/RemoveRoleFromPlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionServiceServer).RemoveRoleFromPlayer(ctx, req.(*RemoveRoleFromPlayerRequest))
@@ -252,7 +252,7 @@ func _PermissionService_RemoveRoleFromPlayer_Handler(srv interface{}, ctx contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PermissionService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "emortal.grpc.PermissionService",
+	ServiceName: "emortal.grpc.permission.PermissionService",
 	HandlerType: (*PermissionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -1,5 +1,7 @@
+// Kafka Topic = "permission-manager"
+
 syntax = "proto3";
-package emortal.message;
+package emortal.message.permission;
 
 option java_package = "dev.emortal.api.message.permission";
 option java_multiple_files = true;
@@ -15,7 +17,9 @@ message RoleUpdateMessage {
   }
 
   ChangeType change_type = 1;
-  optional model.Role role = 2;
+
+  // role either the deleted, created or updated role
+  model.permission.Role role = 3;
 }
 
 message PlayerRolesUpdateMessage {
