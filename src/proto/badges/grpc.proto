@@ -44,6 +44,8 @@ message SetActivePlayerBadgeErrorResponse {
   enum Reason {
     PLAYER_DOESNT_HAVE_BADGE = 0;
   }
+
+  Reason reason = 1;
 }
 
 message GetActivePlayerBadgeRequest {
@@ -67,6 +69,8 @@ message AddBadgeToPlayerErrorResponse {
   enum Reason {
     PLAYER_ALREADY_HAS_BADGE = 0;
   }
+
+  Reason reason = 1;
 }
 
 message RemoveBadgeFromPlayerRequest {
@@ -81,6 +85,8 @@ message RemoveBadgeFromPlayerErrorResponse {
   enum Reason {
     PLAYER_DOESNT_HAVE_BADGE = 0;
   }
+
+  Reason reason = 1;
 }
 
 message GetBadgesRequest {}
