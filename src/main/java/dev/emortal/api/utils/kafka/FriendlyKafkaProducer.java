@@ -5,6 +5,8 @@ import com.google.common.util.concurrent.JdkFutureAdapters;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.protobuf.AbstractMessage;
 import dev.emortal.api.utils.callback.FunctionalFutureCallback;
+import dev.emortal.api.utils.parser.MessageProtoConfig;
+import dev.emortal.api.utils.parser.ProtoParserRegistry;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.internals.RecordHeader;
@@ -40,6 +42,13 @@ public class FriendlyKafkaProducer {
         );
     }
 
+    public @NotNull ListenableFuture<Void> produce(@NotNull AbstractMessage value) {
+        MessageProtoConfig<?> config = ProtoParserRegistry.getParser(value.getClass());
+        if (config == null) throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
+
+        return this.produce(config.topic(), value);
+    }
+
     public void produceAndForget(@NotNull String topic, @NotNull AbstractMessage value) {
         ProducerRecord<String, byte[]> record = new ProducerRecord<>(topic, null, System.currentTimeMillis(),
                 null, value.toByteArray(), List.of(
@@ -49,9 +58,17 @@ public class FriendlyKafkaProducer {
         var future = JdkFutureAdapters.listenInPoolThread(this.producer.send(record), ForkJoinPool.commonPool());
 
         Futures.addCallback(future, FunctionalFutureCallback.create(
-                unused -> {},
+                unused -> {
+                },
                 throwable -> LOGGER.error("Failed to produce message to topic " + topic, throwable)
         ), Runnable::run);
+    }
+
+    public void produceAndForget(@NotNull AbstractMessage value) {
+        MessageProtoConfig<?> config = ProtoParserRegistry.getParser(value.getClass());
+        if (config == null) throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
+
+        this.produceAndForget(config.topic(), value);
     }
 
     public void shutdown() {
