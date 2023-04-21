@@ -7,6 +7,7 @@ import dev.emortal.api.message.accountconnmanager.AccountConnectionRemovedMessag
 import dev.emortal.api.message.badge.PlayerActiveBadgeChangedMessage;
 import dev.emortal.api.message.badge.PlayerBadgeAddedMessage;
 import dev.emortal.api.message.badge.PlayerBadgeRemovedMessage;
+import dev.emortal.api.message.common.PlayerChatMessageMessage;
 import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
@@ -126,5 +127,6 @@ public class ProtoParserRegistry {
         registerKafka(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
         registerKafka(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
         registerKafka(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");
+        registerKafka(PlayerChatMessageMessage.getDefaultInstance(), PlayerChatMessageMessage::parseFrom, "mc-messages");
     }
 }
