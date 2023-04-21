@@ -28,7 +28,8 @@ message GetPlayerBadgesRequest {
 message GetPlayerBadgesResponse {
   repeated model.badge.Badge badges = 1;
 
-  string active_badge_id = 2;
+  // active_badge_id only exists if the player has an active badge
+  optional string active_badge_id = 2;
 }
 
 message SetActivePlayerBadgeRequest {
@@ -38,6 +39,12 @@ message SetActivePlayerBadgeRequest {
 }
 
 message SetActivePlayerBadgeResponse {}
+
+message SetActivePlayerBadgeErrorResponse {
+  enum Reason {
+    PLAYER_DOESNT_HAVE_BADGE = 0;
+  }
+}
 
 message GetActivePlayerBadgeRequest {
   // player_id of type UUID
@@ -56,6 +63,12 @@ message AddBadgeToPlayerRequest {
 
 message AddBadgeToPlayerResponse {}
 
+message AddBadgeToPlayerErrorResponse {
+  enum Reason {
+    PLAYER_ALREADY_HAS_BADGE = 0;
+  }
+}
+
 message RemoveBadgeFromPlayerRequest {
   // player_id of type UUID
   string player_id = 1;
@@ -63,6 +76,12 @@ message RemoveBadgeFromPlayerRequest {
 }
 
 message RemoveBadgeFromPlayerResponse {}
+
+message RemoveBadgeFromPlayerErrorResponse {
+  enum Reason {
+    PLAYER_DOESNT_HAVE_BADGE = 0;
+  }
+}
 
 message GetBadgesRequest {}
 
