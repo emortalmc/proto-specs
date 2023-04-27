@@ -39,13 +39,19 @@ func NewConsumerHandler(logger *zap.SugaredLogger,
 
 func (c *consumerHandlerImpl) Run(ctx context.Context) {
 	for {
-		m, err := c.reader.ReadMessage(ctx)
-		if err != nil {
-			c.logger.Errorw("failed to read message", "error", err)
-			continue
-		}
+		select {
+		case <-ctx.Done():
+			c.logger.Infow("stopping consumer handler")
+			return
+		default:
+			m, err := c.reader.ReadMessage(ctx)
+			if err != nil {
+				c.logger.Errorw("failed to read message", "error", err)
+				continue
+			}
 
-		c.handleMessage(ctx, &m)
+			c.handleMessage(ctx, &m)
+		}
 	}
 }
 
