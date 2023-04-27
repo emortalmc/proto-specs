@@ -1,0 +1,42 @@
+name: go tests
+on:
+  push:
+  pull_request:
+    types: [ opened, reopened ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./gen/go
+
+    steps:
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+          cache: false
+      - uses: actions/checkout@v3
+      - name: go-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: --timeout 2m0s
+
+  test:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go (cached)
+        uses: actions/setup-go@v4
+        with:
+          cache: true
+          go-version-file: go.mod
+          go-version: "1.20"
+
+      - name: Test
+        run: go test ./nongenerated/... # Only test the non-generated code

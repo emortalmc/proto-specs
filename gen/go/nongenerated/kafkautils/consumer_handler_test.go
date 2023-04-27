@@ -116,7 +116,7 @@ func TestConsumerHandlerImpl_HandleMessage(t *testing.T) {
 				})
 			}
 
-			handler.handleMessage(nil, tt.message)
+			handler.handleMessage(context.Background(), tt.message)
 
 			if tt.shouldHandlerBeCalled != handlerCalled {
 				t.Errorf("expected handler to be called %v, got %v", tt.shouldHandlerBeCalled, handlerCalled)
