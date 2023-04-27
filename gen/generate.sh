@@ -3,7 +3,7 @@
 PATH="$PATH:$(go env GOPATH)/bin"
 export PATH
 
-rm -rf go/*
+rm -rf go/{grpc,message,model}
 mkdir -p go
 
 find ../src/proto -name '*.proto' -print0 | while IFS= read -r -d '' file

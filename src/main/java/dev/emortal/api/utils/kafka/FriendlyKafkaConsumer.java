@@ -23,15 +23,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class FriendlyKafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(FriendlyKafkaConsumer.class);
+
+    private static final AtomicInteger GROUP_COUNTER = new AtomicInteger(0);
 
     private final @NotNull KafkaConsumer<String, byte[]> consumer;
 
@@ -51,7 +53,7 @@ public class FriendlyKafkaConsumer {
 
         Map<String, Object> settingsMap = settings.getSettings();
         if (settingsMap.get("group.id") == null) {
-            settingsMap.put("group.id", "kafka-core-" + UUID.randomUUID());
+            settingsMap.put("group.id", settingsMap.get("client.id") + "-" + GROUP_COUNTER.getAndIncrement());
         }
 
         this.consumer = new KafkaConsumer<>(settingsMap, new StringDeserializer(), new ByteArrayDeserializer());
