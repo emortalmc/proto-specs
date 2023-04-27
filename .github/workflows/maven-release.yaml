@@ -1,4 +1,4 @@
-name: Publish to release repo
+name: maven publish (release)
 on:
   release:
     types: [published]

@@ -1,4 +1,4 @@
-name: Publish to snapshot repo
+name: maven publish (snapshot)
 on:
   push:
     branches: [ main ]
