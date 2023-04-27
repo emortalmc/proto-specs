@@ -115,10 +115,6 @@ public class ProtoParserRegistry {
         registerKafka(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager");
         registerKafka(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager");
 
-        // Player tracker
-        registerRMQ(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom);
-        registerRMQ(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom);
-
         // Message handler
         registerKafka(PrivateMessageCreatedMessage.getDefaultInstance(), PrivateMessageCreatedMessage::parseFrom, "message-handler");
         registerKafka(ChatMessageCreatedMessage.getDefaultInstance(), ChatMessageCreatedMessage::parseFrom, "message-handler");
