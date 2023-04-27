@@ -1,4 +1,4 @@
-name: Publish to development (snapshot) repo
+name: Publish to snapshot repo
 on:
   push:
     branches: [ main ]

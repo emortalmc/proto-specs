@@ -7,6 +7,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: ./gen/go
@@ -24,9 +25,15 @@ jobs:
           args: --timeout 2m0s
 
   test:
+    runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
-    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: gen/go
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
