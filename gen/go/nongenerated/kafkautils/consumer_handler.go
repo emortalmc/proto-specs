@@ -46,6 +46,10 @@ func (c *consumerHandlerImpl) Run(ctx context.Context) {
 		default:
 			m, err := c.reader.ReadMessage(ctx)
 			if err != nil {
+				if err == context.Canceled {
+					c.logger.Infow("stopping consumer handler")
+					return
+				}
 				c.logger.Errorw("failed to read message", "error", err)
 				continue
 			}
