@@ -4,7 +4,6 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.InvalidProtocolBufferException;
 import dev.emortal.api.utils.parser.MessageProtoConfig;
-import dev.emortal.api.utils.parser.MessagingService;
 import dev.emortal.api.utils.parser.ProtoParserRegistry;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -116,10 +115,6 @@ public class FriendlyKafkaConsumer {
             MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
             if (protoConfig == null) {
                 throw new IllegalArgumentException("No parser found for " + messageType.getName());
-            }
-
-            if (protoConfig.service() != MessagingService.KAFKA) {
-                throw new IllegalArgumentException("Parser for " + messageType.getName() + " is not for Kafka");
             }
 
             if (!this.consumedTopics.contains(protoConfig.topic())) {
