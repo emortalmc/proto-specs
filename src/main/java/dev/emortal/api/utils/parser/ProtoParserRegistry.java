@@ -28,7 +28,6 @@ import dev.emortal.api.message.relationship.FriendAddedMessage;
 import dev.emortal.api.message.relationship.FriendRemovedMessage;
 import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -73,56 +72,48 @@ public class ProtoParserRegistry {
         return parser.parser().parse(bytes);
     }
 
-    public static <T extends Message> void registerRMQ(@NotNull T example, @NotNull ProtoParser<T> parser, @Nullable String exchangeName, @Nullable String routingKey) {
-        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.RABBIT_MQ, parser, example, exchangeName, routingKey, null));
-    }
-
-    public static <T extends Message> void registerRMQ(@NotNull T example, @NotNull ProtoParser<T> parser) {
-        registerRMQ(example, parser, null, null);
-    }
-
-    public static <T extends Message> void registerKafka(@NotNull T example, @NotNull ProtoParser<T> parser, @NotNull String topic) {
-        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(MessagingService.KAFKA, parser, example, null, null, topic));
+    public static <T extends Message> void register(@NotNull T example, @NotNull ProtoParser<T> parser, @NotNull String topic) {
+        parsers.put(example.getDescriptorForType().getFullName(), new MessageProtoConfig<>(parser, example, topic));
     }
 
     private static void registerDefaults() {
         // Account Connection Manager
-        registerKafka(AccountConnectedMessage.getDefaultInstance(), AccountConnectedMessage::parseFrom, "account-connections");
-        registerKafka(AccountConnectionRemovedMessage.getDefaultInstance(), AccountConnectionRemovedMessage::parseFrom, "account-connections");
+        register(AccountConnectedMessage.getDefaultInstance(), AccountConnectedMessage::parseFrom, "account-connections");
+        register(AccountConnectionRemovedMessage.getDefaultInstance(), AccountConnectionRemovedMessage::parseFrom, "account-connections");
 
         // Badges
-        registerKafka(PlayerBadgeAddedMessage.getDefaultInstance(), PlayerBadgeAddedMessage::parseFrom, "badge-manager");
-        registerKafka(PlayerBadgeRemovedMessage.getDefaultInstance(), PlayerBadgeRemovedMessage::parseFrom, "badge-manager");
-        registerKafka(PlayerActiveBadgeChangedMessage.getDefaultInstance(), PlayerActiveBadgeChangedMessage::parseFrom, "badge-manager");
+        register(PlayerBadgeAddedMessage.getDefaultInstance(), PlayerBadgeAddedMessage::parseFrom, "badge-manager");
+        register(PlayerBadgeRemovedMessage.getDefaultInstance(), PlayerBadgeRemovedMessage::parseFrom, "badge-manager");
+        register(PlayerActiveBadgeChangedMessage.getDefaultInstance(), PlayerActiveBadgeChangedMessage::parseFrom, "badge-manager");
 
         // Friend
-        registerRMQ(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom);
-        registerRMQ(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom);
-        registerRMQ(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom);
+        register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom, "relationship-manager");
+        register(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom, "relationship-manager");
+        register(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom, "relationship-manager");
 
         // Party
-        registerKafka(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager");
-        registerKafka(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager");
-        registerKafka(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager");
-        registerKafka(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager");
-        registerKafka(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager");
-        registerKafka(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager");
-        registerKafka(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager");
-        registerKafka(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager");
-        registerKafka(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager");
+        register(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager");
+        register(PartyDeletedMessage.getDefaultInstance(), PartyDeletedMessage::parseFrom, "party-manager");
+        register(PartyEmptiedMessage.getDefaultInstance(), PartyEmptiedMessage::parseFrom, "party-manager");
+        register(PartyOpenChangedMessage.getDefaultInstance(), PartyOpenChangedMessage::parseFrom, "party-manager");
+        register(PartyInviteCreatedMessage.getDefaultInstance(), PartyInviteCreatedMessage::parseFrom, "party-manager");
+        register(PartyPlayerJoinedMessage.getDefaultInstance(), PartyPlayerJoinedMessage::parseFrom, "party-manager");
+        register(PartyPlayerLeftMessage.getDefaultInstance(), PartyPlayerLeftMessage::parseFrom, "party-manager");
+        register(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager");
+        register(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager");
 
         // Permission
-        registerKafka(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager");
-        registerKafka(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager");
+        register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager");
+        register(PlayerRolesUpdateMessage.getDefaultInstance(), PlayerRolesUpdateMessage::parseFrom, "permission-manager");
 
         // Message handler
-        registerKafka(PrivateMessageCreatedMessage.getDefaultInstance(), PrivateMessageCreatedMessage::parseFrom, "message-handler");
-        registerKafka(ChatMessageCreatedMessage.getDefaultInstance(), ChatMessageCreatedMessage::parseFrom, "message-handler");
+        register(PrivateMessageCreatedMessage.getDefaultInstance(), PrivateMessageCreatedMessage::parseFrom, "message-handler");
+        register(ChatMessageCreatedMessage.getDefaultInstance(), ChatMessageCreatedMessage::parseFrom, "message-handler");
 
         // Common
-        registerKafka(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
-        registerKafka(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
-        registerKafka(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");
-        registerKafka(PlayerChatMessageMessage.getDefaultInstance(), PlayerChatMessageMessage::parseFrom, "mc-messages");
+        register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
+        register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
+        register(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");
+        register(PlayerChatMessageMessage.getDefaultInstance(), PlayerChatMessageMessage::parseFrom, "mc-messages");
     }
 }
