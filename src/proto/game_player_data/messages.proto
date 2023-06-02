@@ -1,9 +1,9 @@
 syntax = "proto3";
-package emortal.message.gamedata;
+package emortal.message.gameplayerdata;
 
 option java_package = "dev.emortal.api.message.gamedata";
 option java_multiple_files = true;
-option go_package = "github.com/emortalmc/proto-specs/gen/go/message/gamedata";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/gameplayerdata";
 
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/field_mask.proto";
