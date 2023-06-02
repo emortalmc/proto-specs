@@ -10,9 +10,13 @@ import "google/protobuf/field_mask.proto";
 import "google/protobuf/any.proto";
 
 message UpdateGamePlayerDataMessage {
-  GameDataGameMode game_mode = 1;
-  google.protobuf.Any data = 2;
-  google.protobuf.FieldMask data_mask = 3;
+  string player_id = 1;
+
+  GameDataGameMode game_mode = 2;
+
+  // Actual data
+  google.protobuf.Any data = 3;
+  google.protobuf.FieldMask data_mask = 4;
 }
 
 enum GameDataGameMode {
