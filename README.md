@@ -16,14 +16,15 @@ In production, the ports of default gRPC services are locked to 80.
 Any services that share a port mean they are combined within the same codebase
 and are run on the same gRPC server.
 
-| Service                    | Description                                         | Port  |
-|----------------------------|-----------------------------------------------------|-------|
-| permission                 | Manages permissions                                 | 10001 |
-| relationship               | Manages friends & blocks                            | 10002 |
-| message-handler            | Handles private messages + chat messages            | 10003 |
-| mc-player                  | Manages core user data (username, playtime, etc.)   | 10004 |
-| badge-manager              | Manages badges                                      | 10004 |
-| player-tracker             | Tracks player counts & player proxy/server          | 10005 |
-| party-manager              | Manages parties                                     | 10006 |
-| matchmaker (kurushimi)     | Matchmaker, separate repo for gRPC spec             | 10007 |
-| account-connection-manager | Manages account connections (Mojang, Discord, etc.) | 10008 |
+| Service                    | Description                                                | Port  |
+|----------------------------|------------------------------------------------------------|-------|
+| permission                 | Manages permissions                                        | 10001 |
+| relationship               | Manages friends & blocks                                   | 10002 |
+| message-handler            | Handles private messages + chat messages                   | 10003 |
+| mc-player                  | Manages core user data (username, playtime, etc.)          | 10004 |
+| badge-manager              | Manages badges                                             | 10004 |
+| player-tracker             | Tracks player counts & player proxy/server                 | 10005 |
+| party-manager              | Manages parties                                            | 10006 |
+| matchmaker (kurushimi)     | Matchmaker, separate repo for gRPC spec                    | 10007 |
+| account-connection-manager | Manages account connections (Mojang, Discord, etc.)        | 10008 |
+| game-player-data           | Manages user settings for a game (e.g. slots in blocksumo) | 10009 |
