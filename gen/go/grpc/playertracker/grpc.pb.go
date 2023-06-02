@@ -8,7 +8,7 @@ package playertracker
 
 import (
 	common "github.com/emortalmc/proto-specs/gen/go/model/common"
-	player_tracker "github.com/emortalmc/proto-specs/gen/go/model/player_tracker"
+	playertracker "github.com/emortalmc/proto-specs/gen/go/model/playertracker"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -122,7 +122,7 @@ type GetPlayerServerResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Server *player_tracker.PlayerLocation `protobuf:"bytes,1,opt,name=server,proto3,oneof" json:"server,omitempty"`
+	Server *playertracker.PlayerLocation `protobuf:"bytes,1,opt,name=server,proto3,oneof" json:"server,omitempty"`
 }
 
 func (x *GetPlayerServerResponse) Reset() {
@@ -157,7 +157,7 @@ func (*GetPlayerServerResponse) Descriptor() ([]byte, []int) {
 	return file_player_tracker_grpc_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetPlayerServerResponse) GetServer() *player_tracker.PlayerLocation {
+func (x *GetPlayerServerResponse) GetServer() *playertracker.PlayerLocation {
 	if x != nil {
 		return x.Server
 	}
@@ -169,7 +169,7 @@ type GetPlayerServersResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PlayerServers map[string]*player_tracker.PlayerLocation `protobuf:"bytes,1,rep,name=player_servers,json=playerServers,proto3" json:"player_servers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // Is they are not online, they will not be included in the map.
+	PlayerServers map[string]*playertracker.PlayerLocation `protobuf:"bytes,1,rep,name=player_servers,json=playerServers,proto3" json:"player_servers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // Is they are not online, they will not be included in the map.
 }
 
 func (x *GetPlayerServersResponse) Reset() {
@@ -204,7 +204,7 @@ func (*GetPlayerServersResponse) Descriptor() ([]byte, []int) {
 	return file_player_tracker_grpc_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetPlayerServersResponse) GetPlayerServers() map[string]*player_tracker.PlayerLocation {
+func (x *GetPlayerServersResponse) GetPlayerServers() map[string]*playertracker.PlayerLocation {
 	if x != nil {
 		return x.PlayerServers
 	}
@@ -310,7 +310,7 @@ type GetServerPlayersResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	OnlinePlayers []*player_tracker.OnlinePlayer `protobuf:"bytes,1,rep,name=online_players,json=onlinePlayers,proto3" json:"online_players,omitempty"`
+	OnlinePlayers []*playertracker.OnlinePlayer `protobuf:"bytes,1,rep,name=online_players,json=onlinePlayers,proto3" json:"online_players,omitempty"`
 }
 
 func (x *GetServerPlayersResponse) Reset() {
@@ -345,7 +345,7 @@ func (*GetServerPlayersResponse) Descriptor() ([]byte, []int) {
 	return file_player_tracker_grpc_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *GetServerPlayersResponse) GetOnlinePlayers() []*player_tracker.OnlinePlayer {
+func (x *GetServerPlayersResponse) GetOnlinePlayers() []*playertracker.OnlinePlayer {
 	if x != nil {
 		return x.OnlinePlayers
 	}
@@ -776,8 +776,8 @@ var file_player_tracker_grpc_proto_goTypes = []interface{}{
 	(*ServerTypesPlayerCountResponse)(nil),   // 11: emortal.grpc.ServerTypesPlayerCountResponse
 	nil,                                      // 12: emortal.grpc.GetPlayerServersResponse.PlayerServersEntry
 	nil,                                      // 13: emortal.grpc.ServerTypesPlayerCountResponse.PlayerCountsEntry
-	(*player_tracker.PlayerLocation)(nil),    // 14: emortal.model.PlayerLocation
-	(*player_tracker.OnlinePlayer)(nil),      // 15: emortal.model.OnlinePlayer
+	(*playertracker.PlayerLocation)(nil),     // 14: emortal.model.PlayerLocation
+	(*playertracker.OnlinePlayer)(nil),       // 15: emortal.model.OnlinePlayer
 	(common.ServerType)(0),                   // 16: emortal.model.ServerType
 	(*timestamppb.Timestamp)(nil),            // 17: google.protobuf.Timestamp
 }

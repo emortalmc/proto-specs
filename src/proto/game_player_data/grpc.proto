@@ -1,0 +1,36 @@
+syntax = "proto3";
+package emortal.grpc.gameplayerdata;
+
+option java_package = "dev.emortal.api.grpc.gameplayerdata";
+option java_outer_classname = "GamePlayerDataProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdata";
+
+import "game_player_data/models.proto";
+
+service GamePlayerDataService {
+  // BlockSumo
+  rpc GetBlockSumoPlayerData(PlayerIdRequest) returns (GetBlockSumoPlayerDataResponse);
+
+  // TowerDefence
+  rpc GetTowerDefencePlayerData(PlayerIdRequest) returns (GetTowerDefencePlayerDataResponse);
+
+  // Minesweeper
+  rpc GetMinesweeperPlayerData(PlayerIdRequest) returns (GetMinesweeperPlayerDataResponse);
+}
+
+message PlayerIdRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetBlockSumoPlayerDataResponse {
+  model.gamedata.BlockSumoPlayerData player_data = 1;
+}
+
+message GetTowerDefencePlayerDataResponse {
+  model.gamedata.TowerDefencePlayerData player_data = 1;
+}
+
+message GetMinesweeperPlayerDataResponse {
+  model.gamedata.MinesweeperPlayerData player_data = 1;
+}

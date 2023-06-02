@@ -11,6 +11,7 @@ import dev.emortal.api.message.common.PlayerChatMessageMessage;
 import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
+import dev.emortal.api.message.gamedata.UpdateGamePlayerDataMessage;
 import dev.emortal.api.message.messagehandler.ChatMessageCreatedMessage;
 import dev.emortal.api.message.messagehandler.PrivateMessageCreatedMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
@@ -85,6 +86,11 @@ public class ProtoParserRegistry {
         register(PlayerBadgeAddedMessage.getDefaultInstance(), PlayerBadgeAddedMessage::parseFrom, "badge-manager");
         register(PlayerBadgeRemovedMessage.getDefaultInstance(), PlayerBadgeRemovedMessage::parseFrom, "badge-manager");
         register(PlayerActiveBadgeChangedMessage.getDefaultInstance(), PlayerActiveBadgeChangedMessage::parseFrom, "badge-manager");
+
+        // Game Player Data
+        register(UpdateGamePlayerDataMessage.getDefaultInstance(), UpdateGamePlayerDataMessage::parseFrom, "game-player-data");
+
+        // (TODO) Game Tracker
 
         // Friend
         register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom, "relationship-manager");

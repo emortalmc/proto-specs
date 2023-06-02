@@ -1,0 +1,15 @@
+syntax = "proto3";
+package emortal.model.gamedata;
+
+option java_package = "dev.emortal.api.model.gamedata";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/gamedata";
+
+message BlockSumoPlayerData {
+  uint32 block_slot = 1;
+  uint32 shears_slot = 2;
+}
+
+message TowerDefencePlayerData {} // todo
+
+message MinesweeperPlayerData {} // todo
