@@ -24,13 +24,13 @@ message PlayerIdRequest {
 }
 
 message GetBlockSumoPlayerDataResponse {
-  model.gamedata.BlockSumoPlayerData player_data = 1;
+  model.gameplayerdata.BlockSumoPlayerData player_data = 1;
 }
 
 message GetTowerDefencePlayerDataResponse {
-  model.gamedata.TowerDefencePlayerData player_data = 1;
+  model.gameplayerdata.TowerDefencePlayerData player_data = 1;
 }
 
 message GetMinesweeperPlayerDataResponse {
-  model.gamedata.MinesweeperPlayerData player_data = 1;
+  model.gameplayerdata.MinesweeperPlayerData player_data = 1;
 }
