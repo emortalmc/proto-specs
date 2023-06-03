@@ -20,5 +20,9 @@ message PrivateMessage {
 message ChatMessage {
   string sender_id = 1;
   string sender_username = 2;
+
+  // message the main party of a message containing a <content> placeholder to be replaced by the message_content
   string message = 3;
+  // message_content the actual content sent by the player
+  string message_content = 4;
 }
