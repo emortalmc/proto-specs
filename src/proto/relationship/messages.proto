@@ -25,8 +25,9 @@ message FriendRemovedMessage {
 }
 
 message FriendConnectionMessage {
-  string player_id = 1;
-  string username = 2;
+  repeated string message_target_ids = 1;
+  string player_id = 2;
+  string username = 3;
   // joined if true, player joined. If false, player disconnected.
-  bool joined = 3;
+  bool joined = 4;
 }
