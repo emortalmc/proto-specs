@@ -25,6 +25,7 @@ message PlayerSwitchServerMessage {
 
 message PlayerDisconnectMessage {
   string player_id = 1;
+  string player_username = 2;
 }
 
 // PlayerChatMessageMessage is sent when a player sends a chat message
