@@ -26,6 +26,7 @@ import dev.emortal.api.message.party.PartySettingsChangedMessage;
 import dev.emortal.api.message.permission.PlayerRolesUpdateMessage;
 import dev.emortal.api.message.permission.RoleUpdateMessage;
 import dev.emortal.api.message.relationship.FriendAddedMessage;
+import dev.emortal.api.message.relationship.FriendConnectionMessage;
 import dev.emortal.api.message.relationship.FriendRemovedMessage;
 import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
 import org.jetbrains.annotations.NotNull;
@@ -96,6 +97,7 @@ public class ProtoParserRegistry {
         register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom, "relationship-manager");
         register(FriendAddedMessage.getDefaultInstance(), FriendAddedMessage::parseFrom, "relationship-manager");
         register(FriendRemovedMessage.getDefaultInstance(), FriendRemovedMessage::parseFrom, "relationship-manager");
+        register(FriendConnectionMessage.getDefaultInstance(), FriendConnectionMessage::parseFrom, "relationship-manager");
 
         // Party
         register(PartyCreatedMessage.getDefaultInstance(), PartyCreatedMessage::parseFrom, "party-manager");
