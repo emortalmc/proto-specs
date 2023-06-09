@@ -22,5 +22,4 @@ message GamePlayerDataRequest {
 message GetGamePlayerDataResponse {
   // Generic data to be coerced into a specific type
   google.protobuf.Any data = 3;
-  google.protobuf.FieldMask data_mask = 4;
 }
