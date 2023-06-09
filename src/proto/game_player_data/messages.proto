@@ -8,19 +8,13 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/gameplayerd
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/any.proto";
+import "game_player_data/models.proto";
 
 message UpdateGamePlayerDataMessage {
   string player_id = 1;
+  model.gameplayerdata.GameDataGameMode game_mode = 2;
 
-  GameDataGameMode game_mode = 2;
-
-  // Actual data
+  // Generic data to be coerced into the correct type
   google.protobuf.Any data = 3;
   google.protobuf.FieldMask data_mask = 4;
-}
-
-enum GameDataGameMode {
-  BLOCK_SUMO = 0;
-  TOWER_DEFENCE = 1;
-  MINESWEEPER = 2;
 }

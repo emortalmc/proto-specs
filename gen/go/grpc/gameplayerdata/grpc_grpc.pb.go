@@ -22,12 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GamePlayerDataServiceClient interface {
-	// BlockSumo
-	GetBlockSumoPlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetBlockSumoPlayerDataResponse, error)
-	// TowerDefence
-	GetTowerDefencePlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetTowerDefencePlayerDataResponse, error)
-	// Minesweeper
-	GetMinesweeperPlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetMinesweeperPlayerDataResponse, error)
+	GetGamePlayerData(ctx context.Context, in *GamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error)
 }
 
 type gamePlayerDataServiceClient struct {
@@ -38,27 +33,9 @@ func NewGamePlayerDataServiceClient(cc grpc.ClientConnInterface) GamePlayerDataS
 	return &gamePlayerDataServiceClient{cc}
 }
 
-func (c *gamePlayerDataServiceClient) GetBlockSumoPlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetBlockSumoPlayerDataResponse, error) {
-	out := new(GetBlockSumoPlayerDataResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetBlockSumoPlayerData", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gamePlayerDataServiceClient) GetTowerDefencePlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetTowerDefencePlayerDataResponse, error) {
-	out := new(GetTowerDefencePlayerDataResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetTowerDefencePlayerData", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gamePlayerDataServiceClient) GetMinesweeperPlayerData(ctx context.Context, in *PlayerIdRequest, opts ...grpc.CallOption) (*GetMinesweeperPlayerDataResponse, error) {
-	out := new(GetMinesweeperPlayerDataResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetMinesweeperPlayerData", in, out, opts...)
+func (c *gamePlayerDataServiceClient) GetGamePlayerData(ctx context.Context, in *GamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error) {
+	out := new(GetGamePlayerDataResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetGamePlayerData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,12 +46,7 @@ func (c *gamePlayerDataServiceClient) GetMinesweeperPlayerData(ctx context.Conte
 // All implementations must embed UnimplementedGamePlayerDataServiceServer
 // for forward compatibility
 type GamePlayerDataServiceServer interface {
-	// BlockSumo
-	GetBlockSumoPlayerData(context.Context, *PlayerIdRequest) (*GetBlockSumoPlayerDataResponse, error)
-	// TowerDefence
-	GetTowerDefencePlayerData(context.Context, *PlayerIdRequest) (*GetTowerDefencePlayerDataResponse, error)
-	// Minesweeper
-	GetMinesweeperPlayerData(context.Context, *PlayerIdRequest) (*GetMinesweeperPlayerDataResponse, error)
+	GetGamePlayerData(context.Context, *GamePlayerDataRequest) (*GetGamePlayerDataResponse, error)
 	mustEmbedUnimplementedGamePlayerDataServiceServer()
 }
 
@@ -82,14 +54,8 @@ type GamePlayerDataServiceServer interface {
 type UnimplementedGamePlayerDataServiceServer struct {
 }
 
-func (UnimplementedGamePlayerDataServiceServer) GetBlockSumoPlayerData(context.Context, *PlayerIdRequest) (*GetBlockSumoPlayerDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBlockSumoPlayerData not implemented")
-}
-func (UnimplementedGamePlayerDataServiceServer) GetTowerDefencePlayerData(context.Context, *PlayerIdRequest) (*GetTowerDefencePlayerDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTowerDefencePlayerData not implemented")
-}
-func (UnimplementedGamePlayerDataServiceServer) GetMinesweeperPlayerData(context.Context, *PlayerIdRequest) (*GetMinesweeperPlayerDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMinesweeperPlayerData not implemented")
+func (UnimplementedGamePlayerDataServiceServer) GetGamePlayerData(context.Context, *GamePlayerDataRequest) (*GetGamePlayerDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGamePlayerData not implemented")
 }
 func (UnimplementedGamePlayerDataServiceServer) mustEmbedUnimplementedGamePlayerDataServiceServer() {}
 
@@ -104,56 +70,20 @@ func RegisterGamePlayerDataServiceServer(s grpc.ServiceRegistrar, srv GamePlayer
 	s.RegisterService(&GamePlayerDataService_ServiceDesc, srv)
 }
 
-func _GamePlayerDataService_GetBlockSumoPlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PlayerIdRequest)
+func _GamePlayerDataService_GetGamePlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GamePlayerDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GamePlayerDataServiceServer).GetBlockSumoPlayerData(ctx, in)
+		return srv.(GamePlayerDataServiceServer).GetGamePlayerData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetBlockSumoPlayerData",
+		FullMethod: "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetGamePlayerData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GamePlayerDataServiceServer).GetBlockSumoPlayerData(ctx, req.(*PlayerIdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GamePlayerDataService_GetTowerDefencePlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PlayerIdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GamePlayerDataServiceServer).GetTowerDefencePlayerData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetTowerDefencePlayerData",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GamePlayerDataServiceServer).GetTowerDefencePlayerData(ctx, req.(*PlayerIdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GamePlayerDataService_GetMinesweeperPlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PlayerIdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GamePlayerDataServiceServer).GetMinesweeperPlayerData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetMinesweeperPlayerData",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GamePlayerDataServiceServer).GetMinesweeperPlayerData(ctx, req.(*PlayerIdRequest))
+		return srv.(GamePlayerDataServiceServer).GetGamePlayerData(ctx, req.(*GamePlayerDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -166,16 +96,8 @@ var GamePlayerDataService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GamePlayerDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetBlockSumoPlayerData",
-			Handler:    _GamePlayerDataService_GetBlockSumoPlayerData_Handler,
-		},
-		{
-			MethodName: "GetTowerDefencePlayerData",
-			Handler:    _GamePlayerDataService_GetTowerDefencePlayerData_Handler,
-		},
-		{
-			MethodName: "GetMinesweeperPlayerData",
-			Handler:    _GamePlayerDataService_GetMinesweeperPlayerData_Handler,
+			MethodName: "GetGamePlayerData",
+			Handler:    _GamePlayerDataService_GetGamePlayerData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

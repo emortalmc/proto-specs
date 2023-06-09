@@ -5,32 +5,22 @@ option java_package = "dev.emortal.api.grpc.gameplayerdata";
 option java_outer_classname = "GamePlayerDataProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdata";
 
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/any.proto";
 import "game_player_data/models.proto";
 
 service GamePlayerDataService {
-  // BlockSumo
-  rpc GetBlockSumoPlayerData(PlayerIdRequest) returns (GetBlockSumoPlayerDataResponse);
-
-  // TowerDefence
-  rpc GetTowerDefencePlayerData(PlayerIdRequest) returns (GetTowerDefencePlayerDataResponse);
-
-  // Minesweeper
-  rpc GetMinesweeperPlayerData(PlayerIdRequest) returns (GetMinesweeperPlayerDataResponse);
+  rpc GetGamePlayerData(GamePlayerDataRequest) returns (GetGamePlayerDataResponse);
 }
 
-message PlayerIdRequest {
-  // player_id of type UUID
+message GamePlayerDataRequest {
   string player_id = 1;
+  model.gameplayerdata.GameDataGameMode game_mode = 2;
 }
 
-message GetBlockSumoPlayerDataResponse {
-  model.gameplayerdata.BlockSumoPlayerData player_data = 1;
-}
-
-message GetTowerDefencePlayerDataResponse {
-  model.gameplayerdata.TowerDefencePlayerData player_data = 1;
-}
-
-message GetMinesweeperPlayerDataResponse {
-  model.gameplayerdata.MinesweeperPlayerData player_data = 1;
+message GetGamePlayerDataResponse {
+  // Generic data to be coerced into a specific type
+  google.protobuf.Any data = 3;
+  google.protobuf.FieldMask data_mask = 4;
 }
