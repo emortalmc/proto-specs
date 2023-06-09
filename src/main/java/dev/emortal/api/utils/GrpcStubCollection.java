@@ -3,6 +3,7 @@ package dev.emortal.api.utils;
 
 import dev.emortal.api.grpc.accountconnmanager.AccountConnectionManagerGrpc;
 import dev.emortal.api.grpc.badge.BadgeManagerGrpc;
+import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
 import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
 import dev.emortal.api.grpc.messagehandler.MessageHandlerGrpc;
 import dev.emortal.api.grpc.party.PartyServiceGrpc;
@@ -38,7 +39,8 @@ public class GrpcStubCollection {
             "player-tracker", 10005,
             "party-manager", 10006,
             // Kurushimi is 10007
-            "account-connection-manager", 10008
+            "account-connection-manager", 10008,
+            "game-player-data", 10009
     );
 
     @Getter
@@ -59,6 +61,8 @@ public class GrpcStubCollection {
     private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceFutureStub> partySettingsService;
     @Getter
     private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerFutureStub> accountConnectionManagerService;
+    @Getter
+    private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceFutureStub> gamePlayerDataService;
 
     static {
         permissionService = createChannel("permission").map(PermissionServiceGrpc::newFutureStub);
@@ -70,6 +74,7 @@ public class GrpcStubCollection {
         partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
         accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newFutureStub);
+        gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newFutureStub);
     }
 
     /**
