@@ -1,0 +1,41 @@
+syntax = "proto3";
+package emortal.grpc.game_tracker;
+
+option java_package = "dev.emortal.api.grpc.gametracker";
+option java_outer_classname = "GameTrackerProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gametracker";
+
+import "game_tracker/models.proto";
+import "common_models.proto";
+import "google/protobuf/any.proto";
+
+service GameTracker {
+  rpc GetPlayerActiveGame(GetPlayerActiveGameRequest) returns (GetPlayerActiveGameResponse);
+  rpc ListGames(ListGamesRequest) returns (ListGamesResponse);
+
+
+}
+
+message GetPlayerActiveGameRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetPlayerActiveGameResponse {
+  // todo
+}
+
+message ListGamesRequest {
+  message Filters {
+    optional string player_id = 1;
+    optional string game_mode_id = 2;
+    optional string map_id = 3;
+  }
+
+  Filters filters = 1;
+  model.Pageable pageable = 2;
+}
+
+message ListGamesResponse {
+  // todo
+}

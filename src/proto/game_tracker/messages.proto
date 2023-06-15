@@ -1,0 +1,9 @@
+syntax = "proto3";
+package emortal.message.game_tracker;
+
+option java_package = "dev.emortal.api.message.gametracker";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/gametracker";
+
+import "game_tracker/models.proto";
+
