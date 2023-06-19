@@ -11,7 +11,9 @@ message Badge {
   bool required = 3;
 
   string friendly_name = 4;
-  string chat_character = 5;
+  // chat_string normally one character but might be more.
+  // should be parsed with MiniMessage as it might contain a colour code.
+  string chat_string = 5;
 
   string hover_text = 6;
 
