@@ -11,63 +11,77 @@ import "common_models.proto";
 import "player_tracker/models.proto";
 
 service PlayerTracker {
-  rpc GetPlayerServer(GetPlayerServerRequest) returns (GetPlayerServerResponse);
-  rpc GetPlayerServers(GetPlayerServersRequest) returns (GetPlayerServersResponse); // mass retrieve servers for x... players
+  rpc GetPlayerServer(GetPlayerServerRequest) returns (GetPlayerServerResponse) {
+    option deprecated = true;
+  };
+  rpc GetPlayerServers(GetPlayerServersRequest) returns (GetPlayerServersResponse) {
+    option deprecated = true;
+  }; // mass retrieve servers for x... players
 
-  rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse);
+  rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse) {
+    option deprecated = true;
+  };
 
-  rpc GetServerPlayerCount(GetServerPlayerCountRequest) returns (GetServerPlayerCountResponse);
-  rpc GetServerTypePlayerCount(GetServerTypePlayerCountRequest) returns (ServerTypePlayerCountResponse);
-  rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse);
+  rpc GetServerPlayerCount(GetServerPlayerCountRequest) returns (GetServerPlayerCountResponse) {
+    option deprecated = true;
+  };
+  rpc GetServerTypePlayerCount(GetServerTypePlayerCountRequest) returns (ServerTypePlayerCountResponse) {
+    option deprecated = true;
+  };
+  rpc GetServerTypesPlayerCount(GetServerTypesPlayerCountRequest) returns (ServerTypesPlayerCountResponse) {
+    option deprecated = true;
+  };
+
+  option deprecated = true;
 }
 
 message GetPlayerServerRequest {
-  string player_id = 1;
+  string player_id = 1 [deprecated = true];
 }
 
 message GetPlayerServersRequest {
-  repeated string player_ids = 1;
+  repeated string player_ids = 1 [deprecated = true];
 }
 
 message GetPlayerServerResponse {
-  optional model.PlayerLocation server = 1;
+  optional model.PlayerLocation server = 1 [deprecated = true];
 }
 
 message GetPlayerServersResponse {
-  map<string, model.PlayerLocation> player_servers = 1; // Is they are not online, they will not be included in the map.
+  map<string, model.PlayerLocation> player_servers = 1 [deprecated = true]; // Is they are not online, they will not be included in the map.
 }
 
 message GetServerPlayersRequest {
-  string server_id = 1;
+  string server_id = 1 [deprecated = true];
 }
 
 message GetServerPlayerCountRequest {
-  string server_id = 1;
+  string server_id = 1 [deprecated = true];
 }
 
 message GetServerPlayersResponse {
-  repeated model.OnlinePlayer online_players = 1;
+  repeated model.OnlinePlayer online_players = 1 [deprecated = true];
 }
 
 message GetServerTypePlayerCountRequest {
-  model.ServerType server_type = 1;
+  model.ServerType server_type = 1 [deprecated = true];
 }
 
 message GetServerPlayerCountResponse {
-  uint32 player_count = 1;
+  uint32 player_count = 1 [deprecated = true];
 }
 
 message ServerTypePlayerCountResponse {
-  uint32 player_count = 1;
-  google.protobuf.Timestamp last_updated = 2;
+  uint32 player_count = 1 [deprecated = true];
+  google.protobuf.Timestamp last_updated = 2 [deprecated = true];
 }
 
 message GetServerTypesPlayerCountRequest {
-  repeated model.ServerType server_types = 1;
+  repeated model.ServerType server_types = 1 [deprecated = true];
 }
 
 message ServerTypesPlayerCountResponse {
   // player_counts is a map of the ServerType cardinal number to the player count.
-  map<int32, uint32> player_counts = 1;
-  google.protobuf.Timestamp last_updated = 2;
+  map<int32, uint32> player_counts = 1 [deprecated = true];
+  google.protobuf.Timestamp last_updated = 2 [deprecated = true];
 }

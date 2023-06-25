@@ -31,3 +31,17 @@ message LoginSession {
   // Only set if this session is not currently active (i.e. the player is not online for this session)
   optional google.protobuf.Timestamp logout_time = 3;
 }
+
+// PlayerTracker
+
+message OnlinePlayer {
+  string player_id = 1;
+  string username = 2;
+  PlayerServer server = 3;
+}
+
+// PlayerLocation represents the proxy and game server a player is on
+message PlayerServer {
+  string server_id = 1;
+  string proxy_id = 2;
+}

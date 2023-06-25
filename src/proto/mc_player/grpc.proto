@@ -16,6 +16,13 @@ service McPlayer {
   rpc GetLoginSessions(GetLoginSessionsRequest) returns (LoginSessionsResponse) {}
 }
 
+service PlayerTracker {
+  rpc GetPlayerServers(GetPlayerServersRequest) returns (GetPlayerServersResponse); // mass retrieve servers for x... players
+
+  rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse);
+  rpc GetPlayerCount(GetPlayerCountRequest) returns (GetPlayerCountResponse);
+}
+
 message GetPlayerRequest {
   string player_id = 1;
 }
@@ -73,4 +80,34 @@ message GetLoginSessionsRequest {
 message LoginSessionsResponse {
   repeated model.LoginSession sessions = 1;
   model.PageData page_data = 2;
+}
+
+// PlayerTracker
+
+message GetPlayerServersRequest {
+  repeated string player_ids = 1;
+}
+
+message GetPlayerServersResponse {
+  map<string, model.PlayerServer> player_servers = 1;
+}
+
+message GetServerPlayersRequest {
+  string server_id = 1;
+}
+
+message GetServerPlayersResponse {
+  repeated model.OnlinePlayer online_players = 1;
+}
+
+message GetPlayerCountRequest {
+  // server_id is optional, if not provided, will fall back to server_types
+  optional string server_id = 1;
+
+  // fleet_names is optional, if not provided, will fall back to global count
+  repeated string fleet_names = 2;
+}
+
+message GetPlayerCountResponse {
+  uint32 count = 1;
 }
