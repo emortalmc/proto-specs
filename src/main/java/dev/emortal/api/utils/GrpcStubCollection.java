@@ -35,6 +35,7 @@ public class GrpcStubCollection {
             "relationship-manager", 10002,
             "message-handler", 10003,
             "mc-player", 10004,
+            "player-tracker", 10004,
             "badge-manager", 10004,
             "party-manager", 10006,
             // Kurushimi is 10007
@@ -68,7 +69,7 @@ public class GrpcStubCollection {
         relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
         messageHandlerService = createChannel("message-handler").map(MessageHandlerGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
-        playerTrackerService = createChannel("mc-player").map(PlayerTrackerGrpc::newFutureStub);
+        playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);
         badgeManagerService = createChannel("badge-manager").map(BadgeManagerGrpc::newFutureStub);
         partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
