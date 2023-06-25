@@ -21,6 +21,8 @@ service PlayerTracker {
 
   rpc GetServerPlayers(GetServerPlayersRequest) returns (GetServerPlayersResponse);
   rpc GetPlayerCount(GetPlayerCountRequest) returns (GetPlayerCountResponse);
+  // GetFleetPlayerCounts returns the player count for each fleet
+  rpc GetFleetPlayerCounts(GetFleetsPlayerCountRequest) returns (GetFleetsPlayerCountResponse);
 }
 
 message GetPlayerRequest {
@@ -109,5 +111,13 @@ message GetPlayerCountRequest {
 }
 
 message GetPlayerCountResponse {
-  uint32 count = 1;
+  int64 count = 1;
+}
+
+message GetFleetsPlayerCountRequest {
+  repeated string fleet_names = 1;
+}
+
+message GetFleetsPlayerCountResponse {
+  map<string, int64> fleet_player_counts = 1;
 }

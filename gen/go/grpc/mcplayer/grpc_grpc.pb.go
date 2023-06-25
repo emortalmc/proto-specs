@@ -255,6 +255,8 @@ type PlayerTrackerClient interface {
 	GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error)
 	GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error)
 	GetPlayerCount(ctx context.Context, in *GetPlayerCountRequest, opts ...grpc.CallOption) (*GetPlayerCountResponse, error)
+	// GetFleetPlayerCounts returns the player count for each fleet
+	GetFleetPlayerCounts(ctx context.Context, in *GetFleetsPlayerCountRequest, opts ...grpc.CallOption) (*GetFleetsPlayerCountResponse, error)
 }
 
 type playerTrackerClient struct {
@@ -292,6 +294,15 @@ func (c *playerTrackerClient) GetPlayerCount(ctx context.Context, in *GetPlayerC
 	return out, nil
 }
 
+func (c *playerTrackerClient) GetFleetPlayerCounts(ctx context.Context, in *GetFleetsPlayerCountRequest, opts ...grpc.CallOption) (*GetFleetsPlayerCountResponse, error) {
+	out := new(GetFleetsPlayerCountResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetFleetPlayerCounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PlayerTrackerServer is the server API for PlayerTracker service.
 // All implementations must embed UnimplementedPlayerTrackerServer
 // for forward compatibility
@@ -299,6 +310,8 @@ type PlayerTrackerServer interface {
 	GetPlayerServers(context.Context, *GetPlayerServersRequest) (*GetPlayerServersResponse, error)
 	GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error)
 	GetPlayerCount(context.Context, *GetPlayerCountRequest) (*GetPlayerCountResponse, error)
+	// GetFleetPlayerCounts returns the player count for each fleet
+	GetFleetPlayerCounts(context.Context, *GetFleetsPlayerCountRequest) (*GetFleetsPlayerCountResponse, error)
 	mustEmbedUnimplementedPlayerTrackerServer()
 }
 
@@ -314,6 +327,9 @@ func (UnimplementedPlayerTrackerServer) GetServerPlayers(context.Context, *GetSe
 }
 func (UnimplementedPlayerTrackerServer) GetPlayerCount(context.Context, *GetPlayerCountRequest) (*GetPlayerCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerCount not implemented")
+}
+func (UnimplementedPlayerTrackerServer) GetFleetPlayerCounts(context.Context, *GetFleetsPlayerCountRequest) (*GetFleetsPlayerCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFleetPlayerCounts not implemented")
 }
 func (UnimplementedPlayerTrackerServer) mustEmbedUnimplementedPlayerTrackerServer() {}
 
@@ -382,6 +398,24 @@ func _PlayerTracker_GetPlayerCount_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlayerTracker_GetFleetPlayerCounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFleetsPlayerCountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerTrackerServer).GetFleetPlayerCounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.PlayerTracker/GetFleetPlayerCounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerTrackerServer).GetFleetPlayerCounts(ctx, req.(*GetFleetsPlayerCountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PlayerTracker_ServiceDesc is the grpc.ServiceDesc for PlayerTracker service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -400,6 +434,10 @@ var PlayerTracker_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPlayerCount",
 			Handler:    _PlayerTracker_GetPlayerCount_Handler,
+		},
+		{
+			MethodName: "GetFleetPlayerCounts",
+			Handler:    _PlayerTracker_GetFleetPlayerCounts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
