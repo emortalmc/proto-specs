@@ -5,6 +5,7 @@ import dev.emortal.api.grpc.accountconnmanager.AccountConnectionManagerGrpc;
 import dev.emortal.api.grpc.badge.BadgeManagerGrpc;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
 import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
+import dev.emortal.api.grpc.mcplayer.PlayerTrackerGrpc;
 import dev.emortal.api.grpc.messagehandler.MessageHandlerGrpc;
 import dev.emortal.api.grpc.party.PartyServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
@@ -50,6 +51,8 @@ public class GrpcStubCollection {
     @Getter
     private static final @NotNull Optional<McPlayerGrpc.McPlayerFutureStub> playerService;
     @Getter
+    private static final @NotNull Optional<PlayerTrackerGrpc.PlayerTrackerFutureStub> playerTrackerService;
+    @Getter
     private static final @NotNull Optional<BadgeManagerGrpc.BadgeManagerFutureStub> badgeManagerService;
     @Getter
     private static final @NotNull Optional<PartyServiceGrpc.PartyServiceFutureStub> partyService;
@@ -65,6 +68,7 @@ public class GrpcStubCollection {
         relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
         messageHandlerService = createChannel("message-handler").map(MessageHandlerGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
+        playerTrackerService = createChannel("mc-player").map(PlayerTrackerGrpc::newFutureStub);
         badgeManagerService = createChannel("badge-manager").map(BadgeManagerGrpc::newFutureStub);
         partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
