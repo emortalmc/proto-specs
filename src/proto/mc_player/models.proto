@@ -15,12 +15,16 @@ message McPlayer {
   // If they are currently online this will not be up to date
   google.protobuf.Timestamp last_online = 4;
 
-  bool currently_online = 5;
+  // currently_online use current_server and presence check instead.
+  bool currently_online = 5 [deprecated = true];
   optional LoginSession current_session = 6;
 
   // The total play time of this player.
   // WARNING: Does not include the current session
   google.protobuf.Duration historic_play_time = 7;
+
+  // current_server is only present if the player is online
+  optional PlayerServer current_server = 8;
 }
 
 message LoginSession {
