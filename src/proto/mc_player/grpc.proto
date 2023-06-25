@@ -91,7 +91,7 @@ message GetPlayerServersRequest {
 }
 
 message GetPlayerServersResponse {
-  map<string, model.PlayerServer> player_servers = 1;
+  map<string, model.CurrentServer> player_servers = 1;
 }
 
 message GetServerPlayersRequest {

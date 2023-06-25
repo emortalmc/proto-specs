@@ -24,7 +24,7 @@ message McPlayer {
   google.protobuf.Duration historic_play_time = 7;
 
   // current_server is only present if the player is online
-  optional PlayerServer current_server = 8;
+  optional CurrentServer current_server = 8;
 }
 
 message LoginSession {
@@ -41,11 +41,11 @@ message LoginSession {
 message OnlinePlayer {
   string player_id = 1;
   string username = 2;
-  PlayerServer server = 3;
+  CurrentServer server = 3;
 }
 
 // PlayerLocation represents the proxy and game server a player is on
-message PlayerServer {
+message CurrentServer {
   string server_id = 1;
   string proxy_id = 2;
 }
