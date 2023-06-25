@@ -9,7 +9,6 @@ import dev.emortal.api.grpc.messagehandler.MessageHandlerGrpc;
 import dev.emortal.api.grpc.party.PartyServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
 import dev.emortal.api.grpc.permission.PermissionServiceGrpc;
-import dev.emortal.api.grpc.playertracker.PlayerTrackerGrpc;
 import dev.emortal.api.grpc.relationship.RelationshipGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -36,7 +35,6 @@ public class GrpcStubCollection {
             "message-handler", 10003,
             "mc-player", 10004,
             "badge-manager", 10004,
-            "player-tracker", 10005,
             "party-manager", 10006,
             // Kurushimi is 10007
             "account-connection-manager", 10008,
@@ -54,8 +52,6 @@ public class GrpcStubCollection {
     @Getter
     private static final @NotNull Optional<BadgeManagerGrpc.BadgeManagerFutureStub> badgeManagerService;
     @Getter
-    private static final @NotNull Optional<PlayerTrackerGrpc.PlayerTrackerFutureStub> playerTrackerService;
-    @Getter
     private static final @NotNull Optional<PartyServiceGrpc.PartyServiceFutureStub> partyService;
     @Getter
     private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceFutureStub> partySettingsService;
@@ -70,7 +66,6 @@ public class GrpcStubCollection {
         messageHandlerService = createChannel("message-handler").map(MessageHandlerGrpc::newFutureStub);
         playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
         badgeManagerService = createChannel("badge-manager").map(BadgeManagerGrpc::newFutureStub);
-        playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);
         partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
         accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newFutureStub);
