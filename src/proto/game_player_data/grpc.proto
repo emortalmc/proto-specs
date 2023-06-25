@@ -6,7 +6,6 @@ option java_outer_classname = "GamePlayerDataProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdata";
 
 import "google/protobuf/descriptor.proto";
-import "google/protobuf/field_mask.proto";
 import "google/protobuf/any.proto";
 import "game_player_data/models.proto";
 

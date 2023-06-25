@@ -12,7 +12,7 @@ public class KafkaSettings {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSettings.class);
 
     private final Map<String, Object> settings = new HashMap<>();
-    private boolean autoCommit = true;
+    private boolean autoCommit = false;
 
     public KafkaSettings() {
         this.settings.put("client.id", this.createClientId());

@@ -21,12 +21,20 @@ const _ = grpc.SupportPackageIsVersion7
 // PlayerTrackerClient is the client API for PlayerTracker service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Deprecated: Do not use.
 type PlayerTrackerClient interface {
+	// Deprecated: Do not use.
 	GetPlayerServer(ctx context.Context, in *GetPlayerServerRequest, opts ...grpc.CallOption) (*GetPlayerServerResponse, error)
+	// Deprecated: Do not use.
 	GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error)
+	// Deprecated: Do not use.
 	GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error)
+	// Deprecated: Do not use.
 	GetServerPlayerCount(ctx context.Context, in *GetServerPlayerCountRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error)
+	// Deprecated: Do not use.
 	GetServerTypePlayerCount(ctx context.Context, in *GetServerTypePlayerCountRequest, opts ...grpc.CallOption) (*ServerTypePlayerCountResponse, error)
+	// Deprecated: Do not use.
 	GetServerTypesPlayerCount(ctx context.Context, in *GetServerTypesPlayerCountRequest, opts ...grpc.CallOption) (*ServerTypesPlayerCountResponse, error)
 }
 
@@ -34,10 +42,12 @@ type playerTrackerClient struct {
 	cc grpc.ClientConnInterface
 }
 
+// Deprecated: Do not use.
 func NewPlayerTrackerClient(cc grpc.ClientConnInterface) PlayerTrackerClient {
 	return &playerTrackerClient{cc}
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetPlayerServer(ctx context.Context, in *GetPlayerServerRequest, opts ...grpc.CallOption) (*GetPlayerServerResponse, error) {
 	out := new(GetPlayerServerResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetPlayerServer", in, out, opts...)
@@ -47,6 +57,7 @@ func (c *playerTrackerClient) GetPlayerServer(ctx context.Context, in *GetPlayer
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error) {
 	out := new(GetPlayerServersResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetPlayerServers", in, out, opts...)
@@ -56,6 +67,7 @@ func (c *playerTrackerClient) GetPlayerServers(ctx context.Context, in *GetPlaye
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error) {
 	out := new(GetServerPlayersResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerPlayers", in, out, opts...)
@@ -65,6 +77,7 @@ func (c *playerTrackerClient) GetServerPlayers(ctx context.Context, in *GetServe
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetServerPlayerCount(ctx context.Context, in *GetServerPlayerCountRequest, opts ...grpc.CallOption) (*GetServerPlayerCountResponse, error) {
 	out := new(GetServerPlayerCountResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerPlayerCount", in, out, opts...)
@@ -74,6 +87,7 @@ func (c *playerTrackerClient) GetServerPlayerCount(ctx context.Context, in *GetS
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetServerTypePlayerCount(ctx context.Context, in *GetServerTypePlayerCountRequest, opts ...grpc.CallOption) (*ServerTypePlayerCountResponse, error) {
 	out := new(ServerTypePlayerCountResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerTypePlayerCount", in, out, opts...)
@@ -83,6 +97,7 @@ func (c *playerTrackerClient) GetServerTypePlayerCount(ctx context.Context, in *
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *playerTrackerClient) GetServerTypesPlayerCount(ctx context.Context, in *GetServerTypesPlayerCountRequest, opts ...grpc.CallOption) (*ServerTypesPlayerCountResponse, error) {
 	out := new(ServerTypesPlayerCountResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerTypesPlayerCount", in, out, opts...)
@@ -95,12 +110,20 @@ func (c *playerTrackerClient) GetServerTypesPlayerCount(ctx context.Context, in 
 // PlayerTrackerServer is the server API for PlayerTracker service.
 // All implementations must embed UnimplementedPlayerTrackerServer
 // for forward compatibility
+//
+// Deprecated: Do not use.
 type PlayerTrackerServer interface {
+	// Deprecated: Do not use.
 	GetPlayerServer(context.Context, *GetPlayerServerRequest) (*GetPlayerServerResponse, error)
+	// Deprecated: Do not use.
 	GetPlayerServers(context.Context, *GetPlayerServersRequest) (*GetPlayerServersResponse, error)
+	// Deprecated: Do not use.
 	GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error)
+	// Deprecated: Do not use.
 	GetServerPlayerCount(context.Context, *GetServerPlayerCountRequest) (*GetServerPlayerCountResponse, error)
+	// Deprecated: Do not use.
 	GetServerTypePlayerCount(context.Context, *GetServerTypePlayerCountRequest) (*ServerTypePlayerCountResponse, error)
+	// Deprecated: Do not use.
 	GetServerTypesPlayerCount(context.Context, *GetServerTypesPlayerCountRequest) (*ServerTypesPlayerCountResponse, error)
 	mustEmbedUnimplementedPlayerTrackerServer()
 }
@@ -136,6 +159,7 @@ type UnsafePlayerTrackerServer interface {
 	mustEmbedUnimplementedPlayerTrackerServer()
 }
 
+// Deprecated: Do not use.
 func RegisterPlayerTrackerServer(s grpc.ServiceRegistrar, srv PlayerTrackerServer) {
 	s.RegisterService(&PlayerTracker_ServiceDesc, srv)
 }

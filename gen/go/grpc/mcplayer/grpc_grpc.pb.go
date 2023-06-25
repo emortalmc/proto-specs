@@ -247,3 +247,161 @@ var McPlayer_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "mc_player/grpc.proto",
 }
+
+// PlayerTrackerClient is the client API for PlayerTracker service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type PlayerTrackerClient interface {
+	GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error)
+	GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error)
+	GetPlayerCount(ctx context.Context, in *GetPlayerCountRequest, opts ...grpc.CallOption) (*GetPlayerCountResponse, error)
+}
+
+type playerTrackerClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPlayerTrackerClient(cc grpc.ClientConnInterface) PlayerTrackerClient {
+	return &playerTrackerClient{cc}
+}
+
+func (c *playerTrackerClient) GetPlayerServers(ctx context.Context, in *GetPlayerServersRequest, opts ...grpc.CallOption) (*GetPlayerServersResponse, error) {
+	out := new(GetPlayerServersResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetPlayerServers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *playerTrackerClient) GetServerPlayers(ctx context.Context, in *GetServerPlayersRequest, opts ...grpc.CallOption) (*GetServerPlayersResponse, error) {
+	out := new(GetServerPlayersResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerPlayers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *playerTrackerClient) GetPlayerCount(ctx context.Context, in *GetPlayerCountRequest, opts ...grpc.CallOption) (*GetPlayerCountResponse, error) {
+	out := new(GetPlayerCountResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetPlayerCount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PlayerTrackerServer is the server API for PlayerTracker service.
+// All implementations must embed UnimplementedPlayerTrackerServer
+// for forward compatibility
+type PlayerTrackerServer interface {
+	GetPlayerServers(context.Context, *GetPlayerServersRequest) (*GetPlayerServersResponse, error)
+	GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error)
+	GetPlayerCount(context.Context, *GetPlayerCountRequest) (*GetPlayerCountResponse, error)
+	mustEmbedUnimplementedPlayerTrackerServer()
+}
+
+// UnimplementedPlayerTrackerServer must be embedded to have forward compatible implementations.
+type UnimplementedPlayerTrackerServer struct {
+}
+
+func (UnimplementedPlayerTrackerServer) GetPlayerServers(context.Context, *GetPlayerServersRequest) (*GetPlayerServersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerServers not implemented")
+}
+func (UnimplementedPlayerTrackerServer) GetServerPlayers(context.Context, *GetServerPlayersRequest) (*GetServerPlayersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServerPlayers not implemented")
+}
+func (UnimplementedPlayerTrackerServer) GetPlayerCount(context.Context, *GetPlayerCountRequest) (*GetPlayerCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerCount not implemented")
+}
+func (UnimplementedPlayerTrackerServer) mustEmbedUnimplementedPlayerTrackerServer() {}
+
+// UnsafePlayerTrackerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PlayerTrackerServer will
+// result in compilation errors.
+type UnsafePlayerTrackerServer interface {
+	mustEmbedUnimplementedPlayerTrackerServer()
+}
+
+func RegisterPlayerTrackerServer(s grpc.ServiceRegistrar, srv PlayerTrackerServer) {
+	s.RegisterService(&PlayerTracker_ServiceDesc, srv)
+}
+
+func _PlayerTracker_GetPlayerServers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPlayerServersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerTrackerServer).GetPlayerServers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.PlayerTracker/GetPlayerServers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerTrackerServer).GetPlayerServers(ctx, req.(*GetPlayerServersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PlayerTracker_GetServerPlayers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetServerPlayersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerTrackerServer).GetServerPlayers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.PlayerTracker/GetServerPlayers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerTrackerServer).GetServerPlayers(ctx, req.(*GetServerPlayersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PlayerTracker_GetPlayerCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPlayerCountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerTrackerServer).GetPlayerCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.PlayerTracker/GetPlayerCount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerTrackerServer).GetPlayerCount(ctx, req.(*GetPlayerCountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PlayerTracker_ServiceDesc is the grpc.ServiceDesc for PlayerTracker service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PlayerTracker_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "emortal.grpc.PlayerTracker",
+	HandlerType: (*PlayerTrackerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetPlayerServers",
+			Handler:    _PlayerTracker_GetPlayerServers_Handler,
+		},
+		{
+			MethodName: "GetServerPlayers",
+			Handler:    _PlayerTracker_GetServerPlayers_Handler,
+		},
+		{
+			MethodName: "GetPlayerCount",
+			Handler:    _PlayerTracker_GetPlayerCount_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "mc_player/grpc.proto",
+}
