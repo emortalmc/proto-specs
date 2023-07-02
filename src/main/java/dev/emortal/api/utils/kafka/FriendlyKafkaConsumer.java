@@ -34,6 +34,8 @@ public class FriendlyKafkaConsumer {
 
     private static final AtomicInteger GROUP_COUNTER = new AtomicInteger(0);
 
+    private final @NotNull Object addListenerLock = new Object();
+
     private final @NotNull KafkaConsumer<String, byte[]> consumer;
 
     private final Map<Class<?>, Set<Consumer<AbstractMessage>>> protoListeners = new ConcurrentHashMap<>();
@@ -111,7 +113,7 @@ public class FriendlyKafkaConsumer {
 
     @SuppressWarnings("unchecked")
     public <T extends AbstractMessage> void addListener(@NotNull Class<T> messageType, @NotNull Consumer<T> listener) {
-        synchronized (this.consumedTopics) {
+        synchronized (this.addListenerLock) {
             MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
             if (protoConfig == null) {
                 throw new IllegalArgumentException("No parser found for " + messageType.getName());
