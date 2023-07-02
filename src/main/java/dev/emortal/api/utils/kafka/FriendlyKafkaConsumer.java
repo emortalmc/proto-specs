@@ -34,8 +34,6 @@ public class FriendlyKafkaConsumer {
 
     private static final AtomicInteger GROUP_COUNTER = new AtomicInteger(0);
 
-    private final @NotNull Object addListenerLock = new Object();
-
     private final @NotNull KafkaConsumer<String, byte[]> consumer;
 
     private final Map<Class<?>, Set<Consumer<AbstractMessage>>> protoListeners = new ConcurrentHashMap<>();
@@ -124,12 +122,12 @@ public class FriendlyKafkaConsumer {
     }
 
     private void listenToTopic(@NotNull String topic) {
-        synchronized (this.addListenerLock) {
-            if (!this.consumedTopics.contains(topic)) {
-                LOGGER.debug("Subscribing to topic {}", topic);
-                this.consumedTopics.add(topic);
-                this.consumer.subscribe(this.consumedTopics);
-            }
+        boolean added = this.consumedTopics.add(topic);
+
+        if (added) {
+            LOGGER.debug("Subscribing to topic {}", topic);
+            this.consumedTopics.add(topic);
+            this.consumer.subscribe(this.consumedTopics);
         }
     }
 
