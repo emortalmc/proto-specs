@@ -113,19 +113,23 @@ public class FriendlyKafkaConsumer {
 
     @SuppressWarnings("unchecked")
     public <T extends AbstractMessage> void addListener(@NotNull Class<T> messageType, @NotNull Consumer<T> listener) {
-        synchronized (this.addListenerLock) {
-            MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
-            if (protoConfig == null) {
-                throw new IllegalArgumentException("No parser found for " + messageType.getName());
-            }
+        MessageProtoConfig<T> protoConfig = ProtoParserRegistry.getParser(messageType);
+        if (protoConfig == null) {
+            throw new IllegalArgumentException("No parser found for " + messageType.getName());
+        }
 
-            if (!this.consumedTopics.contains(protoConfig.topic())) {
-                LOGGER.debug("Subscribing to topic {}", protoConfig.topic());
-                this.consumedTopics.add(protoConfig.topic());
+        this.protoListeners.computeIfAbsent(messageType, k -> new HashSet<>()).add((Consumer<AbstractMessage>) listener);
+
+        this.listenToTopic(protoConfig.topic());
+    }
+
+    private void listenToTopic(@NotNull String topic) {
+        synchronized (this.addListenerLock) {
+            if (!this.consumedTopics.contains(topic)) {
+                LOGGER.debug("Subscribing to topic {}", topic);
+                this.consumedTopics.add(topic);
                 this.consumer.subscribe(this.consumedTopics);
             }
-
-            this.protoListeners.computeIfAbsent(messageType, k -> new HashSet<>()).add((Consumer<AbstractMessage>) listener);
         }
     }
 
