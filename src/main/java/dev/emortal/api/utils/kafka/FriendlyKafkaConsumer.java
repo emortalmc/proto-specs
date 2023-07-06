@@ -126,7 +126,6 @@ public class FriendlyKafkaConsumer {
 
         if (added) {
             LOGGER.debug("Subscribing to topic {}", topic);
-            this.consumedTopics.add(topic);
             this.consumer.subscribe(this.consumedTopics);
         }
     }
