@@ -53,18 +53,18 @@ public class FriendlyKafkaConsumer {
 
     public FriendlyKafkaConsumer(@NotNull KafkaSettings settings) {
         // Nullable options
-        this.autoCommit = settings.autoCommit();
-        this.hasConsumerGroup = settings.groupId() != null;
+        this.autoCommit = settings.isAutoCommit();
+        this.hasConsumerGroup = settings.getGroupId() != null;
 
         Map<String, Object> settingsMap = settings.getSettings();
-        if (settings.groupId() != null) {
-            settingsMap.put("group.id", settings.groupId() + "-" + GROUP_COUNTER.getAndIncrement());
+        if (settings.getGroupId() != null) {
+            settingsMap.put("group.id", settings.getGroupId() + "-" + GROUP_COUNTER.getAndIncrement());
         }
 
         this.consumer = new KafkaConsumer<>(settingsMap, new StringDeserializer(), new ByteArrayDeserializer());
 
         this.scheduler.scheduleAtFixedRate(this::consume, 0, POLL_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-        LOGGER.info("Starting Kafka consumer (autoCommit={}, groupId={})", this.autoCommit, settings.groupId());
+        LOGGER.info("Starting Kafka consumer (autoCommit={}, groupId={})", this.autoCommit, settings.getGroupId());
     }
 
     private void consume() {

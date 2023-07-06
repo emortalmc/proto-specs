@@ -11,12 +11,23 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-record KafkaSettings(@NotNull String clientId, @NotNull Set<String> bootstrapServers, @Nullable String groupId,
-                     boolean autoCommit) {
+public final class KafkaSettings {
 
     private static final String CLIENT_ID_KEY = "client.id";
     private static final String BOOTSTRAP_SERVERS_KEY = "bootstrap.servers";
     private static final String GROUP_ID_KEY = "group.id";
+
+    private final @NotNull String clientId;
+    private final @NotNull Set<String> bootstrapServers;
+    private final @Nullable String groupId;
+    private final boolean autoCommit;
+
+    private KafkaSettings(@NotNull String clientId, @NotNull Set<String> bootstrapServers, @Nullable String groupId, boolean autoCommit) {
+        this.clientId = clientId;
+        this.bootstrapServers = bootstrapServers;
+        this.groupId = groupId;
+        this.autoCommit = autoCommit;
+    }
 
     public @NotNull Map<@NotNull String, @NotNull Object> getSettings() {
         Map<String, Object> settings = new HashMap<>();
@@ -28,13 +39,25 @@ record KafkaSettings(@NotNull String clientId, @NotNull Set<String> bootstrapSer
         return settings;
     }
 
-    public static class Builder {
+    public @Nullable String getGroupId() {
+        return this.groupId;
+    }
+
+    public boolean isAutoCommit() {
+        return this.autoCommit;
+    }
+
+    public static @NotNull Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
         private @NotNull String clientId;
         private Set<String> bootstrapServers;
         private String groupId;
         private boolean autoCommit;
 
-        public Builder() {
+        private Builder() {
             this.clientId = this.createClientId();
         }
 
