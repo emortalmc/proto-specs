@@ -63,8 +63,8 @@ public class FriendlyKafkaConsumer {
 
         this.consumer = new KafkaConsumer<>(settingsMap, new StringDeserializer(), new ByteArrayDeserializer());
 
-        LOGGER.info("Starting Kafka consumer thread");
         this.scheduler.scheduleAtFixedRate(this::consume, 0, POLL_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        LOGGER.info("Starting Kafka consumer (autoCommit={}, groupId={})", this.autoCommit, settings.groupId());
     }
 
     private void consume() {
