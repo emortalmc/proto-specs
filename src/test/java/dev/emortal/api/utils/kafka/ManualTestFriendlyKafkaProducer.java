@@ -9,9 +9,9 @@ import java.util.concurrent.ExecutionException;
 public class ManualTestFriendlyKafkaProducer {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        KafkaSettings settings = new KafkaSettings()
-                .setClientId("proto-specs-manual-test")
-                .setBootstrapServers("localhost:9092");
+        KafkaSettings settings = new KafkaSettings.Builder()
+                .clientId("proto-specs-manual-test")
+                .bootstrapServers("localhost:9092").build();
 
         FriendlyKafkaProducer producer = new FriendlyKafkaProducer(settings);
 

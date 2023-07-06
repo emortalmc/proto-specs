@@ -1,60 +1,86 @@
 package dev.emortal.api.utils.kafka;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class KafkaSettings {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSettings.class);
+record KafkaSettings(@NotNull String clientId, @NotNull Set<String> bootstrapServers, @Nullable String groupId,
+                     boolean autoCommit) {
 
-    private final Map<String, Object> settings = new HashMap<>();
-    private boolean autoCommit = false;
+    private static final String CLIENT_ID_KEY = "client.id";
+    private static final String BOOTSTRAP_SERVERS_KEY = "bootstrap.servers";
+    private static final String GROUP_ID_KEY = "group.id";
 
-    public KafkaSettings() {
-        this.settings.put("client.id", this.createClientId());
+    public @NotNull Map<@NotNull String, @NotNull Object> getSettings() {
+        Map<String, Object> settings = new HashMap<>();
+        settings.put(CLIENT_ID_KEY, this.clientId);
+        settings.put(BOOTSTRAP_SERVERS_KEY, String.join(",", this.bootstrapServers));
+
+        if (this.groupId != null) settings.put(GROUP_ID_KEY, this.groupId);
+
+        return settings;
     }
 
-    public KafkaSettings setClientId(String clientId) {
-        this.settings.put("client.id", clientId);
-        return this;
-    }
+    public static class Builder {
+        private @NotNull String clientId;
+        private Set<String> bootstrapServers;
+        private String groupId;
+        private boolean autoCommit;
 
-    public KafkaSettings setBootstrapServers(String bootstrapServers) {
-        this.settings.put("bootstrap.servers", bootstrapServers);
-        return this;
-    }
+        public Builder() {
+            this.clientId = this.createClientId();
+        }
 
-    public KafkaSettings setGroupId(String groupId) {
-        this.settings.put("group.id", groupId);
-        return this;
-    }
+        public @NotNull Builder clientId(@NotNull String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
 
-    public KafkaSettings setAutoCommit(boolean autoCommit) {
-        this.autoCommit = autoCommit;
-        return this;
-    }
+        public @NotNull Builder bootstrapServers(@NotNull Set<String> bootstrapServers) {
+            this.bootstrapServers = bootstrapServers;
+            return this;
+        }
 
-    public boolean isAutoCommit() {
-        return this.autoCommit;
-    }
+        public @NotNull Builder bootstrapServers(@NotNull String... bootstrapServers) {
+            if (this.bootstrapServers == null) this.bootstrapServers = new HashSet<>();
+            this.bootstrapServers.addAll(Arrays.asList(bootstrapServers));
+            return this;
+        }
 
-    public Map<String, Object> getSettings() {
-        if (this.settings.get("bootstrap.servers") == null)
-            throw new IllegalStateException("Bootstrap servers not set");
+        public @NotNull Builder groupId(@NotNull String groupId) {
+            this.groupId = groupId;
+            return this;
+        }
 
-        return this.settings;
-    }
+        public @NotNull Builder autoCommit(boolean autoCommit) {
+            this.autoCommit = autoCommit;
+            return this;
+        }
 
-    private String createClientId() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            LOGGER.error("Failed to get hostname", e);
-            return "unknown";
+        public @NotNull KafkaSettings build() {
+            if (this.bootstrapServers == null || this.bootstrapServers.isEmpty())
+                throw new IllegalStateException("Bootstrap servers not set");
+
+            // Only set the group id if it's null and auto commit is enabled
+            if (this.groupId == null && this.autoCommit)
+                this.groupId = this.clientId;
+
+            return new KafkaSettings(this.clientId, this.bootstrapServers, this.groupId, this.autoCommit);
+        }
+
+        private String createClientId() {
+            try {
+                return InetAddress.getLocalHost().getHostName();
+            } catch (UnknownHostException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
