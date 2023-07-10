@@ -1,28 +1,29 @@
+import com.google.protobuf.gradle.*
+
 plugins {
-    id("java-library")
-    id("maven-publish")
+    `java-library`
+    `maven-publish`
 
     // gRPC
-    id("com.google.protobuf") version "0.8.18"
+    id("com.google.protobuf") version "0.8.19"
 
     id("io.freefair.lombok") version "6.5.1"
 }
 
-group "dev.emortal.api"
-version "1.0"
+group = "dev.emortal.api"
+version = "1.0"
 
-def grpcVersion = "1.52.1"
-def protobufVersion = "3.21.12"
-def protocVersion = protobufVersion
+val grpcVersion = "1.52.1"
+val protobufVersion = "3.21.12"
+val protocVersion = protobufVersion
 
 repositories {
     mavenCentral()
-    maven { url = "https://packages.confluent.io/maven/" }
+    maven("https://packages.confluent.io/maven/")
 }
 
 dependencies {
-    protobuf("com.google.protobuf:protobuf-java:${protobufVersion}")
-    api("com.google.protobuf:protobuf-java:${protobufVersion}")
+    api("com.google.protobuf:protobuf-java:$protobufVersion")
     api("org.apache.tomcat:annotations-api:6.0.53")
     api("org.slf4j:slf4j-api:2.0.6")
 
@@ -34,9 +35,9 @@ dependencies {
 
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.5")
 
-    api("io.grpc:grpc-netty:${grpcVersion}")
-    api("io.grpc:grpc-stub:${grpcVersion}")
-    api("io.grpc:grpc-protobuf:${grpcVersion}")
+    api("io.grpc:grpc-netty:$grpcVersion")
+    api("io.grpc:grpc-stub:$grpcVersion")
+    api("io.grpc:grpc-protobuf:$grpcVersion")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
@@ -44,22 +45,36 @@ dependencies {
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.6")
 }
 
-test {
-    useJUnitPlatform()
-}
-
 protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    protoc {
+        artifact = "com.google.protobuf:protoc:$protocVersion"
+    }
     plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
     }
     generateProtoTasks {
-        all()*.plugins { grpc {} }
+        all().forEach {
+            it.plugins {
+                id("grpc") {}
+            }
+        }
+    }
+    afterEvaluate {
+        tasks.named("generateProto") {
+            dependsOn(tasks.named("generateEffectiveLombokConfig"))
+        }
+    }
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
     }
 }
 
 publishing {
-
     repositories {
         maven {
             name = "development"
@@ -80,15 +95,15 @@ publishing {
     }
 
     publications {
-        maven(MavenPublication) {
+        create<MavenPublication>("maven") {
             groupId = "dev.emortal.api"
             artifactId = "common-proto-sdk"
 
-            def commitHash = System.getenv("COMMIT_HASH_SHORT")
-            def releaseVersion = System.getenv("RELEASE_VERSION")
+            val commitHash = System.getenv("COMMIT_HASH_SHORT")
+            val releaseVersion = System.getenv("RELEASE_VERSION")
             version = commitHash ?: releaseVersion ?: "local"
 
-            from components.java
+            from(components["java"])
         }
     }
 }
@@ -97,12 +112,12 @@ publishing {
 sourceSets {
     main {
         java {
-            srcDirs "build/generated/source/proto/main/grpc"
-            srcDirs "build/generated/source/proto/main/java"
+            srcDirs("build/generated/source/proto/main/grpc")
+            srcDirs("build/generated/source/proto/main/java")
         }
 
         proto {
-            srcDir "src/proto"
+            srcDir("src/proto")
         }
     }
 }

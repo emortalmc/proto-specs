@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 public class ManualTestFriendlyKafkaConsumer {
 
     public static void main(String[] args) throws InterruptedException {
-        KafkaSettings settings = new KafkaSettings.Builder()
+        KafkaSettings settings = KafkaSettings.builder()
                 .clientId("proto-specs-manual-test")
                 .bootstrapServers("localhost:9092").build();
 
