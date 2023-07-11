@@ -1,21 +1,18 @@
 package dev.emortal.api.utils.resolvers;
 
-import com.google.common.util.concurrent.Futures;
-import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
-import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.model.mcplayer.McPlayer;
+import dev.emortal.api.service.mcplayer.McPlayerService;
 import dev.emortal.api.utils.GrpcStubCollection;
-import dev.emortal.api.utils.callback.FunctionalFutureCallback;
 import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 
 import java.util.UUID;
-import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class PlayerResolver {
-    private final static McPlayerGrpc.McPlayerFutureStub PLAYER_SERVICE = GrpcStubCollection.getPlayerService().orElse(null);
+    private static final McPlayerService playerService = GrpcStubCollection.getPlayerService().orElse(null);
     // The alternative should be used as a server software specific option to avoid calling the mc-player service if they're on the same server.
     private static Function<String, CachedMcPlayer> platformUsernameResolver;
 
@@ -33,20 +30,20 @@ public class PlayerResolver {
             return;
         }
 
-        requestMcPlayer(usernameLowercase, callback, errorCallback);
+        Thread.startVirtualThread(() -> requestMcPlayer(usernameLowercase, callback, errorCallback));
     }
 
     private static void requestMcPlayer(String username, Consumer<CachedMcPlayer> callback, Consumer<Status> errorCallback) {
-        var playerResponseFuture = PLAYER_SERVICE
-                .getPlayerByUsername(McPlayerProto.PlayerUsernameRequest.newBuilder().setUsername(username).build());
+        McPlayer player;
+        try {
+            player = playerService.getPlayerByUsername(username);
+        } catch (StatusRuntimeException exception) {
+            errorCallback.accept(exception.getStatus());
+            return;
+        }
 
-        Futures.addCallback(playerResponseFuture, FunctionalFutureCallback.create(
-                response -> {
-                    McPlayer player = response.getPlayer();
-                    callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername(), player.getCurrentlyOnline()));
-                },
-                throwable -> errorCallback.accept(Status.fromThrowable(throwable))
-        ), ForkJoinPool.commonPool());
+        if (player == null) return;
+        callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername(), player.hasCurrentServer()));
     }
 
     public record CachedMcPlayer(UUID uuid, String username, boolean online) {}
