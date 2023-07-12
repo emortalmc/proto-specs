@@ -1,6 +1,5 @@
 package dev.emortal.api.utils;
 
-
 import dev.emortal.api.grpc.accountconnmanager.AccountConnectionManagerGrpc;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
@@ -33,7 +32,7 @@ import java.util.Optional;
 
 // We directly return the optionals here, so it's functionally identical
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public class GrpcStubCollection {
+public final class GrpcStubCollection {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcStubCollection.class);
     private static final boolean DEVELOPMENT = System.getenv("KUBERNETES_SERVICE_HOST") == null;
 
@@ -124,11 +123,14 @@ public class GrpcStubCollection {
         try (Socket socket = new Socket("localhost", port)) {
             socket.setSoTimeout(10);
             return true;
-        } catch (ConnectException e) {
+        } catch (ConnectException exception) {
             return false;
-        } catch (IOException e) {
-            LOGGER.error("Error while checking if port is used", e);
+        } catch (IOException exception) {
+            LOGGER.error("Error while checking if port is used", exception);
             return false;
         }
+    }
+
+    private GrpcStubCollection() {
     }
 }

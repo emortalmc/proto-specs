@@ -4,12 +4,22 @@ import dev.emortal.api.grpc.relationship.RelationshipProto.CreateBlockResponse.C
 import dev.emortal.api.grpc.relationship.RelationshipProto.DenyFriendRequestResponse.DenyFriendRequestResult;
 import dev.emortal.api.grpc.relationship.RelationshipProto.RemoveFriendResponse.RemoveFriendResult;
 import dev.emortal.api.model.relationship.PlayerBlock;
+import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A service interface for the relationship service.
+ *
+ * <p>
+ * All methods within this class are blocking. It is up to the client to call these methods asynchronously.
+ * <br>
+ * The recommended way to do this is to use {@linkplain Thread#startVirtualThread virtual threads}.
+ */
+@Blocking
 public interface RelationshipService {
 
     @NotNull AddFriendResult addFriend(@NotNull UUID senderId, @NotNull String senderName, @NotNull UUID targetId);

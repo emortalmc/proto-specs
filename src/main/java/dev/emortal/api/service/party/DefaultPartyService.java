@@ -6,7 +6,7 @@ import dev.emortal.api.model.common.Pageable;
 import dev.emortal.api.model.party.Party;
 import dev.emortal.api.model.party.PartyInvite;
 import dev.emortal.api.utils.internal.GrpcErrorHelper;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,13 +16,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The default implementation of {@link PartyService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultPartyService implements PartyService {
 
     private final PartyServiceGrpc.PartyServiceBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultPartyService(@NotNull ManagedChannel channel) {
+    public DefaultPartyService(@NotNull Channel channel) {
         this.grpc = PartyServiceGrpc.newBlockingStub(channel);
     }
 

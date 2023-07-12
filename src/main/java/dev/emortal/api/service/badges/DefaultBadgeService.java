@@ -4,7 +4,7 @@ import dev.emortal.api.grpc.badge.BadgeManagerGrpc;
 import dev.emortal.api.grpc.badge.BadgeManagerProto;
 import dev.emortal.api.model.badge.Badge;
 import dev.emortal.api.utils.internal.GrpcErrorHelper;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -13,13 +13,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The default implementation of {@link BadgeService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultBadgeService implements BadgeService {
 
     private final BadgeManagerGrpc.BadgeManagerBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultBadgeService(@NotNull ManagedChannel channel) {
+    public DefaultBadgeService(@NotNull Channel channel) {
         this.grpc = BadgeManagerGrpc.newBlockingStub(channel);
     }
 
@@ -34,9 +37,7 @@ public final class DefaultBadgeService implements BadgeService {
     public @NotNull PlayerBadges getPlayerBadges(@NotNull UUID playerId) {
         var request = BadgeManagerProto.GetPlayerBadgesRequest.newBuilder().setPlayerId(playerId.toString()).build();
         BadgeManagerProto.GetPlayerBadgesResponse response = this.grpc.getPlayerBadges(request);
-
-        String activeBadgeId = response.getActiveBadgeId();
-        return new PlayerBadges(response.getBadgesList(), activeBadgeId.isEmpty() ? null : activeBadgeId);
+        return new PlayerBadges(response.getBadgesList(), response.hasActiveBadgeId() ? response.getActiveBadgeId() : null);
     }
 
     @Override

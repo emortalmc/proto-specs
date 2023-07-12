@@ -30,11 +30,12 @@ import dev.emortal.api.message.relationship.FriendConnectionMessage;
 import dev.emortal.api.message.relationship.FriendRemovedMessage;
 import dev.emortal.api.message.relationship.FriendRequestReceivedMessage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ProtoParserRegistry {
+public final class ProtoParserRegistry {
     // Map<full descriptor name, parser>
     private static final Map<String, MessageProtoConfig<? extends Message>> parsers = new ConcurrentHashMap<>();
 
@@ -42,11 +43,11 @@ public class ProtoParserRegistry {
         registerDefaults();
     }
 
-    public static MessageProtoConfig<? extends Message> getParser(@NotNull String fullDescriptorName) {
+    public static @Nullable MessageProtoConfig<? extends Message> getParser(@NotNull String fullDescriptorName) {
         return parsers.get(fullDescriptorName);
     }
 
-    public static <T extends Message> MessageProtoConfig<T> getParser(@NotNull Class<T> clazz) {
+    public static <T extends Message> @Nullable MessageProtoConfig<T> getParser(@NotNull Class<T> clazz) {
         for (MessageProtoConfig<? extends Message> parser : parsers.values()) {
             if (parser.example().getClass().equals(clazz)) {
                 //noinspection unchecked
@@ -67,7 +68,9 @@ public class ProtoParserRegistry {
      * @throws ParserNotFoundException        If no parser is found for the proto message
      * @throws InvalidProtocolBufferException If the passed message (bytes) are invalid
      */
-    public static <T extends Message> T parse(@NotNull String fullDescriptorName, byte[] bytes) throws ParserNotFoundException, InvalidProtocolBufferException {
+    public static <T extends Message> @NotNull T parse(@NotNull String fullDescriptorName,
+                                                       byte[] bytes) throws ParserNotFoundException, InvalidProtocolBufferException {
+        @SuppressWarnings("unchecked") // This is safe here because the register method enforces this guarantee
         MessageProtoConfig<T> parser = (MessageProtoConfig<T>) parsers.get(fullDescriptorName);
         if (parser == null) throw new ParserNotFoundException(fullDescriptorName);
 
@@ -123,5 +126,8 @@ public class ProtoParserRegistry {
         register(PlayerDisconnectMessage.getDefaultInstance(), PlayerDisconnectMessage::parseFrom, "mc-connections");
         register(PlayerSwitchServerMessage.getDefaultInstance(), PlayerSwitchServerMessage::parseFrom, "mc-connections");
         register(PlayerChatMessageMessage.getDefaultInstance(), PlayerChatMessageMessage::parseFrom, "mc-messages");
+    }
+
+    private ProtoParserRegistry() {
     }
 }

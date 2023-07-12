@@ -5,7 +5,7 @@ import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.grpc.mcplayer.McPlayerProto.SearchPlayersByUsernameRequest.FilterMethod;
 import dev.emortal.api.model.common.Pageable;
 import dev.emortal.api.model.mcplayer.McPlayer;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
@@ -25,7 +25,7 @@ public final class DefaultMcPlayerService implements McPlayerService {
     private final McPlayerGrpc.McPlayerBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultMcPlayerService(@NotNull ManagedChannel channel) {
+    public DefaultMcPlayerService(@NotNull Channel channel) {
         this.grpc = McPlayerGrpc.newBlockingStub(channel);
     }
 

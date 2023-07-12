@@ -8,7 +8,7 @@ import dev.emortal.api.grpc.relationship.RelationshipProto.RemoveFriendResponse.
 import dev.emortal.api.model.relationship.FriendRequest;
 import dev.emortal.api.model.relationship.PlayerBlock;
 import dev.emortal.api.utils.ProtoTimestampConverter;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
@@ -20,13 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The default implementation of {@link RelationshipService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultRelationshipService implements RelationshipService {
 
     private final RelationshipGrpc.RelationshipBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultRelationshipService(@NotNull ManagedChannel channel) {
+    public DefaultRelationshipService(@NotNull Channel channel) {
         this.grpc = RelationshipGrpc.newBlockingStub(channel);
     }
 

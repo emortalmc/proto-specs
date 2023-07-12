@@ -4,7 +4,7 @@ import dev.emortal.api.grpc.permission.PermissionProto;
 import dev.emortal.api.grpc.permission.PermissionServiceGrpc;
 import dev.emortal.api.model.permission.Role;
 import dev.emortal.api.utils.internal.GrpcErrorHelper;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
@@ -14,13 +14,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The default implementation of {@link PermissionService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultPermissionService implements PermissionService {
 
     private final PermissionServiceGrpc.PermissionServiceBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultPermissionService(@NotNull ManagedChannel channel) {
+    public DefaultPermissionService(@NotNull Channel channel) {
         this.grpc = PermissionServiceGrpc.newBlockingStub(channel);
     }
 

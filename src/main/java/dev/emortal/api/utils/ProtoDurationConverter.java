@@ -3,7 +3,7 @@ package dev.emortal.api.utils;
 import com.google.protobuf.Duration;
 import org.jetbrains.annotations.NotNull;
 
-public class ProtoDurationConverter {
+public final class ProtoDurationConverter {
 
     public static @NotNull Duration toProto(@NotNull java.time.Duration duration) {
         return Duration.newBuilder()
@@ -28,5 +28,8 @@ public class ProtoDurationConverter {
                 .setSeconds(nanos / 1000000000)
                 .setNanos((int) (nanos % 1000000000))
                 .build();
+    }
+
+    private ProtoDurationConverter() {
     }
 }

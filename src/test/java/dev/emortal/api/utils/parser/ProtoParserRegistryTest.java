@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.Instant;
 import java.util.stream.Stream;
 
-public class ProtoParserRegistryTest {
+public final class ProtoParserRegistryTest {
 
     @ParameterizedTest
     @MethodSource("testParsingParams")

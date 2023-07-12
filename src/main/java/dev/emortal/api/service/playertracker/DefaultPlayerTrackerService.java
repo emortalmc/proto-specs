@@ -4,7 +4,7 @@ import dev.emortal.api.grpc.mcplayer.PlayerTrackerGrpc;
 import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.model.mcplayer.CurrentServer;
 import dev.emortal.api.model.mcplayer.OnlinePlayer;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,13 +15,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * The default implementation of {@link PlayerTrackerService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultPlayerTrackerService implements PlayerTrackerService {
 
     private final PlayerTrackerGrpc.PlayerTrackerBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultPlayerTrackerService(@NotNull ManagedChannel channel) {
+    public DefaultPlayerTrackerService(@NotNull Channel channel) {
         this.grpc = PlayerTrackerGrpc.newBlockingStub(channel);
     }
 

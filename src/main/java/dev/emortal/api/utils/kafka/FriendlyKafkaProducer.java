@@ -10,6 +10,7 @@ import dev.emortal.api.utils.parser.ProtoParserRegistry;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.header.Header;
 import org.apache.kafka.common.header.internals.RecordHeader;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -24,12 +25,12 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 
-public class FriendlyKafkaProducer {
+public final class FriendlyKafkaProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(FriendlyKafkaProducer.class);
 
     private static final String HOSTNAME = getHostname();
 
-    private final KafkaProducer<String, byte[]> producer;
+    private final @NotNull KafkaProducer<String, byte[]> producer;
 
     public FriendlyKafkaProducer(@NotNull KafkaSettings settings) {
         this.producer = new KafkaProducer<>(settings.getSettings(), new StringSerializer(), new ByteArraySerializer());
@@ -37,11 +38,11 @@ public class FriendlyKafkaProducer {
 
     @CheckReturnValue
     public @NotNull ListenableFuture<Void> produce(@NotNull String topic, @NotNull AbstractMessage value) {
-        ProducerRecord<String, byte[]> record = new ProducerRecord<>(topic, null, System.currentTimeMillis(),
-                null, value.toByteArray(), List.of(
+        List<Header> headers = List.of(
                 new RecordHeader("X-Source-Id", HOSTNAME.getBytes()),
                 new RecordHeader("X-Proto-Type", value.getDescriptorForType().getFullName().getBytes())
-        ));
+        );
+        ProducerRecord<String, byte[]> record = new ProducerRecord<>(topic, null, System.currentTimeMillis(), null, value.toByteArray(), headers);
 
         Future<RecordMetadata> future = this.producer.send(record);
 
@@ -54,8 +55,7 @@ public class FriendlyKafkaProducer {
     @CheckReturnValue
     public @NotNull ListenableFuture<Void> produce(@NotNull AbstractMessage value) {
         MessageProtoConfig<?> config = ProtoParserRegistry.getParser(value.getClass());
-        if (config == null)
-            throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
+        if (config == null) throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
 
         return this.produce(config.topic(), value);
     }
@@ -64,16 +64,14 @@ public class FriendlyKafkaProducer {
         ListenableFuture<Void> future = this.produce(topic, value);
 
         Futures.addCallback(future, FunctionalFutureCallback.create(
-                unused -> {
-                },
+                unused -> {},
                 throwable -> LOGGER.error("Failed to produce message to topic " + topic, throwable)
         ), Runnable::run);
     }
 
     public void produceAndForget(@NotNull AbstractMessage value) {
         MessageProtoConfig<?> config = ProtoParserRegistry.getParser(value.getClass());
-        if (config == null)
-            throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
+        if (config == null) throw new IllegalArgumentException("No parser found for message type " + value.getClass().getName());
 
         this.produceAndForget(config.topic(), value);
     }
@@ -82,11 +80,11 @@ public class FriendlyKafkaProducer {
         this.producer.close();
     }
 
-    private static String getHostname() {
+    private static @NotNull String getHostname() {
         try {
             return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            LOGGER.error("Failed to get hostname", e);
+        } catch (UnknownHostException exception) {
+            LOGGER.error("Failed to get hostname", exception);
             return "unknown";
         }
     }

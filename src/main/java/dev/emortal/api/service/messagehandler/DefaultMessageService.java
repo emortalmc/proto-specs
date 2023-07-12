@@ -4,18 +4,21 @@ import dev.emortal.api.grpc.messagehandler.MessageHandlerGrpc;
 import dev.emortal.api.grpc.messagehandler.MessageHandlerProto;
 import dev.emortal.api.model.messagehandler.PrivateMessage;
 import dev.emortal.api.utils.internal.GrpcErrorHelper;
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * The default implementation of {@link MessageService} that uses a blocking stub to communicate with the gRPC server.
+ */
 @ApiStatus.Internal
 public final class DefaultMessageService implements MessageService {
 
     private final MessageHandlerGrpc.MessageHandlerBlockingStub grpc;
 
     @ApiStatus.Internal
-    public DefaultMessageService(@NotNull ManagedChannel channel) {
+    public DefaultMessageService(@NotNull Channel channel) {
         this.grpc = MessageHandlerGrpc.newBlockingStub(channel);
     }
 

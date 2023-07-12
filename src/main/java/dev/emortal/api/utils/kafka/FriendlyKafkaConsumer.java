@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class FriendlyKafkaConsumer {
+public final class FriendlyKafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(FriendlyKafkaConsumer.class);
     private static final int POLL_TIMEOUT_MS = 1000;
 
@@ -40,13 +40,13 @@ public class FriendlyKafkaConsumer {
     private final boolean hasConsumerGroup;
 
     private final Map<Class<?>, Set<Consumer<AbstractMessage>>> protoListeners = new ConcurrentHashMap<>();
-    private final @NotNull Set<String> consumedTopics = Collections.synchronizedSet(new HashSet<>());
+    private final Set<String> consumedTopics = Collections.synchronizedSet(new HashSet<>());
     // Only used if there isn't a consumer group - so we manually set the partitions (not subscribe)
-    private final @NotNull Set<TopicPartition> partitions = Collections.synchronizedSet(new HashSet<>());
+    private final Set<TopicPartition> partitions = Collections.synchronizedSet(new HashSet<>());
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
             new ThreadFactoryBuilder().setNameFormat("kafka-consumer-scheduler")
-                    .setUncaughtExceptionHandler((t, e) -> LOGGER.error("Error in Kafka consumer: ", e))
+                    .setUncaughtExceptionHandler((thread, exception) -> LOGGER.error("Error in Kafka consumer: ", exception))
                     .build());
 
     private final boolean autoCommit;
@@ -77,9 +77,7 @@ public class FriendlyKafkaConsumer {
                 this.processRecord(record);
             }
 
-            if (this.autoCommit) {
-                this.consumer.commitSync();
-            }
+            if (this.autoCommit) this.consumer.commitSync();
         }
     }
 
@@ -93,20 +91,20 @@ public class FriendlyKafkaConsumer {
         AbstractMessage message;
         try {
             message = ProtoParserRegistry.parse(protoType, record.value());
-        } catch (InvalidProtocolBufferException e) {
-            LOGGER.warn("Failed to parse message", e);
+        } catch (InvalidProtocolBufferException exception) {
+            LOGGER.warn("Failed to parse message", exception);
             return;
         }
 
+        Set<Consumer<AbstractMessage>> consumers = this.protoListeners.get(message.getClass());
+        if (consumers == null) return;
+
         try {
-            Set<Consumer<AbstractMessage>> consumers = this.protoListeners.get(message.getClass());
-            if (consumers != null) {
-                for (Consumer<AbstractMessage> consumer : consumers) {
-                    consumer.accept(message);
-                }
+            for (Consumer<AbstractMessage> consumer : consumers) {
+                consumer.accept(message);
             }
-        } catch (Exception e) {
-            LOGGER.error("Failed to handle message (topic: {}, type: {}): ", record.topic(), protoType, e);
+        } catch (Exception exception) {
+            LOGGER.error("Failed to handle message (topic: {}, type: {}): ", record.topic(), protoType, exception);
         }
     }
 
@@ -133,16 +131,15 @@ public class FriendlyKafkaConsumer {
 
     private void listenToTopic(@NotNull String topic) {
         boolean added = this.consumedTopics.add(topic);
+        if (!added) return;
 
-        if (added) {
-            LOGGER.debug("Subscribing to topic {}", topic);
-            if (this.hasConsumerGroup) {
-                this.consumer.subscribe(this.consumedTopics);
-            } else {
-                TopicPartition partition = new TopicPartition(topic, 0);
-                this.partitions.add(partition);
-                this.consumer.assign(this.partitions);
-            }
+        LOGGER.debug("Subscribing to topic {}", topic);
+        if (this.hasConsumerGroup) {
+            this.consumer.subscribe(this.consumedTopics);
+        } else {
+            TopicPartition partition = new TopicPartition(topic, 0);
+            this.partitions.add(partition);
+            this.consumer.assign(this.partitions);
         }
     }
 

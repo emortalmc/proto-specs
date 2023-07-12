@@ -31,6 +31,5 @@ public final class GrpcErrorHelper {
     }
 
     private GrpcErrorHelper() {
-        throw new AssertionError("This class cannot be instantiated.");
     }
 }

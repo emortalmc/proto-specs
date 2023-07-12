@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
 
-public class ProtoTimestampConverter {
+public final class ProtoTimestampConverter {
 
     public static @NotNull Timestamp toProto(@NotNull Instant instant) {
         return Timestamp.newBuilder()
@@ -24,6 +24,7 @@ public class ProtoTimestampConverter {
 
     public static @NotNull Timestamp toProtoFromMillis(long millis) {
         if (millis < 0) throw new IllegalArgumentException("Millis cannot be negative");
+
         return Timestamp.newBuilder()
                 .setSeconds(millis / 1000)
                 .setNanos((int) ((millis % 1000) * 1000000))
@@ -37,5 +38,8 @@ public class ProtoTimestampConverter {
                 .setSeconds(nanos / 1000000000)
                 .setNanos((int) (nanos % 1000000000))
                 .build();
+    }
+
+    private ProtoTimestampConverter() {
     }
 }
