@@ -5,6 +5,8 @@ import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
 import dev.emortal.api.service.badges.BadgeService;
 import dev.emortal.api.service.badges.DefaultBadgeService;
+import dev.emortal.api.service.matchmaker.DefaultMatchmakerService;
+import dev.emortal.api.service.matchmaker.MatchmakerService;
 import dev.emortal.api.service.mcplayer.DefaultMcPlayerService;
 import dev.emortal.api.service.mcplayer.McPlayerService;
 import dev.emortal.api.service.messagehandler.DefaultMessageService;
@@ -44,7 +46,7 @@ public final class GrpcStubCollection {
             "player-tracker", 10004,
             "badge-manager", 10004,
             "party-manager", 10006,
-            // Kurushimi is 10007
+            "matchmaker", 10007,
             "account-connection-manager", 10008,
             "game-player-data", 10009
     );
@@ -66,6 +68,8 @@ public final class GrpcStubCollection {
     @Getter
     private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceBlockingStub> partySettingsService;
     @Getter
+    private static final @NotNull Optional<MatchmakerService> matchmakerService;
+    @Getter
     private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerBlockingStub> accountConnectionManagerService;
     @Getter
     private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> gamePlayerDataService;
@@ -79,6 +83,7 @@ public final class GrpcStubCollection {
         badgeManagerService = createChannel("badge-manager").map(DefaultBadgeService::new);
         partyService = createChannel("party-manager").map(DefaultPartyService::new);
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newBlockingStub);
+        matchmakerService = createChannel("matchmaker").map(DefaultMatchmakerService::new);
         accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newBlockingStub);
         gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newBlockingStub);
     }
