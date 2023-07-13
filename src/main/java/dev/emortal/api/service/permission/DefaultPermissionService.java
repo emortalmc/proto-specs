@@ -35,12 +35,9 @@ public final class DefaultPermissionService implements PermissionService {
     }
 
     @Override
-    public @NotNull PlayerRoles getPlayerRoles(@NotNull UUID playerId) {
+    public @NotNull PermissionProto.PlayerRolesResponse getPlayerRoles(@NotNull UUID playerId) {
         var request = PermissionProto.GetPlayerRolesRequest.newBuilder().setPlayerId(playerId.toString()).build();
-        PermissionProto.PlayerRolesResponse response = this.grpc.getPlayerRoles(request);
-
-        String activeDisplayNameRoleId = response.getActiveDisplayNameRoleId();
-        return new PlayerRoles(response.getRoleIdsList(), activeDisplayNameRoleId.isEmpty() ? null : activeDisplayNameRoleId);
+        return this.grpc.getPlayerRoles(request);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.protobuf.Duration;
 import org.jetbrains.annotations.NotNull;
 
 public final class ProtoDurationConverter {
+    private static final long NANOS_PER_SECOND = 1_000_000_000;
 
     public static @NotNull Duration toProto(@NotNull java.time.Duration duration) {
         return Duration.newBuilder()
@@ -19,14 +20,14 @@ public final class ProtoDurationConverter {
     public static @NotNull Duration toProtoFromMillis(long millis) {
         return Duration.newBuilder()
                 .setSeconds(millis / 1000)
-                .setNanos((int) ((millis % 1000) * 1000000))
+                .setNanos((int) ((millis % 1000) * 1_000_000))
                 .build();
     }
 
     public static @NotNull Duration toProtoFromNanos(long nanos) {
         return Duration.newBuilder()
-                .setSeconds(nanos / 1000000000)
-                .setNanos((int) (nanos % 1000000000))
+                .setSeconds(nanos / NANOS_PER_SECOND)
+                .setNanos((int) (nanos % NANOS_PER_SECOND))
                 .build();
     }
 

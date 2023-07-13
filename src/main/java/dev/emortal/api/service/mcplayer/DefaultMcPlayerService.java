@@ -86,13 +86,12 @@ public final class DefaultMcPlayerService implements McPlayerService {
     }
 
     @Override
-    public @NotNull LoginSessions getLoginSessions(@NotNull UUID playerId, @NotNull Pageable pageable) {
+    public @NotNull McPlayerProto.LoginSessionsResponse getLoginSessions(@NotNull UUID playerId, @NotNull Pageable pageable) {
         var request = McPlayerProto.GetLoginSessionsRequest.newBuilder()
                 .setPlayerId(playerId.toString())
                 .setPageable(pageable)
                 .build();
 
-        McPlayerProto.LoginSessionsResponse response = this.grpc.getLoginSessions(request);
-        return new LoginSessions(response.getSessionsList(), response.getPageData());
+        return this.grpc.getLoginSessions(request);
     }
 }

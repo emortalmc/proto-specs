@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 
 public final class ProtoTimestampConverter {
+    private static final long NANOS_PER_SECOND = 1_000_000_000;
 
     public static @NotNull Timestamp toProto(@NotNull Instant instant) {
         return Timestamp.newBuilder()
@@ -27,7 +28,7 @@ public final class ProtoTimestampConverter {
 
         return Timestamp.newBuilder()
                 .setSeconds(millis / 1000)
-                .setNanos((int) ((millis % 1000) * 1000000))
+                .setNanos((int) ((millis % 1000) * 1_000_000))
                 .build();
     }
 
@@ -35,8 +36,8 @@ public final class ProtoTimestampConverter {
         if (nanos < 0) throw new IllegalArgumentException("Nanos cannot be negative");
 
         return Timestamp.newBuilder()
-                .setSeconds(nanos / 1000000000)
-                .setNanos((int) (nanos % 1000000000))
+                .setSeconds(nanos / NANOS_PER_SECOND)
+                .setNanos((int) (nanos % NANOS_PER_SECOND))
                 .build();
     }
 

@@ -1,7 +1,7 @@
 package dev.emortal.api.service.playertracker;
 
-import dev.emortal.api.grpc.mcplayer.PlayerTrackerGrpc;
 import dev.emortal.api.grpc.mcplayer.McPlayerProto;
+import dev.emortal.api.grpc.mcplayer.PlayerTrackerGrpc;
 import dev.emortal.api.model.mcplayer.CurrentServer;
 import dev.emortal.api.model.mcplayer.OnlinePlayer;
 import io.grpc.Channel;

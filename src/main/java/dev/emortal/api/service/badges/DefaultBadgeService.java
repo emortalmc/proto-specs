@@ -34,10 +34,9 @@ public final class DefaultBadgeService implements BadgeService {
     }
 
     @Override
-    public @NotNull PlayerBadges getPlayerBadges(@NotNull UUID playerId) {
+    public @NotNull BadgeManagerProto.GetPlayerBadgesResponse getPlayerBadges(@NotNull UUID playerId) {
         var request = BadgeManagerProto.GetPlayerBadgesRequest.newBuilder().setPlayerId(playerId.toString()).build();
-        BadgeManagerProto.GetPlayerBadgesResponse response = this.grpc.getPlayerBadges(request);
-        return new PlayerBadges(response.getBadgesList(), response.hasActiveBadgeId() ? response.getActiveBadgeId() : null);
+        return this.grpc.getPlayerBadges(request);
     }
 
     @Override

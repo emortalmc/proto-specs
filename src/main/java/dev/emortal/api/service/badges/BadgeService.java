@@ -1,5 +1,6 @@
 package dev.emortal.api.service.badges;
 
+import dev.emortal.api.grpc.badge.BadgeManagerProto;
 import dev.emortal.api.model.badge.Badge;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ public interface BadgeService {
 
     @NotNull List<Badge> getAllBadges();
 
-    @NotNull PlayerBadges getPlayerBadges(@NotNull UUID playerId);
+    @NotNull BadgeManagerProto.GetPlayerBadgesResponse getPlayerBadges(@NotNull UUID playerId);
 
     @Nullable Badge getActiveBadge(@NotNull UUID playerId);
 

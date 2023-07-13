@@ -1,5 +1,6 @@
 package dev.emortal.api.service.permission;
 
+import dev.emortal.api.grpc.permission.PermissionProto;
 import dev.emortal.api.model.permission.Role;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ public interface PermissionService {
 
     @NotNull List<Role> getAllRoles();
 
-    @NotNull PlayerRoles getPlayerRoles(@NotNull UUID playerId);
+    @NotNull PermissionProto.PlayerRolesResponse getPlayerRoles(@NotNull UUID playerId);
 
     @NotNull CreateRoleResult createRole(@NotNull String id, int priority, @Nullable String displayName);
 

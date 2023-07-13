@@ -1,5 +1,6 @@
 package dev.emortal.api.service.mcplayer;
 
+import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.grpc.mcplayer.McPlayerProto.SearchPlayersByUsernameRequest.FilterMethod;
 import dev.emortal.api.model.common.Pageable;
 import dev.emortal.api.model.mcplayer.McPlayer;
@@ -31,5 +32,5 @@ public interface McPlayerService {
     @NotNull List<McPlayer> searchPlayersByUsername(@NotNull UUID requesterId, @NotNull String searchUsername, @NotNull Pageable pageable,
                                                     @Nullable FilterMethod filterMethod);
 
-    @NotNull LoginSessions getLoginSessions(@NotNull UUID playerId, @NotNull Pageable pageable);
+    @NotNull McPlayerProto.LoginSessionsResponse getLoginSessions(@NotNull UUID playerId, @NotNull Pageable pageable);
 }
