@@ -2,6 +2,13 @@ package dev.emortal.api.utils.parser;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
+import dev.emortal.api.kurushimi.messages.MatchCreatedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchCreatedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchDeletedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchUpdatedMessage;
+import dev.emortal.api.kurushimi.messages.TicketCreatedMessage;
+import dev.emortal.api.kurushimi.messages.TicketDeletedMessage;
+import dev.emortal.api.kurushimi.messages.TicketUpdatedMessage;
 import dev.emortal.api.message.accountconnmanager.AccountConnectedMessage;
 import dev.emortal.api.message.accountconnmanager.AccountConnectionRemovedMessage;
 import dev.emortal.api.message.badge.PlayerActiveBadgeChangedMessage;
@@ -120,6 +127,15 @@ public final class ProtoParserRegistry {
         // Message handler
         register(PrivateMessageCreatedMessage.getDefaultInstance(), PrivateMessageCreatedMessage::parseFrom, "message-handler");
         register(ChatMessageCreatedMessage.getDefaultInstance(), ChatMessageCreatedMessage::parseFrom, "message-handler");
+
+        // Matchmaker
+        register(TicketCreatedMessage.getDefaultInstance(), TicketCreatedMessage::parseFrom, "matchmaker");
+        register(TicketUpdatedMessage.getDefaultInstance(), TicketUpdatedMessage::parseFrom, "matchmaker");
+        register(TicketDeletedMessage.getDefaultInstance(), TicketDeletedMessage::parseFrom, "matchmaker");
+        register(PendingMatchCreatedMessage.getDefaultInstance(), PendingMatchCreatedMessage::parseFrom, "matchmaker");
+        register(PendingMatchUpdatedMessage.getDefaultInstance(), PendingMatchUpdatedMessage::parseFrom, "matchmaker");
+        register(PendingMatchDeletedMessage.getDefaultInstance(), PendingMatchDeletedMessage::parseFrom, "matchmaker");
+        register(MatchCreatedMessage.getDefaultInstance(), MatchCreatedMessage::parseFrom, "matchmaker");
 
         // Common
         register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
