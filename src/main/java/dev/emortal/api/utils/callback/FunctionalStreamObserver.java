@@ -1,14 +1,15 @@
 package dev.emortal.api.utils.callback;
 
 import io.grpc.stub.StreamObserver;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class FunctionalStreamObserver {
+public final class FunctionalStreamObserver {
 
-    public static <T> StreamObserver<T> create(Consumer<T> onNext, Consumer<Throwable> onError, @Nullable Runnable onCompleted) {
+    public static <T> @NotNull StreamObserver<T> create(@NotNull Consumer<T> onNext, @NotNull Consumer<Throwable> onError, @Nullable Runnable onCompleted) {
         return new StreamObserver<>() {
             @Override
             public void onNext(T value) {
@@ -25,5 +26,8 @@ public class FunctionalStreamObserver {
                 if (onCompleted != null) onCompleted.run();
             }
         };
+    }
+
+    private FunctionalStreamObserver() {
     }
 }

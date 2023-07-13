@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class FunctionalFutureCallback {
+public final class FunctionalFutureCallback {
 
-    public static <T> FutureCallback<T> create(Consumer<T> onSuccess, Consumer<Throwable> onFailure) {
-        return new FutureCallback<T>() {
+    public static <T> @NotNull FutureCallback<T> create(@NotNull Consumer<T> onSuccess, @NotNull Consumer<Throwable> onFailure) {
+        return new FutureCallback<>() {
             @Override
             public void onSuccess(T result) {
                 onSuccess.accept(result);
@@ -20,5 +20,8 @@ public class FunctionalFutureCallback {
                 onFailure.accept(throwable);
             }
         };
+    }
+
+    private FunctionalFutureCallback() {
     }
 }

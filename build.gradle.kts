@@ -68,9 +68,21 @@ protobuf {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(20))
+    }
+}
+
 tasks {
     test {
         useJUnitPlatform()
+    }
+    compileJava {
+        options.compilerArgs.addAll(listOf(
+                "--release", "20",
+                "--enable-preview"
+        ))
     }
 }
 

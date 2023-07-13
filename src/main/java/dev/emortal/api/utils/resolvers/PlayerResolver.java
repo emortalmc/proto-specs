@@ -1,30 +1,60 @@
 package dev.emortal.api.utils.resolvers;
 
-import com.google.common.util.concurrent.Futures;
-import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
-import dev.emortal.api.grpc.mcplayer.McPlayerProto;
 import dev.emortal.api.model.mcplayer.McPlayer;
+import dev.emortal.api.service.mcplayer.McPlayerService;
 import dev.emortal.api.utils.GrpcStubCollection;
-import dev.emortal.api.utils.callback.FunctionalFutureCallback;
 import io.grpc.Status;
+import io.grpc.StatusException;
+import io.grpc.StatusRuntimeException;
+import org.jetbrains.annotations.Blocking;
+import org.jetbrains.annotations.NonBlocking;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * A utility for resolving player data from a local resolver, or the mc player service, if the player is not available locally.
+ */
 @SuppressWarnings("unused")
-public class PlayerResolver {
-    private final static McPlayerGrpc.McPlayerFutureStub PLAYER_SERVICE = GrpcStubCollection.getPlayerService().orElse(null);
+public final class PlayerResolver {
+    private static final McPlayerService playerService = GrpcStubCollection.getPlayerService().orElse(null);
     // The alternative should be used as a server software specific option to avoid calling the mc-player service if they're on the same server.
-    private static Function<String, CachedMcPlayer> platformUsernameResolver;
+    private static @Nullable Function<String, CachedMcPlayer> platformUsernameResolver;
 
-    public static void setPlatformUsernameResolver(Function<String, CachedMcPlayer> platformUsernameResolver) {
-        if (PlayerResolver.platformUsernameResolver != null) throw new IllegalStateException("Player service already set");
+    public static void setPlatformUsernameResolver(@NotNull Function<String, CachedMcPlayer> platformUsernameResolver) {
+        if (PlayerResolver.platformUsernameResolver != null) throw new IllegalStateException("Platform resolver already set!");
         PlayerResolver.platformUsernameResolver = platformUsernameResolver;
     }
 
-    public static void retrievePlayerData(String username, Consumer<CachedMcPlayer> callback, Consumer<Status> errorCallback) {
+    /**
+     * This will first check the platform resolver, and if it returns null, it will check the mc player service.
+     */
+    @Blocking
+    public static @Nullable CachedMcPlayer getPlayerData(@NotNull String username) throws StatusException {
+        String usernameLowercase = username.toLowerCase(Locale.ROOT);
+
+        CachedMcPlayer alternativeOption = platformUsernameResolver.apply(usernameLowercase);
+        if (alternativeOption != null) return alternativeOption;
+
+        try {
+            return requestMcPlayer(usernameLowercase);
+        } catch (StatusRuntimeException exception) {
+            throw new StatusException(exception.getStatus(), exception.getTrailers());
+        }
+    }
+
+    /**
+     * This will first check the platform resolver, and if it returns null, it will check the mc player service.
+     *
+     * <p>
+     * This method is asynchronous, and will offload the request to the mc player service to a virtual thread.
+     */
+    @NonBlocking
+    public static void retrievePlayerData(@NotNull String username, @NotNull Consumer<CachedMcPlayer> callback, @NotNull Consumer<Status> errorCallback) {
         String usernameLowercase = username.toLowerCase();
 
         CachedMcPlayer alternativeOption = platformUsernameResolver.apply(usernameLowercase);
@@ -33,21 +63,27 @@ public class PlayerResolver {
             return;
         }
 
-        requestMcPlayer(usernameLowercase, callback, errorCallback);
+        Thread.startVirtualThread(() -> {
+            try {
+                CachedMcPlayer player = requestMcPlayer(usernameLowercase);
+                callback.accept(player);
+            } catch (StatusRuntimeException exception) {
+                errorCallback.accept(exception.getStatus());
+            }
+        });
     }
 
-    private static void requestMcPlayer(String username, Consumer<CachedMcPlayer> callback, Consumer<Status> errorCallback) {
-        var playerResponseFuture = PLAYER_SERVICE
-                .getPlayerByUsername(McPlayerProto.PlayerUsernameRequest.newBuilder().setUsername(username).build());
+    @Blocking
+    private static @Nullable CachedMcPlayer requestMcPlayer(@NotNull String username) throws StatusRuntimeException {
+        McPlayer player = playerService.getPlayerByUsername(username);
+        if (player == null) return null;
 
-        Futures.addCallback(playerResponseFuture, FunctionalFutureCallback.create(
-                response -> {
-                    McPlayer player = response.getPlayer();
-                    callback.accept(new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername(), player.getCurrentlyOnline()));
-                },
-                throwable -> errorCallback.accept(Status.fromThrowable(throwable))
-        ), ForkJoinPool.commonPool());
+        return new CachedMcPlayer(UUID.fromString(player.getId()), player.getCurrentUsername(), player.hasCurrentServer());
     }
 
-    public record CachedMcPlayer(UUID uuid, String username, boolean online) {}
+    private PlayerResolver() {
+    }
+
+    public record CachedMcPlayer(UUID uuid, String username, boolean online) {
+    }
 }

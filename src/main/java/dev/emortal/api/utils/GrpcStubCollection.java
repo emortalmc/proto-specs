@@ -1,16 +1,22 @@
 package dev.emortal.api.utils;
 
-
 import dev.emortal.api.grpc.accountconnmanager.AccountConnectionManagerGrpc;
-import dev.emortal.api.grpc.badge.BadgeManagerGrpc;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
-import dev.emortal.api.grpc.mcplayer.McPlayerGrpc;
-import dev.emortal.api.grpc.mcplayer.PlayerTrackerGrpc;
-import dev.emortal.api.grpc.messagehandler.MessageHandlerGrpc;
-import dev.emortal.api.grpc.party.PartyServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
-import dev.emortal.api.grpc.permission.PermissionServiceGrpc;
-import dev.emortal.api.grpc.relationship.RelationshipGrpc;
+import dev.emortal.api.service.badges.BadgeService;
+import dev.emortal.api.service.badges.DefaultBadgeService;
+import dev.emortal.api.service.mcplayer.DefaultMcPlayerService;
+import dev.emortal.api.service.mcplayer.McPlayerService;
+import dev.emortal.api.service.messagehandler.DefaultMessageService;
+import dev.emortal.api.service.messagehandler.MessageService;
+import dev.emortal.api.service.party.DefaultPartyService;
+import dev.emortal.api.service.party.PartyService;
+import dev.emortal.api.service.permission.DefaultPermissionService;
+import dev.emortal.api.service.permission.PermissionService;
+import dev.emortal.api.service.playertracker.DefaultPlayerTrackerService;
+import dev.emortal.api.service.playertracker.PlayerTrackerService;
+import dev.emortal.api.service.relationship.DefaultRelationshipService;
+import dev.emortal.api.service.relationship.RelationshipService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.Getter;
@@ -26,7 +32,7 @@ import java.util.Optional;
 
 // We directly return the optionals here, so it's functionally identical
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public class GrpcStubCollection {
+public final class GrpcStubCollection {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcStubCollection.class);
     private static final boolean DEVELOPMENT = System.getenv("KUBERNETES_SERVICE_HOST") == null;
 
@@ -44,37 +50,37 @@ public class GrpcStubCollection {
     );
 
     @Getter
-    private static final @NotNull Optional<PermissionServiceGrpc.PermissionServiceFutureStub> permissionService;
+    private static final @NotNull Optional<PermissionService> permissionService;
     @Getter
-    private static final @NotNull Optional<RelationshipGrpc.RelationshipFutureStub> relationshipService;
+    private static final @NotNull Optional<RelationshipService> relationshipService;
     @Getter
-    private static final @NotNull Optional<MessageHandlerGrpc.MessageHandlerFutureStub> messageHandlerService;
+    private static final @NotNull Optional<MessageService> messageHandlerService;
     @Getter
-    private static final @NotNull Optional<McPlayerGrpc.McPlayerFutureStub> playerService;
+    private static final @NotNull Optional<McPlayerService> playerService;
     @Getter
-    private static final @NotNull Optional<PlayerTrackerGrpc.PlayerTrackerFutureStub> playerTrackerService;
+    private static final @NotNull Optional<PlayerTrackerService> playerTrackerService;
     @Getter
-    private static final @NotNull Optional<BadgeManagerGrpc.BadgeManagerFutureStub> badgeManagerService;
+    private static final @NotNull Optional<BadgeService> badgeManagerService;
     @Getter
-    private static final @NotNull Optional<PartyServiceGrpc.PartyServiceFutureStub> partyService;
+    private static final @NotNull Optional<PartyService> partyService;
     @Getter
-    private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceFutureStub> partySettingsService;
+    private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceBlockingStub> partySettingsService;
     @Getter
-    private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerFutureStub> accountConnectionManagerService;
+    private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerBlockingStub> accountConnectionManagerService;
     @Getter
-    private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceFutureStub> gamePlayerDataService;
+    private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> gamePlayerDataService;
 
     static {
-        permissionService = createChannel("permission").map(PermissionServiceGrpc::newFutureStub);
-        relationshipService = createChannel("relationship-manager").map(RelationshipGrpc::newFutureStub);
-        messageHandlerService = createChannel("message-handler").map(MessageHandlerGrpc::newFutureStub);
-        playerService = createChannel("mc-player").map(McPlayerGrpc::newFutureStub);
-        playerTrackerService = createChannel("player-tracker").map(PlayerTrackerGrpc::newFutureStub);
-        badgeManagerService = createChannel("badge-manager").map(BadgeManagerGrpc::newFutureStub);
-        partyService = createChannel("party-manager").map(PartyServiceGrpc::newFutureStub);
-        partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newFutureStub);
-        accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newFutureStub);
-        gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newFutureStub);
+        permissionService = createChannel("permission").map(DefaultPermissionService::new);
+        relationshipService = createChannel("relationship-manager").map(DefaultRelationshipService::new);
+        messageHandlerService = createChannel("message-handler").map(DefaultMessageService::new);
+        playerService = createChannel("mc-player").map(DefaultMcPlayerService::new);
+        playerTrackerService = createChannel("player-tracker").map(DefaultPlayerTrackerService::new);
+        badgeManagerService = createChannel("badge-manager").map(DefaultBadgeService::new);
+        partyService = createChannel("party-manager").map(DefaultPartyService::new);
+        partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newBlockingStub);
+        accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newBlockingStub);
+        gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newBlockingStub);
     }
 
     /**
@@ -117,11 +123,14 @@ public class GrpcStubCollection {
         try (Socket socket = new Socket("localhost", port)) {
             socket.setSoTimeout(10);
             return true;
-        } catch (ConnectException e) {
+        } catch (ConnectException exception) {
             return false;
-        } catch (IOException e) {
-            LOGGER.error("Error while checking if port is used", e);
+        } catch (IOException exception) {
+            LOGGER.error("Error while checking if port is used", exception);
             return false;
         }
+    }
+
+    private GrpcStubCollection() {
     }
 }
