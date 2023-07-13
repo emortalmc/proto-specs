@@ -1,0 +1,20 @@
+syntax = "proto3";
+package emortal.message.account_connection;
+
+option java_package = "dev.emortal.api.message.accountconnection";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/accountconnection";
+
+import "account_connection/models.proto";
+
+// AccountConnectedMessage is sent when a connection is successful, not when the OAuth URL is created.
+// NOTE: multiple connection types my be present (e.g. if it's the first link there might be MINECRAFT and DISCORD)
+message AccountConnectedMessage {
+  model.account_connection.ConnectionUser user = 1;
+  repeated model.account_connection.ConnectionType connection_types = 2;
+}
+
+message AccountConnectionRemovedMessage {
+  model.account_connection.ConnectionUser user = 1;
+  model.account_connection.ConnectionType removed_connection = 2;
+}

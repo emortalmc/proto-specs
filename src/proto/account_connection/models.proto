@@ -1,9 +1,9 @@
 syntax = "proto3";
-package emortal.model.account_conn_manager;
+package emortal.model.account_connection;
 
-option java_package = "dev.emortal.api.model.accountconnmanager";
+option java_package = "dev.emortal.api.model.accountconnection";
 option java_multiple_files = true;
-option go_package = "github.com/emortalmc/proto-specs/gen/go/model/accountconnmanager";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/accountconnection";
 
 message ConnectionUser {
   // minecraft_id of type UUID
