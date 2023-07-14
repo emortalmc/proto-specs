@@ -9,6 +9,10 @@ import java.util.List;
 
 public final class RoleUpdate {
 
+    public static @NotNull Builder builder(@NotNull String id) {
+        return new Builder(id);
+    }
+
     private final String id;
     private final int priority;
     private final @Nullable String displayName;
