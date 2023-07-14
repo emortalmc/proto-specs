@@ -14,6 +14,9 @@ service McPlayer {
   rpc GetPlayerByUsername(PlayerUsernameRequest) returns (GetPlayerByUsernameResponse) {}
   rpc SearchPlayersByUsername(SearchPlayersByUsernameRequest) returns (SearchPlayersByUsernameResponse) {}
   rpc GetLoginSessions(GetLoginSessionsRequest) returns (LoginSessionsResponse) {}
+
+  rpc GetStatTotalUniquePlayers(GetStatTotalUniquePlayersRequest) returns (GetStatTotalUniquePlayersResponse) {}
+  rpc GetStatTotalPlaytime(GetStatTotalPlaytimeRequest) returns (GetStatTotalPlaytimeResponse) {}
 }
 
 service PlayerTracker {
@@ -82,6 +85,20 @@ message GetLoginSessionsRequest {
 message LoginSessionsResponse {
   repeated model.LoginSession sessions = 1;
   model.PageData page_data = 2;
+}
+
+// Player stats
+
+message GetStatTotalUniquePlayersRequest {}
+
+message GetStatTotalUniquePlayersResponse {
+  int64 count = 1;
+}
+
+message GetStatTotalPlaytimeRequest {}
+
+message GetStatTotalPlaytimeResponse {
+  int64 playtime_hours = 1;
 }
 
 // PlayerTracker

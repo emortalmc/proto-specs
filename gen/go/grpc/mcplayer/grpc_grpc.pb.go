@@ -27,6 +27,8 @@ type McPlayerClient interface {
 	GetPlayerByUsername(ctx context.Context, in *PlayerUsernameRequest, opts ...grpc.CallOption) (*GetPlayerByUsernameResponse, error)
 	SearchPlayersByUsername(ctx context.Context, in *SearchPlayersByUsernameRequest, opts ...grpc.CallOption) (*SearchPlayersByUsernameResponse, error)
 	GetLoginSessions(ctx context.Context, in *GetLoginSessionsRequest, opts ...grpc.CallOption) (*LoginSessionsResponse, error)
+	GetStatTotalUniquePlayers(ctx context.Context, in *GetStatTotalUniquePlayersRequest, opts ...grpc.CallOption) (*GetStatTotalUniquePlayersResponse, error)
+	GetStatTotalPlaytime(ctx context.Context, in *GetStatTotalPlaytimeRequest, opts ...grpc.CallOption) (*GetStatTotalPlaytimeResponse, error)
 }
 
 type mcPlayerClient struct {
@@ -82,6 +84,24 @@ func (c *mcPlayerClient) GetLoginSessions(ctx context.Context, in *GetLoginSessi
 	return out, nil
 }
 
+func (c *mcPlayerClient) GetStatTotalUniquePlayers(ctx context.Context, in *GetStatTotalUniquePlayersRequest, opts ...grpc.CallOption) (*GetStatTotalUniquePlayersResponse, error) {
+	out := new(GetStatTotalUniquePlayersResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/GetStatTotalUniquePlayers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mcPlayerClient) GetStatTotalPlaytime(ctx context.Context, in *GetStatTotalPlaytimeRequest, opts ...grpc.CallOption) (*GetStatTotalPlaytimeResponse, error) {
+	out := new(GetStatTotalPlaytimeResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.McPlayer/GetStatTotalPlaytime", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // McPlayerServer is the server API for McPlayer service.
 // All implementations must embed UnimplementedMcPlayerServer
 // for forward compatibility
@@ -91,6 +111,8 @@ type McPlayerServer interface {
 	GetPlayerByUsername(context.Context, *PlayerUsernameRequest) (*GetPlayerByUsernameResponse, error)
 	SearchPlayersByUsername(context.Context, *SearchPlayersByUsernameRequest) (*SearchPlayersByUsernameResponse, error)
 	GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error)
+	GetStatTotalUniquePlayers(context.Context, *GetStatTotalUniquePlayersRequest) (*GetStatTotalUniquePlayersResponse, error)
+	GetStatTotalPlaytime(context.Context, *GetStatTotalPlaytimeRequest) (*GetStatTotalPlaytimeResponse, error)
 	mustEmbedUnimplementedMcPlayerServer()
 }
 
@@ -112,6 +134,12 @@ func (UnimplementedMcPlayerServer) SearchPlayersByUsername(context.Context, *Sea
 }
 func (UnimplementedMcPlayerServer) GetLoginSessions(context.Context, *GetLoginSessionsRequest) (*LoginSessionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoginSessions not implemented")
+}
+func (UnimplementedMcPlayerServer) GetStatTotalUniquePlayers(context.Context, *GetStatTotalUniquePlayersRequest) (*GetStatTotalUniquePlayersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStatTotalUniquePlayers not implemented")
+}
+func (UnimplementedMcPlayerServer) GetStatTotalPlaytime(context.Context, *GetStatTotalPlaytimeRequest) (*GetStatTotalPlaytimeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStatTotalPlaytime not implemented")
 }
 func (UnimplementedMcPlayerServer) mustEmbedUnimplementedMcPlayerServer() {}
 
@@ -216,6 +244,42 @@ func _McPlayer_GetLoginSessions_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _McPlayer_GetStatTotalUniquePlayers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStatTotalUniquePlayersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(McPlayerServer).GetStatTotalUniquePlayers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.McPlayer/GetStatTotalUniquePlayers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(McPlayerServer).GetStatTotalUniquePlayers(ctx, req.(*GetStatTotalUniquePlayersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _McPlayer_GetStatTotalPlaytime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStatTotalPlaytimeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(McPlayerServer).GetStatTotalPlaytime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.McPlayer/GetStatTotalPlaytime",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(McPlayerServer).GetStatTotalPlaytime(ctx, req.(*GetStatTotalPlaytimeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // McPlayer_ServiceDesc is the grpc.ServiceDesc for McPlayer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +306,14 @@ var McPlayer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLoginSessions",
 			Handler:    _McPlayer_GetLoginSessions_Handler,
+		},
+		{
+			MethodName: "GetStatTotalUniquePlayers",
+			Handler:    _McPlayer_GetStatTotalUniquePlayers_Handler,
+		},
+		{
+			MethodName: "GetStatTotalPlaytime",
+			Handler:    _McPlayer_GetStatTotalPlaytime_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
