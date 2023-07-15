@@ -112,12 +112,9 @@ message InvitePlayerResponse {
 message InvitePlayerErrorResponse {
   enum ErrorType {
     TARGET_ALREADY_IN_SELF_PARTY = 0;
-    TARGET_ALREADY_IN_ANOTHER_PARTY = 1;
     TARGET_ALREADY_INVITED = 2;
     // NO_PERMISSION the issuer is not the leader and AllowMemberInvite is false (more settings may be added later)
     NO_PERMISSION = 4;
-    // PARTY_IS_OPEN the party is open and anyone can join, no **new** invites can be created
-    PARTY_IS_OPEN = 5;
   }
   ErrorType error_type = 1;
 }
