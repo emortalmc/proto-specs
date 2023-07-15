@@ -11,9 +11,7 @@ public sealed interface InvitePlayerToPartyResult {
     enum Error implements InvitePlayerToPartyResult {
 
         TARGET_IN_THIS_PARTY,
-        TARGET_IN_OTHER_PARTY,
         TARGET_ALREADY_INVITED,
         NO_PERMISSION,
-        PARTY_OPEN
     }
 }

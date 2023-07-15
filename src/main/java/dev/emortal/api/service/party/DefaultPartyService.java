@@ -141,10 +141,8 @@ public final class DefaultPartyService implements PartyService {
 
             return switch (error.getErrorType()) {
                 case TARGET_ALREADY_IN_SELF_PARTY -> InvitePlayerToPartyResult.Error.TARGET_IN_THIS_PARTY;
-                case TARGET_ALREADY_IN_ANOTHER_PARTY -> InvitePlayerToPartyResult.Error.TARGET_IN_OTHER_PARTY;
                 case TARGET_ALREADY_INVITED -> InvitePlayerToPartyResult.Error.TARGET_ALREADY_INVITED;
                 case NO_PERMISSION -> InvitePlayerToPartyResult.Error.NO_PERMISSION;
-                case PARTY_IS_OPEN -> InvitePlayerToPartyResult.Error.PARTY_OPEN;
                 case UNRECOGNIZED -> throw exception;
             };
         }
