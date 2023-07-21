@@ -5,50 +5,25 @@ option java_package = "dev.emortal.api.model.gametracker";
 option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/model/gametracker";
 
-import "google/protobuf/timestamp.proto";
+// The models here define additional data objects that can be used by a gamemode.
+// Compulsory data is provided in the "messages.proto" of this service.
+// The system works based on composition and the server will determine what fields to action on supplied in the Any list.
+// Update messages do not have a standard of how often they are sent - it is down to the gamemode to decide.
 
-// Game data is expected to work as such:
-// A game defines its own game data
-// * A game DOES NOT have to define a start message but MUST send a CommonGameStartData message.
-// * A game DOES NOT have to define an update message
-// * A game MUST send a finish message but may send the CommonGameFinishData message (which contains the CommonGameData message)
-// The system works via composition and end systems will determine if a message contains X common field
-// or if the gamemode = X, get data of type X.
+// models specifically for gRPC usage
+
+message Game {} // todo
 
 // Global common messages
-
-enum MessageType {
-  START = 0;
-  UPDATE = 1;
-  FINISH = 2;
-}
 
 message BasicGamePlayer {
   string id = 1;
   string username = 2;
 }
 
-message CommonGameData {
-  string game_id = 1;
-  string game_mode_id = 2;
-  string map_id = 3;
-  string server_id = 4;
-
-  google.protobuf.Timestamp start_time = 5;
-
-  repeated BasicGamePlayer players = 6;
-}
-
-message CommonGameStartData {
-  CommonGameData common_data = 1;
-}
-
-message CommonGameFinishData {
-  CommonGameData common_data = 1;
-  google.protobuf.Timestamp end_time = 2;
-}
-
+//                          //
 // Specific common messages
+//                        //
 
 message CommonGameFinishWinnerData {
   repeated BasicGamePlayer winners = 1;
@@ -56,21 +31,27 @@ message CommonGameFinishWinnerData {
   repeated BasicGamePlayer losers = 2;
 }
 
+//                              //
+// Specific game mode messages
+//                            //
+
 // TODO Game mode: TowerDefence - Update, Finish
 
-message TowerDefenceData {
-  repeated BasicGamePlayer blue_players = 2;
-  repeated BasicGamePlayer red_players = 3;
+message BaseTowerDefenceData {
+  repeated BasicGamePlayer blue_players = 1;
+  repeated BasicGamePlayer red_players = 2;
+}
+
+message TowerDefenceHealthData {
+  int32 max_health = 1;
+  int32 blue_health = 2;
+  int32 red_health = 3;
 }
 
 message TowerDefenceStartData {
-  CommonGameStartData common_data = 1;
-  TowerDefenceData td_data = 2;
-
-
+  BaseTowerDefenceData base_data = 1;
+  TowerDefenceHealthData health_data = 2;
 }
-
-
 
 // TODO Game mode: Battle - Start, Update, Finish
 
@@ -81,9 +62,7 @@ message TowerDefenceStartData {
 // No special start data
 
 message BlockSumoUpdateData {
-  CommonGameData common_data = 1;
-
-  BlockSumoScoreboard scoreboard = 2;
+  BlockSumoScoreboard scoreboard = 1;
 }
 
 message BlockSumoScoreboard {
@@ -98,24 +77,19 @@ message BlockSumoScoreboard {
 // TODO Game mode: Minesweeper - Start
 
 message MinesweeperStartData {
-  CommonGameData common_data = 1;
-
-  int64 total_mines = 2;
+  int64 total_mines = 1;
   // TODO maybe we have a difficulty here?
 }
 
 // MinesweeperUpdateData
 // * You can calculate game progress by doing ((uncovered_mines) / total_mines) * 100. Note that total_mines is not in this message.
 message MinesweeperUpdateData {
-  CommonGameData common_data = 1;
-
-  int32 remaining_mines = 2;
-  int32 placed_flags = 3;
+  int32 remaining_mines = 1;
+  int32 placed_flags = 2;
 }
 
 // MinesweeperFinishData
 message MinesweeperFinishData {
-  CommonGameFinishData common_data = 1;
   // winner_data if the game is won, all players are winners. If the game is lost, all players are losers.
-  CommonGameFinishWinnerData winner_data = 2;
+  CommonGameFinishWinnerData winner_data = 1;
 }

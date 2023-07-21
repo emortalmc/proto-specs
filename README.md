@@ -28,3 +28,4 @@ and are run on the same gRPC server.
 | matchmaker (kurushimi)     | Matchmaker, separate repo for gRPC spec                    | 10007 |
 | account-connection-manager | Manages account connections (Mojang, Discord, etc.)        | 10008 |
 | game-player-data           | Manages user settings for a game (e.g. slots in blocksumo) | 10009 |
+| game-tracker               | Tracks active and historic games                           | 10010 |

@@ -5,5 +5,36 @@ option java_package = "dev.emortal.api.message.gametracker";
 option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/message/gametracker";
 
-//import "game_tracker/models.proto";
+import "game_tracker/models.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
 
+message GameStartMessage {
+  CommonGameData common_data = 1;
+
+  google.protobuf.Timestamp start_time = 2;
+  string map_id = 3;
+
+  repeated google.protobuf.Any content = 1000;
+}
+
+message GameUpdateMessage {
+  CommonGameData common_data = 1;
+
+  repeated google.protobuf.Any content = 1000;
+}
+
+message GameEndMessage {
+  CommonGameData common_data = 1;
+  google.protobuf.Timestamp end_time = 2;
+
+  repeated google.protobuf.Any content = 1000;
+}
+
+message CommonGameData {
+  string game_mode_id = 1;
+  string game_id = 2;
+  string server_id = 3;
+
+  repeated model.game_tracker.BasicGamePlayer players = 6;
+}
