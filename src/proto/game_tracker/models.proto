@@ -21,26 +21,26 @@ message BasicGamePlayer {
   string username = 2;
 }
 
+message Team {
+  string id = 1;
+  string friendly_name = 2;
+  // color as hex
+  int32 color = 3;
+
+  // player_ids of type UUID
+  // these are stored as IDs as the BasicGamePlayer will already be present in the game start data
+  repeated string player_ids = 4;
+}
+
 //                          //
 // Specific common messages
 //                         //
 
+// Start (None)
+
 message CommonGameStartTeamData {
-  message Team {
-    string id = 1;
-    string friendly_name = 2;
-    // color as hex
-    int32 color = 3;
-
-    // player_ids of type UUID
-    // these are stored as IDs as the BasicGamePlayer will already be present in the game start data
-    repeated string player_ids = 4;
-  }
-
   repeated Team teams = 1;
 }
-
-// Start (None)
 
 // Update todo
 
