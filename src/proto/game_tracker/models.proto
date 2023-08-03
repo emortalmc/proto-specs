@@ -56,7 +56,7 @@ message CommonGameFinishWinnerData {
 // Specific game mode messages
 //                             //
 
-// TODO Game mode: TowerDefence - Finish
+// TODO Game mode: TowerDefence - Finish (add more stuff)
 
 message TowerDefenceHealthData {
   int32 max_health = 1;
@@ -69,6 +69,10 @@ message TowerDefenceStartData {
 }
 
 message TowerDefenceUpdateData {
+  TowerDefenceHealthData health_data = 1;
+}
+
+message TowerDefenceFinishData {
   TowerDefenceHealthData health_data = 1;
 }
 
