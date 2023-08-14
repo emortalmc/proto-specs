@@ -47,7 +47,7 @@ public final class DefaultBadgeService implements BadgeService {
         try {
             response = this.grpc.getActivePlayerBadge(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == io.grpc.Status.NOT_FOUND) return null;
+            if (exception.getStatus().getCode() == io.grpc.Status.Code.NOT_FOUND) return null;
             throw exception;
         }
 

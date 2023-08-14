@@ -46,7 +46,7 @@ public final class DefaultPartyService implements PartyService {
         try {
             response = this.grpc.getParty(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return null;
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return null;
             throw exception;
         }
 
@@ -116,7 +116,7 @@ public final class DefaultPartyService implements PartyService {
         try {
             response = this.grpc.getPartyInvites(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return List.of();
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return List.of();
             throw exception;
         }
 

@@ -29,7 +29,7 @@ public final class DefaultMatchmakerService implements MatchmakerService {
         try {
             return this.grpc.getPlayerQueueInfo(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == io.grpc.Status.NOT_FOUND) return null;
+            if (exception.getStatus().getCode() == io.grpc.Status.Code.NOT_FOUND) return null;
             throw exception;
         }
     }
