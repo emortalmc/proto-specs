@@ -24,7 +24,7 @@ message GameUpdateMessage {
   repeated google.protobuf.Any content = 1000;
 }
 
-message GameEndMessage {
+message GameFinishMessage {
   CommonGameData common_data = 1;
   google.protobuf.Timestamp end_time = 2;
 
