@@ -13,8 +13,8 @@ plugins {
 group = "dev.emortal.api"
 version = "1.0"
 
-val grpcVersion = "1.52.1"
-val protobufVersion = "3.21.12"
+val grpcVersion = "1.57.2"
+val protobufVersion = "3.24.0"
 val protocVersion = protobufVersion
 
 repositories {

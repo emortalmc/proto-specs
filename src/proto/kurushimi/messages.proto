@@ -1,9 +1,9 @@
 syntax = "proto3";
 package emortal.kurushimi.messages;
 
-option java_package = "dev.emortal.api.kurushimi.messages";
+option java_package = "dev.emortal.api.message.matchmaker";
 option java_multiple_files = true;
-option go_package = "github.com/emortalmc/kurushimi/pkg/pb";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/matchmaker";
 
 import "kurushimi/models.proto";
 
