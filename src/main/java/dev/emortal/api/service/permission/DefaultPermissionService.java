@@ -50,7 +50,7 @@ public final class DefaultPermissionService implements PermissionService {
         try {
             response = this.grpc.createRole(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.ALREADY_EXISTS) return CreateRoleResult.Error.ROLE_ALREADY_EXISTS;
+            if (exception.getStatus().getCode() == Status.Code.ALREADY_EXISTS) return CreateRoleResult.Error.ROLE_ALREADY_EXISTS;
             throw exception;
         }
 
@@ -72,7 +72,7 @@ public final class DefaultPermissionService implements PermissionService {
         try {
             response = this.grpc.updateRole(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return UpdateRoleResult.Error.ROLE_NOT_FOUND;
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return UpdateRoleResult.Error.ROLE_NOT_FOUND;
             throw exception;
         }
 

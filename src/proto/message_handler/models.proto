@@ -11,6 +11,7 @@ message PrivateMessage {
   string sender_id = 1;
   string sender_username = 2;
   string recipient_id = 3;
+  string recipient_username = 6;
   // The message may have been modified from the original for censoring purposes
   string message = 4;
 

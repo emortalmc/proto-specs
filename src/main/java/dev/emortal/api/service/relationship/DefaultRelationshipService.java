@@ -162,7 +162,7 @@ public final class DefaultRelationshipService implements RelationshipService {
             this.grpc.deleteBlock(request);
             return DeleteBlockResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return DeleteBlockResult.NOT_BLOCKED;
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return DeleteBlockResult.NOT_BLOCKED;
             throw exception;
         }
     }

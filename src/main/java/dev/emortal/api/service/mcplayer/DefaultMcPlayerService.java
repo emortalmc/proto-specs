@@ -37,7 +37,7 @@ public final class DefaultMcPlayerService implements McPlayerService {
         try {
             response = this.grpc.getPlayer(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return null;
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return null;
             throw exception;
         }
 
@@ -64,7 +64,7 @@ public final class DefaultMcPlayerService implements McPlayerService {
         try {
             response = this.grpc.getPlayerByUsername(request);
         } catch (StatusRuntimeException exception) {
-            if (exception.getStatus() == Status.NOT_FOUND) return null;
+            if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return null;
             throw exception;
         }
 
