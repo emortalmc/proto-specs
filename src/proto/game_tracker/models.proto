@@ -36,15 +36,17 @@ message Team {
 // Specific common messages
 //                         //
 
-// Start (None)
+// Not for a specific time
 
-message CommonGameStartTeamData {
+message CommonGameTeamData {
   repeated Team teams = 1;
 }
 
-// Update todo
+// Common - Start
 
-// Finish
+// Common - Update
+
+// Common - Finish
 
 message CommonGameFinishWinnerData {
   // winners of type UUID (as a string)
