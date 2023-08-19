@@ -19,6 +19,7 @@ import dev.emortal.api.message.common.PlayerConnectMessage;
 import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
 import dev.emortal.api.message.gamedata.UpdateGamePlayerDataMessage;
+import dev.emortal.api.message.gamesdk.GameReadyMessage;
 import dev.emortal.api.message.messagehandler.ChatMessageCreatedMessage;
 import dev.emortal.api.message.messagehandler.PrivateMessageCreatedMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
@@ -136,6 +137,9 @@ public final class ProtoParserRegistry {
         register(PendingMatchUpdatedMessage.getDefaultInstance(), PendingMatchUpdatedMessage::parseFrom, "matchmaker");
         register(PendingMatchDeletedMessage.getDefaultInstance(), PendingMatchDeletedMessage::parseFrom, "matchmaker");
         register(MatchCreatedMessage.getDefaultInstance(), MatchCreatedMessage::parseFrom, "matchmaker");
+
+        // Game SDK
+        register(GameReadyMessage.getDefaultInstance(), GameReadyMessage::parseFrom, "game-sdk");
 
         // Common
         register(PlayerConnectMessage.getDefaultInstance(), PlayerConnectMessage::parseFrom, "mc-connections");
