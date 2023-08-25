@@ -78,16 +78,7 @@ public final class DefaultRelationshipService implements RelationshipService {
     }
 
     @Override
-    public int denyAllIncomingFriendRequests(@NotNull UUID playerId) {
-        return this.denyAllFriendRequests(playerId, true);
-    }
-
-    @Override
-    public int denyAllOutgoingFriendRequests(@NotNull UUID playerId) {
-        return this.denyAllFriendRequests(playerId, false);
-    }
-
-    private int denyAllFriendRequests(@NotNull UUID playerId, boolean incoming) {
+    public int denyAllFriendRequests(@NotNull UUID playerId, boolean incoming) {
         var request = RelationshipProto.MassDenyFriendRequestRequest.newBuilder()
                 .setIssuerId(playerId.toString())
                 .setIncoming(incoming)
@@ -111,16 +102,7 @@ public final class DefaultRelationshipService implements RelationshipService {
     }
 
     @Override
-    public @NotNull List<RequestedFriend> listPendingIncomingFriendRequests(@NotNull UUID playerId) {
-        return this.listPendingFriendRequests(playerId, true);
-    }
-
-    @Override
-    public @NotNull List<RequestedFriend> listPendingOutgoingFriendRequests(@NotNull UUID playerId) {
-        return this.listPendingFriendRequests(playerId, false);
-    }
-
-    private @NotNull List<RequestedFriend> listPendingFriendRequests(@NotNull UUID playerId, boolean incoming) {
+    public @NotNull List<RequestedFriend> listPendingFriendRequests(@NotNull UUID playerId, boolean incoming) {
         var request = RelationshipProto.GetPendingFriendRequestListRequest.newBuilder()
                 .setIssuerId(playerId.toString())
                 .setIncoming(incoming)

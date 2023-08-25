@@ -28,15 +28,27 @@ public interface RelationshipService {
 
     @NotNull DenyFriendRequestResult denyFriendRequest(@NotNull UUID playerId, @NotNull UUID targetId);
 
-    int denyAllIncomingFriendRequests(@NotNull UUID playerId);
+    int denyAllFriendRequests(@NotNull UUID playerId, boolean incoming);
 
-    int denyAllOutgoingFriendRequests(@NotNull UUID playerId);
+    default int denyAllIncomingFriendRequests(@NotNull UUID playerId) {
+        return this.denyAllFriendRequests(playerId, true);
+    }
+
+    default int denyAllOutgoingFriendRequests(@NotNull UUID playerId) {
+        return this.denyAllFriendRequests(playerId, false);
+    }
 
     @NotNull List<Friend> listFriends(@NotNull UUID playerId);
 
-    @NotNull List<RequestedFriend> listPendingIncomingFriendRequests(@NotNull UUID playerId);
+    @NotNull List<RequestedFriend> listPendingFriendRequests(@NotNull UUID playerId, boolean incoming);
 
-    @NotNull List<RequestedFriend> listPendingOutgoingFriendRequests(@NotNull UUID playerId);
+    default @NotNull List<RequestedFriend> listPendingIncomingFriendRequests(@NotNull UUID playerId) {
+        return this.listPendingFriendRequests(playerId, true);
+    }
+
+    default @NotNull List<RequestedFriend> listPendingOutgoingFriendRequests(@NotNull UUID playerId) {
+        return this.listPendingFriendRequests(playerId, false);
+    }
 
     @NotNull CreateBlockResult block(@NotNull UUID blockerId, @NotNull UUID blockedId);
 
