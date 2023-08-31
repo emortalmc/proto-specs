@@ -14,7 +14,7 @@ group = "dev.emortal.api"
 version = "1.0"
 
 val grpcVersion = "1.57.2"
-val protobufVersion = "3.24.0"
+val protobufVersion = "3.24.2"
 val protocVersion = protobufVersion
 
 repositories {
