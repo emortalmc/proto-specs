@@ -2,6 +2,13 @@ package dev.emortal.api.utils.parser;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
+import dev.emortal.api.kurushimi.messages.MatchCreatedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchCreatedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchDeletedMessage;
+import dev.emortal.api.kurushimi.messages.PendingMatchUpdatedMessage;
+import dev.emortal.api.kurushimi.messages.TicketCreatedMessage;
+import dev.emortal.api.kurushimi.messages.TicketDeletedMessage;
+import dev.emortal.api.kurushimi.messages.TicketUpdatedMessage;
 import dev.emortal.api.message.accountconnmanager.AccountConnectedMessage;
 import dev.emortal.api.message.accountconnmanager.AccountConnectionRemovedMessage;
 import dev.emortal.api.message.badge.PlayerActiveBadgeChangedMessage;
@@ -13,13 +20,9 @@ import dev.emortal.api.message.common.PlayerDisconnectMessage;
 import dev.emortal.api.message.common.PlayerSwitchServerMessage;
 import dev.emortal.api.message.gamedata.UpdateGamePlayerDataMessage;
 import dev.emortal.api.message.gamesdk.GameReadyMessage;
-import dev.emortal.api.message.matchmaker.MatchCreatedMessage;
-import dev.emortal.api.message.matchmaker.PendingMatchCreatedMessage;
-import dev.emortal.api.message.matchmaker.PendingMatchDeletedMessage;
-import dev.emortal.api.message.matchmaker.PendingMatchUpdatedMessage;
-import dev.emortal.api.message.matchmaker.TicketCreatedMessage;
-import dev.emortal.api.message.matchmaker.TicketDeletedMessage;
-import dev.emortal.api.message.matchmaker.TicketUpdatedMessage;
+import dev.emortal.api.message.gametracker.GameFinishMessage;
+import dev.emortal.api.message.gametracker.GameStartMessage;
+import dev.emortal.api.message.gametracker.GameUpdateMessage;
 import dev.emortal.api.message.messagehandler.ChatMessageCreatedMessage;
 import dev.emortal.api.message.messagehandler.PrivateMessageCreatedMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
@@ -102,7 +105,10 @@ public final class ProtoParserRegistry {
         // Game Player Data
         register(UpdateGamePlayerDataMessage.getDefaultInstance(), UpdateGamePlayerDataMessage::parseFrom, "game-player-data");
 
-        // (TODO) Game Tracker
+        // Game Tracker
+        register(GameStartMessage.getDefaultInstance(), GameStartMessage::parseFrom, "game-tracker");
+        register(GameUpdateMessage.getDefaultInstance(), GameUpdateMessage::parseFrom, "game-tracker");
+        register(GameFinishMessage.getDefaultInstance(), GameFinishMessage::parseFrom, "game-tracker");
 
         // Friend
         register(FriendRequestReceivedMessage.getDefaultInstance(), FriendRequestReceivedMessage::parseFrom, "relationship-manager");
