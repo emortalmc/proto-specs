@@ -40,7 +40,7 @@ public final class FriendlyKafkaConsumer {
     private final boolean hasConsumerGroup;
 
     private final Map<Class<?>, Set<Consumer<AbstractMessage>>> protoListeners = new ConcurrentHashMap<>();
-    private final Set<String> consumedTopics = Collections.synchronizedSet(new HashSet<>());
+    private final Set<String> consumedTopics = new HashSet<>();
     // Only used if there isn't a consumer group - so we manually set the partitions (not subscribe)
     private final Set<TopicPartition> partitions = Collections.synchronizedSet(new HashSet<>());
 
@@ -68,16 +68,15 @@ public final class FriendlyKafkaConsumer {
     }
 
     private void consume() {
+        ConsumerRecords<String, byte[]> records;
         synchronized (this.consumedTopics) {
             if (this.consumedTopics.isEmpty()) return;
-
-            ConsumerRecords<String, byte[]> records = this.consumer.poll(Duration.ofMillis(POLL_TIMEOUT_MS));
-
-            for (ConsumerRecord<String, byte[]> record : records) {
-                this.processRecord(record);
-            }
-
+            records = this.consumer.poll(Duration.ofMillis(POLL_TIMEOUT_MS));
             if (this.autoCommit) this.consumer.commitSync();
+        }
+
+        for (ConsumerRecord<String, byte[]> record : records) {
+            this.processRecord(record);
         }
     }
 
@@ -135,17 +134,21 @@ public final class FriendlyKafkaConsumer {
 
         LOGGER.debug("Subscribing to topic {}", topic);
         if (this.hasConsumerGroup) {
-            this.consumer.subscribe(this.consumedTopics);
+            synchronized (this.consumedTopics) {
+                this.consumer.subscribe(this.consumedTopics);
+            }
         } else {
             TopicPartition partition = new TopicPartition(topic, 0);
             this.partitions.add(partition);
-            this.consumer.assign(this.partitions);
+            synchronized (this.consumedTopics) {
+                this.consumer.assign(this.partitions);
+            }
         }
     }
 
     public void close() {
+        this.scheduler.shutdown();
         synchronized (this.consumedTopics) {
-            this.scheduler.shutdown();
             this.consumer.close();
         }
     }
