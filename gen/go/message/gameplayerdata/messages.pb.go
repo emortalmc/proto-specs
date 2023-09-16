@@ -29,6 +29,7 @@ type UpdateGamePlayerDataMessage struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// player_id of type UUID
 	PlayerId string                          `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
 	GameMode gameplayerdata.GameDataGameMode `protobuf:"varint,2,opt,name=game_mode,json=gameMode,proto3,enum=emortal.model.gameplayerdata.GameDataGameMode" json:"game_mode,omitempty"`
 	// Generic data to be coerced into the correct type

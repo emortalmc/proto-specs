@@ -6,12 +6,9 @@ option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/model/gameplayerdata";
 
 enum GameDataGameMode {
-  BATTLE = 0;
-  TOWER_DEFENCE = 1;
-  BLOCK_SUMO = 2;
-  PARKOUR_TAG = 3;
-  MINESWEEPER = 4;
-  LAZER_TAG = 5;
+  TOWER_DEFENCE = 0;
+  BLOCK_SUMO = 1;
+  MINESWEEPER = 2;
 }
 
 // These messages exist for coercion of the generic data from GetGamePlayerData and the UpdateGamePlayerDataMessage
