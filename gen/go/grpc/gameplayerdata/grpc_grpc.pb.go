@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GamePlayerDataServiceClient interface {
-	GetGamePlayerData(ctx context.Context, in *GamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error)
+	GetGamePlayerData(ctx context.Context, in *GetGamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error)
 }
 
 type gamePlayerDataServiceClient struct {
@@ -33,7 +33,7 @@ func NewGamePlayerDataServiceClient(cc grpc.ClientConnInterface) GamePlayerDataS
 	return &gamePlayerDataServiceClient{cc}
 }
 
-func (c *gamePlayerDataServiceClient) GetGamePlayerData(ctx context.Context, in *GamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error) {
+func (c *gamePlayerDataServiceClient) GetGamePlayerData(ctx context.Context, in *GetGamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error) {
 	out := new(GetGamePlayerDataResponse)
 	err := c.cc.Invoke(ctx, "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetGamePlayerData", in, out, opts...)
 	if err != nil {
@@ -46,7 +46,7 @@ func (c *gamePlayerDataServiceClient) GetGamePlayerData(ctx context.Context, in 
 // All implementations must embed UnimplementedGamePlayerDataServiceServer
 // for forward compatibility
 type GamePlayerDataServiceServer interface {
-	GetGamePlayerData(context.Context, *GamePlayerDataRequest) (*GetGamePlayerDataResponse, error)
+	GetGamePlayerData(context.Context, *GetGamePlayerDataRequest) (*GetGamePlayerDataResponse, error)
 	mustEmbedUnimplementedGamePlayerDataServiceServer()
 }
 
@@ -54,7 +54,7 @@ type GamePlayerDataServiceServer interface {
 type UnimplementedGamePlayerDataServiceServer struct {
 }
 
-func (UnimplementedGamePlayerDataServiceServer) GetGamePlayerData(context.Context, *GamePlayerDataRequest) (*GetGamePlayerDataResponse, error) {
+func (UnimplementedGamePlayerDataServiceServer) GetGamePlayerData(context.Context, *GetGamePlayerDataRequest) (*GetGamePlayerDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGamePlayerData not implemented")
 }
 func (UnimplementedGamePlayerDataServiceServer) mustEmbedUnimplementedGamePlayerDataServiceServer() {}
@@ -71,7 +71,7 @@ func RegisterGamePlayerDataServiceServer(s grpc.ServiceRegistrar, srv GamePlayer
 }
 
 func _GamePlayerDataService_GetGamePlayerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GamePlayerDataRequest)
+	in := new(GetGamePlayerDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func _GamePlayerDataService_GetGamePlayerData_Handler(srv interface{}, ctx conte
 		FullMethod: "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetGamePlayerData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GamePlayerDataServiceServer).GetGamePlayerData(ctx, req.(*GamePlayerDataRequest))
+		return srv.(GamePlayerDataServiceServer).GetGamePlayerData(ctx, req.(*GetGamePlayerDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

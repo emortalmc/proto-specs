@@ -12,6 +12,7 @@ enum GameDataGameMode {
 }
 
 // These messages exist for coercion of the generic data from GetGamePlayerData and the UpdateGamePlayerDataMessage
+// WARNING: Unlike usual, as we are using a FieldMask the names of the fields DO MATTER, not just their number
 
 message BlockSumoPlayerData {
   uint32 block_slot = 1;

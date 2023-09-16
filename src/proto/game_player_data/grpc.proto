@@ -10,10 +10,10 @@ import "google/protobuf/any.proto";
 import "game_player_data/models.proto";
 
 service GamePlayerDataService {
-  rpc GetGamePlayerData(GamePlayerDataRequest) returns (GetGamePlayerDataResponse);
+  rpc GetGamePlayerData(GetGamePlayerDataRequest) returns (GetGamePlayerDataResponse);
 }
 
-message GamePlayerDataRequest {
+message GetGamePlayerDataRequest {
   string player_id = 1;
   model.gameplayerdata.GameDataGameMode game_mode = 2;
 }
