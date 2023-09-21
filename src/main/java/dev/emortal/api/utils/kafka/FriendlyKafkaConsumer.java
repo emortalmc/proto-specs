@@ -32,7 +32,8 @@ import java.util.function.Consumer;
 
 public final class FriendlyKafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(FriendlyKafkaConsumer.class);
-    private static final int POLL_TIMEOUT_MS = 1000;
+    private static final int POLL_TIMEOUT_MS = 250;
+    private static final Duration POLL_TIMEOUT = Duration.ofMillis(POLL_TIMEOUT_MS);
 
     private static final AtomicInteger GROUP_COUNTER = new AtomicInteger(0);
 
@@ -71,7 +72,7 @@ public final class FriendlyKafkaConsumer {
         ConsumerRecords<String, byte[]> records;
         synchronized (this.consumedTopics) {
             if (this.consumedTopics.isEmpty()) return;
-            records = this.consumer.poll(Duration.ofMillis(POLL_TIMEOUT_MS));
+            records = this.consumer.poll(POLL_TIMEOUT);
             if (this.autoCommit) this.consumer.commitSync();
         }
 
