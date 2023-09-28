@@ -21,7 +21,6 @@ import dev.emortal.api.service.relationship.DefaultRelationshipService;
 import dev.emortal.api.service.relationship.RelationshipService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,27 +50,16 @@ public final class GrpcStubCollection {
             "game-player-data", 10009
     );
 
-    @Getter
     private static final @NotNull Optional<PermissionService> permissionService;
-    @Getter
     private static final @NotNull Optional<RelationshipService> relationshipService;
-    @Getter
     private static final @NotNull Optional<MessageService> messageHandlerService;
-    @Getter
     private static final @NotNull Optional<McPlayerService> playerService;
-    @Getter
     private static final @NotNull Optional<PlayerTrackerService> playerTrackerService;
-    @Getter
     private static final @NotNull Optional<BadgeService> badgeManagerService;
-    @Getter
     private static final @NotNull Optional<PartyService> partyService;
-    @Getter
     private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceBlockingStub> partySettingsService;
-    @Getter
     private static final @NotNull Optional<MatchmakerService> matchmakerService;
-    @Getter
     private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerBlockingStub> accountConnectionManagerService;
-    @Getter
     private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> gamePlayerDataService;
 
     static {
@@ -86,6 +74,50 @@ public final class GrpcStubCollection {
         matchmakerService = createChannel("matchmaker").map(DefaultMatchmakerService::new);
         accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newBlockingStub);
         gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newBlockingStub);
+    }
+
+    public static @NotNull Optional<PermissionService> getPermissionService() {
+        return permissionService;
+    }
+
+    public static @NotNull Optional<RelationshipService> getRelationshipService() {
+        return relationshipService;
+    }
+
+    public static @NotNull Optional<MessageService> getMessageHandlerService() {
+        return messageHandlerService;
+    }
+
+    public static @NotNull Optional<McPlayerService> getPlayerService() {
+        return playerService;
+    }
+
+    public static @NotNull Optional<PlayerTrackerService> getPlayerTrackerService() {
+        return playerTrackerService;
+    }
+
+    public static @NotNull Optional<BadgeService> getBadgeManagerService() {
+        return badgeManagerService;
+    }
+
+    public static @NotNull Optional<PartyService> getPartyService() {
+        return partyService;
+    }
+
+    public static @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceBlockingStub> getPartySettingsService() {
+        return partySettingsService;
+    }
+
+    public static @NotNull Optional<MatchmakerService> getMatchmakerService() {
+        return matchmakerService;
+    }
+
+    public static @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerBlockingStub> getAccountConnectionManagerService() {
+        return accountConnectionManagerService;
+    }
+
+    public static @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> getGamePlayerDataService() {
+        return gamePlayerDataService;
     }
 
     /**

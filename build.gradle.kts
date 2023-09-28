@@ -6,8 +6,6 @@ plugins {
 
     // gRPC
     id("com.google.protobuf") version "0.9.4"
-
-    id("io.freefair.lombok") version "8.3"
 }
 
 group = "dev.emortal.api"
@@ -64,11 +62,6 @@ protobuf {
             it.plugins {
                 id("grpc") {}
             }
-        }
-    }
-    afterEvaluate {
-        tasks.named("generateProto") {
-            dependsOn(tasks.named("generateEffectiveLombokConfig"))
         }
     }
 }
