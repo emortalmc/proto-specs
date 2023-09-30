@@ -27,7 +27,7 @@ message McPlayer {
   // current_server is only present if the player is online
   optional CurrentServer current_server = 8;
 
-  optional model.PlayerSkin skin = 9;
+  optional model.PlayerSkin current_skin = 9;
 }
 
 message LoginSession {
