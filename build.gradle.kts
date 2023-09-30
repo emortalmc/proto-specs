@@ -6,8 +6,6 @@ plugins {
 
     // gRPC
     id("com.google.protobuf") version "0.9.4"
-
-    id("io.freefair.lombok") version "8.3"
 }
 
 group = "dev.emortal.api"
@@ -33,6 +31,10 @@ dependencies {
 
     compileOnly("org.jetbrains:annotations:24.0.1")
     annotationProcessor("org.jetbrains:annotations:24.0.1")
+
+    // Protobuf uses @javax.annotation.Generated on generated types, and sometimes this isn't available.
+    // This make sure it's always available
+    compileOnly("javax.annotation:javax.annotation-api:1.3.2")
 
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 
@@ -60,11 +62,6 @@ protobuf {
             it.plugins {
                 id("grpc") {}
             }
-        }
-    }
-    afterEvaluate {
-        tasks.named("generateProto") {
-            dependsOn(tasks.named("generateEffectiveLombokConfig"))
         }
     }
 }
