@@ -14,10 +14,9 @@ message PlayerConnectMessage {
 
   string player_id = 1;
   string player_username = 2;
+  model.PlayerSkin player_skin = 4;
 
   string server_id = 3;
-
-  model.PlayerSkin skin = 4;
 }
 
 // PlayerSwitchServerMessage is sent when a player is confirmed to have switched servers.
