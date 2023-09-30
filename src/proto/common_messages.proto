@@ -8,19 +8,16 @@ option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/message/common";
 
 import "message_handler/models.proto";
+import "common_models.proto";
 
 message PlayerConnectMessage {
-  message PlayerSkin {
-    string texture = 1;
-    string signature = 2;
-  }
 
   string player_id = 1;
   string player_username = 2;
 
   string server_id = 3;
 
-  PlayerSkin skin = 4;
+  model.PlayerSkin skin = 4;
 }
 
 // PlayerSwitchServerMessage is sent when a player is confirmed to have switched servers.
