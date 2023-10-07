@@ -30,3 +30,7 @@ message PlayerBasedAllocator {
 message GameBasedAllocator {
 
 }
+
+message ServerAllocation {
+  // todo
+}
