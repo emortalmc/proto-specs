@@ -1,0 +1,36 @@
+syntax = "proto3";
+package emortal.grpc.server_store;
+
+option java_package = "dev.emortal.api.grpc.serverstore";
+option java_outer_classname = "ServerStoreProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/serverstore";
+
+service ServerStore {
+  rpc AllocateServer(AllocationRequest) returns (ServerAllocation);
+}
+
+message AllocationRequest {
+  string fleet_id = 1;
+
+  oneof allocator {
+    PlayerBasedAllocator player_based = 2;
+    GameBasedAllocator game_based = 3;
+  }
+}
+
+message PlayerBasedAllocator {
+  // player_count is the number of player spaces to allocate on the server
+  int32 player_count = 1;
+
+  // max_empty_slots is the maximum number of empty slots to allow on the server
+  // this exists if you want to try create fuller servers
+  int32 max_empty_slots = 2;
+}
+
+message GameBasedAllocator {
+
+}
+
+message ServerAllocation {
+  // todo
+}

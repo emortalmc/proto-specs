@@ -26,4 +26,6 @@ message ChatMessage {
   string message = 3;
   // message_content the actual content sent by the player
   string message_content = 4;
+
+  bool parse_message_content = 5;
 }

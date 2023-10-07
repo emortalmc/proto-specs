@@ -1,0 +1,6 @@
+syntax = "proto3";
+package emortal.message.server_store;
+
+option java_package = "dev.emortal.api.message.serverstore";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/serverstore";
