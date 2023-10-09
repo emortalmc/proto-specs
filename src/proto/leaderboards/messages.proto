@@ -24,7 +24,7 @@ message EntryDeletedMessage {
   string entry_id = 2;
 }
 
-message UpdateScoreMessage {
+message ScoreUpdatedMessage {
   string leaderboard_id = 1;
   string entry_id = 2;
   float score = 3;
