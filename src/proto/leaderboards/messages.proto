@@ -15,16 +15,17 @@ message LeaderboardDeletedMessage {
   string leaderboard_id = 1;
 }
 
-message LeaderboardEntryCreatedMessage {
+message EntryCreatedMessage {
   model.leaderboard.LeaderboardEntry entry = 1;
 }
 
-message LeaderboardEntryDeletedMessage {
+message EntryDeletedMessage {
   string leaderboard_id = 1;
+  string entry_id = 2;
 }
 
 message UpdateScoreMessage {
   string leaderboard_id = 1;
-  string key = 2;
+  string entry_id = 2;
   float score = 3;
 }

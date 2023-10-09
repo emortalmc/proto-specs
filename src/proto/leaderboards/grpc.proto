@@ -49,7 +49,7 @@ message CreateEntryResponse {
 
 message DeleteEntryRequest {
   string leaderboard_id = 1;
-  string key = 2;
+  string entry_id = 2;
 }
 
 message DeleteEntryResponse {
@@ -57,7 +57,7 @@ message DeleteEntryResponse {
 
 message UpdateScoreRequest {
   string leaderboard_id = 1;
-  string key = 2;
+  string entry_id = 2;
   float score = 3;
 }
 
