@@ -19,7 +19,7 @@ message LeaderboardEntry {
   string key = 1;
   float score = 2;
 
-  optional google.protobuf.Any data = 3;
+  map<string, google.protobuf.Any> data = 3;
 }
 
 enum SortOrder {
