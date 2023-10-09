@@ -1,0 +1,30 @@
+syntax = "proto3";
+package emortal.message.leaderboard;
+
+option java_package = "dev.emortal.api.message.leaderboard";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/message/leaderboard";
+
+import "leaderboards/models.proto";
+
+message LeaderboardCreatedMessage {
+  model.leaderboard.Leaderboard leaderboard = 1;
+}
+
+message LeaderboardDeletedMessage {
+  string leaderboard_id = 1;
+}
+
+message LeaderboardEntryCreatedMessage {
+  model.leaderboard.LeaderboardEntry entry = 1;
+}
+
+message LeaderboardEntryDeletedMessage {
+  string leaderboard_id = 1;
+}
+
+message UpdateScoreMessage {
+  string leaderboard_id = 1;
+  string key = 2;
+  float score = 3;
+}

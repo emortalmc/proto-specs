@@ -1,0 +1,28 @@
+syntax = "proto3";
+package emortal.model.leaderboard;
+
+option java_package = "dev.emortal.api.model.leaderboard";
+option java_multiple_files = true;
+option go_package = "github.com/emortalmc/proto-specs/gen/go/model/leaderboard";
+
+import "google/protobuf/any.proto";
+
+message Leaderboard {
+  string id = 1;
+  SortOrder sort_order = 2;
+
+  // the entries here are always sorted by score, in the order specified by the sort direction
+  repeated LeaderboardEntry entries = 3;
+}
+
+message LeaderboardEntry {
+  string key = 1;
+  float score = 2;
+
+  optional google.protobuf.Any data = 3;
+}
+
+enum SortOrder {
+  ASCENDING = 0;
+  DESCENDING = 1;
+}

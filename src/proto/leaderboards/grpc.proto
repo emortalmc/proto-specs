@@ -1,0 +1,65 @@
+syntax = "proto3";
+package emortal.grpc.leaderboard;
+
+option java_package = "dev.emortal.api.grpc.leaderboard";
+option java_outer_classname = "LeaderboardProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/leaderboard";
+
+import "leaderboards/models.proto";
+
+service Leaderboard {
+  rpc GetLeaderboard(GetLeaderboardRequest) returns (GetLeaderboardResponse);
+  rpc CreateLeaderboard(CreateLeaderboardRequest) returns (CreateLeaderboardResponse);
+  rpc CreateEntry(CreateEntryRequest) returns (CreateEntryResponse);
+  rpc DeleteEntry(DeleteEntryRequest) returns (DeleteEntryResponse);
+  rpc UpdateScore(UpdateScoreRequest) returns (UpdateScoreResponse);
+}
+
+message GetLeaderboardRequest {
+  string id = 1;
+}
+
+message GetLeaderboardResponse {
+  model.leaderboard.Leaderboard leaderboard = 1;
+}
+
+message CreateLeaderboardRequest {
+  string id = 1;
+  model.leaderboard.SortOrder sort_order = 2;
+}
+
+message CreateLeaderboardResponse {
+  model.leaderboard.Leaderboard leaderboard = 1;
+}
+
+message DeleteLeaderboardRequest {
+  string id = 1;
+}
+
+message DeleteLeaderboardResponse {
+}
+
+message CreateEntryRequest {
+  string leaderboard_id = 1;
+  model.leaderboard.LeaderboardEntry entry = 2;
+}
+
+message CreateEntryResponse {
+}
+
+message DeleteEntryRequest {
+  string leaderboard_id = 1;
+  string key = 2;
+}
+
+message DeleteEntryResponse {
+}
+
+message UpdateScoreRequest {
+  string leaderboard_id = 1;
+  string key = 2;
+  float score = 3;
+}
+
+message UpdateScoreResponse {
+}
