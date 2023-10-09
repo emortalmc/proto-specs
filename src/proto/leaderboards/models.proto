@@ -10,16 +10,14 @@ import "google/protobuf/any.proto";
 message Leaderboard {
   string id = 1;
   SortOrder sort_order = 2;
-
-  // the entries here are always sorted by score, in the order specified by the sort direction
-  repeated LeaderboardEntry entries = 3;
 }
 
 message LeaderboardEntry {
   string id = 1;
   float score = 2;
+  int32 rank = 3;
 
-  map<string, google.protobuf.Any> data = 3;
+  map<string, google.protobuf.Any> data = 4;
 }
 
 enum SortOrder {

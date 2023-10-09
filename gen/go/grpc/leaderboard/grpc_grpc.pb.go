@@ -22,10 +22,20 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LeaderboardClient interface {
-	GetLeaderboard(ctx context.Context, in *GetLeaderboardRequest, opts ...grpc.CallOption) (*GetLeaderboardResponse, error)
 	CreateLeaderboard(ctx context.Context, in *CreateLeaderboardRequest, opts ...grpc.CallOption) (*CreateLeaderboardResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	DeleteLeaderboard(ctx context.Context, in *DeleteLeaderboardRequest, opts ...grpc.CallOption) (*DeleteLeaderboardResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	// If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
+	// If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
+	// If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
+	GetEntries(ctx context.Context, in *GetEntriesRequest, opts ...grpc.CallOption) (*GetEntriesResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	GetEntryCount(ctx context.Context, in *GetEntryCountRequest, opts ...grpc.CallOption) (*GetEntryCountResponse, error)
 	CreateEntry(ctx context.Context, in *CreateEntryRequest, opts ...grpc.CallOption) (*CreateEntryResponse, error)
+	// If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
 	DeleteEntry(ctx context.Context, in *DeleteEntryRequest, opts ...grpc.CallOption) (*DeleteEntryResponse, error)
+	// If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
 	UpdateScore(ctx context.Context, in *UpdateScoreRequest, opts ...grpc.CallOption) (*UpdateScoreResponse, error)
 }
 
@@ -37,18 +47,36 @@ func NewLeaderboardClient(cc grpc.ClientConnInterface) LeaderboardClient {
 	return &leaderboardClient{cc}
 }
 
-func (c *leaderboardClient) GetLeaderboard(ctx context.Context, in *GetLeaderboardRequest, opts ...grpc.CallOption) (*GetLeaderboardResponse, error) {
-	out := new(GetLeaderboardResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/GetLeaderboard", in, out, opts...)
+func (c *leaderboardClient) CreateLeaderboard(ctx context.Context, in *CreateLeaderboardRequest, opts ...grpc.CallOption) (*CreateLeaderboardResponse, error) {
+	out := new(CreateLeaderboardResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/CreateLeaderboard", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *leaderboardClient) CreateLeaderboard(ctx context.Context, in *CreateLeaderboardRequest, opts ...grpc.CallOption) (*CreateLeaderboardResponse, error) {
-	out := new(CreateLeaderboardResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/CreateLeaderboard", in, out, opts...)
+func (c *leaderboardClient) DeleteLeaderboard(ctx context.Context, in *DeleteLeaderboardRequest, opts ...grpc.CallOption) (*DeleteLeaderboardResponse, error) {
+	out := new(DeleteLeaderboardResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/DeleteLeaderboard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *leaderboardClient) GetEntries(ctx context.Context, in *GetEntriesRequest, opts ...grpc.CallOption) (*GetEntriesResponse, error) {
+	out := new(GetEntriesResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/GetEntries", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *leaderboardClient) GetEntryCount(ctx context.Context, in *GetEntryCountRequest, opts ...grpc.CallOption) (*GetEntryCountResponse, error) {
+	out := new(GetEntryCountResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.leaderboard.Leaderboard/GetEntryCount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,10 +114,20 @@ func (c *leaderboardClient) UpdateScore(ctx context.Context, in *UpdateScoreRequ
 // All implementations must embed UnimplementedLeaderboardServer
 // for forward compatibility
 type LeaderboardServer interface {
-	GetLeaderboard(context.Context, *GetLeaderboardRequest) (*GetLeaderboardResponse, error)
 	CreateLeaderboard(context.Context, *CreateLeaderboardRequest) (*CreateLeaderboardResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	DeleteLeaderboard(context.Context, *DeleteLeaderboardRequest) (*DeleteLeaderboardResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	// If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
+	// If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
+	// If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
+	GetEntries(context.Context, *GetEntriesRequest) (*GetEntriesResponse, error)
+	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+	GetEntryCount(context.Context, *GetEntryCountRequest) (*GetEntryCountResponse, error)
 	CreateEntry(context.Context, *CreateEntryRequest) (*CreateEntryResponse, error)
+	// If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
 	DeleteEntry(context.Context, *DeleteEntryRequest) (*DeleteEntryResponse, error)
+	// If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
 	UpdateScore(context.Context, *UpdateScoreRequest) (*UpdateScoreResponse, error)
 	mustEmbedUnimplementedLeaderboardServer()
 }
@@ -98,11 +136,17 @@ type LeaderboardServer interface {
 type UnimplementedLeaderboardServer struct {
 }
 
-func (UnimplementedLeaderboardServer) GetLeaderboard(context.Context, *GetLeaderboardRequest) (*GetLeaderboardResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLeaderboard not implemented")
-}
 func (UnimplementedLeaderboardServer) CreateLeaderboard(context.Context, *CreateLeaderboardRequest) (*CreateLeaderboardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLeaderboard not implemented")
+}
+func (UnimplementedLeaderboardServer) DeleteLeaderboard(context.Context, *DeleteLeaderboardRequest) (*DeleteLeaderboardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLeaderboard not implemented")
+}
+func (UnimplementedLeaderboardServer) GetEntries(context.Context, *GetEntriesRequest) (*GetEntriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEntries not implemented")
+}
+func (UnimplementedLeaderboardServer) GetEntryCount(context.Context, *GetEntryCountRequest) (*GetEntryCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEntryCount not implemented")
 }
 func (UnimplementedLeaderboardServer) CreateEntry(context.Context, *CreateEntryRequest) (*CreateEntryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEntry not implemented")
@@ -126,24 +170,6 @@ func RegisterLeaderboardServer(s grpc.ServiceRegistrar, srv LeaderboardServer) {
 	s.RegisterService(&Leaderboard_ServiceDesc, srv)
 }
 
-func _Leaderboard_GetLeaderboard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLeaderboardRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LeaderboardServer).GetLeaderboard(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.leaderboard.Leaderboard/GetLeaderboard",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LeaderboardServer).GetLeaderboard(ctx, req.(*GetLeaderboardRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Leaderboard_CreateLeaderboard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLeaderboardRequest)
 	if err := dec(in); err != nil {
@@ -158,6 +184,60 @@ func _Leaderboard_CreateLeaderboard_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LeaderboardServer).CreateLeaderboard(ctx, req.(*CreateLeaderboardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Leaderboard_DeleteLeaderboard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLeaderboardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LeaderboardServer).DeleteLeaderboard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.leaderboard.Leaderboard/DeleteLeaderboard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LeaderboardServer).DeleteLeaderboard(ctx, req.(*DeleteLeaderboardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Leaderboard_GetEntries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEntriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LeaderboardServer).GetEntries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.leaderboard.Leaderboard/GetEntries",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LeaderboardServer).GetEntries(ctx, req.(*GetEntriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Leaderboard_GetEntryCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEntryCountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LeaderboardServer).GetEntryCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/emortal.grpc.leaderboard.Leaderboard/GetEntryCount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LeaderboardServer).GetEntryCount(ctx, req.(*GetEntryCountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -224,12 +304,20 @@ var Leaderboard_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*LeaderboardServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetLeaderboard",
-			Handler:    _Leaderboard_GetLeaderboard_Handler,
-		},
-		{
 			MethodName: "CreateLeaderboard",
 			Handler:    _Leaderboard_CreateLeaderboard_Handler,
+		},
+		{
+			MethodName: "DeleteLeaderboard",
+			Handler:    _Leaderboard_DeleteLeaderboard_Handler,
+		},
+		{
+			MethodName: "GetEntries",
+			Handler:    _Leaderboard_GetEntries_Handler,
+		},
+		{
+			MethodName: "GetEntryCount",
+			Handler:    _Leaderboard_GetEntryCount_Handler,
 		},
 		{
 			MethodName: "CreateEntry",

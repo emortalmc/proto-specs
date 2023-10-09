@@ -6,21 +6,27 @@ option java_outer_classname = "LeaderboardProto";
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/leaderboard";
 
 import "leaderboards/models.proto";
+import "common_models.proto";
 
 service Leaderboard {
-  rpc GetLeaderboard(GetLeaderboardRequest) returns (GetLeaderboardResponse);
   rpc CreateLeaderboard(CreateLeaderboardRequest) returns (CreateLeaderboardResponse);
+  // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+  rpc DeleteLeaderboard(DeleteLeaderboardRequest) returns (DeleteLeaderboardResponse);
+
+  // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+  // If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
+  // If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
+  // If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
+  rpc GetEntries(GetEntriesRequest) returns (GetEntriesResponse);
+  // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
+  rpc GetEntryCount(GetEntryCountRequest) returns (GetEntryCountResponse);
+
   rpc CreateEntry(CreateEntryRequest) returns (CreateEntryResponse);
+  // If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
   rpc DeleteEntry(DeleteEntryRequest) returns (DeleteEntryResponse);
+
+  // If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
   rpc UpdateScore(UpdateScoreRequest) returns (UpdateScoreResponse);
-}
-
-message GetLeaderboardRequest {
-  string id = 1;
-}
-
-message GetLeaderboardResponse {
-  model.leaderboard.Leaderboard leaderboard = 1;
 }
 
 message CreateLeaderboardRequest {
@@ -44,6 +50,27 @@ message CreateEntryRequest {
   model.leaderboard.LeaderboardEntry entry = 2;
 }
 
+message GetEntriesRequest {
+  string leaderboard_id = 1;
+
+  // The start and end rank indicate the range of entries to return, where the rank is the
+  // ranking in the leaderboard
+  int32 start_rank = 2;
+  int32 end_rank = 3;
+}
+
+message GetEntriesResponse {
+  repeated model.leaderboard.LeaderboardEntry entries = 1;
+}
+
+message GetEntryCountRequest {
+  string leaderboard_id = 1;
+}
+
+message GetEntryCountResponse {
+  int32 count = 1;
+}
+
 message CreateEntryResponse {
 }
 
@@ -58,6 +85,7 @@ message DeleteEntryResponse {
 message UpdateScoreRequest {
   string leaderboard_id = 1;
   string entry_id = 2;
+
   float score = 3;
 }
 
