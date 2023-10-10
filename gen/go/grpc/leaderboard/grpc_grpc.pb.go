@@ -26,7 +26,6 @@ type LeaderboardClient interface {
 	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
 	DeleteLeaderboard(ctx context.Context, in *DeleteLeaderboardRequest, opts ...grpc.CallOption) (*DeleteLeaderboardResponse, error)
 	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
-	// If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
 	// If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
 	// If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
 	GetEntries(ctx context.Context, in *GetEntriesRequest, opts ...grpc.CallOption) (*GetEntriesResponse, error)
@@ -118,7 +117,6 @@ type LeaderboardServer interface {
 	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
 	DeleteLeaderboard(context.Context, *DeleteLeaderboardRequest) (*DeleteLeaderboardResponse, error)
 	// If the leaderboard does not exist, an error with status NOT_FOUND is returned.
-	// If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
 	// If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
 	// If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
 	GetEntries(context.Context, *GetEntriesRequest) (*GetEntriesResponse, error)

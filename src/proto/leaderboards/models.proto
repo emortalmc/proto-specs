@@ -15,7 +15,7 @@ message Leaderboard {
 message LeaderboardEntry {
   string id = 1;
   double score = 2;
-  int32 rank = 3;
+  uint32 rank = 3;
 
   map<string, google.protobuf.Any> data = 4;
 }

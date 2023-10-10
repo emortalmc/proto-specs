@@ -31,6 +31,6 @@ message ScoreUpdatedMessage {
   double old_score = 3;
   double new_score = 4;
 
-  int32 old_rank = 5;
-  int32 new_rank = 6;
+  uint32 old_rank = 5;
+  uint32 new_rank = 6;
 }

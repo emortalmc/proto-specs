@@ -14,7 +14,6 @@ service Leaderboard {
   rpc DeleteLeaderboard(DeleteLeaderboardRequest) returns (DeleteLeaderboardResponse);
 
   // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
-  // If the start place is less than 0, an error with status INVALID_ARGUMENT is returned.
   // If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
   // If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
   rpc GetEntries(GetEntriesRequest) returns (GetEntriesResponse);
@@ -50,8 +49,8 @@ message GetEntriesRequest {
 
   // The start and end rank indicate the range of entries to return, where the rank is the
   // ranking in the leaderboard
-  int32 start_rank = 2;
-  int32 end_rank = 3;
+  uint32 start_rank = 2;
+  uint32 end_rank = 3;
 }
 
 message GetEntriesResponse {
@@ -63,7 +62,7 @@ message GetEntryCountRequest {
 }
 
 message GetEntryCountResponse {
-  int32 count = 1;
+  uint32 count = 1;
 }
 
 message CreateEntryRequest {
