@@ -209,61 +209,6 @@ func (*DeleteLeaderboardResponse) Descriptor() ([]byte, []int) {
 	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{3}
 }
 
-type CreateEntryRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	LeaderboardId string                        `protobuf:"bytes,1,opt,name=leaderboard_id,json=leaderboardId,proto3" json:"leaderboard_id,omitempty"`
-	Entry         *leaderboard.LeaderboardEntry `protobuf:"bytes,2,opt,name=entry,proto3" json:"entry,omitempty"`
-}
-
-func (x *CreateEntryRequest) Reset() {
-	*x = CreateEntryRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_leaderboards_grpc_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *CreateEntryRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateEntryRequest) ProtoMessage() {}
-
-func (x *CreateEntryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_leaderboards_grpc_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateEntryRequest.ProtoReflect.Descriptor instead.
-func (*CreateEntryRequest) Descriptor() ([]byte, []int) {
-	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *CreateEntryRequest) GetLeaderboardId() string {
-	if x != nil {
-		return x.LeaderboardId
-	}
-	return ""
-}
-
-func (x *CreateEntryRequest) GetEntry() *leaderboard.LeaderboardEntry {
-	if x != nil {
-		return x.Entry
-	}
-	return nil
-}
-
 type GetEntriesRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -279,7 +224,7 @@ type GetEntriesRequest struct {
 func (x *GetEntriesRequest) Reset() {
 	*x = GetEntriesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_leaderboards_grpc_proto_msgTypes[5]
+		mi := &file_leaderboards_grpc_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -292,7 +237,7 @@ func (x *GetEntriesRequest) String() string {
 func (*GetEntriesRequest) ProtoMessage() {}
 
 func (x *GetEntriesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_leaderboards_grpc_proto_msgTypes[5]
+	mi := &file_leaderboards_grpc_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -305,7 +250,7 @@ func (x *GetEntriesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEntriesRequest.ProtoReflect.Descriptor instead.
 func (*GetEntriesRequest) Descriptor() ([]byte, []int) {
-	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{5}
+	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetEntriesRequest) GetLeaderboardId() string {
@@ -340,7 +285,7 @@ type GetEntriesResponse struct {
 func (x *GetEntriesResponse) Reset() {
 	*x = GetEntriesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_leaderboards_grpc_proto_msgTypes[6]
+		mi := &file_leaderboards_grpc_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -353,7 +298,7 @@ func (x *GetEntriesResponse) String() string {
 func (*GetEntriesResponse) ProtoMessage() {}
 
 func (x *GetEntriesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_leaderboards_grpc_proto_msgTypes[6]
+	mi := &file_leaderboards_grpc_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -366,7 +311,7 @@ func (x *GetEntriesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEntriesResponse.ProtoReflect.Descriptor instead.
 func (*GetEntriesResponse) Descriptor() ([]byte, []int) {
-	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{6}
+	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetEntriesResponse) GetEntries() []*leaderboard.LeaderboardEntry {
@@ -387,7 +332,7 @@ type GetEntryCountRequest struct {
 func (x *GetEntryCountRequest) Reset() {
 	*x = GetEntryCountRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_leaderboards_grpc_proto_msgTypes[7]
+		mi := &file_leaderboards_grpc_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -400,7 +345,7 @@ func (x *GetEntryCountRequest) String() string {
 func (*GetEntryCountRequest) ProtoMessage() {}
 
 func (x *GetEntryCountRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_leaderboards_grpc_proto_msgTypes[7]
+	mi := &file_leaderboards_grpc_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -413,7 +358,7 @@ func (x *GetEntryCountRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEntryCountRequest.ProtoReflect.Descriptor instead.
 func (*GetEntryCountRequest) Descriptor() ([]byte, []int) {
-	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{7}
+	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetEntryCountRequest) GetLeaderboardId() string {
@@ -434,7 +379,7 @@ type GetEntryCountResponse struct {
 func (x *GetEntryCountResponse) Reset() {
 	*x = GetEntryCountResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_leaderboards_grpc_proto_msgTypes[8]
+		mi := &file_leaderboards_grpc_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -447,7 +392,7 @@ func (x *GetEntryCountResponse) String() string {
 func (*GetEntryCountResponse) ProtoMessage() {}
 
 func (x *GetEntryCountResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_leaderboards_grpc_proto_msgTypes[8]
+	mi := &file_leaderboards_grpc_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -460,7 +405,7 @@ func (x *GetEntryCountResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEntryCountResponse.ProtoReflect.Descriptor instead.
 func (*GetEntryCountResponse) Descriptor() ([]byte, []int) {
-	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{8}
+	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetEntryCountResponse) GetCount() int32 {
@@ -468,6 +413,61 @@ func (x *GetEntryCountResponse) GetCount() int32 {
 		return x.Count
 	}
 	return 0
+}
+
+type CreateEntryRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LeaderboardId string                        `protobuf:"bytes,1,opt,name=leaderboard_id,json=leaderboardId,proto3" json:"leaderboard_id,omitempty"`
+	Entry         *leaderboard.LeaderboardEntry `protobuf:"bytes,2,opt,name=entry,proto3" json:"entry,omitempty"`
+}
+
+func (x *CreateEntryRequest) Reset() {
+	*x = CreateEntryRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_leaderboards_grpc_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateEntryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEntryRequest) ProtoMessage() {}
+
+func (x *CreateEntryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_leaderboards_grpc_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEntryRequest.ProtoReflect.Descriptor instead.
+func (*CreateEntryRequest) Descriptor() ([]byte, []int) {
+	return file_leaderboards_grpc_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CreateEntryRequest) GetLeaderboardId() string {
+	if x != nil {
+		return x.LeaderboardId
+	}
+	return ""
+}
+
+func (x *CreateEntryRequest) GetEntry() *leaderboard.LeaderboardEntry {
+	if x != nil {
+		return x.Entry
+	}
+	return nil
 }
 
 type CreateEntryResponse struct {
@@ -608,7 +608,7 @@ type UpdateScoreRequest struct {
 
 	LeaderboardId string  `protobuf:"bytes,1,opt,name=leaderboard_id,json=leaderboardId,proto3" json:"leaderboard_id,omitempty"`
 	EntryId       string  `protobuf:"bytes,2,opt,name=entry_id,json=entryId,proto3" json:"entry_id,omitempty"`
-	Score         float32 `protobuf:"fixed32,3,opt,name=score,proto3" json:"score,omitempty"`
+	Score         float64 `protobuf:"fixed64,3,opt,name=score,proto3" json:"score,omitempty"`
 }
 
 func (x *UpdateScoreRequest) Reset() {
@@ -657,7 +657,7 @@ func (x *UpdateScoreRequest) GetEntryId() string {
 	return ""
 }
 
-func (x *UpdateScoreRequest) GetScore() float32 {
+func (x *UpdateScoreRequest) GetScore() float64 {
 	if x != nil {
 		return x.Score
 	}
@@ -729,15 +729,7 @@ var file_leaderboards_grpc_proto_rawDesc = []byte{
 	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1b, 0x0a, 0x19, 0x44, 0x65, 0x6c, 0x65, 0x74,
 	0x65, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x7e, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x45, 0x6e,
-	0x74, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x6c, 0x65,
-	0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x0d, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x49,
-	0x64, 0x12, 0x41, 0x0a, 0x05, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x2b, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c,
-	0x2e, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x2e, 0x4c, 0x65, 0x61,
-	0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x05, 0x65,
-	0x6e, 0x74, 0x72, 0x79, 0x22, 0x74, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x72, 0x69,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x74, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74, 0x72, 0x69,
 	0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x6c, 0x65, 0x61,
 	0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x0d, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x49, 0x64,
@@ -757,7 +749,15 @@ var file_leaderboards_grpc_proto_rawDesc = []byte{
 	0x6f, 0x61, 0x72, 0x64, 0x49, 0x64, 0x22, 0x2d, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x74,
 	0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
-	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x15, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x45,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x7e, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x45,
+	0x6e, 0x74, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x6c,
+	0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0d, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64,
+	0x49, 0x64, 0x12, 0x41, 0x0a, 0x05, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x2b, 0x2e, 0x65, 0x6d, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x6d, 0x6f, 0x64, 0x65,
+	0x6c, 0x2e, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x2e, 0x4c, 0x65,
+	0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x05,
+	0x65, 0x6e, 0x74, 0x72, 0x79, 0x22, 0x15, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x45,
 	0x6e, 0x74, 0x72, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x56, 0x0a, 0x12,
 	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72,
@@ -772,7 +772,7 @@ var file_leaderboards_grpc_proto_rawDesc = []byte{
 	0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x49, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x6e, 0x74, 0x72,
 	0x79, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x6e, 0x74, 0x72,
 	0x79, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x03, 0x20, 0x01,
-	0x28, 0x02, 0x52, 0x05, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x22, 0x15, 0x0a, 0x13, 0x55, 0x70, 0x64,
+	0x28, 0x01, 0x52, 0x05, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x22, 0x15, 0x0a, 0x13, 0x55, 0x70, 0x64,
 	0x61, 0x74, 0x65, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x32, 0xa8, 0x06, 0x0a, 0x0b, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64,
 	0x12, 0x7c, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72,
@@ -853,11 +853,11 @@ var file_leaderboards_grpc_proto_goTypes = []interface{}{
 	(*CreateLeaderboardResponse)(nil),    // 1: emortal.grpc.leaderboard.CreateLeaderboardResponse
 	(*DeleteLeaderboardRequest)(nil),     // 2: emortal.grpc.leaderboard.DeleteLeaderboardRequest
 	(*DeleteLeaderboardResponse)(nil),    // 3: emortal.grpc.leaderboard.DeleteLeaderboardResponse
-	(*CreateEntryRequest)(nil),           // 4: emortal.grpc.leaderboard.CreateEntryRequest
-	(*GetEntriesRequest)(nil),            // 5: emortal.grpc.leaderboard.GetEntriesRequest
-	(*GetEntriesResponse)(nil),           // 6: emortal.grpc.leaderboard.GetEntriesResponse
-	(*GetEntryCountRequest)(nil),         // 7: emortal.grpc.leaderboard.GetEntryCountRequest
-	(*GetEntryCountResponse)(nil),        // 8: emortal.grpc.leaderboard.GetEntryCountResponse
+	(*GetEntriesRequest)(nil),            // 4: emortal.grpc.leaderboard.GetEntriesRequest
+	(*GetEntriesResponse)(nil),           // 5: emortal.grpc.leaderboard.GetEntriesResponse
+	(*GetEntryCountRequest)(nil),         // 6: emortal.grpc.leaderboard.GetEntryCountRequest
+	(*GetEntryCountResponse)(nil),        // 7: emortal.grpc.leaderboard.GetEntryCountResponse
+	(*CreateEntryRequest)(nil),           // 8: emortal.grpc.leaderboard.CreateEntryRequest
 	(*CreateEntryResponse)(nil),          // 9: emortal.grpc.leaderboard.CreateEntryResponse
 	(*DeleteEntryRequest)(nil),           // 10: emortal.grpc.leaderboard.DeleteEntryRequest
 	(*DeleteEntryResponse)(nil),          // 11: emortal.grpc.leaderboard.DeleteEntryResponse
@@ -870,19 +870,19 @@ var file_leaderboards_grpc_proto_goTypes = []interface{}{
 var file_leaderboards_grpc_proto_depIdxs = []int32{
 	14, // 0: emortal.grpc.leaderboard.CreateLeaderboardRequest.sort_order:type_name -> emortal.model.leaderboard.SortOrder
 	15, // 1: emortal.grpc.leaderboard.CreateLeaderboardResponse.leaderboard:type_name -> emortal.model.leaderboard.Leaderboard
-	16, // 2: emortal.grpc.leaderboard.CreateEntryRequest.entry:type_name -> emortal.model.leaderboard.LeaderboardEntry
-	16, // 3: emortal.grpc.leaderboard.GetEntriesResponse.entries:type_name -> emortal.model.leaderboard.LeaderboardEntry
+	16, // 2: emortal.grpc.leaderboard.GetEntriesResponse.entries:type_name -> emortal.model.leaderboard.LeaderboardEntry
+	16, // 3: emortal.grpc.leaderboard.CreateEntryRequest.entry:type_name -> emortal.model.leaderboard.LeaderboardEntry
 	0,  // 4: emortal.grpc.leaderboard.Leaderboard.CreateLeaderboard:input_type -> emortal.grpc.leaderboard.CreateLeaderboardRequest
 	2,  // 5: emortal.grpc.leaderboard.Leaderboard.DeleteLeaderboard:input_type -> emortal.grpc.leaderboard.DeleteLeaderboardRequest
-	5,  // 6: emortal.grpc.leaderboard.Leaderboard.GetEntries:input_type -> emortal.grpc.leaderboard.GetEntriesRequest
-	7,  // 7: emortal.grpc.leaderboard.Leaderboard.GetEntryCount:input_type -> emortal.grpc.leaderboard.GetEntryCountRequest
-	4,  // 8: emortal.grpc.leaderboard.Leaderboard.CreateEntry:input_type -> emortal.grpc.leaderboard.CreateEntryRequest
+	4,  // 6: emortal.grpc.leaderboard.Leaderboard.GetEntries:input_type -> emortal.grpc.leaderboard.GetEntriesRequest
+	6,  // 7: emortal.grpc.leaderboard.Leaderboard.GetEntryCount:input_type -> emortal.grpc.leaderboard.GetEntryCountRequest
+	8,  // 8: emortal.grpc.leaderboard.Leaderboard.CreateEntry:input_type -> emortal.grpc.leaderboard.CreateEntryRequest
 	10, // 9: emortal.grpc.leaderboard.Leaderboard.DeleteEntry:input_type -> emortal.grpc.leaderboard.DeleteEntryRequest
 	12, // 10: emortal.grpc.leaderboard.Leaderboard.UpdateScore:input_type -> emortal.grpc.leaderboard.UpdateScoreRequest
 	1,  // 11: emortal.grpc.leaderboard.Leaderboard.CreateLeaderboard:output_type -> emortal.grpc.leaderboard.CreateLeaderboardResponse
 	3,  // 12: emortal.grpc.leaderboard.Leaderboard.DeleteLeaderboard:output_type -> emortal.grpc.leaderboard.DeleteLeaderboardResponse
-	6,  // 13: emortal.grpc.leaderboard.Leaderboard.GetEntries:output_type -> emortal.grpc.leaderboard.GetEntriesResponse
-	8,  // 14: emortal.grpc.leaderboard.Leaderboard.GetEntryCount:output_type -> emortal.grpc.leaderboard.GetEntryCountResponse
+	5,  // 13: emortal.grpc.leaderboard.Leaderboard.GetEntries:output_type -> emortal.grpc.leaderboard.GetEntriesResponse
+	7,  // 14: emortal.grpc.leaderboard.Leaderboard.GetEntryCount:output_type -> emortal.grpc.leaderboard.GetEntryCountResponse
 	9,  // 15: emortal.grpc.leaderboard.Leaderboard.CreateEntry:output_type -> emortal.grpc.leaderboard.CreateEntryResponse
 	11, // 16: emortal.grpc.leaderboard.Leaderboard.DeleteEntry:output_type -> emortal.grpc.leaderboard.DeleteEntryResponse
 	13, // 17: emortal.grpc.leaderboard.Leaderboard.UpdateScore:output_type -> emortal.grpc.leaderboard.UpdateScoreResponse
@@ -948,18 +948,6 @@ func file_leaderboards_grpc_proto_init() {
 			}
 		}
 		file_leaderboards_grpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateEntryRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_leaderboards_grpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetEntriesRequest); i {
 			case 0:
 				return &v.state
@@ -971,7 +959,7 @@ func file_leaderboards_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_leaderboards_grpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_leaderboards_grpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetEntriesResponse); i {
 			case 0:
 				return &v.state
@@ -983,7 +971,7 @@ func file_leaderboards_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_leaderboards_grpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_leaderboards_grpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetEntryCountRequest); i {
 			case 0:
 				return &v.state
@@ -995,8 +983,20 @@ func file_leaderboards_grpc_proto_init() {
 				return nil
 			}
 		}
-		file_leaderboards_grpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_leaderboards_grpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetEntryCountResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_leaderboards_grpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateEntryRequest); i {
 			case 0:
 				return &v.state
 			case 1:

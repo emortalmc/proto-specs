@@ -28,8 +28,8 @@ message ScoreUpdatedMessage {
   string leaderboard_id = 1;
   string entry_id = 2;
 
-  float old_score = 3;
-  float new_score = 4;
+  double old_score = 3;
+  double new_score = 4;
 
   int32 old_rank = 5;
   int32 new_rank = 6;
