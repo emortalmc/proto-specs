@@ -9,11 +9,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The default implementation of {@link PlayerTrackerService} that uses a blocking stub to communicate with the gRPC server.
@@ -91,5 +87,16 @@ public final class DefaultPlayerTrackerService implements PlayerTrackerService {
 
         McPlayerProto.GetFleetsPlayerCountResponse response = this.grpc.getFleetPlayerCounts(request);
         return response.getFleetPlayerCountsMap();
+    }
+
+    @Override
+    public @NotNull List<OnlinePlayer> getGlobalPlayersSummary(@Nullable String serverId, @Nullable Set<String> fleetNames) {
+        var requestBuilder = McPlayerProto.GetGlobalPlayersSummaryRequest.newBuilder();
+        if (serverId != null) requestBuilder.setServerId(serverId);
+        if (fleetNames != null && !fleetNames.isEmpty()) requestBuilder.addAllFleetNames(fleetNames);
+        var request = requestBuilder.build();
+
+        McPlayerProto.GetGlobalPlayersSummaryResponse response = this.grpc.getGlobalPlayersSummary(request);
+        return response.getPlayersList();
     }
 }

@@ -6,10 +6,7 @@ import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A service interface for the player tracker.
@@ -35,4 +32,14 @@ public interface PlayerTrackerService {
     long getGlobalPlayerCount();
 
     @NotNull Map<String, Long> getFleetPlayerCounts(@NotNull Collection<String> fleetNames);
+
+    @NotNull List<OnlinePlayer> getGlobalPlayersSummary(@Nullable String serverId, @Nullable Set<String> fleetNames);
+
+    default @NotNull List<OnlinePlayer> getGlobalPlayersSummaryByServer(@NotNull String serverId) {
+        return this.getGlobalPlayersSummary(serverId, null);
+    }
+
+    default @NotNull List<OnlinePlayer> getGlobalPlayersSummaryByFleet(@NotNull Set<String> fleetNames) {
+        return this.getGlobalPlayersSummary(null, fleetNames);
+    }
 }
