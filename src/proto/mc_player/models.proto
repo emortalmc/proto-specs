@@ -51,4 +51,5 @@ message OnlinePlayer {
 message CurrentServer {
   string server_id = 1;
   string proxy_id = 2;
+  string fleet_name = 3;
 }
