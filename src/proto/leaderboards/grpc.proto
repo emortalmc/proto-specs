@@ -7,6 +7,7 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/leaderboard";
 
 import "leaderboards/models.proto";
 import "common_models.proto";
+import "google/protobuf/any.proto";
 
 service Leaderboard {
   rpc CreateLeaderboard(CreateLeaderboardRequest) returns (CreateLeaderboardResponse);
@@ -34,7 +35,6 @@ message CreateLeaderboardRequest {
 }
 
 message CreateLeaderboardResponse {
-  model.leaderboard.Leaderboard leaderboard = 1;
 }
 
 message DeleteLeaderboardRequest {
@@ -67,7 +67,11 @@ message GetEntryCountResponse {
 
 message CreateEntryRequest {
   string leaderboard_id = 1;
-  model.leaderboard.LeaderboardEntry entry = 2;
+
+  string entry_id = 2;
+  double score = 3;
+
+  map<string, google.protobuf.Any> data = 4;
 }
 
 message CreateEntryResponse {
