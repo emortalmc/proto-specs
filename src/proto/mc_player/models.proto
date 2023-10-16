@@ -45,7 +45,6 @@ message OnlinePlayer {
   string player_id = 1;
   string username = 2;
   CurrentServer server = 3;
-  optional model.PlayerSkin skin = 4;
 }
 
 // PlayerLocation represents the proxy and game server a player is on
