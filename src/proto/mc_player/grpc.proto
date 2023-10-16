@@ -29,17 +29,7 @@ service PlayerTracker {
 
   // Summary methods
 
-  // GetGlobalSummary returns every player online that can be used to create a summary.
-  // You can determine the fleet by trimming the player's server_id
-  rpc GetGlobalSummary(GetGlobalSummaryRequest) returns (GetGlobalSummaryResponse);
-
-  // GetFleetSummary returns every player online in a fleet that can be used to create a summary.
-  // This is just GetGlobalSummary but restricted to a single fleet
-  rpc GetFleetSummary(GetFleetSummaryRequest) returns (GetFleetSummaryResponse);
-
-  // GetServerSummary returns every player online in a server that can be used to create a summary.
-  // This is just GetGlobalSummary but restricted to a single server
-  rpc GetServerSummary(GetServerSummaryRequest) returns (GetServerSummaryResponse);
+  rpc GetGlobalPlayersSummary(GetGlobalPlayersSummaryRequest) returns (GetGlobalPlayersSummaryResponse);
 }
 
 message GetPlayerRequest {
@@ -153,25 +143,15 @@ message GetFleetsPlayerCountResponse {
   map<string, int64> fleet_player_counts = 1;
 }
 
-message GetGlobalSummaryRequest {}
+message GetGlobalPlayersSummaryRequest {
+  // server_id is optional, if not provided, will fall back to server_types
+  optional string server_id = 1;
 
-message GetGlobalSummaryResponse {
-  repeated model.OnlinePlayer online_players = 1;
+  // fleet_names is optional, if not provided, will fall back to global
+  repeated string fleet_names = 2;
 }
 
-message GetFleetSummaryRequest {
-  string fleet_name = 1;
-}
-
-message GetFleetSummaryResponse {
-  repeated model.OnlinePlayer online_players = 1;
-}
-
-message GetServerSummaryRequest {
-  string server_id = 1;
-}
-
-message GetServerSummaryResponse {
-  repeated model.OnlinePlayer online_players = 1;
+message GetGlobalPlayersSummaryResponse {
+  repeated model.OnlinePlayer players = 1;
 }
 

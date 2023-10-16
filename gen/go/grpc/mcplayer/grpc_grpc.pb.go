@@ -329,15 +329,7 @@ type PlayerTrackerClient interface {
 	GetPlayerCount(ctx context.Context, in *GetPlayerCountRequest, opts ...grpc.CallOption) (*GetPlayerCountResponse, error)
 	// GetFleetPlayerCounts returns the player count for each fleet
 	GetFleetPlayerCounts(ctx context.Context, in *GetFleetsPlayerCountRequest, opts ...grpc.CallOption) (*GetFleetsPlayerCountResponse, error)
-	// GetGlobalSummary returns every player online that can be used to create a summary.
-	// You can determine the fleet by trimming the player's server_id
-	GetGlobalSummary(ctx context.Context, in *GetGlobalSummaryRequest, opts ...grpc.CallOption) (*GetGlobalSummaryResponse, error)
-	// GetFleetSummary returns every player online in a fleet that can be used to create a summary.
-	// This is just GetGlobalSummary but restricted to a single fleet
-	GetFleetSummary(ctx context.Context, in *GetFleetSummaryRequest, opts ...grpc.CallOption) (*GetFleetSummaryResponse, error)
-	// GetServerSummary returns every player online in a server that can be used to create a summary.
-	// This is just GetGlobalSummary but restricted to a single server
-	GetServerSummary(ctx context.Context, in *GetServerSummaryRequest, opts ...grpc.CallOption) (*GetServerSummaryResponse, error)
+	GetGlobalPlayersSummary(ctx context.Context, in *GetGlobalPlayersSummaryRequest, opts ...grpc.CallOption) (*GetGlobalPlayersSummaryResponse, error)
 }
 
 type playerTrackerClient struct {
@@ -384,27 +376,9 @@ func (c *playerTrackerClient) GetFleetPlayerCounts(ctx context.Context, in *GetF
 	return out, nil
 }
 
-func (c *playerTrackerClient) GetGlobalSummary(ctx context.Context, in *GetGlobalSummaryRequest, opts ...grpc.CallOption) (*GetGlobalSummaryResponse, error) {
-	out := new(GetGlobalSummaryResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetGlobalSummary", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *playerTrackerClient) GetFleetSummary(ctx context.Context, in *GetFleetSummaryRequest, opts ...grpc.CallOption) (*GetFleetSummaryResponse, error) {
-	out := new(GetFleetSummaryResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetFleetSummary", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *playerTrackerClient) GetServerSummary(ctx context.Context, in *GetServerSummaryRequest, opts ...grpc.CallOption) (*GetServerSummaryResponse, error) {
-	out := new(GetServerSummaryResponse)
-	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetServerSummary", in, out, opts...)
+func (c *playerTrackerClient) GetGlobalPlayersSummary(ctx context.Context, in *GetGlobalPlayersSummaryRequest, opts ...grpc.CallOption) (*GetGlobalPlayersSummaryResponse, error) {
+	out := new(GetGlobalPlayersSummaryResponse)
+	err := c.cc.Invoke(ctx, "/emortal.grpc.PlayerTracker/GetGlobalPlayersSummary", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -420,15 +394,7 @@ type PlayerTrackerServer interface {
 	GetPlayerCount(context.Context, *GetPlayerCountRequest) (*GetPlayerCountResponse, error)
 	// GetFleetPlayerCounts returns the player count for each fleet
 	GetFleetPlayerCounts(context.Context, *GetFleetsPlayerCountRequest) (*GetFleetsPlayerCountResponse, error)
-	// GetGlobalSummary returns every player online that can be used to create a summary.
-	// You can determine the fleet by trimming the player's server_id
-	GetGlobalSummary(context.Context, *GetGlobalSummaryRequest) (*GetGlobalSummaryResponse, error)
-	// GetFleetSummary returns every player online in a fleet that can be used to create a summary.
-	// This is just GetGlobalSummary but restricted to a single fleet
-	GetFleetSummary(context.Context, *GetFleetSummaryRequest) (*GetFleetSummaryResponse, error)
-	// GetServerSummary returns every player online in a server that can be used to create a summary.
-	// This is just GetGlobalSummary but restricted to a single server
-	GetServerSummary(context.Context, *GetServerSummaryRequest) (*GetServerSummaryResponse, error)
+	GetGlobalPlayersSummary(context.Context, *GetGlobalPlayersSummaryRequest) (*GetGlobalPlayersSummaryResponse, error)
 	mustEmbedUnimplementedPlayerTrackerServer()
 }
 
@@ -448,14 +414,8 @@ func (UnimplementedPlayerTrackerServer) GetPlayerCount(context.Context, *GetPlay
 func (UnimplementedPlayerTrackerServer) GetFleetPlayerCounts(context.Context, *GetFleetsPlayerCountRequest) (*GetFleetsPlayerCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFleetPlayerCounts not implemented")
 }
-func (UnimplementedPlayerTrackerServer) GetGlobalSummary(context.Context, *GetGlobalSummaryRequest) (*GetGlobalSummaryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGlobalSummary not implemented")
-}
-func (UnimplementedPlayerTrackerServer) GetFleetSummary(context.Context, *GetFleetSummaryRequest) (*GetFleetSummaryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFleetSummary not implemented")
-}
-func (UnimplementedPlayerTrackerServer) GetServerSummary(context.Context, *GetServerSummaryRequest) (*GetServerSummaryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServerSummary not implemented")
+func (UnimplementedPlayerTrackerServer) GetGlobalPlayersSummary(context.Context, *GetGlobalPlayersSummaryRequest) (*GetGlobalPlayersSummaryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGlobalPlayersSummary not implemented")
 }
 func (UnimplementedPlayerTrackerServer) mustEmbedUnimplementedPlayerTrackerServer() {}
 
@@ -542,56 +502,20 @@ func _PlayerTracker_GetFleetPlayerCounts_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PlayerTracker_GetGlobalSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetGlobalSummaryRequest)
+func _PlayerTracker_GetGlobalPlayersSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGlobalPlayersSummaryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PlayerTrackerServer).GetGlobalSummary(ctx, in)
+		return srv.(PlayerTrackerServer).GetGlobalPlayersSummary(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.grpc.PlayerTracker/GetGlobalSummary",
+		FullMethod: "/emortal.grpc.PlayerTracker/GetGlobalPlayersSummary",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerTrackerServer).GetGlobalSummary(ctx, req.(*GetGlobalSummaryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PlayerTracker_GetFleetSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetFleetSummaryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PlayerTrackerServer).GetFleetSummary(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.PlayerTracker/GetFleetSummary",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerTrackerServer).GetFleetSummary(ctx, req.(*GetFleetSummaryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PlayerTracker_GetServerSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetServerSummaryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PlayerTrackerServer).GetServerSummary(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/emortal.grpc.PlayerTracker/GetServerSummary",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerTrackerServer).GetServerSummary(ctx, req.(*GetServerSummaryRequest))
+		return srv.(PlayerTrackerServer).GetGlobalPlayersSummary(ctx, req.(*GetGlobalPlayersSummaryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -620,16 +544,8 @@ var PlayerTracker_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PlayerTracker_GetFleetPlayerCounts_Handler,
 		},
 		{
-			MethodName: "GetGlobalSummary",
-			Handler:    _PlayerTracker_GetGlobalSummary_Handler,
-		},
-		{
-			MethodName: "GetFleetSummary",
-			Handler:    _PlayerTracker_GetFleetSummary_Handler,
-		},
-		{
-			MethodName: "GetServerSummary",
-			Handler:    _PlayerTracker_GetServerSummary_Handler,
+			MethodName: "GetGlobalPlayersSummary",
+			Handler:    _PlayerTracker_GetGlobalPlayersSummary_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
