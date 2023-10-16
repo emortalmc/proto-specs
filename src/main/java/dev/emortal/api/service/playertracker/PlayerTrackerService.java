@@ -42,4 +42,8 @@ public interface PlayerTrackerService {
     default @NotNull List<OnlinePlayer> getGlobalPlayersSummaryByFleet(@NotNull Set<String> fleetNames) {
         return this.getGlobalPlayersSummary(null, fleetNames);
     }
+
+    default @NotNull List<OnlinePlayer> getGlobalPlayersSummary() {
+        return this.getGlobalPlayersSummary(null, null);
+    }
 }
