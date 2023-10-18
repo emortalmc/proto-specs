@@ -29,3 +29,4 @@ and are run on the same gRPC server.
 | account-connection-manager | Manages account connections (Mojang, Discord, etc.)        | 10008 |
 | game-player-data           | Manages user settings for a game (e.g. slots in blocksumo) | 10009 |
 | game-tracker               | Tracks active and historic games                           | 10010 |
+| leaderboards               | Manages game leaderboards                                  | 10011 |
