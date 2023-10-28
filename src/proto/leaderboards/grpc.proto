@@ -30,8 +30,7 @@ service Leaderboard {
 }
 
 message CreateLeaderboardRequest {
-  string id = 1;
-  model.leaderboard.SortOrder sort_order = 2;
+  model.leaderboard.Leaderboard leaderboard = 1;
 }
 
 message CreateLeaderboardResponse {
