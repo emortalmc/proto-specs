@@ -28,4 +28,8 @@ message ChatMessage {
   string message_content = 4;
 
   bool parse_message_content = 5;
+
+  // New and replacing the old message and message_content, this is a JSON serialised Minecraft TextComponent
+  string text_component = 6;
 }
+

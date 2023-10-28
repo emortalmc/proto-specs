@@ -35,4 +35,8 @@ message PlayerDisconnectMessage {
 // sent in the 'mc-messages' topic (Kafka)
 message PlayerChatMessageMessage {
   model.messagehandler.ChatMessage message = 1;
+
+  string sender_id = 2;
+  string sender_username = 3;
+  string message_content = 4;
 }
