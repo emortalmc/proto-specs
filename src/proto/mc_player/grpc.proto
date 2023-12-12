@@ -69,6 +69,11 @@ message SearchPlayersByUsernameRequest {
   model.Pageable pageable = 3;
   FilterMethod filter_method = 4;
 
+  // excluded_player_ids is optional, if provided, will exclude these players from the search
+  // so you still get a full page of results even if some of the players are excluded.
+  // Type: repeated uuid
+  repeated string excluded_player_ids = 5;
+
   enum FilterMethod {
     NONE = 0;
     ONLINE = 1;
