@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -73,12 +74,19 @@ public final class DefaultMcPlayerService implements McPlayerService {
 
     @Override
     public @NotNull List<McPlayer> searchPlayersByUsername(@NotNull UUID requesterId, @NotNull String searchUsername, @NotNull Pageable pageable,
-                                                           @Nullable FilterMethod filterMethod) {
+                                                           @Nullable FilterMethod filterMethod, @Nullable Set<UUID> excludedPlayerIds) {
         var requestBuilder = McPlayerProto.SearchPlayersByUsernameRequest.newBuilder()
                 .setIssuerId(requesterId.toString())
                 .setSearchUsername(searchUsername)
                 .setPageable(pageable);
+
         if (filterMethod != null) requestBuilder.setFilterMethod(filterMethod);
+        if (excludedPlayerIds != null) {
+            for (UUID excludedPlayerId : excludedPlayerIds) {
+                requestBuilder.addExcludedPlayerIds(excludedPlayerId.toString());
+            }
+        }
+
         var request = requestBuilder.build();
 
         McPlayerProto.SearchPlayersByUsernameResponse response = this.grpc.searchPlayersByUsername(request);

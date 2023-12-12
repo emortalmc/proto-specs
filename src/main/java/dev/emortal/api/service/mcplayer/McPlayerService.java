@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -30,7 +31,7 @@ public interface McPlayerService {
     @Nullable McPlayer getPlayerByUsername(@NotNull String username);
 
     @NotNull List<McPlayer> searchPlayersByUsername(@NotNull UUID requesterId, @NotNull String searchUsername, @NotNull Pageable pageable,
-                                                    @Nullable FilterMethod filterMethod);
+                                                    @Nullable FilterMethod filterMethod, @Nullable Set<UUID> excludedPlayerIds);
 
     @NotNull McPlayerProto.LoginSessionsResponse getLoginSessions(@NotNull UUID playerId, @NotNull Pageable pageable);
 }
