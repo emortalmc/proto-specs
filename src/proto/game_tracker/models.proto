@@ -98,6 +98,8 @@ message BlockSumoScoreboard {
     int32 kills = 3;
     int32 final_kills = 4;
   }
+
+  repeated Entry entries = 1;
 }
 
 // TODO Game mode: Minesweeper - Start
