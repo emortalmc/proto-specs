@@ -50,9 +50,9 @@ message CommonGameTeamData {
 
 message CommonGameFinishWinnerData {
   // winners of type UUID (as a string)
-  repeated string winners = 1;
+  repeated string winner_ids = 1;
   // losers may be empty if the game doesn't define losers. Type is UUID (as a string)
-  repeated string losers = 2;
+  repeated string loser_ids = 2;
 }
 
 //                              //
