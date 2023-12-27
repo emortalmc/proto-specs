@@ -95,13 +95,13 @@ message BlockSumoFinishData {
 
 message BlockSumoScoreboard {
   message Entry {
-    BasicGamePlayer player = 1;
     int32 remaining_lives = 2;
     int32 kills = 3;
     int32 final_kills = 4;
   }
 
-  repeated Entry entries = 1;
+  // entries map of playerId UUIDs to a scoreboard Entry
+  map<string, Entry> entries = 1;
 }
 
 // TODO Game mode: Minesweeper - Start
