@@ -85,9 +85,11 @@ message TowerDefenceFinishData {
 
 // TODO Game mode: Block Sumo - Update, Finish
 
-// No special start data
-
 message BlockSumoUpdateData {
+  BlockSumoScoreboard scoreboard = 1;
+}
+
+message BlockSumoFinishData {
   BlockSumoScoreboard scoreboard = 1;
 }
 
