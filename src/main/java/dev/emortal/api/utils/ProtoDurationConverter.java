@@ -1,7 +1,10 @@
 package dev.emortal.api.utils;
 
 import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import org.jetbrains.annotations.NotNull;
+
+import java.time.Instant;
 
 public final class ProtoDurationConverter {
     private static final long NANOS_PER_SECOND = 1_000_000_000;
@@ -29,6 +32,14 @@ public final class ProtoDurationConverter {
                 .setSeconds(nanos / NANOS_PER_SECOND)
                 .setNanos((int) (nanos % NANOS_PER_SECOND))
                 .build();
+    }
+
+    public static @NotNull java.time.Duration betweenFromProto(@NotNull Timestamp start, @NotNull Timestamp end) {
+        return java.time.Duration.between(ProtoTimestampConverter.fromProto(start), ProtoTimestampConverter.fromProto(end));
+    }
+
+    public static @NotNull Duration betweenToProto(@NotNull Instant start, @NotNull Instant end) {
+        return toProto(java.time.Duration.between(start, end));
     }
 
     private ProtoDurationConverter() {
