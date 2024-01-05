@@ -13,7 +13,7 @@ message GameStartMessage {
   CommonGameData common_data = 1;
 
   google.protobuf.Timestamp start_time = 2;
-  string map_id = 3;
+  optional string map_id = 3;
 
   repeated google.protobuf.Any content = 1000;
 }

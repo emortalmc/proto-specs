@@ -5,6 +5,8 @@ option java_package = "dev.emortal.api.model.gametracker";
 option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/model/gametracker";
 
+import "google/protobuf/timestamp.proto";
+
 // The models here define additional data objects that can be used by a gamemode.
 // Compulsory data is provided in the "messages.proto" of this service.
 // The system works based on composition and the server will determine what fields to action on supplied in the Any list.
@@ -81,9 +83,7 @@ message TowerDefenceFinishData {
 
 // TODO Game mode: Battle - Start, Update, Finish
 
-// TODO Game mode: Parkour Tag - Start, Update, Finish
-
-// TODO Game mode: Block Sumo - Update, Finish
+// Game Mode - BlockSumo
 
 message BlockSumoUpdateData {
   BlockSumoScoreboard scoreboard = 1;
@@ -104,10 +104,12 @@ message BlockSumoScoreboard {
   map<string, Entry> entries = 1;
 }
 
-// TODO Game mode: Minesweeper - Start
+// TODO Game Mode - Minesweeper
 
 message MinesweeperStartData {
   int64 total_mines = 1;
+  // total_blocks is the total number of blocks in the game that can be revealed - e.g. a 10x10 board would be 100
+  int64 total_blocks = 2;
   // TODO maybe we have a difficulty here?
 }
 
@@ -116,6 +118,8 @@ message MinesweeperStartData {
 message MinesweeperUpdateData {
   int32 remaining_mines = 1;
   int32 placed_flags = 2;
+  // blocks_revealed the number of blocks revealed - this can be used to calculate % progress based on the start data
+  int32 blocks_revealed = 3;
 }
 
 // MinesweeperFinishData
@@ -123,3 +127,30 @@ message MinesweeperFinishData {
   // winner_data if the game is won, all players are winners. If the game is lost, all players are losers.
   CommonGameFinishWinnerData winner_data = 1;
 }
+
+// Game Mode - Marathon
+
+message MarathonUpdateData {
+  // current_time can be used for an ongoing run to calculate the time taken accurately
+  google.protobuf.Timestamp current_time = 1;
+
+  // current_run is the run that is currently ongoing - it will be null if they are standing on the start line
+  MarathonRun current_run = 2;
+
+  // completed_runs is a list of runs that have been completed in this session
+  repeated MarathonRun completed_runs = 3;
+}
+
+message MarathonRun {
+  // distance in blocks
+  int32 distance = 1;
+  google.protobuf.Timestamp start_time = 2;
+  // end_time will be null if the run is ongoing
+  google.protobuf.Timestamp end_time = 3;
+}
+
+message MarathonFinishData {
+  repeated MarathonRun runs = 1;
+}
+
+// Game Mode - Parkour Tag
