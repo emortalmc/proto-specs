@@ -66,3 +66,7 @@ message PartySettingsChangedMessage {
 
   model.party.PartySettings settings = 2;
 }
+
+message PartyBroadcastMessage {
+  model.party.Party party = 1;
+}
