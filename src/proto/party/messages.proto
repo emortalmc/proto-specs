@@ -85,5 +85,8 @@ message EventStartMessage {
 // EventDeleteMessage this may be an event ending or being deleted
 // this should trigger the event stopping and also to opposite of the EventDisplayMessage
 message EventDeleteMessage {
-  model.party.LiveEvent event = 1;
+  oneof event {
+    model.party.EventData upcoming_event = 1;
+    model.party.LiveEvent live_event = 2;
+  }
 }
