@@ -10,7 +10,7 @@ public sealed interface JoinPartyResult {
 
     enum Error implements JoinPartyResult {
 
-        ALREADY_IN_PARTY,
+        ALREADY_IN_SAME_PARTY,
         NOT_INVITED
     }
 }

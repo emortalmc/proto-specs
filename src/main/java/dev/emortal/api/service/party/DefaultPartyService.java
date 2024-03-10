@@ -174,7 +174,7 @@ public final class DefaultPartyService implements PartyService {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.JoinPartyErrorResponse.class);
 
             return switch (error.getErrorType()) {
-                case ALREADY_IN_PARTY -> JoinPartyResult.Error.ALREADY_IN_PARTY;
+                case ALREADY_IN_SAME_PARTY -> JoinPartyResult.Error.ALREADY_IN_SAME_PARTY;
                 case NOT_INVITED -> JoinPartyResult.Error.NOT_INVITED;
                 case UNRECOGNIZED -> throw exception;
             };
@@ -194,7 +194,7 @@ public final class DefaultPartyService implements PartyService {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.LeavePartyErrorResponse.class);
 
             return switch (error.getErrorType()) {
-                case CANNOT_LEAVE_AS_LEADER -> LeavePartyResult.CANNOT_LEAVE_AS_LEADER;
+                case CANNOT_LEAVE_ONLY_MEMBER -> LeavePartyResult.CANNOT_LEAVE_ONLY_MEMBER;
                 case UNRECOGNIZED -> throw exception;
             };
         }
