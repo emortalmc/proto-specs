@@ -24,6 +24,9 @@ import dev.emortal.api.message.matchmaker.TicketDeletedMessage;
 import dev.emortal.api.message.matchmaker.TicketUpdatedMessage;
 import dev.emortal.api.message.messagehandler.ChatMessageCreatedMessage;
 import dev.emortal.api.message.messagehandler.PrivateMessageCreatedMessage;
+import dev.emortal.api.message.party.EventDisplayMessage;
+import dev.emortal.api.message.party.EventEndMessage;
+import dev.emortal.api.message.party.EventStartMessage;
 import dev.emortal.api.message.party.PartyBroadcastMessage;
 import dev.emortal.api.message.party.PartyCreatedMessage;
 import dev.emortal.api.message.party.PartyDeletedMessage;
@@ -127,6 +130,10 @@ public final class ProtoParserRegistry {
         register(PartyLeaderChangedMessage.getDefaultInstance(), PartyLeaderChangedMessage::parseFrom, "party-manager");
         register(PartySettingsChangedMessage.getDefaultInstance(), PartySettingsChangedMessage::parseFrom, "party-manager");
         register(PartyBroadcastMessage.getDefaultInstance(), PartyBroadcastMessage::parseFrom, "party-manager");
+        // Party - Events
+        register(EventDisplayMessage.getDefaultInstance(), EventDisplayMessage::parseFrom, "event-manager");
+        register(EventStartMessage.getDefaultInstance(), EventStartMessage::parseFrom, "event-manager");
+        register(EventEndMessage.getDefaultInstance(), EventEndMessage::parseFrom, "event-manager");
 
         // Permission
         register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager");

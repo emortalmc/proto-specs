@@ -6,6 +6,7 @@ option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/model/party";
 
 import "google/protobuf/timestamp.proto";
+import "common_models.proto";
 
 message Party {
   // id of type ObjectId
@@ -53,4 +54,26 @@ message PartySettings {
 
   // allow_member_invite if true, members of the party can invite other players to the party.
   bool allow_member_invite = 3;
+}
+
+message EventData {
+  // id of type ObjectId
+  string id = 1;
+
+
+  // owner_id of type UUID
+  string owner_id = 2;
+  string owner_username = 3;
+  model.PlayerSkin owner_skin = 4;
+
+  // display_time the time the event will appear in UIs/in game.
+  google.protobuf.Timestamp display_time = 5;
+  google.protobuf.Timestamp start_time = 6;
+}
+
+message LiveEvent {
+  EventData data = 1;
+
+  // party_id of type ObjectId
+  string party_id = 2;
 }

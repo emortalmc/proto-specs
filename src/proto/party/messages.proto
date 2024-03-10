@@ -70,3 +70,20 @@ message PartySettingsChangedMessage {
 message PartyBroadcastMessage {
   model.party.Party party = 1;
 }
+
+// Event messages
+
+// EventDisplayMessage is sent when an event has reached its display_time timestamp.
+message EventDisplayMessage {
+  model.party.EventData event = 1;
+}
+
+message EventStartMessage {
+  model.party.LiveEvent event = 1;
+}
+
+// EventDeleteMessage this may be an event ending or being deleted
+// this should trigger the event stopping and also to opposite of the EventDisplayMessage
+message EventDeleteMessage {
+  model.party.LiveEvent event = 1;
+}

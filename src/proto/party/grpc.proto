@@ -7,6 +7,7 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/party";
 
 import "party/models.proto";
 import "common_models.proto";
+import "google/protobuf/timestamp.proto";
 
 // NOTES:
 // - Creating a party does not exist as a player is always in a party when they join the server.
@@ -33,6 +34,13 @@ service PartyService {
 service PartySettingsService {
   rpc GetPartySettings(GetPartySettingsRequest) returns (GetPartySettingsResponse) {}
   rpc UpdatePartySettings(UpdatePartySettingsRequest) returns (UpdatePartySettingsResponse) {}
+}
+
+service EventService {
+  rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse) {}
+  rpc UpdateEvent(UpdateEventRequest) returns (UpdateEventResponse) {}
+  rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventResponse) {}
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse) {}
 }
 
 message EmptyPartyRequest {
@@ -220,3 +228,63 @@ message UpdatePartySettingsRequest {
 }
 
 message UpdatePartySettingsResponse {}
+
+// Event Service messages
+
+message CreateEventRequest {
+  // owner_id, a string ID that's a name e.g. 'sunday_1_tourney'
+  string event_id = 1;
+  // owner_id of type UUID
+  string owner_id = 2;
+  string owner_username = 3;
+  model.PlayerSkin owner_skin = 4;
+
+  optional google.protobuf.Timestamp display_time = 5;
+  optional google.protobuf.Timestamp start_time = 6;
+}
+
+message CreateEventResponse {
+  model.party.EventData event = 1;
+}
+
+message CreateEventErrorResponse {
+  enum ErrorType {
+    ALREADY_EXISTS = 0;
+  }
+  ErrorType error_type = 1;
+}
+
+message UpdateEventRequest {
+  string event_id = 1;
+
+  optional google.protobuf.Timestamp display_time = 2;
+  optional google.protobuf.Timestamp start_time = 3;
+}
+
+message UpdateEventResponse {
+  model.party.EventData event = 1;
+}
+
+// DeleteEventRequest is used to delete an event, or end an ongoing event.
+message DeleteEventRequest {
+  // event_id if not present, the current event will be used
+  optional string event_id = 1;
+}
+
+message DeleteEventResponse {}
+
+message DeleteEventErrorResponse {
+  enum ErrorType {
+    NOT_FOUND = 0;
+    // NO_CURRENT_EVENT sent if no event_id is provided and there is no current event.
+    NO_CURRENT_EVENT = 1;
+  }
+  ErrorType error_type = 1;
+}
+
+message ListEventsRequest {}
+
+message ListEventsResponse {
+  repeated model.party.EventData events = 1;
+}
+
