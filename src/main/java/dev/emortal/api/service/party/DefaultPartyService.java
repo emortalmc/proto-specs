@@ -1,10 +1,14 @@
 package dev.emortal.api.service.party;
 
+import dev.emortal.api.grpc.party.EventServiceGrpc;
 import dev.emortal.api.grpc.party.PartyProto;
 import dev.emortal.api.grpc.party.PartyServiceGrpc;
 import dev.emortal.api.model.common.Pageable;
+import dev.emortal.api.model.common.PlayerSkin;
+import dev.emortal.api.model.party.EventData;
 import dev.emortal.api.model.party.Party;
 import dev.emortal.api.model.party.PartyInvite;
+import dev.emortal.api.utils.ProtoTimestampConverter;
 import dev.emortal.api.utils.internal.GrpcErrorHelper;
 import io.grpc.Channel;
 import io.grpc.Status;
@@ -13,6 +17,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,11 +27,13 @@ import java.util.UUID;
 @ApiStatus.Internal
 public final class DefaultPartyService implements PartyService {
 
-    private final PartyServiceGrpc.PartyServiceBlockingStub grpc;
+    private final PartyServiceGrpc.PartyServiceBlockingStub partyGrpc;
+    private final EventServiceGrpc.EventServiceBlockingStub eventGrpc;
 
     @ApiStatus.Internal
     public DefaultPartyService(@NotNull Channel channel) {
-        this.grpc = PartyServiceGrpc.newBlockingStub(channel);
+        this.partyGrpc = PartyServiceGrpc.newBlockingStub(channel);
+        this.eventGrpc = EventServiceGrpc.newBlockingStub(channel);
     }
 
     @Override
@@ -44,7 +51,7 @@ public final class DefaultPartyService implements PartyService {
     private @Nullable Party getParty(@NotNull PartyProto.GetPartyRequest request) {
         PartyProto.GetPartyResponse response;
         try {
-            response = this.grpc.getParty(request);
+            response = this.partyGrpc.getParty(request);
         } catch (StatusRuntimeException exception) {
             if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return null;
             throw exception;
@@ -67,11 +74,12 @@ public final class DefaultPartyService implements PartyService {
 
     private @NotNull ModifyPartyResult emptyParty(@NotNull PartyProto.EmptyPartyRequest request) {
         try {
-            this.grpc.emptyParty(request);
+            this.partyGrpc.emptyParty(request);
             return ModifyPartyResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.EmptyPartyErrorResponse.class);
-            if (error.getErrorType() == PartyProto.EmptyPartyErrorResponse.ErrorType.NOT_LEADER) return ModifyPartyResult.NOT_LEADER;
+            if (error.getErrorType() == PartyProto.EmptyPartyErrorResponse.ErrorType.NOT_LEADER)
+                return ModifyPartyResult.NOT_LEADER;
             throw exception;
         }
     }
@@ -84,11 +92,12 @@ public final class DefaultPartyService implements PartyService {
                 .build();
 
         try {
-            this.grpc.setOpenParty(request);
+            this.partyGrpc.setOpenParty(request);
             return ModifyPartyResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.SetOpenPartyErrorResponse.class);
-            if (error.getErrorType() == PartyProto.SetOpenPartyErrorResponse.ErrorType.NOT_LEADER) return ModifyPartyResult.NOT_LEADER;
+            if (error.getErrorType() == PartyProto.SetOpenPartyErrorResponse.ErrorType.NOT_LEADER)
+                return ModifyPartyResult.NOT_LEADER;
             throw exception;
         }
     }
@@ -114,7 +123,7 @@ public final class DefaultPartyService implements PartyService {
     private @NotNull List<PartyInvite> getInvites(@NotNull PartyProto.GetPartyInvitesRequest request) {
         PartyProto.GetPartyInvitesResponse response;
         try {
-            response = this.grpc.getPartyInvites(request);
+            response = this.partyGrpc.getPartyInvites(request);
         } catch (StatusRuntimeException exception) {
             if (exception.getStatus().getCode() == Status.Code.NOT_FOUND) return List.of();
             throw exception;
@@ -135,7 +144,7 @@ public final class DefaultPartyService implements PartyService {
 
         PartyProto.InvitePlayerResponse response;
         try {
-            response = this.grpc.invitePlayer(request);
+            response = this.partyGrpc.invitePlayer(request);
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.InvitePlayerErrorResponse.class);
 
@@ -160,7 +169,7 @@ public final class DefaultPartyService implements PartyService {
 
         PartyProto.JoinPartyResponse response;
         try {
-            response = this.grpc.joinParty(request);
+            response = this.partyGrpc.joinParty(request);
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.JoinPartyErrorResponse.class);
 
@@ -179,7 +188,7 @@ public final class DefaultPartyService implements PartyService {
         var request = PartyProto.LeavePartyRequest.newBuilder().setPlayerId(leaverId.toString()).build();
 
         try {
-            this.grpc.leaveParty(request);
+            this.partyGrpc.leaveParty(request);
             return LeavePartyResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.LeavePartyErrorResponse.class);
@@ -200,7 +209,7 @@ public final class DefaultPartyService implements PartyService {
                 .build();
 
         try {
-            this.grpc.kickPlayer(request);
+            this.partyGrpc.kickPlayer(request);
             return KickPlayerFromPartyResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.KickPlayerErrorResponse.class);
@@ -223,7 +232,7 @@ public final class DefaultPartyService implements PartyService {
                 .build();
 
         try {
-            this.grpc.setPartyLeader(request);
+            this.partyGrpc.setPartyLeader(request);
             return SetPartyLeaderResult.SUCCESS;
         } catch (StatusRuntimeException exception) {
             var error = GrpcErrorHelper.unpackError(exception, PartyProto.SetPartyLeaderErrorResponse.class);
@@ -234,5 +243,54 @@ public final class DefaultPartyService implements PartyService {
                 case UNRECOGNIZED -> throw exception;
             };
         }
+    }
+
+    @Override
+    public @NotNull EventData createEvent(@NotNull String id, @NotNull UUID ownerId, @NotNull String ownerUsername,
+                                          @NotNull PlayerSkin skin, @Nullable Instant displayTime, @Nullable Instant startTime) {
+
+        var requestBuilder = PartyProto.CreateEventRequest.newBuilder()
+                .setEventId(id)
+                .setOwnerId(ownerId.toString())
+                .setOwnerUsername(ownerUsername)
+                .setOwnerSkin(skin);
+        if (displayTime != null) requestBuilder.setDisplayTime(ProtoTimestampConverter.toProto(displayTime));
+        if (startTime != null) requestBuilder.setStartTime(ProtoTimestampConverter.toProto(startTime));
+
+        var request = requestBuilder.build();
+
+        PartyProto.CreateEventResponse response = this.eventGrpc.createEvent(request);
+        return response.getEvent();
+    }
+
+    @Override
+    public @NotNull EventData updateEvent(@NotNull String id, @Nullable Instant showTime, @Nullable Instant startTime) {
+        var requestBuilder = PartyProto.UpdateEventRequest.newBuilder().setEventId(id);
+        if (showTime != null) requestBuilder.setDisplayTime(ProtoTimestampConverter.toProto(showTime));
+        if (startTime != null) requestBuilder.setStartTime(ProtoTimestampConverter.toProto(startTime));
+
+        var request = requestBuilder.build();
+
+        PartyProto.UpdateEventResponse response = this.eventGrpc.updateEvent(request);
+        return response.getEvent();
+    }
+
+    @Override
+    public DeleteEventResult deleteEvent(@Nullable String id) {
+        var request = PartyProto.DeleteEventRequest.newBuilder().setEventId(id).build();
+
+        try {
+            this.eventGrpc.deleteEvent(request);
+        } catch (StatusRuntimeException exception) {
+            var error = GrpcErrorHelper.unpackError(exception, PartyProto.DeleteEventErrorResponse.class);
+
+            return switch (error.getErrorType()) {
+                case NOT_FOUND -> DeleteEventResult.NOT_FOUND;
+                case NO_CURRENT_EVENT -> DeleteEventResult.NO_CURRENT_EVENT;
+                case UNRECOGNIZED -> throw exception;
+            };
+        }
+
+        return DeleteEventResult.SUCCESS;
     }
 }

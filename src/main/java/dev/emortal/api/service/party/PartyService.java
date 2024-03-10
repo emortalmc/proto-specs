@@ -1,12 +1,15 @@
 package dev.emortal.api.service.party;
 
 import dev.emortal.api.model.common.Pageable;
+import dev.emortal.api.model.common.PlayerSkin;
+import dev.emortal.api.model.party.EventData;
 import dev.emortal.api.model.party.Party;
 import dev.emortal.api.model.party.PartyInvite;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,4 +48,16 @@ public interface PartyService {
     @NotNull KickPlayerFromPartyResult kickPlayer(@NotNull UUID kickerId, @NotNull String kickerName, @NotNull UUID targetId);
 
     @NotNull SetPartyLeaderResult setPartyLeader(@NotNull UUID requesterId, @NotNull String requesterName, @NotNull UUID newLeaderId);
+
+    @NotNull EventData createEvent(@NotNull String id, @NotNull UUID ownerId, @NotNull String ownerUsername, @NotNull PlayerSkin skin,
+                                   @Nullable Instant showTime, @Nullable Instant startTime);
+
+    @NotNull EventData updateEvent(@NotNull String id, @Nullable Instant showTime, @Nullable Instant startTime);
+
+    /**
+     * Deletes an event by its id or if the id is null, deletes the current ongoing event.
+     *
+     * @param id the id of the event.
+     */
+    DeleteEventResult deleteEvent(@Nullable String id);
 }
