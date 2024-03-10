@@ -276,6 +276,12 @@ public final class DefaultPartyService implements PartyService {
     }
 
     @Override
+    public @NotNull List<EventData> listEvents() {
+        PartyProto.ListEventsResponse response = this.eventGrpc.listEvents(PartyProto.ListEventsRequest.getDefaultInstance());
+        return response.getEventsList();
+    }
+
+    @Override
     public DeleteEventResult deleteEvent(@Nullable String id) {
         var request = PartyProto.DeleteEventRequest.newBuilder().setEventId(id).build();
 

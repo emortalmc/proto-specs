@@ -54,6 +54,8 @@ public interface PartyService {
 
     @NotNull EventData updateEvent(@NotNull String id, @Nullable Instant showTime, @Nullable Instant startTime);
 
+    @NotNull List<EventData> listEvents();
+
     /**
      * Deletes an event by its id or if the id is null, deletes the current ongoing event.
      *
