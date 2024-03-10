@@ -142,7 +142,7 @@ message JoinPartyResponse {
 
 message JoinPartyErrorResponse {
   enum ErrorType {
-    ALREADY_IN_PARTY = 0;
+    ALREADY_IN_SAME_PARTY = 0;
     NOT_INVITED = 1;
   }
   ErrorType error_type = 1;
@@ -157,9 +157,7 @@ message LeavePartyResponse {}
 
 message LeavePartyErrorResponse {
   enum ErrorType {
-    // CANNOT_LEAVE_AS_LEADER you cannot leave if you are the leader of the party.
-    // If done by a user, suggest that they empty the party instead or set a new leader.
-    CANNOT_LEAVE_AS_LEADER = 0;
+    CANNOT_LEAVE_ONLY_MEMBER = 0;
   }
   ErrorType error_type = 1;
 }
