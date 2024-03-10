@@ -60,15 +60,14 @@ message EventData {
   // id of type ObjectId
   string id = 1;
 
-
   // owner_id of type UUID
   string owner_id = 2;
   string owner_username = 3;
   model.PlayerSkin owner_skin = 4;
 
   // display_time the time the event will appear in UIs/in game.
-  google.protobuf.Timestamp display_time = 5;
-  google.protobuf.Timestamp start_time = 6;
+  optional google.protobuf.Timestamp display_time = 5;
+  optional google.protobuf.Timestamp start_time = 6;
 }
 
 message LiveEvent {
