@@ -133,7 +133,7 @@ public final class ProtoParserRegistry {
         // Party - Events
         register(EventDisplayMessage.getDefaultInstance(), EventDisplayMessage::parseFrom, "event-manager");
         register(EventStartMessage.getDefaultInstance(), EventStartMessage::parseFrom, "event-manager");
-        register(EventDeleteMessage.getDefaultInstance(), EventEndMessage::parseFrom, "event-manager");
+        register(EventDeleteMessage.getDefaultInstance(), EventDeleteMessage::parseFrom, "event-manager");
 
         // Permission
         register(RoleUpdateMessage.getDefaultInstance(), RoleUpdateMessage::parseFrom, "permission-manager");

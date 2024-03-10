@@ -247,13 +247,6 @@ message CreateEventResponse {
   model.party.EventData event = 1;
 }
 
-message CreateEventErrorResponse {
-  enum ErrorType {
-    ALREADY_EXISTS = 0;
-  }
-  ErrorType error_type = 1;
-}
-
 message UpdateEventRequest {
   string event_id = 1;
 
