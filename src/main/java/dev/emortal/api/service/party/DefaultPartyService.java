@@ -283,7 +283,9 @@ public final class DefaultPartyService implements PartyService {
 
     @Override
     public DeleteEventResult deleteEvent(@Nullable String id) {
-        var request = PartyProto.DeleteEventRequest.newBuilder().setEventId(id).build();
+        var requestBuilder = PartyProto.DeleteEventRequest.newBuilder();
+        if (id != null) requestBuilder.setEventId(id);
+        var request = requestBuilder.build();
 
         try {
             this.eventGrpc.deleteEvent(request);
