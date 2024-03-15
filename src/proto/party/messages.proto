@@ -79,14 +79,12 @@ message EventDisplayMessage {
 }
 
 message EventStartMessage {
-  model.party.LiveEvent event = 1;
+  model.party.EventData event = 1;
 }
 
 // EventDeleteMessage this may be an event ending or being deleted
 // this should trigger the event stopping and also to opposite of the EventDisplayMessage
+// to determine if the event was 'live', check if party_id is empty
 message EventDeleteMessage {
-  oneof event {
-    model.party.EventData upcoming_event = 1;
-    model.party.LiveEvent live_event = 2;
-  }
+  model.party.EventData event = 1;
 }

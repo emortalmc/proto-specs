@@ -1,4 +1,5 @@
 import com.google.protobuf.gradle.*
+import org.apache.tools.ant.taskdefs.Java
 
 plugins {
     `java-library`
@@ -70,7 +71,12 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
+
+    withSourcesJar()
 }
+
+tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+
 
 tasks.test {
     useJUnitPlatform()

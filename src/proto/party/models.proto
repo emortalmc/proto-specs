@@ -68,11 +68,7 @@ message EventData {
   // display_time the time the event will appear in UIs/in game.
   optional google.protobuf.Timestamp display_time = 5;
   optional google.protobuf.Timestamp start_time = 6;
-}
 
-message LiveEvent {
-  EventData data = 1;
-
-  // party_id of type ObjectId
-  string party_id = 2;
+  // party_id of type ObjectId, only present if the party is live
+  optional string party_id = 7;
 }
