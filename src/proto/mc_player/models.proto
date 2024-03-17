@@ -28,6 +28,9 @@ message McPlayer {
   optional CurrentServer current_server = 8;
 
   optional model.PlayerSkin current_skin = 9;
+
+  uint32 level = 10;
+  uint64 experience = 11;
 }
 
 message LoginSession {

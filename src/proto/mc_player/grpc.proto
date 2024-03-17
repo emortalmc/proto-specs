@@ -17,6 +17,9 @@ service McPlayer {
 
   rpc GetStatTotalUniquePlayers(GetStatTotalUniquePlayersRequest) returns (GetStatTotalUniquePlayersResponse) {}
   rpc GetStatTotalPlaytime(GetStatTotalPlaytimeRequest) returns (GetStatTotalPlaytimeResponse) {}
+
+  rpc AddExperienceToPlayers(AddExperienceToPlayersRequest) returns (AddExperienceToPlayersResponse) {}
+  rpc GetPlayerExperience(GetPlayerExperienceRequest) returns (GetPlayerExperienceResponse) {}
 }
 
 service PlayerTracker {
@@ -160,3 +163,20 @@ message GetGlobalPlayersSummaryResponse {
   repeated model.OnlinePlayer players = 1;
 }
 
+message AddExperienceToPlayersRequest {
+  // player_ids of type UUID
+  repeated string player_ids = 1;
+
+  uint64 experience = 2;
+}
+
+message AddExperienceToPlayersResponse {}
+
+message GetPlayerExperienceRequest {
+  string player_id = 1;
+}
+
+message GetPlayerExperienceResponse {
+  uint32 level = 1;
+  uint64 experience = 2;
+}
