@@ -170,9 +170,13 @@ message AddExperienceToPlayersRequest {
   uint64 experience = 2;
 }
 
-message AddExperienceToPlayersResponse {}
+message AddExperienceToPlayersResponse {
+  uint32 level = 1;
+  uint64 experience = 2;
+}
 
 message GetPlayerExperienceRequest {
+  // player_id of type UUID
   string player_id = 1;
 }
 
