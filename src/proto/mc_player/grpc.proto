@@ -171,8 +171,7 @@ message AddExperienceToPlayersRequest {
 }
 
 message AddExperienceToPlayersResponse {
-  uint32 level = 1;
-  uint64 experience = 2;
+  uint64 experience = 1;
 }
 
 message GetPlayerExperienceRequest {
@@ -181,6 +180,5 @@ message GetPlayerExperienceRequest {
 }
 
 message GetPlayerExperienceResponse {
-  uint32 level = 1;
-  uint64 experience = 2;
+  uint64 experience = 1;
 }
