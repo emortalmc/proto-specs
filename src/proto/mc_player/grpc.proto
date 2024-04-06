@@ -172,6 +172,9 @@ message AddExperienceToPlayersRequest {
 
 message AddExperienceToPlayersResponse {
   uint64 experience = 1;
+
+  // reason, friendly formatted e.g: "Playtime", "Vote Reward", "Achievement: Do Something IV"
+  string reason = 2;
 }
 
 message GetPlayerExperienceRequest {
