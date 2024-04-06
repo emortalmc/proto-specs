@@ -29,8 +29,7 @@ message McPlayer {
 
   optional model.PlayerSkin current_skin = 9;
 
-  uint32 level = 10;
-  uint64 experience = 11;
+  uint64 experience = 10;
 }
 
 message LoginSession {

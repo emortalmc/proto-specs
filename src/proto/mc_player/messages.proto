@@ -5,21 +5,13 @@ option java_package = "dev.emortal.api.model.mcplayer";
 option java_multiple_files = true;
 option go_package = "github.com/emortalmc/proto-specs/gen/go/model/mcplayer";
 
-message PlayerLevelUpMessage {
-  // player_id of type UUID
-  string player_id = 1;
-
-  int32 previous_level = 2;
-  int32 new_level = 3;
-
-  // experience is the XP they are into the current level - NOT total
-  int32 experience = 4;
-}
-
-message PlayerExperienceMessage {
+message PlayerExperienceChangeMessage {
   // player_id of type UUID
   string player_id = 1;
 
   int32 previous_experience = 2;
   int32 new_experience = 3;
+
+  int32 previous_level = 4;
+  int32 new_level = 5;
 }
