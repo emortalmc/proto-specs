@@ -11,8 +11,8 @@ message PlayerExperienceChangeMessage {
 
   string reason = 2;
 
-  int32 previous_experience = 3;
-  int32 new_experience = 4;
+  int64 previous_experience = 3;
+  int64 new_experience = 4;
 
   int32 previous_level = 5;
   int32 new_level = 6;
