@@ -174,7 +174,8 @@ message AddExperienceToPlayersRequest {
 }
 
 message AddExperienceToPlayersResponse {
-  uint64 experience = 1;
+  // experience is a map<player_id, experience> where player_id is of type UUID
+  map<string, uint64> experience = 1;
 }
 
 message GetPlayerExperienceRequest {
