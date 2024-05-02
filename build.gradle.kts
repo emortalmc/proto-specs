@@ -1,5 +1,4 @@
 import com.google.protobuf.gradle.*
-import org.apache.tools.ant.taskdefs.Java
 
 plugins {
     `java-library`
@@ -12,8 +11,8 @@ plugins {
 group = "dev.emortal.api"
 version = "1.0"
 
-val grpcVersion = "1.58.0"
-val protobufVersion = "3.24.3"
+val grpcVersion = "1.63.0"
+val protobufVersion = "4.26.1"
 val protocVersion = protobufVersion
 
 repositories {
@@ -24,14 +23,14 @@ repositories {
 
 dependencies {
     api("com.google.protobuf:protobuf-java:$protobufVersion")
-    api("org.apache.tomcat:tomcat-annotations-api:10.1.13")
-    api("org.slf4j:slf4j-api:2.0.9")
+    api("org.apache.tomcat:tomcat-annotations-api:10.1.23")
+    api("org.slf4j:slf4j-api:2.0.13")
 
-    implementation("io.micrometer:micrometer-core:1.11.4")
-    implementation("org.apache.kafka:kafka-clients:7.4.0-ccs")
+    implementation("io.micrometer:micrometer-core:1.12.5")
+    implementation("org.apache.kafka:kafka-clients:7.6.0-ccs")
 
-    compileOnly("org.jetbrains:annotations:24.0.1")
-    annotationProcessor("org.jetbrains:annotations:24.0.1")
+    compileOnly("org.jetbrains:annotations:24.1.0")
+    annotationProcessor("org.jetbrains:annotations:24.1.0")
 
     // Protobuf uses @javax.annotation.Generated on generated types, and sometimes this isn't available.
     // This make sure it's always available
@@ -43,10 +42,10 @@ dependencies {
     api("io.grpc:grpc-stub:$grpcVersion")
     api("io.grpc:grpc-protobuf:$grpcVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.9")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.13")
 }
 
 protobuf {
@@ -75,11 +74,11 @@ java {
     withSourcesJar()
 }
 
-tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-
-
-tasks.test {
-    useJUnitPlatform()
+tasks {
+    withType<Jar> { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+    test {
+        useJUnitPlatform()
+    }
 }
 
 publishing {
