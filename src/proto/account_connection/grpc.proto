@@ -1,13 +1,13 @@
 syntax = "proto3";
-package emortal.grpc.account_conn_manager;
+package emortal.grpc.account_connection;
 
-option java_package = "dev.emortal.api.grpc.accountconnmanager";
-option java_outer_classname = "AccountConnManagerProto";
-option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/accountconnmanager";
+option java_package = "dev.emortal.api.grpc.accountconnection";
+option java_outer_classname = "AccountConnectionProto";
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/accountconnection";
 
-import "account_conn_manager/models.proto";
+import "account_connection/models.proto";
 
-service AccountConnectionManager {
+service AccountConnection {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc CreateOAuthLink(CreateOAuthLinkRequest) returns (CreateOAuthLinkResponse);
 }
@@ -21,7 +21,7 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-  model.account_conn_manager.ConnectionUser user = 1;
+  model.account_connection.ConnectionUser user = 1;
 }
 
 // CreateOAuthLinkRequest requests an OAuth URL to link an account to another.
@@ -32,7 +32,7 @@ message CreateOAuthLinkRequest {
     int64 source_github_id = 3;
   }
 
-  model.account_conn_manager.ConnectionType target_connection = 4;
+  model.account_connection.ConnectionType target_connection = 4;
 }
 
 message CreateOAuthLinkResponse {
@@ -45,5 +45,6 @@ message CreateOAuthLinkErrorResponse {
     // CONNECTION_ALREADY_EXISTS note this is only that this user already has this connection, we don't know the target conn ID yet.
     CONNECTION_ALREADY_EXISTS = 1;
   }
-}
 
+  Reason reason = 1;
+}

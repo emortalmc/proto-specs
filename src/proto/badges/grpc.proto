@@ -2,12 +2,15 @@ syntax = "proto3";
 package emortal.grpc.badge;
 
 option java_package = "dev.emortal.api.grpc.badge";
-option java_outer_classname = "BadgeManagerProto";
+option java_outer_classname = "BadgeManagerProto"; // TODO: Update this to "BadgeProto"
 option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/badge";
 
 import "badges/models.proto";
 
+// TODO: Rename this to just "Badge" and update corresponding code
 service BadgeManager {
+  // GetBadges gets all the registered badges
+  rpc GetBadges(GetBadgesRequest) returns (GetBadgesResponse) {}
   rpc GetPlayerBadges(GetPlayerBadgesRequest) returns (GetPlayerBadgesResponse) {}
 
   rpc GetActivePlayerBadge(GetActivePlayerBadgeRequest) returns (GetActivePlayerBadgeResponse) {}
@@ -15,9 +18,12 @@ service BadgeManager {
 
   rpc AddBadgeToPlayer(AddBadgeToPlayerRequest) returns (AddBadgeToPlayerResponse) {}
   rpc RemoveBadgeFromPlayer(RemoveBadgeFromPlayerRequest) returns (RemoveBadgeFromPlayerResponse) {}
+}
 
-  // GetBadges gets all the registered badges
-  rpc GetBadges(GetBadgesRequest) returns (GetBadgesResponse) {}
+message GetBadgesRequest {}
+
+message GetBadgesResponse {
+  repeated model.badge.Badge badges = 1;
 }
 
 message GetPlayerBadgesRequest {
@@ -30,6 +36,15 @@ message GetPlayerBadgesResponse {
 
   // active_badge_id only exists if the player has an active badge
   optional string active_badge_id = 2;
+}
+
+message GetActivePlayerBadgeRequest {
+  // player_id of type UUID
+  string player_id = 1;
+}
+
+message GetActivePlayerBadgeResponse {
+  model.badge.Badge badge = 1;
 }
 
 message SetActivePlayerBadgeRequest {
@@ -46,15 +61,6 @@ message SetActivePlayerBadgeErrorResponse {
   }
 
   Reason reason = 1;
-}
-
-message GetActivePlayerBadgeRequest {
-  // player_id of type UUID
-  string player_id = 1;
-}
-
-message GetActivePlayerBadgeResponse {
-  model.badge.Badge badge = 1;
 }
 
 message AddBadgeToPlayerRequest {
@@ -87,10 +93,4 @@ message RemoveBadgeFromPlayerErrorResponse {
   }
 
   Reason reason = 1;
-}
-
-message GetBadgesRequest {}
-
-message GetBadgesResponse {
-  repeated model.badge.Badge badges = 1;
 }
