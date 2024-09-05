@@ -11,6 +11,7 @@ import "game_player_data/models.proto";
 
 service GamePlayerDataService {
   rpc GetGamePlayerData(GetGamePlayerDataRequest) returns (GetGamePlayerDataResponse);
+  rpc GetMultipleGamePlayerData(GetMultipleGamePlayerDataRequest) returns (GetMultipleGamePlayerDataResponse);
 }
 
 message GetGamePlayerDataRequest {
@@ -21,4 +22,13 @@ message GetGamePlayerDataRequest {
 message GetGamePlayerDataResponse {
   // Generic data to be coerced into a specific type
   google.protobuf.Any data = 1;
+}
+
+message GetMultipleGamePlayerDataRequest {
+  repeated string player_ids = 1;
+  model.gameplayerdata.GameDataGameMode game_mode = 2;
+}
+
+message GetMultipleGamePlayerDataResponse {
+  map<string, google.protobuf.Any> data = 1;
 }

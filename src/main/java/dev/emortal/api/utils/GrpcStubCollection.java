@@ -5,6 +5,8 @@ import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
 import dev.emortal.api.grpc.party.PartySettingsServiceGrpc;
 import dev.emortal.api.service.badges.BadgeService;
 import dev.emortal.api.service.badges.DefaultBadgeService;
+import dev.emortal.api.service.gameplayerdata.DefaultGamePlayerDataService;
+import dev.emortal.api.service.gameplayerdata.GamePlayerDataService;
 import dev.emortal.api.service.matchmaker.DefaultMatchmakerService;
 import dev.emortal.api.service.matchmaker.MatchmakerService;
 import dev.emortal.api.service.mcplayer.DefaultMcPlayerService;
@@ -60,7 +62,7 @@ public final class GrpcStubCollection {
     private static final @NotNull Optional<PartySettingsServiceGrpc.PartySettingsServiceBlockingStub> partySettingsService;
     private static final @NotNull Optional<MatchmakerService> matchmakerService;
     private static final @NotNull Optional<AccountConnectionManagerGrpc.AccountConnectionManagerBlockingStub> accountConnectionManagerService;
-    private static final @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> gamePlayerDataService;
+    private static final @NotNull Optional<GamePlayerDataService> gamePlayerDataService;
 
     static {
         permissionService = createChannel("permission").map(DefaultPermissionService::new);
@@ -73,7 +75,8 @@ public final class GrpcStubCollection {
         partySettingsService = createChannel("party-manager").map(PartySettingsServiceGrpc::newBlockingStub);
         matchmakerService = createChannel("matchmaker").map(DefaultMatchmakerService::new);
         accountConnectionManagerService = createChannel("account-connection-manager").map(AccountConnectionManagerGrpc::newBlockingStub);
-        gamePlayerDataService = createChannel("game-player-data").map(GamePlayerDataServiceGrpc::newBlockingStub);
+        gamePlayerDataService = createChannel("game-player-data").map(DefaultGamePlayerDataService::new);
+
     }
 
     public static @NotNull Optional<PermissionService> getPermissionService() {
@@ -116,7 +119,7 @@ public final class GrpcStubCollection {
         return accountConnectionManagerService;
     }
 
-    public static @NotNull Optional<GamePlayerDataServiceGrpc.GamePlayerDataServiceBlockingStub> getGamePlayerDataService() {
+    public static @NotNull Optional<GamePlayerDataService> getGamePlayerDataService() {
         return gamePlayerDataService;
     }
 
