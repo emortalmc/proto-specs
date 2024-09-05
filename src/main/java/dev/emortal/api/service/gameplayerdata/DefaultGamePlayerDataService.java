@@ -1,5 +1,6 @@
 package dev.emortal.api.service.gameplayerdata;
 
+import com.google.protobuf.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataProto;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -54,16 +56,22 @@ public class DefaultGamePlayerDataService implements GamePlayerDataService {
                 .addAllPlayerIds(StreamSupport.stream(playerIds.spliterator(), false).map(UUID::toString).toList()).build();
 
         GamePlayerDataProto.GetMultipleGamePlayerDataResponse response = this.grpc.getMultipleGamePlayerData(request);
+        Map<String, Any> responseMap = response.getDataMap();
 
-        return response.getDataMap().entrySet().stream()
-                .collect(Collectors.toMap(entry -> UUID.fromString(entry.getKey()), entry -> {
-                    try {
-                        return entry.getValue().unpack(clazz);
-                    } catch (InvalidProtocolBufferException e) {
-                        LOGGER.error("Error unpacking game data for type {}: {}", e, clazz.getSimpleName());
-                        return null;
-                    }
-                }));
+        Map<UUID, @Nullable T> returnMap = new HashMap<>();
+        for (UUID playerId : playerIds) {
+            returnMap.put(playerId, null);
+        }
+
+        for (Map.Entry<String, Any> entry : responseMap.entrySet()) {
+            try {
+                returnMap.put(UUID.fromString(entry.getKey()), entry.getValue().unpack(clazz));
+            } catch (InvalidProtocolBufferException e) {
+                LOGGER.error("Error unpacking game data for type {}: ", clazz.getSimpleName(), e);
+            }
+        }
+
+        return returnMap;
     }
 }
 
