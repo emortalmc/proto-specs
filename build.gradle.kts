@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     api("com.google.protobuf:protobuf-java:$protobufVersion")
+    api("com.google.protobuf:protobuf-java-util:$protobufVersion")
     api("org.apache.tomcat:tomcat-annotations-api:10.1.23")
     api("org.slf4j:slf4j-api:2.0.13")
 
