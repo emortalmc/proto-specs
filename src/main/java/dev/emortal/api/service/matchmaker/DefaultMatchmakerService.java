@@ -100,8 +100,9 @@ public final class DefaultMatchmakerService implements MatchmakerService {
     }
 
     @Override
-    public void queueInitialLobby(@NotNull UUID playerId) {
-        var request = MatchmakerProto.LoginQueueByPlayerRequest.newBuilder().setPlayerId(playerId.toString()).build();
+    public void loginQueue(@NotNull UUID playerId, boolean proxy) {
+        var request = MatchmakerProto.LoginQueueByPlayerRequest.newBuilder().setPlayerId(playerId.toString())
+                .setIsProxy(proxy).build();
         this.grpc.loginQueueByPlayer(request);
     }
 

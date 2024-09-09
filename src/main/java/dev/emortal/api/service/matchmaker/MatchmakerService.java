@@ -33,7 +33,7 @@ public interface MatchmakerService {
 
     void sendPlayersToLobby(@NotNull Collection<UUID> playerIds, boolean sendParties);
 
-    void queueInitialLobby(@NotNull UUID playerId);
+    void loginQueue(@NotNull UUID playerId, boolean proxy);
 
     @NotNull ChangeMapVoteResult changeMapVote(@NotNull UUID playerId, @NotNull String newMapId);
 }
