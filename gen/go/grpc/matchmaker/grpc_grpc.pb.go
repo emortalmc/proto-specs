@@ -27,11 +27,11 @@ type MatchmakerClient interface {
 	// This is used alternatively to QueueByPlayer as lobby must be handled differently
 	// e.g. you must be able to go to the lobby when in queue for another game mode.
 	SendPlayersToLobby(ctx context.Context, in *SendPlayerToLobbyRequest, opts ...grpc.CallOption) (*SendPlayerToLobbyResponse, error)
-	// QueueInitialLobbyByPlayer is used to queue a player for a lobby match before they've technically joined the server.
-	// This is used by the proxy as the player doesn't yet have a party.
+	// QueueInitialLobbyByPlayer is used to queue a player for a proxy/lobby match before they've technically joined the server.
+	// This is used by the edge and proxy as the player doesn't yet have a party.
 	// Note this method does much less validation and error handling than QueueByPlayer due to its intended use case.
 	// This method will create a ticket with auto_teleport as false and default to the 'lobby' game mode.
-	QueueInitialLobbyByPlayer(ctx context.Context, in *QueueInitialLobbyByPlayerRequest, opts ...grpc.CallOption) (*QueueInitialLobbyByPlayerResponse, error)
+	LoginQueueByPlayer(ctx context.Context, in *LoginQueueByPlayerRequest, opts ...grpc.CallOption) (*LoginQueueByPlayerResponse, error)
 	DequeueByPlayer(ctx context.Context, in *DequeueByPlayerRequest, opts ...grpc.CallOption) (*DequeueByPlayerResponse, error)
 	ChangePlayerMapVote(ctx context.Context, in *ChangePlayerMapVoteRequest, opts ...grpc.CallOption) (*ChangePlayerMapVoteResponse, error)
 	GetPlayerQueueInfo(ctx context.Context, in *GetPlayerQueueInfoRequest, opts ...grpc.CallOption) (*GetPlayerQueueInfoResponse, error)
@@ -63,9 +63,9 @@ func (c *matchmakerClient) SendPlayersToLobby(ctx context.Context, in *SendPlaye
 	return out, nil
 }
 
-func (c *matchmakerClient) QueueInitialLobbyByPlayer(ctx context.Context, in *QueueInitialLobbyByPlayerRequest, opts ...grpc.CallOption) (*QueueInitialLobbyByPlayerResponse, error) {
-	out := new(QueueInitialLobbyByPlayerResponse)
-	err := c.cc.Invoke(ctx, "/emortal.kurushimi.grpc.Matchmaker/QueueInitialLobbyByPlayer", in, out, opts...)
+func (c *matchmakerClient) LoginQueueByPlayer(ctx context.Context, in *LoginQueueByPlayerRequest, opts ...grpc.CallOption) (*LoginQueueByPlayerResponse, error) {
+	out := new(LoginQueueByPlayerResponse)
+	err := c.cc.Invoke(ctx, "/emortal.kurushimi.grpc.Matchmaker/LoginQueueByPlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,11 +108,11 @@ type MatchmakerServer interface {
 	// This is used alternatively to QueueByPlayer as lobby must be handled differently
 	// e.g. you must be able to go to the lobby when in queue for another game mode.
 	SendPlayersToLobby(context.Context, *SendPlayerToLobbyRequest) (*SendPlayerToLobbyResponse, error)
-	// QueueInitialLobbyByPlayer is used to queue a player for a lobby match before they've technically joined the server.
-	// This is used by the proxy as the player doesn't yet have a party.
+	// QueueInitialLobbyByPlayer is used to queue a player for a proxy/lobby match before they've technically joined the server.
+	// This is used by the edge and proxy as the player doesn't yet have a party.
 	// Note this method does much less validation and error handling than QueueByPlayer due to its intended use case.
 	// This method will create a ticket with auto_teleport as false and default to the 'lobby' game mode.
-	QueueInitialLobbyByPlayer(context.Context, *QueueInitialLobbyByPlayerRequest) (*QueueInitialLobbyByPlayerResponse, error)
+	LoginQueueByPlayer(context.Context, *LoginQueueByPlayerRequest) (*LoginQueueByPlayerResponse, error)
 	DequeueByPlayer(context.Context, *DequeueByPlayerRequest) (*DequeueByPlayerResponse, error)
 	ChangePlayerMapVote(context.Context, *ChangePlayerMapVoteRequest) (*ChangePlayerMapVoteResponse, error)
 	GetPlayerQueueInfo(context.Context, *GetPlayerQueueInfoRequest) (*GetPlayerQueueInfoResponse, error)
@@ -129,8 +129,8 @@ func (UnimplementedMatchmakerServer) QueueByPlayer(context.Context, *QueueByPlay
 func (UnimplementedMatchmakerServer) SendPlayersToLobby(context.Context, *SendPlayerToLobbyRequest) (*SendPlayerToLobbyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendPlayersToLobby not implemented")
 }
-func (UnimplementedMatchmakerServer) QueueInitialLobbyByPlayer(context.Context, *QueueInitialLobbyByPlayerRequest) (*QueueInitialLobbyByPlayerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QueueInitialLobbyByPlayer not implemented")
+func (UnimplementedMatchmakerServer) LoginQueueByPlayer(context.Context, *LoginQueueByPlayerRequest) (*LoginQueueByPlayerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginQueueByPlayer not implemented")
 }
 func (UnimplementedMatchmakerServer) DequeueByPlayer(context.Context, *DequeueByPlayerRequest) (*DequeueByPlayerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DequeueByPlayer not implemented")
@@ -190,20 +190,20 @@ func _Matchmaker_SendPlayersToLobby_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Matchmaker_QueueInitialLobbyByPlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueueInitialLobbyByPlayerRequest)
+func _Matchmaker_LoginQueueByPlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginQueueByPlayerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MatchmakerServer).QueueInitialLobbyByPlayer(ctx, in)
+		return srv.(MatchmakerServer).LoginQueueByPlayer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/emortal.kurushimi.grpc.Matchmaker/QueueInitialLobbyByPlayer",
+		FullMethod: "/emortal.kurushimi.grpc.Matchmaker/LoginQueueByPlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MatchmakerServer).QueueInitialLobbyByPlayer(ctx, req.(*QueueInitialLobbyByPlayerRequest))
+		return srv.(MatchmakerServer).LoginQueueByPlayer(ctx, req.(*LoginQueueByPlayerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -278,8 +278,8 @@ var Matchmaker_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Matchmaker_SendPlayersToLobby_Handler,
 		},
 		{
-			MethodName: "QueueInitialLobbyByPlayer",
-			Handler:    _Matchmaker_QueueInitialLobbyByPlayer_Handler,
+			MethodName: "LoginQueueByPlayer",
+			Handler:    _Matchmaker_LoginQueueByPlayer_Handler,
 		},
 		{
 			MethodName: "DequeueByPlayer",
