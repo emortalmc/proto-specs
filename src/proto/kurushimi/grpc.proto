@@ -15,11 +15,11 @@ service Matchmaker {
   // e.g. you must be able to go to the lobby when in queue for another game mode.
   rpc SendPlayersToLobby(SendPlayerToLobbyRequest) returns (SendPlayerToLobbyResponse) {}
 
-  // QueueInitialLobbyByPlayer is used to queue a player for a lobby match before they've technically joined the server.
-  // This is used by the proxy as the player doesn't yet have a party.
+  // QueueInitialLobbyByPlayer is used to queue a player for a proxy/lobby match before they've technically joined the server.
+  // This is used by the edge and proxy as the player doesn't yet have a party.
   // Note this method does much less validation and error handling than QueueByPlayer due to its intended use case.
   // This method will create a ticket with auto_teleport as false and default to the 'lobby' game mode.
-  rpc QueueInitialLobbyByPlayer(QueueInitialLobbyByPlayerRequest) returns (QueueInitialLobbyByPlayerResponse) {}
+  rpc LoginQueueByPlayer(LoginQueueByPlayerRequest) returns (LoginQueueByPlayerResponse) {}
 
   rpc DequeueByPlayer(DequeueByPlayerRequest) returns (DequeueByPlayerResponse) {}
   rpc ChangePlayerMapVote(ChangePlayerMapVoteRequest) returns (ChangePlayerMapVoteResponse) {}
@@ -76,12 +76,14 @@ message SendPlayerToLobbyRequest {
 
 message SendPlayerToLobbyResponse {}
 
-message QueueInitialLobbyByPlayerRequest {
+message LoginQueueByPlayerRequest {
   // player_id of type UUID
   string player_id = 1;
+
+  bool is_proxy = 2;
 }
 
-message QueueInitialLobbyByPlayerResponse {}
+message LoginQueueByPlayerResponse {}
 
 message DequeueByPlayerRequest {
   // player_id of type UUID
