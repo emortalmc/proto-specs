@@ -20,12 +20,14 @@ message V1BlockSumoPlayerData {
   uint32 shears_slot = 2;
 }
 
-message V1MarathonData {} // todo
+message V1MarathonData {
+  string time = 1;
+  string block_palette = 2;
+}
 
-// not currently used
 message V1TowerDefencePlayerData {} // todo
 
-// not currently used
+// todo not currently used
 message V1MinesweeperPlayerData {
   uint32 length = 1;
   uint32 width = 2;
