@@ -23,6 +23,7 @@ message V1BlockSumoPlayerData {
 message V1MarathonData {
   string time = 1;
   string block_palette = 2;
+  optional string animation = 3;
 }
 
 message V1TowerDefencePlayerData {} // todo
