@@ -10,86 +10,34 @@ import "common_models.proto";
 import "google/protobuf/any.proto";
 
 service Leaderboard {
-  rpc CreateLeaderboard(CreateLeaderboardRequest) returns (CreateLeaderboardResponse);
-  // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
-  rpc DeleteLeaderboard(DeleteLeaderboardRequest) returns (DeleteLeaderboardResponse);
 
   // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
   // If the start place is greater than the end place, an error with status INVALID_ARGUMENT is returned.
   // If the end place is greater than the number of entries in the leaderboard, an error with status INVALID_ARGUMENT is returned.
   rpc GetEntries(GetEntriesRequest) returns (GetEntriesResponse);
-  // If the leaderboard does not exist, an error with status NOT_FOUND is returned.
-  rpc GetEntryCount(GetEntryCountRequest) returns (GetEntryCountResponse);
-
-  rpc CreateEntry(CreateEntryRequest) returns (CreateEntryResponse);
-  // If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
-  rpc DeleteEntry(DeleteEntryRequest) returns (DeleteEntryResponse);
-
-  // If the leaderboard or entry does not exist, an error with status NOT_FOUND is returned.
-  rpc UpdateScore(UpdateScoreRequest) returns (UpdateScoreResponse);
-}
-
-message CreateLeaderboardRequest {
-  model.leaderboard.Leaderboard leaderboard = 1;
-}
-
-message CreateLeaderboardResponse {
-}
-
-message DeleteLeaderboardRequest {
-  string id = 1;
-}
-
-message DeleteLeaderboardResponse {
 }
 
 message GetEntriesRequest {
-  string leaderboard_id = 1;
+  string id = 1;
+  model.leaderboard.Period period = 2;
+  // period_rolling whether the period should be the last x time or roll every x time, e.g. last 24 hours or since the
+  // start of the day
+  bool period_rolling = 3;
 
-  // The start and end rank indicate the range of entries to return, where the rank is the
-  // ranking in the leaderboard
-  uint32 start_rank = 2;
-  uint32 end_rank = 3;
+  // limit the maximum number of entries returned, default is 10
+  int32 limit = 4;
+
+  // offset the number of entries to skip, default is 0
+  int32 offset = 5;
+
+  // uuid_filter filter the leaderboard for players with a specific UUID. Common usage is for friend filtering.
+  repeated string uuid_filter = 6;
+
+  // sort_override override the configured direction of the leaderboard within the leaderboard service.
+  model.leaderboard.SortOrder sort_override = 7;
 }
 
 message GetEntriesResponse {
   repeated model.leaderboard.LeaderboardEntry entries = 1;
-}
-
-message GetEntryCountRequest {
-  string leaderboard_id = 1;
-}
-
-message GetEntryCountResponse {
-  uint32 count = 1;
-}
-
-message CreateEntryRequest {
-  string leaderboard_id = 1;
-
-  string entry_id = 2;
-  double score = 3;
-
-  map<string, google.protobuf.Any> data = 4;
-}
-
-message CreateEntryResponse {
-}
-
-message DeleteEntryRequest {
-  string leaderboard_id = 1;
-  string entry_id = 2;
-}
-
-message DeleteEntryResponse {
-}
-
-message UpdateScoreRequest {
-  string leaderboard_id = 1;
-  string entry_id = 2;
-
-  double score = 3;
-}
-
-message UpdateScoreResponse {
+  int32 total_entries = 2;
 }

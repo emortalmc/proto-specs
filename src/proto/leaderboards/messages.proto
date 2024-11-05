@@ -7,14 +7,6 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/message/leaderboard
 
 import "leaderboards/models.proto";
 
-message LeaderboardCreatedMessage {
-  model.leaderboard.Leaderboard leaderboard = 1;
-}
-
-message LeaderboardDeletedMessage {
-  string leaderboard_id = 1;
-}
-
 message EntryCreatedMessage {
   model.leaderboard.LeaderboardEntry entry = 1;
 }
@@ -33,4 +25,8 @@ message ScoreUpdatedMessage {
 
   uint32 old_rank = 5;
   uint32 new_rank = 6;
+
+  message ScorePacket {
+
+  }
 }

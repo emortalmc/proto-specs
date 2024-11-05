@@ -7,9 +7,16 @@ option go_package = "github.com/emortalmc/proto-specs/gen/go/model/leaderboard";
 
 import "google/protobuf/any.proto";
 
-message Leaderboard {
-  string id = 1;
-  SortOrder sort_order = 2;
+enum Period {
+  ALL_TIME = 0;
+  DAY = 1;
+  WEEK = 2;
+  MONTH = 3;
+}
+
+enum SortOrder {
+  ASC = 0;
+  DESC = 1;
 }
 
 message LeaderboardEntry {
@@ -18,9 +25,4 @@ message LeaderboardEntry {
   uint32 rank = 3;
 
   map<string, google.protobuf.Any> data = 4;
-}
-
-enum SortOrder {
-  ASCENDING = 0;
-  DESCENDING = 1;
 }
