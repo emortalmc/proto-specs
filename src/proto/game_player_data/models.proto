@@ -28,11 +28,9 @@ message V1MarathonData {
 
 message V1TowerDefencePlayerData {} // todo
 
-// todo not currently used
-message V1MinesweeperPlayerData {
-  uint32 length = 1;
-  uint32 width = 2;
-  uint32 mines = 3;
-  string theme = 4;
-  bool solvable = 5;
+message V1MinesweeperProfile {
+  string profile_id = 1;
+  string owner_id = 2;
+  repeated string player_ids = 3;
+  bytes save_data = 4;
 }
