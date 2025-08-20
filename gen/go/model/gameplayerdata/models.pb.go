@@ -222,11 +222,12 @@ func (*V1TowerDefencePlayerData) Descriptor() ([]byte, []int) {
 }
 
 type V1MinesweeperProfile struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ProfileId     string                 `protobuf:"bytes,1,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
-	OwnerId       string                 `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
-	PlayerIds     []string               `protobuf:"bytes,3,rep,name=player_ids,json=playerIds,proto3" json:"player_ids,omitempty"`
-	SaveData      []byte                 `protobuf:"bytes,4,opt,name=save_data,json=saveData,proto3" json:"save_data,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// When first saving profile not id is provided
+	ProfileId     *string  `protobuf:"bytes,1,opt,name=profile_id,json=profileId,proto3,oneof" json:"profile_id,omitempty"`
+	OwnerId       string   `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	PlayerIds     []string `protobuf:"bytes,3,rep,name=player_ids,json=playerIds,proto3" json:"player_ids,omitempty"`
+	SaveData      []byte   `protobuf:"bytes,4,opt,name=save_data,json=saveData,proto3" json:"save_data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -262,8 +263,8 @@ func (*V1MinesweeperProfile) Descriptor() ([]byte, []int) {
 }
 
 func (x *V1MinesweeperProfile) GetProfileId() string {
-	if x != nil {
-		return x.ProfileId
+	if x != nil && x.ProfileId != nil {
+		return *x.ProfileId
 	}
 	return ""
 }
@@ -305,14 +306,15 @@ const file_game_player_data_models_proto_rawDesc = "" +
 	"\tanimation\x18\x03 \x01(\tH\x00R\tanimation\x88\x01\x01B\f\n" +
 	"\n" +
 	"_animation\"\x1a\n" +
-	"\x18V1TowerDefencePlayerData\"\x8c\x01\n" +
-	"\x14V1MinesweeperProfile\x12\x1d\n" +
+	"\x18V1TowerDefencePlayerData\"\xa0\x01\n" +
+	"\x14V1MinesweeperProfile\x12\"\n" +
 	"\n" +
-	"profile_id\x18\x01 \x01(\tR\tprofileId\x12\x19\n" +
+	"profile_id\x18\x01 \x01(\tH\x00R\tprofileId\x88\x01\x01\x12\x19\n" +
 	"\bowner_id\x18\x02 \x01(\tR\aownerId\x12\x1d\n" +
 	"\n" +
 	"player_ids\x18\x03 \x03(\tR\tplayerIds\x12\x1b\n" +
-	"\tsave_data\x18\x04 \x01(\fR\bsaveData*T\n" +
+	"\tsave_data\x18\x04 \x01(\fR\bsaveDataB\r\n" +
+	"\v_profile_id*T\n" +
 	"\x10GameDataGameMode\x12\x11\n" +
 	"\rTOWER_DEFENCE\x10\x00\x12\x0e\n" +
 	"\n" +
@@ -356,6 +358,7 @@ func file_game_player_data_models_proto_init() {
 		return
 	}
 	file_game_player_data_models_proto_msgTypes[1].OneofWrappers = []any{}
+	file_game_player_data_models_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
