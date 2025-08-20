@@ -21,6 +21,9 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	GamePlayerDataService_GetGamePlayerData_FullMethodName         = "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetGamePlayerData"
 	GamePlayerDataService_GetMultipleGamePlayerData_FullMethodName = "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetMultipleGamePlayerData"
+	GamePlayerDataService_SetMinesweeperProfile_FullMethodName     = "/emortal.grpc.gameplayerdata.GamePlayerDataService/SetMinesweeperProfile"
+	GamePlayerDataService_GetMinesweeperProfile_FullMethodName     = "/emortal.grpc.gameplayerdata.GamePlayerDataService/GetMinesweeperProfile"
+	GamePlayerDataService_ListMinesweeperProfiles_FullMethodName   = "/emortal.grpc.gameplayerdata.GamePlayerDataService/ListMinesweeperProfiles"
 )
 
 // GamePlayerDataServiceClient is the client API for GamePlayerDataService service.
@@ -29,6 +32,9 @@ const (
 type GamePlayerDataServiceClient interface {
 	GetGamePlayerData(ctx context.Context, in *GetGamePlayerDataRequest, opts ...grpc.CallOption) (*GetGamePlayerDataResponse, error)
 	GetMultipleGamePlayerData(ctx context.Context, in *GetMultipleGamePlayerDataRequest, opts ...grpc.CallOption) (*GetMultipleGamePlayerDataResponse, error)
+	SetMinesweeperProfile(ctx context.Context, in *SetMinesweeperProfileRequest, opts ...grpc.CallOption) (*SetMinesweeperProfileResponse, error)
+	GetMinesweeperProfile(ctx context.Context, in *GetMinesweeperProfileRequest, opts ...grpc.CallOption) (*GetMinesweeperProfileResponse, error)
+	ListMinesweeperProfiles(ctx context.Context, in *ListMinesweeperProfilesRequest, opts ...grpc.CallOption) (*ListMinesweeperProfilesResponse, error)
 }
 
 type gamePlayerDataServiceClient struct {
@@ -59,12 +65,45 @@ func (c *gamePlayerDataServiceClient) GetMultipleGamePlayerData(ctx context.Cont
 	return out, nil
 }
 
+func (c *gamePlayerDataServiceClient) SetMinesweeperProfile(ctx context.Context, in *SetMinesweeperProfileRequest, opts ...grpc.CallOption) (*SetMinesweeperProfileResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetMinesweeperProfileResponse)
+	err := c.cc.Invoke(ctx, GamePlayerDataService_SetMinesweeperProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gamePlayerDataServiceClient) GetMinesweeperProfile(ctx context.Context, in *GetMinesweeperProfileRequest, opts ...grpc.CallOption) (*GetMinesweeperProfileResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMinesweeperProfileResponse)
+	err := c.cc.Invoke(ctx, GamePlayerDataService_GetMinesweeperProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gamePlayerDataServiceClient) ListMinesweeperProfiles(ctx context.Context, in *ListMinesweeperProfilesRequest, opts ...grpc.CallOption) (*ListMinesweeperProfilesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListMinesweeperProfilesResponse)
+	err := c.cc.Invoke(ctx, GamePlayerDataService_ListMinesweeperProfiles_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GamePlayerDataServiceServer is the server API for GamePlayerDataService service.
 // All implementations must embed UnimplementedGamePlayerDataServiceServer
 // for forward compatibility.
 type GamePlayerDataServiceServer interface {
 	GetGamePlayerData(context.Context, *GetGamePlayerDataRequest) (*GetGamePlayerDataResponse, error)
 	GetMultipleGamePlayerData(context.Context, *GetMultipleGamePlayerDataRequest) (*GetMultipleGamePlayerDataResponse, error)
+	SetMinesweeperProfile(context.Context, *SetMinesweeperProfileRequest) (*SetMinesweeperProfileResponse, error)
+	GetMinesweeperProfile(context.Context, *GetMinesweeperProfileRequest) (*GetMinesweeperProfileResponse, error)
+	ListMinesweeperProfiles(context.Context, *ListMinesweeperProfilesRequest) (*ListMinesweeperProfilesResponse, error)
 	mustEmbedUnimplementedGamePlayerDataServiceServer()
 }
 
@@ -80,6 +119,15 @@ func (UnimplementedGamePlayerDataServiceServer) GetGamePlayerData(context.Contex
 }
 func (UnimplementedGamePlayerDataServiceServer) GetMultipleGamePlayerData(context.Context, *GetMultipleGamePlayerDataRequest) (*GetMultipleGamePlayerDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMultipleGamePlayerData not implemented")
+}
+func (UnimplementedGamePlayerDataServiceServer) SetMinesweeperProfile(context.Context, *SetMinesweeperProfileRequest) (*SetMinesweeperProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetMinesweeperProfile not implemented")
+}
+func (UnimplementedGamePlayerDataServiceServer) GetMinesweeperProfile(context.Context, *GetMinesweeperProfileRequest) (*GetMinesweeperProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMinesweeperProfile not implemented")
+}
+func (UnimplementedGamePlayerDataServiceServer) ListMinesweeperProfiles(context.Context, *ListMinesweeperProfilesRequest) (*ListMinesweeperProfilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMinesweeperProfiles not implemented")
 }
 func (UnimplementedGamePlayerDataServiceServer) mustEmbedUnimplementedGamePlayerDataServiceServer() {}
 func (UnimplementedGamePlayerDataServiceServer) testEmbeddedByValue()                               {}
@@ -138,6 +186,60 @@ func _GamePlayerDataService_GetMultipleGamePlayerData_Handler(srv interface{}, c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GamePlayerDataService_SetMinesweeperProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetMinesweeperProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GamePlayerDataServiceServer).SetMinesweeperProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GamePlayerDataService_SetMinesweeperProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GamePlayerDataServiceServer).SetMinesweeperProfile(ctx, req.(*SetMinesweeperProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GamePlayerDataService_GetMinesweeperProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMinesweeperProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GamePlayerDataServiceServer).GetMinesweeperProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GamePlayerDataService_GetMinesweeperProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GamePlayerDataServiceServer).GetMinesweeperProfile(ctx, req.(*GetMinesweeperProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GamePlayerDataService_ListMinesweeperProfiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMinesweeperProfilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GamePlayerDataServiceServer).ListMinesweeperProfiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GamePlayerDataService_ListMinesweeperProfiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GamePlayerDataServiceServer).ListMinesweeperProfiles(ctx, req.(*ListMinesweeperProfilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GamePlayerDataService_ServiceDesc is the grpc.ServiceDesc for GamePlayerDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +254,18 @@ var GamePlayerDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMultipleGamePlayerData",
 			Handler:    _GamePlayerDataService_GetMultipleGamePlayerData_Handler,
+		},
+		{
+			MethodName: "SetMinesweeperProfile",
+			Handler:    _GamePlayerDataService_SetMinesweeperProfile_Handler,
+		},
+		{
+			MethodName: "GetMinesweeperProfile",
+			Handler:    _GamePlayerDataService_GetMinesweeperProfile_Handler,
+		},
+		{
+			MethodName: "ListMinesweeperProfiles",
+			Handler:    _GamePlayerDataService_ListMinesweeperProfiles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

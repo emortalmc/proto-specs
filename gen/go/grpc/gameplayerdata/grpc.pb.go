@@ -217,11 +217,279 @@ func (x *GetMultipleGamePlayerDataResponse) GetData() map[string]*anypb.Any {
 	return nil
 }
 
+type SetMinesweeperProfileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ObjectId
+	Profile       *gameplayerdata.V1MinesweeperProfile `protobuf:"bytes,1,opt,name=profile,proto3" json:"profile,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetMinesweeperProfileRequest) Reset() {
+	*x = SetMinesweeperProfileRequest{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetMinesweeperProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetMinesweeperProfileRequest) ProtoMessage() {}
+
+func (x *SetMinesweeperProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetMinesweeperProfileRequest.ProtoReflect.Descriptor instead.
+func (*SetMinesweeperProfileRequest) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SetMinesweeperProfileRequest) GetProfile() *gameplayerdata.V1MinesweeperProfile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
+}
+
+type SetMinesweeperProfileResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ObjectId
+	ProfileId     string `protobuf:"bytes,1,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetMinesweeperProfileResponse) Reset() {
+	*x = SetMinesweeperProfileResponse{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetMinesweeperProfileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetMinesweeperProfileResponse) ProtoMessage() {}
+
+func (x *SetMinesweeperProfileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetMinesweeperProfileResponse.ProtoReflect.Descriptor instead.
+func (*SetMinesweeperProfileResponse) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SetMinesweeperProfileResponse) GetProfileId() string {
+	if x != nil {
+		return x.ProfileId
+	}
+	return ""
+}
+
+type GetMinesweeperProfileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ObjectId
+	ProfileId     string `protobuf:"bytes,1,opt,name=profile_id,json=profileId,proto3" json:"profile_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMinesweeperProfileRequest) Reset() {
+	*x = GetMinesweeperProfileRequest{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMinesweeperProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMinesweeperProfileRequest) ProtoMessage() {}
+
+func (x *GetMinesweeperProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMinesweeperProfileRequest.ProtoReflect.Descriptor instead.
+func (*GetMinesweeperProfileRequest) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetMinesweeperProfileRequest) GetProfileId() string {
+	if x != nil {
+		return x.ProfileId
+	}
+	return ""
+}
+
+type GetMinesweeperProfileResponse struct {
+	state         protoimpl.MessageState               `protogen:"open.v1"`
+	Profile       *gameplayerdata.V1MinesweeperProfile `protobuf:"bytes,1,opt,name=profile,proto3" json:"profile,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMinesweeperProfileResponse) Reset() {
+	*x = GetMinesweeperProfileResponse{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMinesweeperProfileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMinesweeperProfileResponse) ProtoMessage() {}
+
+func (x *GetMinesweeperProfileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMinesweeperProfileResponse.ProtoReflect.Descriptor instead.
+func (*GetMinesweeperProfileResponse) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetMinesweeperProfileResponse) GetProfile() *gameplayerdata.V1MinesweeperProfile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
+}
+
+type ListMinesweeperProfilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// UUID
+	OwnerId       string `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMinesweeperProfilesRequest) Reset() {
+	*x = ListMinesweeperProfilesRequest{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMinesweeperProfilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMinesweeperProfilesRequest) ProtoMessage() {}
+
+func (x *ListMinesweeperProfilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMinesweeperProfilesRequest.ProtoReflect.Descriptor instead.
+func (*ListMinesweeperProfilesRequest) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ListMinesweeperProfilesRequest) GetOwnerId() string {
+	if x != nil {
+		return x.OwnerId
+	}
+	return ""
+}
+
+type ListMinesweeperProfilesResponse struct {
+	state         protoimpl.MessageState                 `protogen:"open.v1"`
+	Profile       []*gameplayerdata.V1MinesweeperProfile `protobuf:"bytes,1,rep,name=profile,proto3" json:"profile,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMinesweeperProfilesResponse) Reset() {
+	*x = ListMinesweeperProfilesResponse{}
+	mi := &file_game_player_data_grpc_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMinesweeperProfilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMinesweeperProfilesResponse) ProtoMessage() {}
+
+func (x *ListMinesweeperProfilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_game_player_data_grpc_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMinesweeperProfilesResponse.ProtoReflect.Descriptor instead.
+func (*ListMinesweeperProfilesResponse) Descriptor() ([]byte, []int) {
+	return file_game_player_data_grpc_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ListMinesweeperProfilesResponse) GetProfile() []*gameplayerdata.V1MinesweeperProfile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
+}
+
 var File_game_player_data_grpc_proto protoreflect.FileDescriptor
 
 const file_game_player_data_grpc_proto_rawDesc = "" +
 	"\n" +
-	"\x1bgame_player_data/grpc.proto\x12\x1bemortal.grpc.gameplayerdata\x1a google/protobuf/descriptor.proto\x1a\x19google/protobuf/any.proto\x1a\x1dgame_player_data/models.proto\"\x84\x01\n" +
+	"\x1bgame_player_data/grpc.proto\x12\x1bemortal.grpc.gameplayerdata\x1a\x1dgame_player_data/models.proto\x1a\x19google/protobuf/any.proto\x1a google/protobuf/descriptor.proto\"\x84\x01\n" +
 	"\x18GetGamePlayerDataRequest\x12\x1b\n" +
 	"\tplayer_id\x18\x01 \x01(\tR\bplayerId\x12K\n" +
 	"\tgame_mode\x18\x02 \x01(\x0e2..emortal.model.gameplayerdata.GameDataGameModeR\bgameMode\"E\n" +
@@ -235,10 +503,27 @@ const file_game_player_data_grpc_proto_rawDesc = "" +
 	"\x04data\x18\x01 \x03(\v2H.emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntryR\x04data\x1aM\n" +
 	"\tDataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12*\n" +
-	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x012\xb9\x02\n" +
+	"\x05value\x18\x02 \x01(\v2\x14.google.protobuf.AnyR\x05value:\x028\x01\"l\n" +
+	"\x1cSetMinesweeperProfileRequest\x12L\n" +
+	"\aprofile\x18\x01 \x01(\v22.emortal.model.gameplayerdata.V1MinesweeperProfileR\aprofile\">\n" +
+	"\x1dSetMinesweeperProfileResponse\x12\x1d\n" +
+	"\n" +
+	"profile_id\x18\x01 \x01(\tR\tprofileId\"=\n" +
+	"\x1cGetMinesweeperProfileRequest\x12\x1d\n" +
+	"\n" +
+	"profile_id\x18\x01 \x01(\tR\tprofileId\"m\n" +
+	"\x1dGetMinesweeperProfileResponse\x12L\n" +
+	"\aprofile\x18\x01 \x01(\v22.emortal.model.gameplayerdata.V1MinesweeperProfileR\aprofile\";\n" +
+	"\x1eListMinesweeperProfilesRequest\x12\x19\n" +
+	"\bowner_id\x18\x01 \x01(\tR\aownerId\"o\n" +
+	"\x1fListMinesweeperProfilesResponse\x12L\n" +
+	"\aprofile\x18\x01 \x03(\v22.emortal.model.gameplayerdata.V1MinesweeperProfileR\aprofile2\xf2\x05\n" +
 	"\x15GamePlayerDataService\x12\x82\x01\n" +
 	"\x11GetGamePlayerData\x125.emortal.grpc.gameplayerdata.GetGamePlayerDataRequest\x1a6.emortal.grpc.gameplayerdata.GetGamePlayerDataResponse\x12\x9a\x01\n" +
-	"\x19GetMultipleGamePlayerData\x12=.emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest\x1a>.emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponseBw\n" +
+	"\x19GetMultipleGamePlayerData\x12=.emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest\x1a>.emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse\x12\x8e\x01\n" +
+	"\x15SetMinesweeperProfile\x129.emortal.grpc.gameplayerdata.SetMinesweeperProfileRequest\x1a:.emortal.grpc.gameplayerdata.SetMinesweeperProfileResponse\x12\x8e\x01\n" +
+	"\x15GetMinesweeperProfile\x129.emortal.grpc.gameplayerdata.GetMinesweeperProfileRequest\x1a:.emortal.grpc.gameplayerdata.GetMinesweeperProfileResponse\x12\x94\x01\n" +
+	"\x17ListMinesweeperProfiles\x12;.emortal.grpc.gameplayerdata.ListMinesweeperProfilesRequest\x1a<.emortal.grpc.gameplayerdata.ListMinesweeperProfilesResponseBw\n" +
 	"#dev.emortal.api.grpc.gameplayerdataB\x13GamePlayerDataProtoZ;github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdatab\x06proto3"
 
 var (
@@ -253,31 +538,47 @@ func file_game_player_data_grpc_proto_rawDescGZIP() []byte {
 	return file_game_player_data_grpc_proto_rawDescData
 }
 
-var file_game_player_data_grpc_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_game_player_data_grpc_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_game_player_data_grpc_proto_goTypes = []any{
-	(*GetGamePlayerDataRequest)(nil),          // 0: emortal.grpc.gameplayerdata.GetGamePlayerDataRequest
-	(*GetGamePlayerDataResponse)(nil),         // 1: emortal.grpc.gameplayerdata.GetGamePlayerDataResponse
-	(*GetMultipleGamePlayerDataRequest)(nil),  // 2: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest
-	(*GetMultipleGamePlayerDataResponse)(nil), // 3: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse
-	nil,                                  // 4: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry
-	(gameplayerdata.GameDataGameMode)(0), // 5: emortal.model.gameplayerdata.GameDataGameMode
-	(*anypb.Any)(nil),                    // 6: google.protobuf.Any
+	(*GetGamePlayerDataRequest)(nil),            // 0: emortal.grpc.gameplayerdata.GetGamePlayerDataRequest
+	(*GetGamePlayerDataResponse)(nil),           // 1: emortal.grpc.gameplayerdata.GetGamePlayerDataResponse
+	(*GetMultipleGamePlayerDataRequest)(nil),    // 2: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest
+	(*GetMultipleGamePlayerDataResponse)(nil),   // 3: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse
+	(*SetMinesweeperProfileRequest)(nil),        // 4: emortal.grpc.gameplayerdata.SetMinesweeperProfileRequest
+	(*SetMinesweeperProfileResponse)(nil),       // 5: emortal.grpc.gameplayerdata.SetMinesweeperProfileResponse
+	(*GetMinesweeperProfileRequest)(nil),        // 6: emortal.grpc.gameplayerdata.GetMinesweeperProfileRequest
+	(*GetMinesweeperProfileResponse)(nil),       // 7: emortal.grpc.gameplayerdata.GetMinesweeperProfileResponse
+	(*ListMinesweeperProfilesRequest)(nil),      // 8: emortal.grpc.gameplayerdata.ListMinesweeperProfilesRequest
+	(*ListMinesweeperProfilesResponse)(nil),     // 9: emortal.grpc.gameplayerdata.ListMinesweeperProfilesResponse
+	nil,                                         // 10: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry
+	(gameplayerdata.GameDataGameMode)(0),        // 11: emortal.model.gameplayerdata.GameDataGameMode
+	(*anypb.Any)(nil),                           // 12: google.protobuf.Any
+	(*gameplayerdata.V1MinesweeperProfile)(nil), // 13: emortal.model.gameplayerdata.V1MinesweeperProfile
 }
 var file_game_player_data_grpc_proto_depIdxs = []int32{
-	5, // 0: emortal.grpc.gameplayerdata.GetGamePlayerDataRequest.game_mode:type_name -> emortal.model.gameplayerdata.GameDataGameMode
-	6, // 1: emortal.grpc.gameplayerdata.GetGamePlayerDataResponse.data:type_name -> google.protobuf.Any
-	5, // 2: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest.game_mode:type_name -> emortal.model.gameplayerdata.GameDataGameMode
-	4, // 3: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.data:type_name -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry
-	6, // 4: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry.value:type_name -> google.protobuf.Any
-	0, // 5: emortal.grpc.gameplayerdata.GamePlayerDataService.GetGamePlayerData:input_type -> emortal.grpc.gameplayerdata.GetGamePlayerDataRequest
-	2, // 6: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMultipleGamePlayerData:input_type -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest
-	1, // 7: emortal.grpc.gameplayerdata.GamePlayerDataService.GetGamePlayerData:output_type -> emortal.grpc.gameplayerdata.GetGamePlayerDataResponse
-	3, // 8: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMultipleGamePlayerData:output_type -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse
-	7, // [7:9] is the sub-list for method output_type
-	5, // [5:7] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	11, // 0: emortal.grpc.gameplayerdata.GetGamePlayerDataRequest.game_mode:type_name -> emortal.model.gameplayerdata.GameDataGameMode
+	12, // 1: emortal.grpc.gameplayerdata.GetGamePlayerDataResponse.data:type_name -> google.protobuf.Any
+	11, // 2: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest.game_mode:type_name -> emortal.model.gameplayerdata.GameDataGameMode
+	10, // 3: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.data:type_name -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry
+	13, // 4: emortal.grpc.gameplayerdata.SetMinesweeperProfileRequest.profile:type_name -> emortal.model.gameplayerdata.V1MinesweeperProfile
+	13, // 5: emortal.grpc.gameplayerdata.GetMinesweeperProfileResponse.profile:type_name -> emortal.model.gameplayerdata.V1MinesweeperProfile
+	13, // 6: emortal.grpc.gameplayerdata.ListMinesweeperProfilesResponse.profile:type_name -> emortal.model.gameplayerdata.V1MinesweeperProfile
+	12, // 7: emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse.DataEntry.value:type_name -> google.protobuf.Any
+	0,  // 8: emortal.grpc.gameplayerdata.GamePlayerDataService.GetGamePlayerData:input_type -> emortal.grpc.gameplayerdata.GetGamePlayerDataRequest
+	2,  // 9: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMultipleGamePlayerData:input_type -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataRequest
+	4,  // 10: emortal.grpc.gameplayerdata.GamePlayerDataService.SetMinesweeperProfile:input_type -> emortal.grpc.gameplayerdata.SetMinesweeperProfileRequest
+	6,  // 11: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMinesweeperProfile:input_type -> emortal.grpc.gameplayerdata.GetMinesweeperProfileRequest
+	8,  // 12: emortal.grpc.gameplayerdata.GamePlayerDataService.ListMinesweeperProfiles:input_type -> emortal.grpc.gameplayerdata.ListMinesweeperProfilesRequest
+	1,  // 13: emortal.grpc.gameplayerdata.GamePlayerDataService.GetGamePlayerData:output_type -> emortal.grpc.gameplayerdata.GetGamePlayerDataResponse
+	3,  // 14: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMultipleGamePlayerData:output_type -> emortal.grpc.gameplayerdata.GetMultipleGamePlayerDataResponse
+	5,  // 15: emortal.grpc.gameplayerdata.GamePlayerDataService.SetMinesweeperProfile:output_type -> emortal.grpc.gameplayerdata.SetMinesweeperProfileResponse
+	7,  // 16: emortal.grpc.gameplayerdata.GamePlayerDataService.GetMinesweeperProfile:output_type -> emortal.grpc.gameplayerdata.GetMinesweeperProfileResponse
+	9,  // 17: emortal.grpc.gameplayerdata.GamePlayerDataService.ListMinesweeperProfiles:output_type -> emortal.grpc.gameplayerdata.ListMinesweeperProfilesResponse
+	13, // [13:18] is the sub-list for method output_type
+	8,  // [8:13] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_game_player_data_grpc_proto_init() }
@@ -291,7 +592,7 @@ func file_game_player_data_grpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_game_player_data_grpc_proto_rawDesc), len(file_game_player_data_grpc_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

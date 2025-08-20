@@ -1,17 +1,21 @@
 syntax = "proto3";
 package emortal.grpc.gameplayerdata;
 
-option java_package = "dev.emortal.api.grpc.gameplayerdata";
-option java_outer_classname = "GamePlayerDataProto";
-option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdata";
-
-import "google/protobuf/descriptor.proto";
-import "google/protobuf/any.proto";
 import "game_player_data/models.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/emortalmc/proto-specs/gen/go/grpc/gameplayerdata";
+option java_outer_classname = "GamePlayerDataProto";
+option java_package = "dev.emortal.api.grpc.gameplayerdata";
 
 service GamePlayerDataService {
   rpc GetGamePlayerData(GetGamePlayerDataRequest) returns (GetGamePlayerDataResponse);
   rpc GetMultipleGamePlayerData(GetMultipleGamePlayerDataRequest) returns (GetMultipleGamePlayerDataResponse);
+
+  rpc SetMinesweeperProfile(SetMinesweeperProfileRequest) returns (SetMinesweeperProfileResponse);
+  rpc GetMinesweeperProfile(GetMinesweeperProfileRequest) returns (GetMinesweeperProfileResponse);
+  rpc ListMinesweeperProfiles(ListMinesweeperProfilesRequest) returns (ListMinesweeperProfilesResponse);
 }
 
 message GetGamePlayerDataRequest {
@@ -31,4 +35,32 @@ message GetMultipleGamePlayerDataRequest {
 
 message GetMultipleGamePlayerDataResponse {
   map<string, google.protobuf.Any> data = 1;
+}
+
+message SetMinesweeperProfileRequest {
+  // ObjectId
+  model.gameplayerdata.V1MinesweeperProfile profile = 1;
+}
+
+message SetMinesweeperProfileResponse {
+  // ObjectId
+  string profile_id = 1;
+}
+
+message GetMinesweeperProfileRequest {
+  // ObjectId
+  string profile_id = 1;
+}
+
+message GetMinesweeperProfileResponse {
+  model.gameplayerdata.V1MinesweeperProfile profile = 1;
+}
+
+message ListMinesweeperProfilesRequest {
+  // UUID
+  string owner_id = 1;
+}
+
+message ListMinesweeperProfilesResponse {
+  repeated model.gameplayerdata.V1MinesweeperProfile profile = 1;
 }
