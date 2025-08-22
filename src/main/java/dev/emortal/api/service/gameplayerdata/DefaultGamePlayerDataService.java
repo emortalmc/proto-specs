@@ -5,8 +5,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataProto;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
-import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataProto.SetMinesweeperProfileResponse;
-import dev.emortal.api.grpc.matchmaker.MatchmakerGrpc;
 import dev.emortal.api.model.gamedata.GameDataGameMode;
 import dev.emortal.api.model.gamedata.V1MinesweeperProfile;
 import io.grpc.Channel;
@@ -82,6 +80,7 @@ public class DefaultGamePlayerDataService implements GamePlayerDataService {
         return response.getProfileId();
 
     }
+
     @Override
     public V1MinesweeperProfile getMinesweeperProfile(String profileId) {
         var request = GamePlayerDataProto.GetMinesweeperProfileRequest.newBuilder().setProfileId(profileId).build();
