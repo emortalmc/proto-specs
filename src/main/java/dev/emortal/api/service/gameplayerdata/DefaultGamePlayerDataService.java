@@ -5,8 +5,10 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataProto;
 import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataServiceGrpc;
+import dev.emortal.api.grpc.gameplayerdata.GamePlayerDataProto.SetMinesweeperProfileResponse;
 import dev.emortal.api.grpc.matchmaker.MatchmakerGrpc;
 import dev.emortal.api.model.gamedata.GameDataGameMode;
+import dev.emortal.api.model.gamedata.V1MinesweeperProfile;
 import io.grpc.Channel;
 import io.grpc.StatusRuntimeException;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,10 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class DefaultGamePlayerDataService implements GamePlayerDataService {
@@ -72,6 +72,30 @@ public class DefaultGamePlayerDataService implements GamePlayerDataService {
         }
 
         return returnMap;
+    }
+
+    @Override
+    public String setMinesweeperProfile(@NotNull V1MinesweeperProfile profile) {
+        var request = GamePlayerDataProto.SetMinesweeperProfileRequest.newBuilder().setProfile(profile).build();
+
+        GamePlayerDataProto.SetMinesweeperProfileResponse response = this.grpc.setMinesweeperProfile(request);
+        return response.getProfileId();
+
+    }
+    @Override
+    public V1MinesweeperProfile getMinesweeperProfile(@Nullable String profileId) {
+        var request = GamePlayerDataProto.GetMinesweeperProfileRequest.newBuilder().setProfileId(profileId).build();
+
+        GamePlayerDataProto.GetMinesweeperProfileResponse response = this.grpc.getMinesweeperProfile(request);
+        return response.getProfile();
+    }
+
+    @Override
+    public V1MinesweeperProfile[] listMinesweeperProfile(@Nullable String ownerId) {
+        var request = GamePlayerDataProto.ListMinesweeperProfilesRequest.newBuilder().setOwnerId(ownerId).build();
+
+        GamePlayerDataProto.ListMinesweeperProfilesResponse response = this.grpc.listMinesweeperProfiles(request);
+        return response.getProfileList().toArray(new V1MinesweeperProfile[response.getProfileCount()]);
     }
 }
 
