@@ -83,7 +83,7 @@ public class DefaultGamePlayerDataService implements GamePlayerDataService {
 
     }
     @Override
-    public V1MinesweeperProfile getMinesweeperProfile(@Nullable String profileId) {
+    public V1MinesweeperProfile getMinesweeperProfile(String profileId) {
         var request = GamePlayerDataProto.GetMinesweeperProfileRequest.newBuilder().setProfileId(profileId).build();
 
         GamePlayerDataProto.GetMinesweeperProfileResponse response = this.grpc.getMinesweeperProfile(request);
@@ -91,7 +91,7 @@ public class DefaultGamePlayerDataService implements GamePlayerDataService {
     }
 
     @Override
-    public V1MinesweeperProfile[] listMinesweeperProfile(@Nullable String ownerId) {
+    public V1MinesweeperProfile[] listMinesweeperProfile(String ownerId) {
         var request = GamePlayerDataProto.ListMinesweeperProfilesRequest.newBuilder().setOwnerId(ownerId).build();
 
         GamePlayerDataProto.ListMinesweeperProfilesResponse response = this.grpc.listMinesweeperProfiles(request);

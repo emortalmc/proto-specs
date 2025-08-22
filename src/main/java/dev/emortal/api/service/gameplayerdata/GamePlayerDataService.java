@@ -17,6 +17,6 @@ public interface GamePlayerDataService {
     <T extends Message> @NotNull Map<UUID, @Nullable T> getGameData(@NotNull GameDataGameMode gameMode, @NotNull Class<T> clazz, @NotNull Iterable<@NotNull UUID> playerIds);
 
     String setMinesweeperProfile(@NotNull V1MinesweeperProfile profile);
-    V1MinesweeperProfile getMinesweeperProfile(@Nullable String profileId);
-    V1MinesweeperProfile[] listMinesweeperProfile(@Nullable String ownerId);
+    V1MinesweeperProfile getMinesweeperProfile(String profileId);
+    V1MinesweeperProfile[] listMinesweeperProfile(String ownerId);
 }
