@@ -13,7 +13,7 @@ service GamePlayerDataService {
   rpc GetGamePlayerData(GetGamePlayerDataRequest) returns (GetGamePlayerDataResponse);
   rpc GetMultipleGamePlayerData(GetMultipleGamePlayerDataRequest) returns (GetMultipleGamePlayerDataResponse);
 
-  rpc SetMinesweeperProfile(SetMinesweeperProfileRequest) returns (SetMinesweeperProfileResponse);
+  rpc SetMinesweeperProfile(SetMinesweeperProfileRequest);
   rpc GetMinesweeperProfile(GetMinesweeperProfileRequest) returns (GetMinesweeperProfileResponse);
   rpc ListMinesweeperProfiles(ListMinesweeperProfilesRequest) returns (ListMinesweeperProfilesResponse);
 }
@@ -40,11 +40,6 @@ message GetMultipleGamePlayerDataResponse {
 message SetMinesweeperProfileRequest {
   // ObjectId
   model.gameplayerdata.V1MinesweeperProfile profile = 1;
-}
-
-message SetMinesweeperProfileResponse {
-  // ObjectId
-  string profile_id = 1;
 }
 
 message GetMinesweeperProfileRequest {

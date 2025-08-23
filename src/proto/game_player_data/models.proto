@@ -29,7 +29,7 @@ message V1MarathonData {
 message V1TowerDefencePlayerData {} // todo
 
 message V1MinesweeperProfile {
-  //When first saving profile not id is provided
+  //When first saving profile no id is provided
   optional string profile_id = 1;
   string owner_id = 2;
   repeated string player_ids = 3;

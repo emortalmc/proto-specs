@@ -223,7 +223,7 @@ func (*V1TowerDefencePlayerData) Descriptor() ([]byte, []int) {
 
 type V1MinesweeperProfile struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// When first saving profile not id is provided
+	// When first saving profile no id is provided
 	ProfileId     *string  `protobuf:"bytes,1,opt,name=profile_id,json=profileId,proto3,oneof" json:"profile_id,omitempty"`
 	OwnerId       string   `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
 	PlayerIds     []string `protobuf:"bytes,3,rep,name=player_ids,json=playerIds,proto3" json:"player_ids,omitempty"`
