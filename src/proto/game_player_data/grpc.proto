@@ -12,8 +12,7 @@ option java_package = "dev.emortal.api.grpc.gameplayerdata";
 service GamePlayerDataService {
   rpc GetGamePlayerData(GetGamePlayerDataRequest) returns (GetGamePlayerDataResponse);
   rpc GetMultipleGamePlayerData(GetMultipleGamePlayerDataRequest) returns (GetMultipleGamePlayerDataResponse);
-
-  rpc SetMinesweeperProfile(SetMinesweeperProfileRequest);
+  rpc SetMinesweeperProfile(SetMinesweeperProfileRequest) returns (SetMinesweeperProfileResponse);
   rpc GetMinesweeperProfile(GetMinesweeperProfileRequest) returns (GetMinesweeperProfileResponse);
   rpc ListMinesweeperProfiles(ListMinesweeperProfilesRequest) returns (ListMinesweeperProfilesResponse);
 }
@@ -37,11 +36,6 @@ message GetMultipleGamePlayerDataResponse {
   map<string, google.protobuf.Any> data = 1;
 }
 
-message SetMinesweeperProfileRequest {
-  // ObjectId
-  model.gameplayerdata.V1MinesweeperProfile profile = 1;
-}
-
 message GetMinesweeperProfileRequest {
   // ObjectId
   string profile_id = 1;
@@ -58,4 +52,14 @@ message ListMinesweeperProfilesRequest {
 
 message ListMinesweeperProfilesResponse {
   repeated model.gameplayerdata.V1MinesweeperProfile profile = 1;
+}
+
+message SetMinesweeperProfileRequest {
+  // ObjectId
+  model.gameplayerdata.V1MinesweeperProfile profile = 1;
+}
+
+message SetMinesweeperProfileResponse {
+  // ObjectId
+  string profile_id = 1;
 }
