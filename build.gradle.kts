@@ -25,28 +25,29 @@ dependencies {
     api("com.google.protobuf:protobuf-java:$protobufVersion")
     api("com.google.protobuf:protobuf-java-util:$protobufVersion")
     api("org.apache.tomcat:tomcat-annotations-api:10.1.23")
-    api("org.slf4j:slf4j-api:2.0.13")
+    api("org.slf4j:slf4j-api:2.0.17")
 
     implementation("io.micrometer:micrometer-core:1.12.5")
     implementation("org.apache.kafka:kafka-clients:7.6.0-ccs")
 
-    compileOnly("org.jetbrains:annotations:24.1.0")
-    annotationProcessor("org.jetbrains:annotations:24.1.0")
+    compileOnly("org.jetbrains:annotations:26.0.2-1")
+    annotationProcessor("org.jetbrains:annotations:26.0.2-1")
 
     // Protobuf uses @javax.annotation.Generated on generated types, and sometimes this isn't available.
     // This make sure it's always available
     compileOnly("javax.annotation:javax.annotation-api:1.3.2")
 
-    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.2.2")
 
     api("io.grpc:grpc-netty:$grpcVersion")
     api("io.grpc:grpc-stub:$grpcVersion")
     api("io.grpc:grpc-protobuf:$grpcVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.13")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0-RC3")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.0-RC3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.0-RC3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.0-RC3")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
 }
 
 protobuf {
@@ -69,7 +70,7 @@ protobuf {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 
     withSourcesJar()
