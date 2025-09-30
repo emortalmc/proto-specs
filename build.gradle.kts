@@ -28,7 +28,7 @@ dependencies {
     api("org.slf4j:slf4j-api:2.0.17")
 
     implementation("io.micrometer:micrometer-core:1.12.5")
-    implementation("org.apache.kafka:kafka-clients:7.6.0-ccs")
+    implementation("org.apache.kafka:kafka-clients:4.1.0")
 
     compileOnly("org.jetbrains:annotations:26.0.2-1")
     annotationProcessor("org.jetbrains:annotations:26.0.2-1")
